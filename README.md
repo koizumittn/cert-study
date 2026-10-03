@@ -13,6 +13,12 @@ cert-study/
 │   ├── AGENTS.md          # ワークスペース行動規範・エージェント規約
 │   └── skills.json        # my-skills から cert-study スキルを読み込むマニフェスト
 ├── notes/                 # 資格別学習ノート格納ディレクトリ
+│   └── <vendor>/          # クラウドベンダー別（例: google-cloud, aws）
+│       └── <cert>/        # 資格別（例: cloud-architect）
+│           ├── images/    # 板書風グラレコ・図解画像格納ディレクトリ
+│           └── *.md       # 試験ガイド・要点解説ノート（フラット配置）
+├── templates/             # ノート作成標準テンプレート
+│   └── exam-guide-template.md # 試験ガイド・要点解説の基本ひな型
 └── README.md              # 本ファイル
 ```
 
