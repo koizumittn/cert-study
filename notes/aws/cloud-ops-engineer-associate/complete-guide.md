@@ -167,7 +167,7 @@ CloudWatch Agent を用いて OS 内部（メモリ・ディスク使用率）�
 
 ### 3. 実践シナリオ
 
-#### シナリオ 1-1: CloudWatch Agent による OS 内部メトリクス収集と複合アラームの設計 (Task 1.1)
+#### シナリオ 1-1: CloudWatch Agent による OS 内部メトリクス収集と複合アラームの設計
 - **状況**: 大規模 E コマースシステムの EC2 インスタンス群において、CPU 使用率の一時的なスパイクでは不要なアラートを発報させず、メモリ使用率の高騰（90% 超）と CPU 高負荷（85% 超）が 10 分間継続して同時に発生した場合にのみ緊急通知を行いたい場合
 - **対応**: Systems Manager Run Command を用いてフリート全体に CloudWatch Agent を一括配布し、メモリ使用率（`mem_used_percent`）の収集設定を適用した上で、2つのアラームを AND 条件で評価する CloudWatch 複合アラームを構成する。
 - **結果**: 一時的なバッチ処理による CPU 単独の上昇による誤検知を完全に抑止し、メモリリークと CPU 飽和が同時に発生した真の障害事象のみを運用担当者へ SNS 通知する。
@@ -176,7 +176,7 @@ CloudWatch Agent を用いて OS 内部（メモリ・ディスク使用率）�
   - [Amazon CloudWatch ユーザーガイド: CloudWatch エージェントのインストールと設定](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/Install-CloudWatch-Agent.html)
   - [Amazon CloudWatch ユーザーガイド: 複合アラームの作成](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/Create_Composite_Alarm.html)
 
-#### シナリオ 1-2: EventBridge と SSM Automation による障害インスタンスの自動修復 (Task 1.2)
+#### シナリオ 1-2: EventBridge と SSM Automation による障害インスタンスの自動修復
 - **状況**: 本番環境の Web アプリケーションにおいて、プロセスのハングアップによりヘルスチェックが連続失敗した際、オペレーターの手動ログインを待たずに 3 分以内に安全なインスタンス再起動とログ退避を自動実行したい場合
 - **対応**: CloudWatch アラームの状態変化（`ALARM`）をトリガーとする Amazon EventBridge ルールを作成し、ターゲットとして事前定義された AWS Systems Manager Automation ランブック（`AWS-RestartEC2Instance`）を呼び出すよう設定する。
 - **結果**: 深夜帯のインシデントであっても人間の介在なしにインスタンスが自動的に再起動され、サービス断時間を最小限に抑制して正常稼働状態へ自律復帰する。
@@ -185,7 +185,7 @@ CloudWatch Agent を用いて OS 内部（メモリ・ディスク使用率）�
   - [AWS Systems Manager ユーザーガイド: Automation ランブックリファレンス](https://docs.aws.amazon.com/systems-manager/latest/userguide/automation-action-restart-ec2.html)
   - [Amazon EventBridge ユーザーガイド: CloudWatch アラームイベントのルーティング](https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-run-automations.html)
 
-#### シナリオ 1-3: EBS gp3 移行と S3 ライフサイクルによるパフォーマンス・コスト最適化 (Task 1.3)
+#### シナリオ 1-3: EBS gp3 移行と S3 ライフサイクルによるパフォーマンス・コスト最適化
 - **状況**: 分析ワークロードを実行する既存システムにおいて、大量のデータ書き込みに伴う I/O 待機レイテンシを解消しつつ、過去 90 日を経過した大容量ログファイルのストレージ保管コストを 70% 以上削減したい場合
 - **対応**: 既存の EBS gp2 ボリュームを Elastic Volumes 機能により無停止で gp3 へ変更してベースライン IOPS を確保し、さらに S3 バケットにライフサイクルルールを設定して作成後 90 日経過したオブジェクトを S3 Glacier Flexible Deep Archive へ自動移行させる。
 - **結果**: サーバーを停止させることなくディスク I/O 性能が向上してクエリ処理時間が短縮され、参照頻度の低い過去ログのストレージ単価が劇的に削減される。
@@ -242,7 +242,7 @@ HA は Multi-AZ 配置と ELB / Route 53 ヘルスチェックにより秒単位
 
 ### 3. 実践シナリオ
 
-#### シナリオ 2-1: Auto Scaling グループとターゲット追跡ポリシーによる動的伸縮 (Task 2.1)
+#### シナリオ 2-1: Auto Scaling グループとターゲット追跡ポリシーによる動的伸縮
 - **状況**: 急激なアクセススパイクが発生するチケット予約システムにおいて、サーバーの応答遅延を防ぎつつ、深夜のアイドル時には最小限のインスタンス数まで自動縮退させてコストを削減したい場合
 - **対応**: 複数 AZ のプライベートサブネットにまたがる Auto Scaling グループを作成し、平均 CPU 使用率 60% を維持する「ターゲット追跡スケーリングポリシー (Target Tracking Scaling Policy)」を設定する。
 - **結果**: トラフィック急増時には追加インスタンスが即座にプロビジョニングされて負荷が分散され、アクセス減少時には自動的に安全に終了処理（Cooldwon 期間を考慮）が実行される。
@@ -250,7 +250,7 @@ HA は Multi-AZ 配置と ELB / Route 53 ヘルスチェックにより秒単位
 - **参考ドキュメント**:
   - [Amazon EC2 Auto Scaling ユーザーガイド: ターゲット追跡スケーリングポリシー](https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-scaling-target-tracking.html)
 
-#### シナリオ 2-2: ALB ヘルスチェックと RDS Multi-AZ による AZ 障害の自動吸収 (Task 2.2)
+#### シナリオ 2-2: ALB ヘルスチェックと RDS Multi-AZ による AZ 障害の自動吸収
 - **状況**: 会計トランザクションを処理する Web/DB システムにおいて、データセンター（AZ）の物理的な電源喪失が発生した場合でも、データ損失ゼロで 2 分以内に自動復旧させたい場合
 - **対応**: ALB の背後に複数 AZ にまたがる EC2 インスタンスを配置し、データベースには同期レプリケーションを行う「Amazon RDS Multi-AZ 配置」を有効化する。
 - **結果**: 稼働中の AZ がダウンした際、ALB が異常インスタンスへのルーティングを即座に停止し、RDS はスタンバイインスタンスへ DNS エンドポイントを自動切り替えてフェイルオーバーを完了する。
@@ -259,7 +259,7 @@ HA は Multi-AZ 配置と ELB / Route 53 ヘルスチェックにより秒単位
   - [Amazon RDS ユーザーガイド: 高可用性 (マルチ AZ)](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.MultiAZ.html)
   - [Elastic Load Balancing ユーザーガイド: ターゲットグループのヘルスチェック](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/target-group-health-checks.html)
 
-#### シナリオ 2-3: ウォームスタンバイ構成による RTO 15分・RPO 5分の DR 実現 (Task 2.3)
+#### シナリオ 2-3: ウォームスタンバイ構成による RTO 15分・RPO 5分の DR 実現
 - **状況**: 東京リージョンをプライマリとする基幹システムにおいて、広域災害時にセカンダリリージョン（大阪）へ 15 分以内の RTO、5 分以内の RPO で業務を切り替える要件があり、かつ平時のコスト制約から大阪側でのフルスペック常時稼働は認められない場合
 - **対応**: 大阪リージョンにクロスリージョン RDS リードレプリカを常時稼働させて非同期同期を行い、最小インスタンス数（1台）で Auto Scaling グループを待機させ、Route 53 フェイルオーバーレコードを構成する。
 - **結果**: 東京リージョン障害時に Route 53 が大阪へのトラフィック切り替えを検知し、リードレプリカを昇格させた上で Auto Scaling グループの希望容量を引き上げることで、15 分以内に業務提供が再開される。
@@ -323,7 +323,7 @@ AWS Organizations 管理アカウント
 
 ### 3. 実践シナリオ
 
-#### シナリオ 3-1: CloudFormation StackSets によるマルチアカウントへのベースライン一括展開 (Task 3.1)
+#### シナリオ 3-1: CloudFormation StackSets によるマルチアカウントへのベースライン一括展開
 - **状況**: AWS Organizations 配下の 30 アカウントに対し、全社統一のセキュリティ監査用 IAM ロールと VPC フローログ設定を一斉プロビジョニングし、将来新設されるアカウントにも自動適用させたい場合
 - **対応**: 管理アカウントから CloudFormation StackSets を作成し、サービスマネージドアクセス権限で対象 OU を指定した上で、自動デプロイ（Auto-deployment）を有効化してスタックセットを実行する。
 - **結果**: 既存の全アカウントに対象リソースが並列作成され、かつ今後新規アカウントが組織に追加された際にも人的介入なしに同一リソースが即座に自動作成される。
@@ -331,7 +331,7 @@ AWS Organizations 管理アカウント
 - **参考ドキュメント**:
   - [AWS CloudFormation ユーザーガイド: AWS CloudFormation StackSets の概念](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/what-is-cfnstacksets.html)
 
-#### シナリオ 3-2: Patch Manager とメンテナンスウィンドウによるゼロタッチ OS パッチ運用 (Task 3.2)
+#### シナリオ 3-2: Patch Manager とメンテナンスウィンドウによるゼロタッチ OS パッチ運用
 - **状況**: 本番環境の 100 台以上の Linux EC2 インスタンス群において、重要なセキュリティパッチ（Severity: Critical）がリリースされてから 7 日後に、業務影響のない毎週日曜深夜に自動テスト・インストールさせたい場合
 - **対応**: 「リリースから 7 日経過した Critical パッチを自動承認する」パッチベースラインを作成し、日曜深夜を指定した SSM メンテナンスウィンドウのタスクとして対象インスタンス群へ関連付ける。
 - **結果**: オペレーターが手動ログインすることなく、指定日時にパッチのスキャンおよび適用が自動実行され、結果がコンプライアンスレポートとして Systems Manager に集約される。
@@ -396,7 +396,7 @@ AWS Organizations 管理アカウント
 
 ### 3. 実践シナリオ
 
-#### シナリオ 4-1: SCP による特定リージョン利用の全社的制限 (Task 4.1)
+#### シナリオ 4-1: SCP による特定リージョン利用の全社的制限
 - **状況**: コンプライアンスおよびデータ主権の要件により、組織内の全メンバーアカウントにおいて「東京リージョン (ap-northeast-1)」および「大阪リージョン (ap-northeast-2)」以外でのリソース作成を例外なく禁止したい場合
 - **対応**: AWS Organizations のルートレベルで、`RequestedRegion` 条件キーを用いて東京・大阪以外のすべての API 実行を明示的に拒否（`Effect: Deny`）する SCP を作成・適用する（IAM、Route 53、CloudFront 等のグローバルサービスを NotAction または StringNotEquals で除外）。
 - **結果**: メンバーアカウント内の管理者（ルートユーザーや AdministratorAccess 保持者を含む）であっても、指定外リージョン（us-east-1 等）でのリソース作成が API レベルで完全に拒否される。
@@ -404,7 +404,7 @@ AWS Organizations 管理アカウント
 - **参考ドキュメント**:
   - [AWS Organizations ユーザーガイド: サービスコントロールポリシーの例 (リージョン制限)](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_scps_examples_general.html#example-scp-deny-region)
 
-#### シナリオ 4-2: Secrets Manager による RDS データベース認証情報の自動ローテーション (Task 4.2)
+#### シナリオ 4-2: Secrets Manager による RDS データベース認証情報の自動ローテーション
 - **状況**: セキュリティ監査基準により、本番 RDS PostgreSQL データベースの管理者パスワードを 30 日ごとに定期変更し、かつアプリケーションの接続断を発生させずに自動化したい場合
 - **対応**: データベース認証情報を AWS Secrets Manager に保管し、組み込みのローテーションテンプレートを用いた AWS Lambda 関数を関連付けて 30 日周期の自動ローテーションを有効化する。
 - **結果**: 30 日ごとに Lambda が RDS 側のパスワードを変更して Secrets Manager 内のシークレット値を安全に更新し、アプリ側は Secrets Manager API から動的に最新パスワードを取得して接続を維持する。
@@ -461,7 +461,7 @@ S3 や DynamoDB には Gateway 型エンドポイント、その他サービス�
 
 ### 3. 実践シナリオ
 
-#### シナリオ 5-1: S3 / DynamoDB への Gateway 型エンドポイントによるセキュア化とコスト削減 (Task 5.1)
+#### シナリオ 5-1: S3 / DynamoDB への Gateway 型エンドポイントによるセキュア化とコスト削減
 - **状況**: プライベートサブネット上の EC2 インスタンス群が、毎月数十テラバイトのログデータを Amazon S3 へアップロードし、DynamoDB を頻繁に読み書きしている環境において、NAT ゲートウェイのデータ処理費用を削減しつつインターネットを経由させずに通信させたい場合
 - **対応**: 当該 VPC に Amazon S3 および DynamoDB 向けの「Gateway 型 VPC エンドポイント」を作成し、プライベートサブネットのルートテーブルにエンドポイントへのルートを自動追加する。
 - **結果**: S3 および DynamoDB 宛てのトラフィックが NAT ゲートウェイを迂回して AWS 内部ネットワーク経由で直接ルーティングされ、NAT ゲートウェイのデータ処理料金がゼロになると同時に外部露出が完全に遮断される。
@@ -469,7 +469,7 @@ S3 や DynamoDB には Gateway 型エンドポイント、その他サービス�
 - **参考ドキュメント**:
   - [Amazon VPC ユーザーガイド: Gateway 型 VPC エンドポイント](https://docs.aws.amazon.com/vpc/latest/privatelink/gateway-endpoints.html)
 
-#### シナリオ 5-2: Route 53 Resolver DNS Firewall によるマルウェア C2 通信の遮断 (Task 5.2)
+#### シナリオ 5-2: Route 53 Resolver DNS Firewall によるマルウェア C2 通信の遮断
 - **状況**: 社内 VPC 内のサーバーがマルウェアに感染した場合に備え、既知の不正ドメインやボットネットの C2（コマンド＆コントロール）サーバーに対する外部通信を、パケット送信前の DNS 問い合わせ段階で検知・ブロックしたい場合
 - **対応**: Route 53 Resolver DNS Firewall を有効化し、AWS マネージドドメインリスト（マルウェアおよびボットネット用）を組み込んだルールグループを作成して当該 VPC に関連付ける。
 - **結果**: 感染インスタンスが不正ドメインの名前解決を試みた際、リゾルバーがクエリを拒否（`BLOCK` アクションにより NODATA を返却）し、外部サーバーとの TCP/IP コネクション確立が未然に阻止される。
@@ -477,7 +477,7 @@ S3 や DynamoDB には Gateway 型エンドポイント、その他サービス�
 - **参考ドキュメント**:
   - [Amazon Route 53 デベロッパーガイド: Route 53 Resolver DNS Firewall](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/resolver-dns-firewall.html)
 
-#### シナリオ 5-3: VPC フローログによる拒否パケット分析とセキュリティグループ不整合の解決 (Task 5.3)
+#### シナリオ 5-3: VPC フローログによる拒否パケット分析とセキュリティグループ不整合の解決
 - **状況**: 新規デプロイしたプライベートサブネット内のデータベースサーバーに対し、Web サーバーからのアプリケーション通信（ポート 5432）がタイムアウトして接続できない障害が発生している場合
 - **対応**: データベースサーバーの ENI で VPC フローログを有効化して CloudWatch Logs に出力し、CloudWatch Logs Insights を用いて `action = "REJECT"` となっているパケットの送信元・宛先 IP およびポートをクエリ検索する。
 - **結果**: データベース側のセキュリティグループにおいて Web サーバーのセキュリティグループ ID からのインバウンド 5432 番ポートが未許可である事実をログから特定し、ルールを追加して即座に通信を回復させる。
