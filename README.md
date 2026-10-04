@@ -11,14 +11,15 @@ AI エージェントスキルパイプライン（`my-skills`）と連携し、
 cert-study/
 ├── .agents/
 │   ├── AGENTS.md          # ワークスペース行動規範・エージェント規約
-│   └── skills.json        # my-skills から cert-study スキルを読み込むマニフェスト
+│   └── skills.json        # my-skills のスキルマスターを参照するマニフェスト
 ├── notes/                 # 資格別学習ノート格納ディレクトリ
 │   └── <vendor>/          # クラウドベンダー別（例: google-cloud, aws）
-│       └── <cert>/        # 資格別（例: cloud-architect）
+│       └── <cert>/        # 資格別（例: cloud-ops-engineer-associate）
 │           ├── images/    # 板書風グラレコ・図解画像格納ディレクトリ
-│           └── *.md       # 試験ガイド・要点解説ノート（フラット配置）
+│           └── *.md       # 完全版対策ガイド（complete-guide.md 等）
 ├── templates/             # ノート作成標準テンプレート
-│   └── exam-guide-template.md # 試験ガイド・要点解説の基本ひな型
+│   └── exam-guide-template.md # セクション完結型・網羅的シナリオ対応の基本ひな型
+├── cert-study.code-workspace # マルチルートワークスペース定義（my-skills との連携）
 └── README.md              # 本ファイル
 ```
 
