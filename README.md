@@ -16,7 +16,8 @@ cert-study/
 │   └── <vendor>/          # クラウドベンダー別（例: google-cloud, aws）
 │       └── <cert>/        # 資格別（例: cloud-ops-engineer-associate）
 │           ├── images/    # 板書風グラレコ・図解画像格納ディレクトリ
-│           └── *.md       # 完全版対策ガイド（complete-guide.md 等）
+│           ├── README.md  # 完全版対策ガイド（本体）
+│           └── curriculum.md # 学習ロードマップ・進捗管理
 ├── templates/             # ノート作成標準テンプレート
 │   └── exam-guide-template.md # セクション完結型・網羅的シナリオ対応の基本ひな型
 ├── cert-study.code-workspace # マルチルートワークスペース定義（my-skills との連携）
@@ -40,9 +41,19 @@ cert-study/
 
 | ベンダー | 資格名 | 試験コード | ガイドリンク | カリキュラム |
 | :--- | :--- | :--- | :--- | :--- |
-| **AWS** | AWS Certified Machine Learning Engineer - Associate | MLA-C02 | [完全対策ガイド](file:///Users/tetsu/src/cert-study/notes/aws/machine-learning-engineer-associate/complete-guide.md) | [ロードマップ](file:///Users/tetsu/src/cert-study/notes/aws/machine-learning-engineer-associate/curriculum.md) |
-| **AWS** | AWS Certified AI Practitioner | AIF-C01 | [完全対策ガイド](file:///Users/tetsu/src/cert-study/notes/aws/ai-practitioner/complete-guide.md) | [ロードマップ](file:///Users/tetsu/src/cert-study/notes/aws/ai-practitioner/curriculum.md) |
-| **AWS** | AWS Certified CloudOps Engineer - Associate | SOA-C03 | [完全対策ガイド](file:///Users/tetsu/src/cert-study/notes/aws/cloud-ops-engineer-associate/complete-guide.md) | - |
-| **AWS** | AWS Certified Cloud Practitioner | CLF-C02 | [完全対策ガイド](file:///Users/tetsu/src/cert-study/notes/aws/cloud-practitioner/complete-guide.md) | - |
-| **AWS** | AWS Certified Solutions Architect - Associate | SAA-C03 | 準備中 | - |
+| **AWS** | AWS Certified Cloud Practitioner | CLF-C02 | [完全対策ガイド](./notes/aws/cloud-practitioner/README.md) | [ロードマップ](./notes/aws/cloud-practitioner/curriculum.md) |
+| **AWS** | AWS Certified AI Practitioner | AIF-C01 | [完全対策ガイド](./notes/aws/ai-practitioner/README.md) | [ロードマップ](./notes/aws/ai-practitioner/curriculum.md) |
+| **AWS** | AWS Certified Solutions Architect - Associate | SAA-C03 | [完全対策ガイド](./notes/aws/solutions-architect-associate/README.md) | [ロードマップ](./notes/aws/solutions-architect-associate/curriculum.md) |
+| **AWS** | AWS Certified Developer - Associate | DVA-C02 | [完全対策ガイド](./notes/aws/developer-associate/README.md) | [ロードマップ](./notes/aws/developer-associate/curriculum.md) |
+| **AWS** | AWS Certified CloudOps Engineer - Associate | SOA-C03 | [完全対策ガイド](./notes/aws/cloud-ops-engineer-associate/README.md) | [ロードマップ](./notes/aws/cloud-ops-engineer-associate/curriculum.md) |
+| **AWS** | AWS Certified Data Engineer - Associate | DEA-C01 | [完全対策ガイド](./notes/aws/data-engineer-associate/README.md) | [ロードマップ](./notes/aws/data-engineer-associate/curriculum.md) |
+| **AWS** | AWS Certified Machine Learning Engineer - Associate | MLA-C02 | [完全対策ガイド](./notes/aws/machine-learning-engineer-associate/README.md) | [ロードマップ](./notes/aws/machine-learning-engineer-associate/curriculum.md) |
+| **AWS** | AWS Certified Solutions Architect - Professional | SAP-C02 | [完全対策ガイド](./notes/aws/solutions-architect-professional/README.md) | [ロードマップ](./notes/aws/solutions-architect-professional/curriculum.md) |
+| **AWS** | AWS Certified DevOps Engineer - Professional | DOP-C02 | [完全対策ガイド](./notes/aws/devops-engineer-professional/README.md) | [ロードマップ](./notes/aws/devops-engineer-professional/curriculum.md) |
+| **AWS** | AWS Certified Generative AI Developer - Professional | AIP-C01 | [完全対策ガイド](./notes/aws/generative-ai-developer-professional/README.md) | [ロードマップ](./notes/aws/generative-ai-developer-professional/curriculum.md) |
+| **AWS** | AWS Certified AI Business Strategist | AIB-C01 | [完全対策ガイド](./notes/aws/ai-business-strategist/README.md) | [ロードマップ](./notes/aws/ai-business-strategist/curriculum.md) |
+| **AWS** | AWS Certified Security - Specialty | SCS-C03 | [完全対策ガイド](./notes/aws/security-specialty/README.md) | [ロードマップ](./notes/aws/security-specialty/curriculum.md) |
+| **AWS** | AWS Certified Machine Learning - Specialty | MLS-C01 | [完全対策ガイド](./notes/aws/machine-learning-specialty/README.md) | [ロードマップ](./notes/aws/machine-learning-specialty/curriculum.md) |
+
+
 

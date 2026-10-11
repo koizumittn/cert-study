@@ -194,6 +194,30 @@ CloudWatch Agent を用いて OS 内部（メモリ・ディスク使用率）�
   - [Amazon EC2 ユーザーガイド: Amazon EBS ボリュームタイプの変更](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/requesting-ebs-volume-modifications.html)
   - [Amazon S3 ユーザーガイド: オブジェクトのライフサイクルの管理](https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-lifecycle-mgmt.html)
 
+#### シナリオ 1-4: CloudWatch クロスアカウント可観測性によるマルチアカウント環境の集中監視
+
+- **状況**: AWS Organizations 配下の複数アカウント（開発・ステージング・本番）に分散配置された EC2 および Lambda のメトリクスとログを、運用専用の中央監視アカウントから一元的に検索・可視化し、アカウント間の切り替えオーバーヘッドを解消したい場合
+- **対応**: 中央監視アカウントを「モニタリングアカウント」として構成し、各メンバーアカウントを「ソースアカウント」として CloudWatch クロスアカウント可観測性（Cross-Account Observability）を設定する。
+- **結果**: 運用担当者は中央アカウントにログインしたまま、全ソースアカウントのメトリクス、ロググループ、および X-Ray トレースを統合ダッシュボードからシームレスに横断検索・相関分析できるようになる。
+- **解説**: CloudWatch クロスアカウント可観測性を利用することで、IAM ロールの個別切り替えやカスタムログ転送パイプライン（Kinesis Data Firehose 等）を自前構築することなく、AWS ネイティブの低遅延かつセキュアな集中監視を実現できるためです。各アカウントに手動でスイッチロールして個別に確認する運用は重大インシデント時の初動遅延を招き、またログを中央 S3 へ集約するだけの構成ではリアルタイムの CloudWatch アラームやダッシュボードとのネイティブ連携が損なわれるため不適格です。
+- **参考ドキュメント**:
+  - [Amazon CloudWatch ユーザーガイド: クロスアカウントのクロスリージョン CloudWatch コンソール](https://docs.aws.amazon.com/ja_jp/AmazonCloudWatch/latest/monitoring/Cross-Account-Cross-Region.html)
+
+---
+
+### 4. 参考ドキュメント & 推奨ハンズオン
+
+#### 公式一次ドキュメント
+- [Amazon CloudWatch ユーザーガイド](https://docs.aws.amazon.com/ja_jp/AmazonCloudWatch/latest/monitoring/WhatIsCloudWatch.html): CloudWatch Agent の設定、複合アラームの設計、メトリクス集約
+- [AWS Systems Manager ユーザーガイド](https://docs.aws.amazon.com/ja_jp/systems-manager/latest/userguide/what-is-systems-manager.html): SSM Automation ランブック、障害インスタンスの自動修復
+- [Amazon EBS ユーザーガイド](https://docs.aws.amazon.com/ja_jp/AWSEC2/latest/UserGuide/AmazonEBS.html): EBS gp3 ボリューム特性、パフォーマンス・スループット最適化
+
+#### 推奨ハンズオン・ラボ（実機検証）
+- **AWS Skill Builder: Monitoring and Logging with Amazon CloudWatch**
+  - **学習目標**: CloudWatch Agent による OS 内部メトリクス収集、複合アラーム作成、および CloudWatch Logs Insights を用いたクエリ分析
+- **AWS Skill Builder: Automated Remediation with Systems Manager Automation**
+  - **学習目標**: EventBridge ルールを契機とした SSM Automation ランブックの自動実行と、障害修復プロセスの冪等性検証
+
 ---
 
 ## Domain 2: 信頼性とビジネス継続性 (22%)
@@ -268,6 +292,30 @@ HA は Multi-AZ 配置と ELB / Route 53 ヘルスチェックにより秒単位
   - [AWS ホワイトペーパー: AWS でのディザスタリカバリ (DR) アーキテクチャ](https://docs.aws.amazon.com/whitepapers/latest/disaster-recovery-workloads-on-aws/disaster-recovery-options-in-the-cloud.html)
   - [Amazon Route 53 デベロッパーガイド: DNS フェイルオーバーの設定](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-failover.html)
 
+#### シナリオ 2-4: AWS Backup と Organizations 統合によるコンプライアンス準拠の不変ボールトバックアップ
+
+- **状況**: 金融コンプライアンス基準により、本番 RDS および DynamoDB のバックアップデータをランサムウェア攻撃や悪意のある管理者による誤削除・改ざんから保護し、別リージョンのセキュアなバックアップボールトへ日次で自動複製させたい場合
+- **対応**: AWS Backup を AWS Organizations と統合し、組織全体のバックアップポリシーを定義した上で、バックアップボールトに AWS Backup Vault Lock（コンプライアンスモード）を適用し、クロスリージョン自動コピーを設定する。
+- **結果**: バックアップデータはルートユーザーを含むいかなる IAM 権限者からも指定期間内（保持期間）の削除・変更が物理的に拒否され、別リージョンへの安全なコピーによって広域災害時にも迅速なリストアが可能となる。
+- **解説**: AWS Backup Vault Lock のコンプライアンスモードは WORM（Write Once, Read Many）ストレージ特性を強制し、AWS アカウントの最高権限者やサポートであっても保持期間満了前のデータ削除を完全に阻止できるためです。単純な S3 へのダンプスクリプトやカスタムスナップショット作成では、IAM 権限が侵害された場合にスナップショット自体を削除される脆弱性を排除できず、また各サービス個別の自動バックアップ機能ではクロスアカウント・クロスリージョンのボールトロック統制を一元管理できないため不適格です。
+- **参考ドキュメント**:
+  - [AWS Backup 開発者ガイド: AWS Backup Vault Lock](https://docs.aws.amazon.com/ja_jp/aws-backup/latest/devguide/vault-lock.html)
+
+---
+
+### 4. 参考ドキュメント & 推奨ハンズオン
+
+#### 公式一次ドキュメント
+- [Amazon EC2 Auto Scaling ユーザーガイド](https://docs.aws.amazon.com/ja_jp/autoscaling/ec2/userguide/what-is-amazon-ec2-auto-scaling.html): 動的スケーリングポリシー、ヘルスチェック、容量最適化
+- [Amazon RDS ユーザーガイド](https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/UserGuide/Welcome.html): Multi-AZ デプロイメント、自動フェイルオーバー、リードレプリカ運用
+- [AWS ディザスタリカバリ設計ガイド](https://docs.aws.amazon.com/ja_jp/whitepapers/latest/disaster-recovery-workloads-on-aws/disaster-recovery-workloads-on-aws.html): RTO/RPO 要件に応じた 4 大 DR 戦略の比較と設計原則
+
+#### 推奨ハンズオン・ラボ（実機検証）
+- **AWS Skill Builder: Building Resilient Architectures with Auto Scaling and RDS Multi-AZ**
+  - **学習目標**: ターゲット追跡スケーリングポリシーの動作検証、および RDS Multi-AZ における手動フェイルオーバーの耐障害性テスト
+- **AWS Skill Builder: Implementing Disaster Recovery Strategies on AWS**
+  - **学習目標**: パイロットライトおよびウォームスタンバイ構成のプロビジョニングと、Route 53 DNS 切り替えの実機検証
+
 ---
 
 ## Domain 3: デプロイ、プロビジョニング、およびオートメーション (22%)
@@ -338,6 +386,30 @@ AWS Organizations 管理アカウント
 - **解説**: 各ホストに手動ログインして `yum update` を実行する運用は膨大な工数と人的ミスを招くのに対し、Patch Manager を用いることで承認ルールに基づいた安全なステージング適用と監査証跡の自動生成が完全に両立できるためです。
 - **参考ドキュメント**:
   - [AWS Systems Manager ユーザーガイド: AWS Systems Manager Patch Manager](https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-patch.html)
+
+#### シナリオ 3-3: CloudFormation スタックドリフト検出と自動修復パイプラインの構築
+
+- **状況**: 本番環境のネットワークおよびセキュリティグループが AWS CloudFormation で管理されているが、運用担当者によるコンソール上での手動変更（ドリフト）が発生し、コードと実リソースの整合性が崩れるリスクを未然に防止・検知したい場合
+- **対応**: EventBridge スケジュールルールを用いて CloudFormation のドリフト検出（DetectStackDrift）を定期実行し、ドリフト検出イベント（ ステータス）を契機に SNS 通知を発行するとともに、Systems Manager Automation で是正通知ランブックを起動する。
+- **結果**: 手動変更による構成の乖離が数時間以内に自動検出され、運用チームへ差分詳細が通知されることで、インフラコード（IaC）の信頼性と再現性が維持される。
+- **解説**: CloudFormation ネイティブのドリフト検出機能を利用することで、テンプレート定義と実インフラのプロパティ差分をマネージドに特定できるためです。AWS Config ルールのみで個別の設定値を監視する代替案は、個々のパラメータチェックには有効であるものの CloudFormation テンプレート全体との構造的整合性やリソース削除のドリフトを一括把握するには不十分であり、また手動での定期監査は運用負荷が高く見落としリスクを排除できないため不適格です。
+- **参考ドキュメント**:
+  - [AWS CloudFormation ユーザーガイド: スタック全体のドリフトの検出](https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/detect-drift-stack.html)
+
+---
+
+### 4. 参考ドキュメント & 推奨ハンズオン
+
+#### 公式一次ドキュメント
+- [AWS CloudFormation ユーザーガイド](https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/Welcome.html): CloudFormation StackSets、マルチアカウント展開、設定ドリフト検出
+- [AWS Systems Manager Patch Manager ユーザーガイド](https://docs.aws.amazon.com/ja_jp/systems-manager/latest/userguide/systems-manager-patch.html): パッチベースライン、メンテナンスウィンドウ、自動パッチ適用
+- [AWS Systems Manager Session Manager ユーザーガイド](https://docs.aws.amazon.com/ja_jp/systems-manager/latest/userguide/session-manager.html): インバウンドポート不要のセキュア接続、監査ログ記録
+
+#### 推奨ハンズオン・ラボ（実機検証）
+- **AWS Skill Builder: Multi-Account Management with CloudFormation StackSets**
+  - **学習目標**: Organizations 連携 StackSets を用いた複数アカウント・複数リージョンへのベースライン環境一括プロビジョニング
+- **AWS Skill Builder: Fleet Management and Patch Automation with Systems Manager**
+  - **学習目標**: Patch Manager によるパッチベースライン定義と、メンテナンスウィンドウを通じた EC2 インスタンス群への自動パッチ適用
 
 ---
 
@@ -414,6 +486,30 @@ AWS Organizations 管理アカウント
 - **参考ドキュメント**:
   - [AWS Secrets Manager ユーザーガイド: AWS Secrets Manager シークレットのローテーション](https://docs.aws.amazon.com/secretsmanager/latest/userguide/rotating-secrets.html)
 
+#### シナリオ 4-3: AWS Config 適合パックと SSM Automation による未暗号化 EBS ボリュームの自動修復
+
+- **状況**: 社内セキュリティ統制により、全 AWS アカウントで新規作成される EBS ボリュームが KMS カスタマーマネージドキード（CMK）で暗号化されていることを義務付け、未暗号化ボリュームが検出された場合は直ちに自動修復（スナップショット暗号化および再アタッチ）させたい場合
+- **対応**: AWS Config のマネージドルール（）を含む適合パックを組織全体に展開し、非準拠リソース検出時に SSM Automation ランブック（）を自動修復アクションとしてトリガーする。
+- **結果**: 開発者が誤って未暗号化で作成した EBS ボリュームが即座に非準拠判定され、人的介入なしに暗号化ボリュームへと自動変換・修復される。
+- **解説**: AWS Config の自動修復メカニズム（SSM Automation 連携）を用いることで、発見的統制（Detective Control）から修復（Remediation）までを完全自動化し、監査証跡を保持しつつセキュリティリスクを即時排除できるためです。定期的な Lambda スクリプト実行による自作ポーリング構成は、コードの継続的保守負荷や API レート制限のリスクを伴い、また EC2 の起動を単純に拒否するだけの SCP は既存の未暗号化ボリュームの検知・修正には対応できないため不適格です。
+- **参考ドキュメント**:
+  - [AWS Config デベロッパーガイド: AWS Config ルールによる非準拠リソースの修復](https://docs.aws.amazon.com/ja_jp/config/latest/developerguide/remediation.html)
+
+---
+
+### 4. 参考ドキュメント & 推奨ハンズオン
+
+#### 公式一次ドキュメント
+- [AWS Organizations ユーザーガイド](https://docs.aws.amazon.com/ja_jp/organizations/latest/userguide/orgs_introduction.html): サービスコントロールポリシー (SCP)、OU 階層構造、アクセスガードレール
+- [AWS Secrets Manager ユーザーガイド](https://docs.aws.amazon.com/ja_jp/secretsmanager/latest/userguide/intro.html): シークレット管理、Lambda による自動ローテーション
+- [AWS Key Management Service デベロッパーガイド](https://docs.aws.amazon.com/ja_jp/kms/latest/developerguide/overview.html): カスタマーマネージドキード、エンベロープ暗号化、キーポリシー設計
+
+#### 推奨ハンズオン・ラボ（実機検証）
+- **AWS Skill Builder: Governance and Guardrails with AWS Organizations and SCPs**
+  - **学習目標**: メンバーアカウントに対する SCP ガードレールの作成と、禁止 API 操作のブロック検証
+- **AWS Skill Builder: Managing and Rotating Secrets with AWS Secrets Manager**
+  - **学習目標**: RDS 認証情報の Secrets Manager 登録と、自動ローテーション Lambda 関数の設定・動作確認
+
 ---
 
 ## Domain 5: ネットワーキングとコンテンツ配信 (18%)
@@ -486,6 +582,30 @@ S3 や DynamoDB には Gateway 型エンドポイント、その他サービス�
 - **解説**: OS のログだけではネットワーク層のパケット破棄要因を特定できないのに対し、VPC フローログはセキュリティグループやネットワーク ACL による拒否（`REJECT`）ステータスを明確に記録するため、迅速な原因究明と設定是正が可能となるためです。
 - **参考ドキュメント**:
   - [Amazon VPC ユーザーガイド: VPC フローログのログレコードの例とトラブルシューティング](https://docs.aws.amazon.com/vpc/latest/userguide/flow-logs.html)
+
+#### シナリオ 5-4: CloudFront オリジンフェイルオーバーと AWS WAF レート制限による高可用性コンテンツ配信
+
+- **状況**: グローバルユーザー向け Web サイトにおいて、プライマリオリジン（ALB / EC2）に障害が発生した際でも 500 系エラーをユーザーに返さず静的メンテナンスページを即座に表示させ、同時に過剰な HTTP リクエストによる L7 DDoS 攻撃をエッジで自動遮断したい場合
+- **対応**: Amazon CloudFront のオリジングループ機能を設定してプライマリ（ALB）とセカンダリ（S3 静的ホスティング）を指定し、ステータスコード 502/503/504 発生時のオリジンフェイルオーバーを構成した上で、CloudFront に AWS WAF レートベースルールを関連付ける。
+- **結果**: プライマリサーバー停止時もユーザーには瞬時に S3 のメンテナンス画面が返送されてダウンタイムが隠蔽され、特定 IP からの急激なリクエストスパムはエッジロケーションで即座に HTTP 429 として遮断される。
+- **解説**: CloudFront オリジングループは DNS 切り替えの伝播遅延を待つことなくエッジレベルで瞬時に別オリジンへリクエストを再試行できるため、ゼロ秒でのフェイルオーバーを実現できるためです。Route 53 DNS フェイルオーバーのみに依存する代替案は、クライアント側の DNS キャッシュ保持時間（TTL）により障害画面が長時間表示されるリスクがあり、また ALB 直下にのみ WAF を配置する構成では AWS ネットワークエッジでの DDoS 吸収ができずバックエンドの帯域を圧迫するため不適格です。
+- **参考ドキュメント**:
+  - [Amazon CloudFront デベロッパーガイド: オリジンフェイルオーバーによる高可用性の最適化](https://docs.aws.amazon.com/ja_jp/AmazonCloudFront/latest/DeveloperGuide/high_availability_origin_failover.html)
+
+---
+
+### 4. 参考ドキュメント & 推奨ハンズオン
+
+#### 公式一次ドキュメント
+- [Amazon VPC ユーザーガイド](https://docs.aws.amazon.com/ja_jp/vpc/latest/userguide/what-is-amazon-vpc.html): サブネット、ルートテーブル、NAT ゲートウェイ、VPC エンドポイント
+- [Amazon Route 53 Resolver DNS Firewall ユーザーガイド](https://docs.aws.amazon.com/ja_jp/Route53/latest/DeveloperGuide/resolver-dns-firewall.html): DNS ルールグループ、ドメイン遮断、名前解決セキュリティ
+- [Amazon VPC フローログ ユーザーガイド](https://docs.aws.amazon.com/ja_jp/vpc/latest/userguide/flow-logs.html): フローログの有効化、パケット拒否（REJECT）の分析
+
+#### 推奨ハンズオン・ラボ（実機検証）
+- **AWS Skill Builder: Securing VPC Traffic with DNS Firewall and Network ACLs**
+  - **学習目標**: Route 53 DNS Firewall の設定と悪意あるドメインへのアウトバウンド名前解決ブロック検証
+- **AWS Skill Builder: Troubleshooting VPC Connectivity and Analyzing Flow Logs**
+  - **学習目標**: VPC フローログを CloudWatch Logs に出力し、セキュリティグループ・NACL 破棄パケットの特定・解析
 
 ---
 
