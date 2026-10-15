@@ -137,7 +137,7 @@
 - [アーキテクチャガイド](https://...): [設計原則]
 
 #### 推奨ハンズオン・ラボ（実機検証）
-- [ハンズオンラボ名（Skills Boost / AWS Skill Builder 等）](https://...):
+- [ハンズオンラボ名（Google Skills / AWS Skill Builder 等）](https://...):
   - **学習目標**: [実際にコンソールや CLI / Terraform で検証・体感すべき項目]
 
 ---
