@@ -21,13 +21,13 @@ AWS Certified CloudOps Engineer - Associate は、AWS 上でワークロード�
 
 ## 2. 出題分野（Domain）と出題比率一覧
 
-| ドメイン番号 | ドメイン名 / 出題分野 | 出題比率 | 主要対象サービス・ツール | ステータス |
-| :--- | :--- | :--- | :--- | :--- |
-| **Domain 1** | 監視、ロギング、分析、修復、およびパフォーマンス最適化 | 22% | Amazon CloudWatch, CloudWatch Agent, CloudTrail, EventBridge, Systems Manager Automation, EBS, S3, RDS | 完了 |
-| **Domain 2** | 信頼性とビジネス継続性 | 22% | AWS Auto Scaling, Elastic Load Balancing, Route 53, Multi-AZ, AWS Backup, DR 4大戦略 | 完了 |
-| **Domain 3** | デプロイ、プロビジョニング、およびオートメーション | 22% | AWS CloudFormation, AWS CDK, StackSets, EC2 Image Builder, Systems Manager (Patch / Run Command) | 完了 |
-| **Domain 4** | セキュリティとコンプライアンス | 16% | AWS Organizations, SCP, AWS Config, IAM Identity Center, AWS KMS, Secrets Manager, GuardDuty, Security Hub | 完了 |
-| **Domain 5** | ネットワーキングとコンテンツ配信 | 18% | Amazon VPC, VPC エンドポイント, AWS PrivateLink, Route 53 Resolver DNS Firewall, AWS Network Firewall, CloudFront | 完了 |
+| ドメイン番号 | ドメイン名 / 出題分野 | 出題比率 | 主要対象サービス・ツール |
+| :--- | :--- | :--- | :--- |
+| **Domain 1** | 監視、ロギング、分析、修復、およびパフォーマンス最適化 | 22% | Amazon CloudWatch, CloudWatch Agent, CloudTrail, EventBridge, Systems Manager Automation, EBS, S3, RDS |
+| **Domain 2** | 信頼性とビジネス継続性 | 22% | AWS Auto Scaling, Elastic Load Balancing, Route 53, Multi-AZ, AWS Backup, DR 4大戦略 |
+| **Domain 3** | デプロイ、プロビジョニング、およびオートメーション | 22% | AWS CloudFormation, AWS CDK, StackSets, EC2 Image Builder, Systems Manager (Patch / Run Command) |
+| **Domain 4** | セキュリティとコンプライアンス | 16% | AWS Organizations, SCP, AWS Config, IAM Identity Center, AWS KMS, Secrets Manager, GuardDuty, Security Hub |
+| **Domain 5** | ネットワーキングとコンテンツ配信 | 18% | Amazon VPC, VPC エンドポイント, AWS PrivateLink, Route 53 Resolver DNS Firewall, AWS Network Firewall, CloudFront |
 
 ---
 

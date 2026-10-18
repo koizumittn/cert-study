@@ -147,57 +147,57 @@ Associate Data Practitioner 試験は、Google Cloud のデータサービスを
 #### シナリオ 1-1: オンプレミスからの大規模データ物理移行
 
 - **状況**: オンプレミスデータセンターに蓄積された 80TB の過去ログデータを Google Cloud に移行する計画において、利用可能なインターネットアップロード帯域幅が 20Mbps に制限されており、オンライン転送では数か月以上の期間を要する場合
-- **対応**: Transfer Appliance を注文してオンプレミスのデータセンターに設置し、ローカルネットワーク経由でアプライアンスにデータを暗号化コピーした後、Google に返送して指定の Cloud Storage バケットへ取り込ませる
-- **結果**: ネットワーク帯域を枯渇させることなく、かつセキュアに数日間のオフライン輸送で 80TB のデータを Cloud Storage へ移行できる
+- **対応**: Transfer Appliance を注文してオンプレミスのデータセンターに設置し、ローカルネットワーク経由でアプライアンスにデータを暗号化コピーした後、Google に返送して指定の Cloud Storage バケットへ取り込ませる。
+- **結果**: ネットワーク帯域を枯渇させることなく、かつセキュアに数日間のオフライン輸送で 80TB のデータを Cloud Storage へ移行できる。
 - **解説**: ネットワーク帯域が極端に細い環境下で数十テラバイト以上の大規模データを迅速に移行するには、物理アプライアンスである Transfer Appliance が最適であるためです。Storage Transfer Service や gcloud CLI によるオンライン転送では、ネットワーク遅延や帯域制限により移行完了まで膨大な日数を要するため不適格です。
 - **参考ドキュメント**:
-  - [Transfer Appliance のドキュメント](https://cloud.google.com/transfer-appliance/docs): 物理アプライアンスを用いた大規模データ移行のアーキテクチャとセキュリティ仕様
+  - [Transfer Appliance のドキュメント](https://docs.cloud.google.com/transfer-appliance/docs/4.0/overview): 物理アプライアンスを用いた大規模データ移行のアーキテクチャとセキュリティ仕様
 
 #### シナリオ 1-2: AWS S3 から Cloud Storage への定期的な大規模増分転送
 
 - **状況**: マルチクラウド構成を採用しており、AWS S3 バケットに日々蓄積される大量のアクセスログファイルを、追加の仮想マシンやインフラを管理することなく、毎日夜間に自動で Cloud Storage バケットへ同期転送したい場合
-- **対応**: Storage Transfer Service を構成し、転送元として AWS S3、転送先として Cloud Storage を指定し、日次の繰り返しスケジュール転送ジョブを作成する
-- **結果**: 自前で転送スクリプトや Compute Engine インスタンスを運用することなく、Google マネージドのサーバーレス環境でセキュアかつ信頼性の高い自動同期が実現する
+- **対応**: Storage Transfer Service を構成し、転送元として AWS S3、転送先として Cloud Storage を指定し、日次の繰り返しスケジュール転送ジョブを作成する。
+- **結果**: 自前で転送スクリプトや Compute Engine インスタンスを運用することなく、Google マネージドのサーバーレス環境でセキュアかつ信頼性の高い自動同期が実現する。
 - **解説**: Storage Transfer Service は、クラウドプロバイダ間（S3、Azure Blob）の大規模データ転送に特化したフルマネージドサービスであり、インフラのプロビジョニングや再試行制御を自動で処理するためです。Compute Engine 上で自作の Python スクリプトや AWS CLI / gsutil コマンドを実行する方式は、サーバー運用のオーバーヘッドや転送エラー時の耐障害性管理が発生するため推奨されません。
 - **参考ドキュメント**:
-  - [Storage Transfer Service の概要](https://cloud.google.com/storage-transfer/docs/overview): クラウド間データ移行およびスケジュール転送のベストプラクティス
+  - [Storage Transfer Service の概要](https://docs.cloud.google.com/storage-transfer/docs/overview): クラウド間データ移行およびスケジュール転送のベストプラクティス
 
 #### シナリオ 1-3: 分析クエリの高速化とコスト最適化に向けたファイル形式選定
 
 - **状況**: Cloud Storage 上に蓄積されたテラバイト規模のログデータに対して BigQuery 外部テーブル経由で頻繁に特定の複数列を集計するクエリを実行する際、データスキャン量とクエリ実行時間を最小化したい場合
-- **対応**: ログの保存形式として CSV や JSON ではなく、圧縮された Apache Parquet 形式を採用する
-- **結果**: 列指向ストレージによる不要な列の読み飛ばし（プロジェクションプルーニング）が機能し、BigQuery がスキャンするデータ量が劇的に削減され、クエリ料金と実行時間が大幅に低減する
+- **対応**: ログの保存形式として CSV や JSON ではなく、圧縮された Apache Parquet 形式を採用する。
+- **結果**: 列指向ストレージによる不要な列の読み飛ばし（プロジェクションプルーニング）が機能し、BigQuery がスキャンするデータ量が劇的に削減され、クエリ料金と実行時間が大幅に低減する。
 - **解説**: Apache Parquet は列指向（Columnar）フォーマットであり、クエリで要求された特定の列のみを効率的に読み取ることができるためです。CSV や JSON は行指向のプレーンテキストであるため、特定の列のみを集計する場合でも行全体のデータを走査する必要があり、スキャンデータ量とコストが増大するため不適格です。
 - **参考ドキュメント**:
-  - [外部テーブルのクエリ](https://cloud.google.com/bigquery/docs/external-data-cloud-storage): Cloud Storage 内の Parquet データの効率的なクエリ手法
+  - [外部テーブルのクエリ](https://docs.cloud.google.com/bigquery/docs/external-data-cloud-storage): Cloud Storage 内の Parquet データの効率的なクエリ手法
 
 #### シナリオ 1-4: ノーコードによるグラフィカルなデータクリーニングと変換
 
 - **状況**: データアナリストチームが、オンプレミスから取り込んだ売上データに含まれる不要な記号の削除、欠損値の補完、日付フォーマットの標準化を行いたいが、チーム内に Python や Java のプログラミング経験者がおらず、GUI 画面上で直感的にデータパイプラインを構築したい場合
-- **対応**: Cloud Data Fusion を利用し、グラフィカルなウェブ UI（Wrangler）上でデータプレビューを確認しながらクリーニングステップを定義し、パイプラインを実行する
-- **結果**: 複雑なパイプラインコードをコーディングすることなく、ビジュアルインターフェース上でデータ品質の向上と ETL 処理を完結できる
+- **対応**: Cloud Data Fusion を利用し、グラフィカルなウェブ UI（Wrangler）上でデータプレビューを確認しながらクリーニングステップを定義し、パイプラインを実行する。
+- **結果**: 複雑なパイプラインコードをコーディングすることなく、ビジュアルインターフェース上でデータ品質の向上と ETL 処理を完結できる。
 - **解説**: Cloud Data Fusion はオープンソースの CDAP をベースにしたフルマネージドのノーコード/ローコード統合環境であり、GUI 上でドラッグ＆ドロップによりデータ変換やデータラングリング（Wrangler）を行えるためです。Dataflow は Apache Beam によるプログラミング（Python/Java）が必要となるため、コーディングスキルを持たないチームには適しません。
 - **参考ドキュメント**:
-  - [Cloud Data Fusion のコンセプト概要](https://cloud.google.com/data-fusion/docs/concepts/overview): ビジュアルパイプライン構築とデータ準備のアーキテクチャ
+  - [Cloud Data Fusion のコンセプト概要](https://docs.cloud.google.com/data-fusion/docs/concepts/overview): ビジュアルパイプライン構築とデータ準備のアーキテクチャ
 
 #### シナリオ 1-5: Cloud Storage から BigQuery へのアドホックなバッチロード
 
 - **状況**: Cloud Storage バケットに配置された日次販売実績の CSV ファイル群を、アドホックに BigQuery の新規テーブルへ高速に読み込み、自動的にスキーマを検出させたい場合
-- **対応**: Cloud Shell またはローカル環境から `bq load --autodetect --source_format=CSV <データセット>.<テーブル> gs://<バケット>/<パス>/*.csv` コマンドを実行する
-- **結果**: 複雑な ETL サービスを起動することなく、コマンドライン一発でスキーマが自動推定された BigQuery テーブルが即座に生成される
+- **対応**: Cloud Shell またはローカル環境から `bq load --autodetect --source_format=CSV <データセット>.<テーブル> gs://<バケット>/<パス>/*.csv` コマンドを実行する。
+- **結果**: 複雑な ETL サービスを起動することなく、コマンドライン一発でスキーマが自動推定された BigQuery テーブルが即座に生成される。
 - **解説**: `bq load` コマンドは、Cloud Storage から BigQuery への一括読み込みを行うための最も軽量で標準的なバッチ取り込み手段であり、`--autodetect` フラグによって手動でのスキーマ定義を省略できるためです。このような単発のファイルインポートに対して Dataflow や Cloud Data Fusion をプロビジョニングすることは、環境構築コストと実行時間の観点から過剰であるため不適格です。
 - **参考ドキュメント**:
-  - [Cloud Storage からのデータの読み込み](https://cloud.google.com/bigquery/docs/loading-data-cloud-storage-csv): bq load コマンドによるデータインポート手順
+  - [Cloud Storage からのデータの読み込み](https://docs.cloud.google.com/bigquery/docs/loading-data-cloud-storage-csv): bq load コマンドによるデータインポート手順
 
 ---
 
 ### 4. 参考ドキュメント & 推奨ハンズオン
 
 #### 公式一次ドキュメント
-- [Storage Transfer Service の概要](https://cloud.google.com/storage-transfer/docs/overview): クラウド間およびオンプレミスからのマネージドデータ転送仕様
-- [BigQuery Data Transfer Service の概要](https://cloud.google.com/bigquery/docs/dts-introduction): SaaS アプリケーションおよびデータレイクからの定期自動取り込み
-- [Cloud Data Fusion のコンセプト概要](https://cloud.google.com/data-fusion/docs/concepts/overview): ビジュアルな ETL パイプライン設計とデータクリーニング
-- [Cloud Storage からのデータ読み込み](https://cloud.google.com/bigquery/docs/loading-data-cloud-storage): BigQuery への各種ファイル形式のバッチ取り込みベストプラクティス
+- [Storage Transfer Service の概要](https://docs.cloud.google.com/storage-transfer/docs/overview): クラウド間およびオンプレミスからのマネージドデータ転送仕様
+- [BigQuery Data Transfer Service の概要](https://docs.cloud.google.com/bigquery/docs/dts-introduction): SaaS アプリケーションおよびデータレイクからの定期自動取り込み
+- [Cloud Data Fusion のコンセプト概要](https://docs.cloud.google.com/data-fusion/docs/concepts/overview): ビジュアルな ETL パイプライン設計とデータクリーニング
+- [Cloud Storage からのデータ読み込み](https://docs.cloud.google.com/bigquery/docs/batch-loading-data): BigQuery への各種ファイル形式のバッチ取り込みベストプラクティス
 
 #### 推奨ハンズオン・ラボ（実機検証）
 - [Insights from Data with BigQuery (Course Template 625)](https://www.skills.google/course_templates/625):
@@ -272,57 +272,57 @@ Associate Data Practitioner 試験は、Google Cloud のデータサービスを
 #### シナリオ 2-1: BigQuery ML による SQL ベースの顧客離反予測
 
 - **状況**: E コマース企業のデータアナリストが、BigQuery に蓄積された過去の購買履歴データを用いて翌月の顧客離反（チャーン）を予測したいが、Python によるモデル開発環境を別途構築する工数やデータを外部へエクスポートするセキュリティリスクを避けたい場合
-- **対応**: BigQuery 内で `CREATE OR REPLACE MODEL \`ecommerce.churn_model\` OPTIONS(model_type='logistic_reg', input_label_cols=['is_churn']) AS SELECT ...` を実行し、ロジスティック回帰モデルを直接トレーニングする
-- **結果**: データを BigQuery 外部へ移動させることなく、SQL 構文のみでモデルの学習、評価（`ML.EVALUATE`）、推論（`ML.PREDICT`）が一貫して完了する
+- **対応**: BigQuery 内で `CREATE OR REPLACE MODEL \`ecommerce.churn_model\` OPTIONS(model_type='logistic_reg', input_label_cols=['is_churn']) AS SELECT ...` を実行し、ロジスティック回帰モデルを直接トレーニングする。
+- **結果**: データを BigQuery 外部へ移動させることなく、SQL 構文のみでモデルの学習、評価（`ML.EVALUATE`）、推論（`ML.PREDICT`）が一貫して完了する。
 - **解説**: BigQuery ML は BigQuery の分散コンピューティングリソースを利用して直接モデルをトレーニングできるため、データ移動に伴うネットワーク遅延やセキュリティリスクを排除し、SQL スキルのみで迅速に ML ライフサイクルを完結できるためです。Vertex AI のカスタムコンテナ環境で Python スクリプトを実行する方式は、インフラのプロビジョニングやデータエクスポートのオーバーヘッドが発生するため不適格です。
 - **参考ドキュメント**:
-  - [BigQuery ML の概要](https://cloud.google.com/bigquery/docs/bqml-introduction): サポートされているモデルタイプと SQL 構文仕様
+  - [BigQuery ML の概要](https://docs.cloud.google.com/bigquery/docs/bqml-introduction): サポートされているモデルタイプと SQL 構文仕様
 
 #### シナリオ 2-2: 全社共通 KPI のブレを防止するセマンティックモデリング
 
 - **状況**: 企業内の複数の事業部門でそれぞれ独自に売上ダッシュボードを作成した結果、「粗利益」の計算式（送料や割引の扱い）が部門ごとに異なり、経営会議で数値の不整合が発生している場合
-- **対応**: Looker を導入し、LookML の view ファイル内で `measure: total_gross_profit { type: sum ... }` として全社共通の指標ロジックを単一のコードで定義し、Git でバージョン管理する
-- **結果**: 全ユーザーが Looker 経由で探索・レポート作成を行う際に同一の計算式が強制適用され、Single Source of Truth（信頼できる唯一の情報源）が確立する
+- **対応**: Looker を導入し、LookML の view ファイル内で `measure: total_gross_profit { type: sum ... }` として全社共通の指標ロジックを単一のコードで定義し、Git でバージョン管理する。
+- **結果**: 全ユーザーが Looker 経由で探索・レポート作成を行う際に同一の計算式が強制適用され、Single Source of Truth（信頼できる唯一の情報源）が確立する。
 - **解説**: Looker は LookML という集中管理型のセマンティックレイヤを提供し、ビジネス指標の定義を一元化して全社的なガバナンスを担保できるためです。Looker Studio やスプレッドシート上で各ユーザーが個別に計算フィールドを作成する運用では、計算ロジックの属人化と数値の不整合が再発するため不適格です。
 - **参考ドキュメント**:
-  - [LookML のコンセプト](https://cloud.google.com/looker/docs/what-is-lookml): ディメンション、メジャー、およびセマンティックレイヤの基礎
+  - [LookML のコンセプト](https://docs.cloud.google.com/looker/docs/what-is-lookml): ディメンション、メジャー、およびセマンティックレイヤの基礎
 
 #### シナリオ 2-3: BigQuery 内の大量テキストデータに対する LLM 感情分析
 
 - **状況**: ホテル予約サイトのデータベースに蓄積された数十万件の宿泊者レビューテキストに対して、最新の大規模言語モデルを用いて一括で「Positive / Neutral / Negative」の感情分類を付与したい場合
-- **対応**: BigQuery の Cloud Resource 接続を設定して Vertex AI の基底モデル（Gemini）と紐付けるリモートモデルを作成し、SQL クエリから `ML.GENERATE_TEXT` 関数を実行して感情分類プロンプトを渡す
-- **結果**: 外部の API 呼び出しプログラムを自前で実装・並列実行することなく、SQL クエリ一発で大量のレビューに対する LLM 推論結果をテーブルに格納できる
+- **対応**: BigQuery の Cloud Resource 接続を設定して Vertex AI の基底モデル（Gemini）と紐付けるリモートモデルを作成し、SQL クエリから `ML.GENERATE_TEXT` 関数を実行して感情分類プロンプトを渡す。
+- **結果**: 外部の API 呼び出しプログラムを自前で実装・並列実行することなく、SQL クエリ一発で大量のレビューに対する LLM 推論結果をテーブルに格納できる。
 - **解説**: BigQuery のリモートモデル機能を使用することで、Vertex AI の事前トレーニング済み LLM を SQL 関数として直接呼び出し、BigQuery のスケーラブルな処理能力の恩恵を受けながら安全にテキスト推論を実行できるためです。外部の Python アプリケーションから 1 行ずつ Vertex AI API を同期呼び出しする構成は、スループットが低く実装運用の負荷が高いため不適格です。
 - **参考ドキュメント**:
-  - [BigQuery リモートモデルによるテキスト生成](https://cloud.google.com/bigquery/docs/generate-text): Cloud Resource 接続と Gemini モデル連携の手順
+  - [BigQuery リモートモデルによるテキスト生成](https://docs.cloud.google.com/bigquery/docs/generate-text): Cloud Resource 接続と Gemini モデル連携の手順
 
 #### シナリオ 2-4: Colab Enterprise を用いたセキュアな探索的データ分析
 
 - **状況**: データアナリストが、BigQuery の売上データに対して Python の Seaborn や Matplotlib を用いた相関分析グラフを作成したいが、ローカル PC に認証情報をダウンロードすることは会社のセキュリティポリシーで禁止されている場合
-- **対応**: Google Cloud コンソールの BigQuery Studio から直接 Colab Enterprise ノートブックを開き、IAM 認証されたマネージドランタイム上で BigQuery DataFrames（bigframes）を用いてデータを読み込み分析する
-- **結果**: サービスアカウントキーや機密データをローカル端末に一切ダウンロードすることなく、エンタープライズのセキュリティ基準に準拠した状態で Jupyter ノートブックによる高度な可視化が完了する
+- **対応**: Google Cloud コンソールの BigQuery Studio から直接 Colab Enterprise ノートブックを開き、IAM 認証されたマネージドランタイム上で BigQuery DataFrames（bigframes）を用いてデータを読み込み分析する。
+- **結果**: サービスアカウントキーや機密データをローカル端末に一切ダウンロードすることなく、エンタープライズのセキュリティ基準に準拠した状態で Jupyter ノートブックによる高度な可視化が完了する。
 - **解説**: Colab Enterprise は Google Cloud 内でホストされるフルマネージドノートブックであり、プロジェクトの IAM 権限をそのまま継承して安全に BigQuery データを操作できるためです。ローカル端末の JupyterLab から JSON サービスアカウントキーを用いて接続する方式は、クレデンシャル漏洩のリスクがありセキュリティポリシーに違反するため不適格です。
 - **参考ドキュメント**:
-  - [Colab Enterprise の概要](https://cloud.google.com/colab/docs/introduction): セキュアなマネージドノートブック環境の活用法
+  - [Colab Enterprise の概要](https://docs.cloud.google.com/colab/docs/introduction): セキュアなマネージドノートブック環境の活用法
 
 #### シナリオ 2-5: 開発した ML モデルのライフサイクル管理とガバナンス
 
 - **状況**: データサイエンスチームが BigQuery ML でトレーニングした複数の予測モデルについて、本番環境へのデプロイ状況やバージョン履歴、評価指標を ML エンジニアチームと共有・一元管理したい場合
-- **対応**: モデル作成時に Vertex AI Model Registry との連携オプションを有効化（または `ML.REGISTER_MODEL` を実行）し、Vertex AI Model Registry にモデルを登録する
-- **結果**: BigQuery ML で構築したモデルが Vertex AI の統合レジストリに登録され、モデルのバージョン管理やオンラインエンドポイントへのデプロイ連携が単一の画面で可視化される
+- **対応**: モデル作成時に Vertex AI Model Registry との連携オプションを有効化（または `ML.REGISTER_MODEL` を実行）し、Vertex AI Model Registry にモデルを登録する。
+- **結果**: BigQuery ML で構築したモデルが Vertex AI の統合レジストリに登録され、モデルのバージョン管理やオンラインエンドポイントへのデプロイ連携が単一の画面で可視化される。
 - **解説**: Vertex AI Model Registry は、Google Cloud 上のあらゆる ML モデル（BigQuery ML、AutoML、カスタムモデル）のメタデータとバージョンを一元管理する中央リポジトリとして機能するためです。単に BigQuery のデータセット内にモデルを放置する運用では、バージョン管理や他システムとの連携が困難となるため推奨されません。
 - **参考ドキュメント**:
-  - [Vertex AI Model Registry のドキュメント](https://cloud.google.com/vertex-ai/docs/model-registry/introduction): モデルのバージョン管理と統合パイプライン
+  - [Vertex AI Model Registry のドキュメント](https://docs.cloud.google.com/gemini-enterprise-agent-platform/machine-learning/model-registry/introduction): モデルのバージョン管理と統合パイプライン
 
 ---
 
 ### 4. 参考ドキュメント & 推奨ハンズオン
 
 #### 公式一次ドキュメント
-- [BigQuery ML のドキュメント](https://cloud.google.com/bigquery/docs/bqml-introduction): 機械学習モデルの作成・評価・推論構文ガイド
-- [LookML のコンセプト概要](https://cloud.google.com/looker/docs/what-is-lookml): view, explore, dimension, measure の定義
-- [Looker Studio のスタートガイド](https://cloud.google.com/looker-studio/docs): セルフサービスレポートの作成と共有
-- [Colab Enterprise の概要](https://cloud.google.com/colab/docs/introduction): BigQuery と連携したマネージド Python ノートブック
+- [BigQuery ML のドキュメント](https://docs.cloud.google.com/bigquery/docs/bqml-introduction): 機械学習モデルの作成・評価・推論構文ガイド
+- [LookML のコンセプト概要](https://docs.cloud.google.com/looker/docs/what-is-lookml): view, explore, dimension, measure の定義
+- [Looker Studio のスタートガイド](https://docs.cloud.google.com/looker/docs): セルフサービスレポートの作成と共有
+- [Colab Enterprise の概要](https://docs.cloud.google.com/colab/docs/introduction): BigQuery と連携したマネージド Python ノートブック
 
 #### 推奨ハンズオン・ラボ（実機検証）
 - [Create ML Models with BigQuery ML (Course Template 624)](https://www.skills.google/course_templates/624):
@@ -394,57 +394,57 @@ Google Cloud では、データウェアハウス内の SQL ベースの ELT 変
 #### シナリオ 3-1: BigQuery 内の依存関係を持つ複数テーブルの自動変換とテスト
 
 - **状況**: データアナリストが BigQuery 内で生データ（Raw）からステージング（Staging）、さらにデータマート（Mart）へと段階的に SQL 変換を行う複数のテーブル群を管理しており、上流テーブルの更新完了を待ってから下流テーブルを更新し、同時に主キーのユニーク性テストを自動実行したい場合
-- **対応**: Dataform を導入し、SQLX ファイル内で `ref()` 関数を用いてテーブル間の依存関係を宣言し、アサーション（assertion）を定義してスケジュール実行を構成する
-- **結果**: テーブルの依存関係が自動解決された DAG に基づいて正しい順序でクエリが実行され、データの品質アサーションに違反した場合はパイプラインが停止して不整合データの伝播を防止できる
+- **対応**: Dataform を導入し、SQLX ファイル内で `ref()` 関数を用いてテーブル間の依存関係を宣言し、アサーション（assertion）を定義してスケジュール実行を構成する。
+- **結果**: テーブルの依存関係が自動解決された DAG に基づいて正しい順序でクエリが実行され、データの品質アサーションに違反した場合はパイプラインが停止して不整合データの伝播を防止できる。
 - **解説**: Dataform は BigQuery 向けの専用 ELT ツールであり、SQLX を用いて依存関係（DAG）の自動構築やデータ品質アサーションをコードとして容易に記述・自動化できるためです。BigQuery の標準スケジュールされたクエリでは、複数クエリ間の依存関係の制御やテストによる停止処理が行えないため不適格です。
 - **参考ドキュメント**:
-  - [Dataform の概要](https://cloud.google.com/dataform/docs/overview): SQLX による依存関係管理とデータモデリング
+  - [Dataform の概要](https://docs.cloud.google.com/dataform/docs/overview): SQLX による依存関係管理とデータモデリング
 
 #### シナリオ 3-2: 異種クラウドおよび複数サービスにまたがる複雑なパイプライン管理
 
 - **状況**: 毎朝のデータ処理において、「AWS S3 から Cloud Storage へのファイル転送完了を確認」→「Dataflow バッチジョブを起動してクレンジング」→「BigQuery へのロードと集計」→「処理完了を Slack およびメールで通知」という一連の処理を、途中でエラーが発生した際の自動再試行を含めて一元管理したい場合
-- **対応**: Cloud Composer（Apache Airflow）を採用し、各タスクを Python の Airflow DAG として定義してオーケストレーションを行う
-- **結果**: 複数の異なるクラウドやサービスにまたがる処理の依存関係、ステータス、再試行回数、ログが単一の Web UI 上で可視化・制御される
+- **対応**: Cloud Composer（Apache Airflow）を採用し、各タスクを Python の Airflow DAG として定義してオーケストレーションを行う。
+- **結果**: 複数の異なるクラウドやサービスにまたがる処理の依存関係、ステータス、再試行回数、ログが単一の Web UI 上で可視化・制御される。
 - **解説**: Cloud Composer は Apache Airflow をベースとしており、異種システム間の複雑なタスク依存関係、条件分岐、再試行ロジック、アラート通知を柔軟に記述・管理するのに最も適しているためです。Workflows でも一部可能ですが、大規模データパイプライン向けの豊富な Airflow オペレーター（BigQuery、Dataflow、S3 等）やエコシステムの恩恵を受けられないため Composer が最適です。
 - **参考ドキュメント**:
-  - [Cloud Composer の概要](https://cloud.google.com/composer/docs/concepts/overview): Apache Airflow によるワークフロー自動化
+  - [Cloud Composer の概要](https://docs.cloud.google.com/composer/docs/composer-3/composer-overview): Apache Airflow によるワークフロー自動化
 
 #### シナリオ 3-3: サーバーレスによるリアルタイムストリーミングデータの BigQuery 直接取り込み
 
 - **状況**: Web アプリケーションから毎秒数千件送信されるクリックストリーム イベントを Pub/Sub トピックで受信し、変換処理を挟むことなく最短レイテンシで BigQuery テーブルへ直接保存したいが、コンピュートサーバーやコードの保守を一切行いたくない場合
-- **対応**: Pub/Sub トピックに対して、サブスクリプションタイプとして「BigQuery への書き込み（BigQuery サブスクリプション）」を選択し、宛先テーブルとスキーマを指定する
-- **結果**: Dataflow パイプラインをコーディング・起動することなく、Pub/Sub の完全マネージド機能のみでメッセージがリアルタイムに BigQuery テーブルへ自動投入される
+- **対応**: Pub/Sub トピックに対して、サブスクリプションタイプとして「BigQuery への書き込み（BigQuery サブスクリプション）」を選択し、宛先テーブルとスキーマを指定する。
+- **結果**: Dataflow パイプラインをコーディング・起動することなく、Pub/Sub の完全マネージド機能のみでメッセージがリアルタイムに BigQuery テーブルへ自動投入される。
 - **解説**: Pub/Sub BigQuery サブスクリプションは、Pub/Sub から直接 BigQuery へストリーミング書き込みを行うネイティブなサーバーレス機能であり、中間のコンピュートリソースを完全に排除して運用負荷とコストを最小化できるためです。Dataflow ジョブを常時起動する構成は、変換処理が不要な単純取り込みにおいては過剰なインフラコストと管理負荷が発生するため不適格です。
 - **参考ドキュメント**:
-  - [Pub/Sub BigQuery サブスクリプション](https://cloud.google.com/pubsub/docs/bigquery): 直接ストリーミング書き込みの構成
+  - [Pub/Sub BigQuery サブスクリプション](https://docs.cloud.google.com/pubsub/docs/bigquery): 直接ストリーミング書き込みの構成
 
 #### シナリオ 3-4: Cloud Storage へのファイルアップロードを契機とするイベント駆動型処理
 
 - **状況**: パートナー企業から Cloud Storage バケットに不定期にアップロードされる CSV ファイルを検知し、ファイルが配置された瞬間に即座に Cloud Run 関数（旧 Cloud Functions）をトリガーしてバリデーションを実行したい場合
-- **対応**: Eventarc を利用し、Cloud Storage バケットの `google.cloud.storage.object.v1.finalized` イベントをリッスンするトリガーを作成して Cloud Run 関数を呼び出す
-- **結果**: ポーリング（定期確認）を行うことなく、ファイル到着と同時にマイクロ秒単位でイベントが発行され、効率的に後続の処理が実行される
+- **対応**: Eventarc を利用し、Cloud Storage バケットの `google.cloud.storage.object.v1.finalized` イベントをリッスンするトリガーを作成して Cloud Run 関数を呼び出す。
+- **結果**: ポーリング（定期確認）を行うことなく、ファイル到着と同時にマイクロ秒単位でイベントが発行され、効率的に後続の処理が実行される。
 - **解説**: Eventarc は Google Cloud の標準的なイベントルーティング基盤であり、Cloud Storage のイベント（ファイルの新規作成）を検知してサーバーレスコンピュートへ確実に配信できるためです。Cloud Scheduler を用いて毎分バケットをポーリングする構成は、不要な API 呼び出しコストが発生し、ファイル到着からの遅延も生じるため不適格です。
 - **参考ドキュメント**:
-  - [Eventarc の概要](https://cloud.google.com/eventarc/docs/overview): イベント駆動アーキテクチャの構築
+  - [Eventarc の概要](https://docs.cloud.google.com/eventarc/docs/overview): イベント駆動アーキテクチャの構築
 
 #### シナリオ 3-5: Dataflow ジョブのレイテンシ増加とバックログのトラブルシューティング
 
 - **状況**: 稼働中の Dataflow ストリーミングパイプラインにおいて、Pub/Sub からのメッセージ消費が追いつかずバックログ（未処理データ）が急増し、処理遅延が発生している場合
-- **対応**: Google Cloud コンソールの Dataflow ジョブ詳細 UI を開き、パイプラインの実行グラフから「システム遅延（System Lag）」と各ステップの「スループット」および「CPU 使用率」を確認し、ボトルネックとなっている変換ステージを特定する
-- **結果**: どの処理ステップでデータが滞留しているかが視覚的に判明し、該当処理の並列度調整やワーカーマシンの最大スケーリング上限の引き上げなどの的確なチューニングを実施できる
+- **対応**: Google Cloud コンソールの Dataflow ジョブ詳細 UI を開き、パイプラインの実行グラフから「システム遅延（System Lag）」と各ステップの「スループット」および「CPU 使用率」を確認し、ボトルネックとなっている変換ステージを特定する。
+- **結果**: どの処理ステップでデータが滞留しているかが視覚的に判明し、該当処理の並列度調整やワーカーマシンの最大スケーリング上限の引き上げなどの的確なチューニングを実施できる。
 - **解説**: Dataflow のジョブ監視 UI は、ステップごとの実行グラフ、システム遅延（現在処理中のデータと最新データとの時間差）、データ鮮度（Data Freshness）をリアルタイムに可視化する専用ツールであり、ストリーミングパイプラインのボトルネック特定に最も直接的であるためです。単に Cloud Logging のテキストログを漫然と検索するだけでは、ストリーミング処理全体の滞留箇所やパフォーマンスの傾向を把握できないため不適格です。
 - **参考ドキュメント**:
-  - [Dataflow モニタリング インターフェースの使用](https://cloud.google.com/dataflow/docs/guides/using-monitoring-intf): パイプラインメトリクスと障害調査
+  - [Dataflow モニタリング インターフェースの使用](https://docs.cloud.google.com/dataflow/docs/guides/using-monitoring-intf): パイプラインメトリクスと障害調査
 
 ---
 
 ### 4. 参考ドキュメント & 推奨ハンズオン
 
 #### 公式一次ドキュメント
-- [Dataform のドキュメント](https://cloud.google.com/dataform/docs/overview): SQLX によるデータモデリングとワークフロー管理
-- [Cloud Composer のコンセプト概要](https://cloud.google.com/composer/docs/concepts/overview): Airflow を用いたエンタープライズオーケストレーション
-- [Dataflow の概要](https://cloud.google.com/dataflow/docs/overview): サーバーレスストリーミングおよびバッチ処理基盤
-- [Pub/Sub BigQuery サブスクリプション](https://cloud.google.com/pubsub/docs/bigquery): コードレスなリアルタイムインジェスト
+- [Dataform のドキュメント](https://docs.cloud.google.com/dataform/docs/overview): SQLX によるデータモデリングとワークフロー管理
+- [Cloud Composer のコンセプト概要](https://docs.cloud.google.com/composer/docs/composer-3/composer-overview): Airflow を用いたエンタープライズオーケストレーション
+- [Dataflow の概要](https://docs.cloud.google.com/dataflow/docs/overview): サーバーレスストリーミングおよびバッチ処理基盤
+- [Pub/Sub BigQuery サブスクリプション](https://docs.cloud.google.com/pubsub/docs/bigquery): コードレスなリアルタイムインジェスト
 
 #### 推奨ハンズオン・ラボ（実機検証）
 - [Build and Deploy Machine Learning Solutions on Vertex AI (Course Template 630)](https://www.skills.google/course_templates/630):
@@ -523,58 +523,58 @@ Google Cloud では、データウェアハウス内の SQL ベースの ELT 変
 #### シナリオ 4-1: 承認済みビューによる個人情報マスキングと安全なデータ共有
 
 - **状況**: 人事部門のデータベースに格納された全従業員の詳細テーブル（氏名、部署、基本給、評価、マイナンバー）から、社内アナリストに対して「部署」と「平均給与」のみを集計したデータを分析させたいが、個人の給与やマイナンバーなどの生データは一切見せたくない場合
-- **対応**: アナリスト向けデータセットを作成し、集計ロジックを記述したビューを作成した上で、元テーブルが存在する人事データセット側でそのビューを「承認済みビュー」として登録し、アナリストにはビューの読み取り権限（`roles/bigquery.dataViewer`）のみを付与する
-- **結果**: アナリストは元テーブルに対する閲覧権限を一切持たない状態のまま、承認済みビューを通じて集計結果のみを安全にクエリできる
+- **対応**: アナリスト向けデータセットを作成し、集計ロジックを記述したビューを作成した上で、元テーブルが存在する人事データセット側でそのビューを「承認済みビュー」として登録し、アナリストにはビューの読み取り権限（`roles/bigquery.dataViewer`）のみを付与する。
+- **結果**: アナリストは元テーブルに対する閲覧権限を一切持たない状態のまま、承認済みビューを通じて集計結果のみを安全にクエリできる。
 - **解説**: BigQuery の承認済みビューを使用すると、ビュー自体に元データへのアクセス権限を委託できるため、クエリを実行するエンドユーザーに対して元の機密テーブルへのアクセス権限を付与せずに済むためです。アナリストに元テーブルへの `dataViewer` ロールを付与して「不要な列を見ないように指示する」運用は、情報漏洩リスクがありセキュリティ原則に反するため不適格です。
 - **参考ドキュメント**:
-  - [BigQuery 承認済みビューの作成](https://cloud.google.com/bigquery/docs/authorized-views): 行・列レベルの安全なアクセス制御手法
+  - [BigQuery 承認済みビューの作成](https://docs.cloud.google.com/bigquery/docs/authorized-views): 行・列レベルの安全なアクセス制御手法
 
 #### シナリオ 4-2: 均一なバケットレベルのアクセスによるアクセス権限の一元統制
 
 - **状況**: 社内の Cloud Storage バケットにおいて、一部のオブジェクトに過去の担当者が個別の ACL（アクセスコントロールリスト）を設定していたため意図しない公開アクセスが発生する恐れがあり、組織ポリシーに準拠してすべてのアクセス権限を IAM のみで一元管理したい場合
-- **対応**: 該当の Cloud Storage バケットの設定で「均一なバケットレベルのアクセス（Uniform bucket-level access）」を有効化する
-- **結果**: 個々のオブジェクトに設定されていた ACL が完全に無効化され、バケット単位の IAM ポリシーのみによってシンプルかつ確実にアクセス権が統制される
+- **対応**: 該当の Cloud Storage バケットの設定で「均一なバケットレベルのアクセス（Uniform bucket-level access）」を有効化する。
+- **結果**: 個々のオブジェクトに設定されていた ACL が完全に無効化され、バケット単位の IAM ポリシーのみによってシンプルかつ確実にアクセス権が統制される。
 - **解説**: 均一なバケットレベルのアクセスを有効にすると、きめ細かなオブジェクト ACL が無視され、バケットレベルの IAM ロールのみでアクセス権限が評価されるため、権限設定の見落としや設定ミスを防止できるためです。オブジェクトごとに手動で ACL を点検・修正する手法は、新規アップロード時に再発する可能性があり非効率であるため不適格です。
 - **参考ドキュメント**:
-  - [均一なバケットレベルのアクセスの使用](https://cloud.google.com/storage/docs/uniform-bucket-level-access): バケットアクセスの一元管理
+  - [均一なバケットレベルのアクセスの使用](https://docs.cloud.google.com/storage/docs/uniform-bucket-level-access): バケットアクセスの一元管理
 
 #### シナリオ 4-3: 法令遵守とストレージ費用削減を両立するライフサイクルルール
 
 - **状況**: 法的要件により過去 7 年間保存することが義務付けられている財務データについて、作成後 30 日間は頻繁に参照されるが、その後はほぼ参照されないため、ストレージコストを極限まで削減したい場合
-- **対応**: Cloud Storage バケットのライフサイクルルールを設定し、「Age: 30 日」でストレージクラスを Standard から Archive に自動移行させ、「Age: 2555 日（7 年）」でオブジェクトを自動削除するルールを構成する
-- **結果**: 人手による手動操作を一切行うことなく、最初の 1 か月は快適に高速参照でき、その後は最も安価な Archive クラス（Standard の数分の一の費用）で安全に長期保持され、7 年経過時に自動削除される
+- **対応**: Cloud Storage バケットのライフサイクルルールを設定し、「Age: 30 日」でストレージクラスを Standard から Archive に自動移行させ、「Age: 2555 日（7 年）」でオブジェクトを自動削除するルールを構成する。
+- **結果**: 人手による手動操作を一切行うことなく、最初の 1 か月は快適に高速参照でき、その後は最も安価な Archive クラス（Standard の数分の一の費用）で安全に長期保持され、7 年経過時に自動削除される。
 - **解説**: Cloud Storage のライフサイクル管理機能を利用することで、作成からの経過日数（Age）に応じてオブジェクトを低コストなストレージクラス（Archive）へ自動降格させ、保持期間終了後に自動削除できるためです。Compute Engine インスタンスで毎日 cron スクリプトを動かして手動でクラス変更コマンドを実行する方式は、不要なコンピュート費用と運用保守が発生するため不適格です。
 - **参考ドキュメント**:
-  - [オブジェクトのライフサイクル管理](https://cloud.google.com/storage/docs/lifecycle): 自動クラス移行と有効期限ルール
+  - [オブジェクトのライフサイクル管理](https://docs.cloud.google.com/storage/docs/lifecycle): 自動クラス移行と有効期限ルール
 
 #### シナリオ 4-4: 顧客管理の暗号鍵（CMEK）による厳格なセキュリティ要件への適合
 
 - **状況**: 金融業界の厳しいコンプライアンス基準により、BigQuery に保存するすべてのクレジットカード取引データについて、「暗号鍵のライフサイクル管理、定期ローテーション、および緊急時の鍵無効化権限を自社で完全に保持しなければならない」と定められている場合
-- **対応**: Cloud Key Management Service（Cloud KMS）で対称暗号鍵を作成し、BigQuery データセットの作成時またはテーブル作成時に「顧客管理の暗号鍵（CMEK）」として当該 KMS 鍵を指定する
-- **結果**: Google デフォルトの GMEK ではなく自社が管理する KMS 鍵によってデータが暗号化され、自社の判断でいつでも鍵を無効化（暗号化データの即時アクセス不能化）できる状態が確立する
+- **対応**: Cloud Key Management Service（Cloud KMS）で対称暗号鍵を作成し、BigQuery データセットの作成時またはテーブル作成時に「顧客管理の暗号鍵（CMEK）」として当該 KMS 鍵を指定する。
+- **結果**: Google デフォルトの GMEK ではなく自社が管理する KMS 鍵によってデータが暗号化され、自社の判断でいつでも鍵を無効化（暗号化データの即時アクセス不能化）できる状態が確立する。
 - **解説**: CMEK を採用することで、暗号鍵の生成・保管・ローテーション・無効化の権限を Cloud KMS 経由で顧客側が完全に掌握でき、厳格な監査要件やコンプライアンス基準を達成できるためです。Google 管理の暗号鍵（GMEK）では鍵のローテーションや無効化を自社の裁量で制御できないため要件を満たせません。また、CSEK は BigQuery で直接サポートされていないため不適格です。
 - **参考ドキュメント**:
-  - [顧客管理の暗号鍵（CMEK）](https://cloud.google.com/kms/docs/cmek): Cloud KMS を用いたデータ暗号化
+  - [顧客管理の暗号鍵（CMEK）](https://docs.cloud.google.com/kms/docs/cmek): Cloud KMS を用いたデータ暗号化
 
 #### シナリオ 4-5: Cloud SQL のゾーン障害に備えた高可用性（HA）とバックアップ戦略
 
 - **状況**: 本番環境の基幹業務システムで使用している Cloud SQL（PostgreSQL）インスタンスについて、万が一データセンター（ゾーン）全体でハードウェア障害が発生した場合でも、データの損失を防ぎ数分以内に自動でサービスを復旧させたい場合
-- **対応**: Cloud SQL インスタンスの高可用性（HA）構成を有効化し、別ゾーンにスタンバイインスタンスを配置して同期レプリケーションを行わせるとともに、自動日次バックアップとトランザクションログ（Point-in-Time Recovery: PITR）を有効化する
-- **結果**: プライマリゾーンに障害が発生した際、人間の介入なしにスタンバイゾーンへの自動フェイルオーバーが実行され、さらに任意の過去時点へのデータ復元能力も確保される
+- **対応**: Cloud SQL インスタンスの高可用性（HA）構成を有効化し、別ゾーンにスタンバイインスタンスを配置して同期レプリケーションを行わせるとともに、自動日次バックアップとトランザクションログ（Point-in-Time Recovery: PITR）を有効化する。
+- **結果**: プライマリゾーンに障害が発生した際、人間の介入なしにスタンバイゾーンへの自動フェイルオーバーが実行され、さらに任意の過去時点へのデータ復元能力も確保される。
 - **解説**: Cloud SQL の高可用性（HA）構成は、プライマリゾーンと別ゾーンのスタンバイインスタンス間で同期レプリケーションを行い、障害検知時に自動でフェイルオーバーするマネージド機能であるためです。単にリードレプリカを作成するだけの構成では、手動での昇格作業が必要となり自動フェイルオーバーが行われないため要件を満たせません。
 - **参考ドキュメント**:
-  - [高可用性（HA）の概要](https://cloud.google.com/sql/docs/mysql/high-availability): Cloud SQL の自動フェイルオーバーアーキテクチャ
+  - [高可用性（HA）の概要](https://docs.cloud.google.com/sql/docs/mysql/high-availability): Cloud SQL の自動フェイルオーバーアーキテクチャ
 
 ---
 
 ### 4. 参考ドキュメント & 推奨ハンズオン
 
 #### 公式一次ドキュメント
-- [均一なバケットレベルのアクセスの概要](https://cloud.google.com/storage/docs/uniform-bucket-level-access): バケット単位のセキュリティ統合
-- [BigQuery 承認済みビュー](https://cloud.google.com/bigquery/docs/authorized-views): 行・列レベルの機密データ保護
-- [オブジェクトのライフサイクル管理](https://cloud.google.com/storage/docs/lifecycle): Cloud Storage コスト最適化ルール
-- [顧客管理の暗号鍵（CMEK）](https://cloud.google.com/kms/docs/cmek): Cloud KMS による暗号鍵統制
-- [Sensitive Data Protection (Cloud DLP) のドキュメント](https://cloud.google.com/dlp/docs): 個人情報（PII）の検出とマスキング
+- [均一なバケットレベルのアクセスの概要](https://docs.cloud.google.com/storage/docs/uniform-bucket-level-access): バケット単位のセキュリティ統合
+- [BigQuery 承認済みビュー](https://docs.cloud.google.com/bigquery/docs/authorized-views): 行・列レベルの機密データ保護
+- [オブジェクトのライフサイクル管理](https://docs.cloud.google.com/storage/docs/lifecycle): Cloud Storage コスト最適化ルール
+- [顧客管理の暗号鍵（CMEK）](https://docs.cloud.google.com/kms/docs/cmek): Cloud KMS による暗号鍵統制
+- [Sensitive Data Protection (Cloud DLP) のドキュメント](https://docs.cloud.google.com/sensitive-data-protection/docs): 個人情報（PII）の検出とマスキング
 
 #### 推奨ハンズオン・ラボ（実機検証）
 - [Ensure Access & Security in Google Cloud (Course Template 648)](https://www.skills.google/course_templates/648):

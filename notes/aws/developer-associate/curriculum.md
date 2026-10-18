@@ -23,12 +23,12 @@ AWS Certified Developer - Associate (DVA-C02) は、AWS クラウド環境にお
 
 ## 2. 出題分野（Domain）と出題比率一覧
 
-| ドメイン番号 | 出題分野（Domain） | 出題比率 | 主要対象サービス・技術要素 | ステータス |
-| :--- | :--- | :--- | :--- | :--- |
-| **Domain 1** | AWS のサービスによる開発 | 32% | AWS Lambda, Amazon API Gateway, Amazon DynamoDB, Amazon SQS, Amazon SNS, Amazon EventBridge, AWS Step Functions, Amazon S3, Amazon Kinesis, Amazon Q Developer | 完了 |
-| **Domain 2** | セキュリティ | 26% | AWS IAM, IAM ロール (AssumeRole), Amazon Cognito (User Pools / Identity Pools), AWS KMS (エンベロープ暗号化), AWS Secrets Manager, AWS Systems Manager Parameter Store | 完了 |
-| **Domain 3** | デプロイ | 24% | AWS CodePipeline, AWS CodeBuild, AWS CodeDeploy, AWS SAM, AWS CloudFormation, AWS AppConfig, Amazon ECS / ECR, デプロイメント戦略 (カナリア, リニア, ブルー/グリーン) | 完了 |
-| **Domain 4** | トラブルシューティングと最適化 | 18% | Amazon CloudWatch Logs / Metrics, CloudWatch Logs Insights, 埋め込みメトリクスフォーマット (EMF), AWS X-Ray, Lambda 同時実行制御, ElastiCache, DAX | 完了 |
+| ドメイン番号 | 出題分野（Domain） | 出題比率 | 主要対象サービス・技術要素 |
+| :--- | :--- | :--- | :--- |
+| **Domain 1** | AWS のサービスによる開発 | 32% | AWS Lambda, Amazon API Gateway, Amazon DynamoDB, Amazon SQS, Amazon SNS, Amazon EventBridge, AWS Step Functions, Amazon S3, Amazon Kinesis, Amazon Q Developer |
+| **Domain 2** | セキュリティ | 26% | AWS IAM, IAM ロール (AssumeRole), Amazon Cognito (User Pools / Identity Pools), AWS KMS (エンベロープ暗号化), AWS Secrets Manager, AWS Systems Manager Parameter Store |
+| **Domain 3** | デプロイ | 24% | AWS CodePipeline, AWS CodeBuild, AWS CodeDeploy, AWS SAM, AWS CloudFormation, AWS AppConfig, Amazon ECS / ECR, デプロイメント戦略 (カナリア, リニア, ブルー/グリーン) |
+| **Domain 4** | トラブルシューティングと最適化 | 18% | Amazon CloudWatch Logs / Metrics, CloudWatch Logs Insights, 埋め込みメトリクスフォーマット (EMF), AWS X-Ray, Lambda 同時実行制御, ElastiCache, DAX |
 
 ---
 

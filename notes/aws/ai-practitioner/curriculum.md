@@ -22,13 +22,13 @@ AWS Certified AI Practitioner (AIF-C01) は、人工知能 (AI)、機械学習 (
 
 ## 2. 出題分野（Domain）と出題比率一覧
 
-| ドメイン番号 | 出題分野（Domain） | 出題比率 | 主要対象サービス・技術要素 | ステータス |
-| :--- | :--- | :--- | :--- | :--- |
-| **Domain 1** | AI と ML の基礎 | 20% | Amazon SageMaker AI, Rekognition, Comprehend, Transcribe, Polly, Lex, 教師あり/なし学習, 推論種別 | 完了 |
-| **Domain 2** | GenAI の基礎 | 24% | Amazon Bedrock, Bedrock AgentCore, Transformer, トークン/埋め込み, FMライフサイクル, エージェンティックAI | 完了 |
-| **Domain 3** | 基盤モデルの応用 | 28% | Bedrock Knowledge Bases, Prompt Engineering, OpenSearch Service, RAG, ファインチューニング, 評価指標 | 完了 |
-| **Domain 4** | 責任ある AI に関するガイドライン | 14% | Amazon Bedrock Guardrails, SageMaker Model Cards, SageMaker Clarify, バイアス・公平性, HITL | 完了 |
-| **Domain 5** | AI ソリューションのセキュリティ、コンプライアンス、ガバナンス | 14% | AWS IAM, AWS KMS, Amazon Macie, AWS PrivateLink, CloudTrail, AWS Config, AWS 責任共有モデル | 完了 |
+| ドメイン番号 | 出題分野（Domain） | 出題比率 | 主要対象サービス・技術要素 |
+| :--- | :--- | :--- | :--- |
+| **Domain 1** | AI と ML の基礎 | 20% | Amazon SageMaker AI, Rekognition, Comprehend, Transcribe, Polly, Lex, 教師あり/なし学習, 推論種別 |
+| **Domain 2** | GenAI の基礎 | 24% | Amazon Bedrock, Bedrock AgentCore, Transformer, トークン/埋め込み, FMライフサイクル, エージェンティックAI |
+| **Domain 3** | 基盤モデルの応用 | 28% | Bedrock Knowledge Bases, Prompt Engineering, OpenSearch Service, RAG, ファインチューニング, 評価指標 |
+| **Domain 4** | 責任ある AI に関するガイドライン | 14% | Amazon Bedrock Guardrails, SageMaker Model Cards, SageMaker Clarify, バイアス・公平性, HITL |
+| **Domain 5** | AI ソリューションのセキュリティ、コンプライアンス、ガバナンス | 14% | AWS IAM, AWS KMS, Amazon Macie, AWS PrivateLink, CloudTrail, AWS Config, AWS 責任共有モデル |
 
 ---
 

@@ -3,7 +3,7 @@
 - **対象資格**: Google Cloud Certified - Professional Cloud Database Engineer (PCDBE)
 - **公式試験ガイド**: [Professional Cloud Database Engineer 認定試験ガイド (日本語版)](https://services.google.com/fh/files/misc/professional_cloud_database_engineer_exam_guide_japanese.pdf?hl=ja)
 - **公式試験ページ**: [Professional Cloud Database Engineer | Google Cloud Certification](https://cloud.google.com/learn/certification/cloud-database-engineer?hl=ja)
-- **公式学習パス**: [Google Skills - Database Engineer Learning Path](https://www.skills.google/paths/49?hl=ja)
+- **公式学習パス**: [Google Skills - Database Engineer Learning Path](https://www.skills.google/)
 - **最終更新日**: 2026-10-13
 
 ---
@@ -193,65 +193,65 @@ Google Cloud マネージドデータベースへの接続には、セキュリ�
 #### シナリオ 1-1: グローバル展開における水平スケーラビリティと厳格な外部一貫性の確保
 
 - **状況**: 世界中のユーザーから毎秒数万件の金融取引・残高更新リクエストが発生し、データの不整合（二重引き落とし等）が絶対に許されず、リージョン障害時でもダウンタイムなしで稼働し続ける必要がある場合
-- **対応**: Cloud Spanner のマルチリージョン構成を採用し、テーブルの主キーに自然キーやハッシュ化された UUID を用いて負荷を均等分散させるアーキテクチャを設計する
-- **結果**: 複数リージョンにまたがるトランザクションにおいて厳格な外部一貫性（ACID）が維持され、計画外のリージョン停止時でも 99.999% の可用性を実現する
+- **対応**: Cloud Spanner のマルチリージョン構成を採用し、テーブルの主キーに自然キーやハッシュ化された UUID を用いて負荷を均等分散させるアーキテクチャを設計する。
+- **結果**: 複数リージョンにまたがるトランザクションにおいて厳格な外部一貫性（ACID）が維持され、計画外のリージョン停止時でも 99.999% の可用性を実現する。
 - **解説**: Cloud Spanner は、Google の TrueTime API（原子時計と GPS を用いた精密同期）と Paxos コンセンサスアルゴリズムを統合することで、グローバル分散環境でありながら直列化可能（Serializable）なトランザクションと外部一貫性を保証できる唯一のデータベースであるためです。Cloud SQL では単一リージョン内の垂直スケールに制約され、複数リージョンへの書き込みスケールが不可能なため要件を満たせません。また、Cloud Bigtable や Datastore / Firestore ではクロスリージョンにおける強力なトランザクション保証やリレーショナル結合が提供されないため不適格です。
 - **参考ドキュメント**:
-  - [Cloud Spanner の概要とアーキテクチャ](https://cloud.google.com/spanner/docs/overview?hl=ja): グローバル分散トランザクションと可用性 SLA の詳細
+  - [Cloud Spanner の概要とアーキテクチャ](https://cloud.google.com/spanner?hl=ja): グローバル分散トランザクションと可用性 SLA の詳細
 
 #### シナリオ 1-2: 高負荷トランザクションとリアルタイム分析が混在する PostgreSQL システムの刷新
 
 - **状況**: 既存のオンプレミス PostgreSQL で運用している基幹 ERP システムにおいて、日常の受発注トランザクション（OLTP）の処理性能が限界に達していると同時に、経営陣からのリアルタイム集計クエリ（OLAP）によって本番 DB の CPU が枯渇している場合
-- **対応**: AlloyDB for PostgreSQL を採用し、プライマリインスタンスに加えて分析用のリードプール（Read Pool）をデプロイし、カラム型エンジン（Columnar Engine）を有効化する
-- **結果**: トランザクション処理性能が標準 PostgreSQL の 4 倍以上に向上し、分析集計クエリがインメモリ・カラム型キャッシュにより最大 100 倍高速化され、OLTP ワークロードへの影響が完全に排除される
+- **対応**: AlloyDB for PostgreSQL を採用し、プライマリインスタンスに加えて分析用のリードプール（Read Pool）をデプロイし、カラム型エンジン（Columnar Engine）を有効化する。
+- **結果**: トランザクション処理性能が標準 PostgreSQL の 4 倍以上に向上し、分析集計クエリがインメモリ・カラム型キャッシュにより最大 100 倍高速化され、OLTP ワークロードへの影響が完全に排除される。
 - **解説**: AlloyDB はストレージレイヤとコンピュートレイヤを分離したクラウドネイティブアーキテクチャを採用しており、分析ワークロードに対して透過的なカラム型エンジンをリードプールに適用できるためです。標準の Cloud SQL for PostgreSQL では、分析クエリがプライマリと同じ行指向ストレージから読み出すため I/O 競合が発生し、リードレプリカを追加してもカラム型最適化の恩恵は得られないため不適格です。また、BigQuery への ETL 転送では数分から数時間のバッチ遅延が発生し、リアルタイム性が失われるため要件を満たせません。
 - **参考ドキュメント**:
-  - [AlloyDB カラム型エンジンの概要](https://cloud.google.com/alloydb/docs/columnar-engine/overview?hl=ja): HTAP ワークロードを加速するカラム型キャッシュの仕組み
+  - [AlloyDB カラム型エンジンの概要](https://docs.cloud.google.com/alloydb/docs/columnar-engine/about?hl=ja): HTAP ワークロードを加速するカラム型キャッシュの仕組み
 
 #### シナリオ 1-3: IoT デバイスからの超高スループット時系列データの取り込みとミリ秒未満応答
 
 - **状況**: 数百万台のスマートメーターから毎秒数ミリ秒間隔でテレメトリデータ（センサー値・タイムスタンプ）が送信され、書き込みスループットが毎秒 50 万 QPS を超え、最新データの参照がミリ秒未満のレイテンシで要求される場合
-- **対応**: Cloud Bigtable をプロビジョニングし、行キーの先頭にデバイス ID のソルト値またはハッシュを付与し、タイムスタンプを逆順（リバースタイムスタンプ）で付与するスキーマを設計する
-- **結果**: 書き込み負荷が全クラスタノードに均等に分散され、ホットスポットを発生させることなく線形にスケールし、ミリ秒未満の超低レイテンシで書き込みと最新値の取得が完了する
+- **対応**: Cloud Bigtable をプロビジョニングし、行キーの先頭にデバイス ID のソルト値またはハッシュを付与し、タイムスタンプを逆順（リバースタイムスタンプ）で付与するスキーマを設計する。
+- **結果**: 書き込み負荷が全クラスタノードに均等に分散され、ホットスポットを発生させることなく線形にスケールし、ミリ秒未満の超低レイテンシで書き込みと最新値の取得が完了する。
 - **解説**: Cloud Bigtable は大規模な単一キーアクセスに最適化された NoSQL ワイドカラムストアであり、ノード数に比例して線形にスループットを拡張できるためです。行キー設計においてタイムスタンプを先頭に配置すると最新データが単一ノードに集中するホットスポットが発生しますが、デバイス ID などの高カーディナリティな値をプレフィックスにすることで負荷が分散されます。Cloud SQL や AlloyDB では 50 万 QPS の連続書き込みに対して単一書き込みノードがボトルネックとなり破綻するため不適格です。
 - **参考ドキュメント**:
-  - [Cloud Bigtable スキーマ設計のベストプラクティス](https://cloud.google.com/bigtable/docs/schema-design?hl=ja): 時系列データにおける行キー設計原則
+  - [Cloud Bigtable スキーマ設計のベストプラクティス](https://docs.cloud.google.com/bigtable/docs/schema-design?hl=ja): 時系列データにおける行キー設計原則
 
 #### シナリオ 1-4: モバイルアプリケーション向けのリアルタイム同期とオフライン機能の実装
 
 - **状況**: フィールドエンジニア向けの点検報告モバイルアプリにおいて、電波の届かない地下施設での作業中もデータ入力と閲覧が可能であり、通信復帰時に自動でクラウドとデータが同期され、他ユーザーの変更がリアルタイムに画面へ反映される必要がある場合
-- **対応**: Firestore（ネイティブモード）を採用し、モバイルクライアント SDK を用いてローカルオフライン永続化とリアルタイムリスナー（スナップショットリスナー）を実装する
-- **結果**: ネットワーク切断時でもローカルキャッシュに対してシームレスに読み書きが行われ、オンライン復帰時に競合解決を伴って自動同期が完了する
+- **対応**: Firestore（ネイティブモード）を採用し、モバイルクライアント SDK を用いてローカルオフライン永続化とリアルタイムリスナー（スナップショットリスナー）を実装する。
+- **結果**: ネットワーク切断時でもローカルキャッシュに対してシームレスに読み書きが行われ、オンライン復帰時に競合解決を伴って自動同期が完了する。
 - **解説**: Firestore（ネイティブモード）は、モバイルおよびウェブクライアント向けに強力なオフラインデータ永続化とリアルタイム双方向同期プロトコルを標準で備えているためです。Cloud SQL や AlloyDB ではモバイル端末から直接安全に接続することができず、API サーバーを介した複雑なオフラインキャッシュと同期エンジンの自作が必要となり開発・運用コストが膨大化するため不適格です。また、Firestore Datastore モードはバックエンドサーバー向けであり、クライアント SDK やリアルタイムリスナーに対応していないため要件を満たせません。
 - **参考ドキュメント**:
-  - [Firestore データベース モードの選択](https://cloud.google.com/firestore/docs/firestore-or-datastore?hl=ja): ネイティブ モードと Datastore モードの比較
+  - [Firestore データベース モードの選択](https://docs.cloud.google.com/datastore/docs/firestore-or-datastore?hl=ja): ネイティブ モードと Datastore モードの比較
 
 #### シナリオ 1-5: サーバーレス環境からの急激な同時接続バーストによる DB 接続数枯渇の防止
 
 - **状況**: Cloud Run 上でマイクロサービスを運用しており、突発的なアクセス急増に伴いコンテナインスタンスが数百台へオートスケールした結果、バックエンドの Cloud SQL for PostgreSQL で `FATAL: remaining connection slots are reserved for non-replication superuser connections` エラーが頻発している場合
-- **対応**: Compute Engine または GKE 上にステートレスな PgBouncer をデプロイ（またはマネージドなコネクションプーラーを構成）し、トランザクションプーリングモードで接続を集約する
-- **結果**: Cloud Run からの数千の同時接続が数十本の物理接続へと多重化され、DB の接続上限エラーが解消しメモリ消費が安定する
+- **対応**: Compute Engine または GKE 上にステートレスな PgBouncer をデプロイ（またはマネージドなコネクションプーラーを構成）し、トランザクションプーリングモードで接続を集約する。
+- **結果**: Cloud Run からの数千の同時接続が数十本の物理接続へと多重化され、DB の接続上限エラーが解消しメモリ消費が安定する。
 - **解説**: PostgreSQL は接続ごとに専用のバックエンドプロセスをフォークするため、メモリオーバーヘッドが大きく `max_connections` の上限に達しやすい仕様であるためです。PgBouncer をトランザクションモードで挟むことで、クライアントがトランザクションを実行している間のみ物理接続を割り当て、完了直後に解放して再利用できるため、接続リソースを劇的に節約できます。Cloud SQL インスタンスのマシンタイプをスケールアップして接続上限を引き上げる手法は、不要な高額コストが発生する上にプロセスのコンテキストスイッチ負荷を根本解決できないため不適格です。
 - **参考ドキュメント**:
-  - [Cloud SQL での接続の管理と PgBouncer の使用](https://cloud.google.com/sql/docs/postgres/connect-overview?hl=ja): コネクションプーリングのベストプラクティス
+  - [Cloud SQL での接続の管理と PgBouncer の使用](https://docs.cloud.google.com/sql/docs/postgres/connection-options?hl=ja): コネクションプーリングのベストプラクティス
 
 #### シナリオ 1-6: 共有 VPC 環境における IP 枯渇回避と最小権限のセキュア接続
 
 - **状況**: 大規模エンタープライズにおいて、社内ネットワークのプライベート IPv4 アドレス空間が極めて逼迫しており、異なるプロジェクトで稼働する Cloud SQL インスタンス群に対して、大規模な CIDR ブロック（/24 等）を割り当てることなく安全に接続したい場合
-- **対応**: Cloud SQL インスタンスで Private Service Connect（PSC）を有効化し、接続元 VPC 側で単一のプライベート IP アドレス（転送ルール）を割り当てて通信を確立する
-- **結果**: 大規模なサブネット予約を必要とせず、単一のホスト IP（/32）のみでデータベースへのプライベート接続が実現し、VPC ピアリングによるルーティング制限も回避される
+- **対応**: Cloud SQL インスタンスで Private Service Connect（PSC）を有効化し、接続元 VPC 側で単一のプライベート IP アドレス（転送ルール）を割り当てて通信を確立する。
+- **結果**: 大規模なサブネット予約を必要とせず、単一のホスト IP（/32）のみでデータベースへのプライベート接続が実現し、VPC ピアリングによるルーティング制限も回避される。
 - **解説**: Private Service Connect（PSC）は、サービスプロデューサとコンシューマをエンドポイント（転送ルール）経由で一方向に疎結合接続するため、コンシューマ VPC 側の IP アドレス消費を最小限（接続ごとに 1 つの内部 IP）に抑えられるためです。従来のプライベートサービスアクセス（PSA / VPC ピアリング）では、事前に /24 などの広範な連続 IP 空間を予約する必要があり、IP 枯渇環境では要件を満たせません。また、公開 IP を付与して認証プロキシ経由でアクセスする構成は、セキュリティ統制上プライベート IP 接続が義務付けられているエンタープライズ基準に反するため不適格です。
 - **参考ドキュメント**:
-  - [Cloud SQL の Private Service Connect の概要](https://cloud.google.com/sql/docs/mysql/configure-private-service-connect?hl=ja): PSC を使用したセキュア接続
+  - [Cloud SQL の Private Service Connect の概要](https://docs.cloud.google.com/sql/docs/mysql/configure-private-service-connect?hl=ja): PSC を使用したセキュア接続
 
 #### シナリオ 1-7: 生成 AI アプリケーション向けのベクトル類似検索とリレーショナルデータの単一トランザクション管理
 
 - **状況**: Eコマースサイトにおいて、商品のメタデータ（価格、在庫、カテゴリ）と商品の画像・説明文から生成されたベクトル埋め込み（Embedding）を管理し、商品更新と埋め込み更新をアトミックに実行しつつ、類似商品検索を高速に提供したい場合
-- **対応**: AlloyDB for PostgreSQL で `pgvector` 拡張機能と ScaNN（Google 開発の高速近似最近傍探索インデックス）を有効化し、単一の SQL クエリでリレーショナルフィルタとベクトル検索を同時に実行する
-- **結果**: 外部の専用ベクトルデータベースを導入することなく、同一トランザクション内で商品情報と埋め込みの一貫性が保証され、標準 pgvector よりも数倍高速な ANN 検索が実現する
+- **対応**: AlloyDB for PostgreSQL で `pgvector` 拡張機能と ScaNN（Google 開発の高速近似最近傍探索インデックス）を有効化し、単一の SQL クエリでリレーショナルフィルタとベクトル検索を同時に実行する。
+- **結果**: 外部の専用ベクトルデータベースを導入することなく、同一トランザクション内で商品情報と埋め込みの一貫性が保証され、標準 pgvector よりも数倍高速な ANN 検索が実現する。
 - **解説**: AlloyDB は Google 独自の高度なベクトル検索アクセラレーション（ScaNN 統合）を提供しており、リレーショナルデータと埋め込みデータを同一の ACID トランザクション内でアトミックに管理できるためです。外部のスタンドアロンなベクトル検索 DB（Pinecone や Milvus 等）を併用するアプローチは、2相コミットに対応しておらず、在庫更新と埋め込み更新の間に不整合が発生するリスクや二重運用のオーバーヘッドが生じるため不適格です。また、Cloud Bigtable ではベクトルインデックスやコサイン類似度計算をネイティブにサポートしていないため要件を満たせません。
 - **参考ドキュメント**:
-  - [AlloyDB におけるベクトル埋め込みの操作と ScaNN インデックス](https://cloud.google.com/alloydb/docs/ai/work-with-embeddings?hl=ja): 生成 AI ワークロードの統合
+  - [AlloyDB におけるベクトル埋め込みの操作と ScaNN インデックス](https://docs.cloud.google.com/alloydb/docs/ai/work-with-embeddings?hl=ja): 生成 AI ワークロードの統合
 
 ---
 
@@ -259,13 +259,13 @@ Google Cloud マネージドデータベースへの接続には、セキュリ�
 
 #### 公式一次ドキュメント
 - [データベースの選択ガイド - Google Cloud](https://cloud.google.com/products/databases?hl=ja): ユースケース別のデータベース製品選定フロー
-- [Cloud SQL ネットワーク接続オプションの概要](https://cloud.google.com/sql/docs/mysql/connect-overview?hl=ja): PSC、PSA、パブリック IP の比較
-- [Cloud Spanner スキーマ設計のベストプラクティス](https://cloud.google.com/spanner/docs/schema-and-data-model?hl=ja): ホットスポット防止とインターリーブ設計
+- [Cloud SQL ネットワーク接続オプションの概要](https://docs.cloud.google.com/sql/docs/mysql/connection-options?hl=ja): PSC、PSA、パブリック IP の比較
+- [Cloud Spanner スキーマ設計のベストプラクティス](https://docs.cloud.google.com/spanner/docs/schema-and-data-model?hl=ja): ホットスポット防止とインターリーブ設計
 
 #### 推奨ハンズオン・ラボ（実機検証）
-- [Create and Manage Cloud Spanner Instances (Google Skills)](https://www.skills.google/focuses/1162?parent=catalog):
+- [Create and Manage Cloud Spanner Instances (Google Skills)](https://www.skills.google/):
   - **学習目標**: Cloud Spanner インスタンスの作成、ノード数のスケーリング、インターリーブテーブルの作成、DDL 変更、および SQL クエリ実行による動作検証
-- [AlloyDB for PostgreSQL: Qwik Start (Google Skills)](https://www.skills.google/focuses/47093?parent=catalog):
+- [AlloyDB for PostgreSQL: Qwik Start (Google Skills)](https://www.skills.google/):
   - **学習目標**: AlloyDB クラスタおよびプライマリインスタンスのプロビジョニング、リードプールの作成、PostgreSQL クライアントからの接続とカラム型エンジンの有効化検証
 
 ---
@@ -326,79 +326,79 @@ Google Cloud マネージドデータベースへの接続には、セキュリ�
 #### シナリオ 2-1: 突発的な CPU 飽和時におけるボトルネッククエリの特定と実行計画改善
 
 - **状況**: Cloud SQL for PostgreSQL 本番インスタンスの CPU 使用率が 95% に張り付き、アプリケーションのレスポンスタイムが著しく悪化しているが、どのエンドポイントのどの SQL が原因か判明していない場合
-- **対応**: Cloud SQL コンソールで Query Insights を開き、正規化されたクエリ一覧から CPU 負荷と待機時間の最も高いクエリを特定し、EXPLAIN ANALYZE を実行してフルテーブルスキャンを検出した上で適切な複合インデックスを追加する
-- **結果**: 該当クエリの実行計画が Index Scan に変化して実行時間が数ミリ秒に短縮され、インスタンスの CPU 使用率が平時の 20% 以下に低下する
+- **対応**: Cloud SQL コンソールで Query Insights を開き、正規化されたクエリ一覧から CPU 負荷と待機時間の最も高いクエリを特定し、EXPLAIN ANALYZE を実行してフルテーブルスキャンを検出した上で適切な複合インデックスを追加する。
+- **結果**: 該当クエリの実行計画が Index Scan に変化して実行時間が数ミリ秒に短縮され、インスタンスの CPU 使用率が平時の 20% 以下に低下する。
 - **解説**: Query Insights は、データベースにかかっている負荷（Load by query）を視覚化し、CPU 時間やロック待機を消費している問題のクエリを瞬時に特定できるためです。さらに Sqlcommenter を用いることで ORM やアプリケーションコントローラまでトレースできます。単にインスタンスの CPU コア数を増強する（スケールアップする）対応は、根本的な非効率クエリ（フルスキャン）を放置するため一時しのぎに過ぎず、無駄なコストを恒常化させるため不適格です。また、インスタンスを再起動する対応は、キャッシュクリアにより一時的にさらにパフォーマンスが悪化するリスクがあるため不適格です。
 - **参考ドキュメント**:
-  - [Cloud SQL Query Insights によるクエリ パフォーマンスの分析](https://cloud.google.com/sql/docs/postgres/using-query-insights?hl=ja): ボトルネッククエリの特定手法
+  - [Cloud SQL Query Insights によるクエリ パフォーマンスの分析](https://docs.cloud.google.com/sql/docs/postgres/using-query-insights?hl=ja): ボトルネッククエリの特定手法
 
 #### シナリオ 2-2: Cloud Spanner における書き込み集中によるパフォーマンス劣化とホットスポット解消
 
 - **状況**: Cloud Spanner で大規模な新規ユーザー登録イベントを実施した際、CPU 使用率が特定のサーバに偏り、書き込み遅延のアラートが発生している場合
-- **対応**: Key Visualizer を起動してヒートマップを確認し、主キーの先頭に `AUTO_INCREMENT` や現在日時（TIMESTAMP）を使用しているテーブルを特定し、主キー設計を UUID v4 またはハッシュ化プレフィックスに変更する
-- **結果**: 書き込みトランザクションが全スプリットおよび全ノードへ均等に分散され、局所的なホットスポットが解消して低レイテンシが回復する
+- **対応**: Key Visualizer を起動してヒートマップを確認し、主キーの先頭に `AUTO_INCREMENT` や現在日時（TIMESTAMP）を使用しているテーブルを特定し、主キー設計を UUID v4 またはハッシュ化プレフィックスに変更する。
+- **結果**: 書き込みトランザクションが全スプリットおよび全ノードへ均等に分散され、局所的なホットスポットが解消して低レイテンシが回復する。
 - **解説**: Spanner はデータを主キーの昇順（辞書順）でソートしてスプリット（データ分割単位）に配置するため、シーケンシャルな値（連番やタイムスタンプ）を主キーの先頭にすると、最新の書き込みがすべて単一のスプリットを管理する単一ノードに集中し、他のノードが遊休状態でもスループットが頭打ちになるためです。UUID やハッシュなどランダム性の高い値を主キーの先頭にすることで、書き込みが全スプリットへ均等に分散されます。Spanner ノード数を一時的に追加する対応は、ホットスポットとなっている単一スプリットの負荷を分散できないため効果がなく不適格です。
 - **参考ドキュメント**:
-  - [Cloud Spanner Key Visualizer の使用](https://cloud.google.com/spanner/docs/key-visualizer?hl=ja): ホットスポットパターンの分析
+  - [Cloud Spanner Key Visualizer の使用](https://docs.cloud.google.com/spanner/docs/key-visualizer?hl=ja): ホットスポットパターンの分析
 
 #### シナリオ 2-3: 誤った本番 DML 実行によるデータ損失からの最小 RPO 復旧
 
 - **状況**: オペレーターの操作ミスにより、本番 Cloud SQL インスタンスで 14:32:10 に誤った `DELETE FROM orders` が実行され、直近の自動バックアップは前日深夜 02:00 である場合
-- **対応**: ポイントインタイム リカバリ（PITR）を使用し、誤操作直前のタイムスタンプ（例: 14:32:00）を指定して新規インスタンスへ復元を実行し、復元データから対象テーブルをエクスポートして本番へリカバリする
-- **結果**: 前夜のバックアップ以降に登録された当日のすべての正常なトランザクションが保持され、データ損失（RPO）を数秒以内に抑えて復旧が完了する
+- **対応**: ポイントインタイム リカバリ（PITR）を使用し、誤操作直前のタイムスタンプ（例: 14:32:00）を指定して新規インスタンスへ復元を実行し、復元データから対象テーブルをエクスポートして本番へリカバリする。
+- **結果**: 前夜のバックアップ以降に登録された当日のすべての正常なトランザクションが保持され、データ損失（RPO）を数秒以内に抑えて復旧が完了する。
 - **解説**: Cloud SQL の PITR は、ベースバックアップに加えてトランザクションログ（先行書き込みログ / バイナリログ）を保持しているため、過去 7 日以内の任意の秒単位の時点へインスタンスを復元できるためです。前日深夜の自動バックアップから復元する手法では、当日 02:00 から 14:32 までの 12 時間分以上の正規注文データが永久に消失するため不適格です。また、スタンバイインスタンスへフェイルオーバーさせる手法は、スタンバイにも削除トランザクションが即座に同期されているためデータ消失を解決できず不適格です。
 - **参考ドキュメント**:
-  - [Cloud SQL でのポイントインタイム リカバリ (PITR)](https://cloud.google.com/sql/docs/postgres/backup-recovery/pitr?hl=ja): トランザクションログによる復元
+  - [Cloud SQL でのポイントインタイム リカバリ (PITR)](https://docs.cloud.google.com/sql/docs/postgres/backup-recovery/pitr?hl=ja): トランザクションログによる復元
 
 #### シナリオ 2-4: 法令遵守に伴う長期間の論理バックアップとストレージコストの最適化
 
 - **状況**: 金融コンプライアンス要件により、四半期末のデータベース完全スナップショットデータを 7 年間改ざん不能な状態で保管する必要があるが、Cloud SQL インスタンスストレージや高頻度アクセスストレージのコストを最小限に抑えたい場合
-- **対応**: Cloud Scheduler と Cloud Run functions を利用して論理ダンプ（pg_dump / mysqldump）を自動実行し、Cloud Storage の Archive ストレージクラスのバケットへ直接保存し、Object Retention（Bucket Lock）ポリシーを 7 年間に設定する
-- **結果**: データベースの論理整合性を保ったダンプが安全にアーカイブされ、テラバイトあたりの月額コストが数分の一に削減され、法的要件が完全に遵守される
+- **対応**: Cloud Scheduler と Cloud Run functions を利用して論理ダンプ（pg_dump / mysqldump）を自動実行し、Cloud Storage の Archive ストレージクラスのバケットへ直接保存し、Object Retention（Bucket Lock）ポリシーを 7 年間に設定する。
+- **結果**: データベースの論理整合性を保ったダンプが安全にアーカイブされ、テラバイトあたりの月額コストが数分の一に削減され、法的要件が完全に遵守される。
 - **解説**: Cloud Storage Archive クラスは、年 1 回未満のアクセス頻度のデータに対して最も安価なストレージ単価を提供し、Bucket Lock 機能により法令で義務付けられた保持期間中の削除・上書きを防止できるためです。Cloud SQL の標準自動バックアップは最大保持日数が 365 日（またはデフォルト数日〜数週間）に制限されており、7 年間の長期保持要件を満たせないため不適格です。また、インスタンスを停止した状態で 7 年間維持する手法は、インスタンス予約費用やディスク費用が極めて高額になるため不適格です。
 - **参考ドキュメント**:
-  - [Cloud Storage のストレージ クラス](https://cloud.google.com/storage/docs/storage-classes?hl=ja): Archive クラスの選定
+  - [Cloud Storage のストレージ クラス](https://docs.cloud.google.com/storage/docs/storage-classes?hl=ja): Archive クラスの選定
 
 #### シナリオ 2-5: 日中ピーク時の読み取りスループット不足に対するコスト効率の良い解決
 
 - **状況**: Cloud SQL for MySQL を利用する EC サイトで、ブラックフライデー期間中に商品詳細ページの閲覧リクエストが平時の 10 倍に達し、CPU とディスク読み取り IOPS が枯渇しているが、書き込みリクエスト数は平時と変わらない場合
-- **対応**: 同一リージョン内に 2 台のリードレプリカを追加プロビジョニングし、アプリケーションのデータソース設定で参照系クエリの接続先をリードレプリカのエンドポイントにルーティングする
-- **結果**: プライマリインスタンスの読み取り負荷が完全にオフロードされ、CPU 使用率が安定し、セール期間終了後はレプリカを削除してコストを平時に戻す
+- **対応**: 同一リージョン内に 2 台のリードレプリカを追加プロビジョニングし、アプリケーションのデータソース設定で参照系クエリの接続先をリードレプリカのエンドポイントにルーティングする。
+- **結果**: プライマリインスタンスの読み取り負荷が完全にオフロードされ、CPU 使用率が安定し、セール期間終了後はレプリカを削除してコストを平時に戻す。
 - **解説**: 読み取り専用の負荷急増に対しては、リードレプリカをスケールアウトして参照クエリを分散させることが最も費用対効果が高く、プライマリの更新性能に影響を与えないベストプラクティスであるためです。プライマリインスタンスを大規模なマシンタイプへスケールアップする対応は、インスタンス変更に伴うフェイルオーバー・停止時間が発生する上、書き込み能力が過剰プロビジョニングとなりコスト効率が悪いため不適格です。また、Spanner への全面移行を即座に行うアプローチは、アプリケーションコードの全面改修が必要となり直前のセール対策としては非現実的であるため不適格です。
 - **参考ドキュメント**:
-  - [Cloud SQL リードレプリカの概要](https://cloud.google.com/sql/docs/mysql/replication/replication-overview?hl=ja): 読み取りトラフィックの分散
+  - [Cloud SQL リードレプリカの概要](https://docs.cloud.google.com/sql/docs/mysql/replication?hl=ja): 読み取りトラフィックの分散
 
 #### シナリオ 2-6: PostgreSQL のテーブルブロート防止とトランザクション ID 周回障害の回避
 
 - **状況**: Cloud SQL for PostgreSQL で大量の UPDATE および DELETE を頻繁に実行するバッチ処理を稼働させている環境で、ディスク容量の消費が急増し、将来的なトランザクション ID（XID）周回（wraparound）の警告が発生している場合
-- **対応**: データベースフラグで `autovacuum` が有効化されていることを確認した上で、更新頻度の高いテーブルに対して `autovacuum_vacuum_scale_factor` を小さく調整し、Cloud Scheduler を用いて閑散期に `VACUUM ANALYZE` を定期実行する
-- **結果**: 不要なデッドタプルが速やかに回収されてテーブルブロートが解消し、ディスク容量の浪費が抑えられ、XID 周回障害のリスクが完全に排除される
+- **対応**: データベースフラグで `autovacuum` が有効化されていることを確認した上で、更新頻度の高いテーブルに対して `autovacuum_vacuum_scale_factor` を小さく調整し、Cloud Scheduler を用いて閑散期に `VACUUM ANALYZE` を定期実行する。
+- **結果**: 不要なデッドタプルが速やかに回収されてテーブルブロートが解消し、ディスク容量の浪費が抑えられ、XID 周回障害のリスクが完全に排除される。
 - **解説**: PostgreSQL は追記型アーキテクチャ（MVCC）を採用しているため、UPDATE や DELETE された古い行（デッドタプル）は VACUUM 処理によって回収されるまでディスク上に残り続け、放置するとテーブルが肥大化して XID 周回停止を引き起こすためです。テーブル単位で VACUUM の起動閾値を下げ、積極的にタプルを回収することが重要です。`VACUUM FULL` を日中に手動実行する対応は、対象テーブルに排他ロック（ACCESS EXCLUSIVE）がかかり、全トランザクションが完全にブロックされるため本番環境では不適格です。
 - **参考ドキュメント**:
-  - [Cloud SQL for PostgreSQL での VACUUM の管理](https://cloud.google.com/sql/docs/postgres/flags?hl=ja): パフォーマンスフラグの設定
+  - [Cloud SQL for PostgreSQL での VACUUM の管理](https://docs.cloud.google.com/sql/docs/postgres/flags?hl=ja): パフォーマンスフラグの設定
 
 #### シナリオ 2-7: Cloud SQL のメジャーバージョンアップグレードにおけるダウンタイムと互換性リスクの極小化
 
 - **状況**: PostgreSQL 11 で稼働している Cloud SQL インスタンスをサポート終了に伴い PostgreSQL 15 へアップグレードする必要があるが、本番停止時間を最小限に抑え、アプリケーションの非互換性による障害を確実に防ぎたい場合
-- **対応**: 本番インスタンスからクローンインスタンスを作成して PostgreSQL 15 へのインプレースアップグレードおよびアプリケーションの結合テストを事前検証し、問題がないことを確認した上で、メンテナンスウィンドウ中に本番インスタンスのインプレースアップグレードを実行する
-- **結果**: 稼働中データに影響を与えることなくアップグレードの成否と所要時間を事前に把握でき、本番作業時は数分程度のダウンタイムで安全にバージョン移行が完了する
+- **対応**: 本番インスタンスからクローンインスタンスを作成して PostgreSQL 15 へのインプレースアップグレードおよびアプリケーションの結合テストを事前検証し、問題がないことを確認した上で、メンテナンスウィンドウ中に本番インスタンスのインプレースアップグレードを実行する。
+- **結果**: 稼働中データに影響を与えることなくアップグレードの成否と所要時間を事前に把握でき、本番作業時は数分程度のダウンタイムで安全にバージョン移行が完了する。
 - **解説**: Cloud SQL のクローン機能はストレージのスナップショットを利用して同一データを持つ独立環境を瞬時に作成できるため、バージョンアップ手順とアプリ互換性をノーリスクで事前検証できるためです。事前テストを行わずに本番で直接インプレースアップグレードを実行する手法は、万一 SQL 構文や拡張機能の非互換性があった場合に即座に切り戻せずサービス停止が長期化するため不適格です。また、mysqldump / pg_dump によるエクスポート・インポートで新インスタンスを構築する手法は、データ量に比例して数時間の長大なダウンタイムを要するため不適格です。
 - **参考ドキュメント**:
-  - [Cloud SQL インスタンスのメジャー バージョンのアップグレード](https://cloud.google.com/sql/docs/postgres/upgrade-major-db-version?hl=ja): インプレースアップグレード手順
+  - [Cloud SQL インスタンスのメジャー バージョンのアップグレード](https://docs.cloud.google.com/sql/docs/postgres/upgrade-major-db-version-inplace?hl=ja): インプレースアップグレード手順
 
 ---
 
 ### 4. 参考ドキュメント & 推奨ハンズオン
 
 #### 公式一次ドキュメント
-- [Cloud SQL バックアップと復元の概要](https://cloud.google.com/sql/docs/postgres/backup-recovery/backups?hl=ja): 自動バックアップとオンデマンドバックアップの仕様
-- [Cloud SQL IAM データベース認証の構成](https://cloud.google.com/sql/docs/postgres/authentication?hl=ja): サービスアカウントを用いたキーレス接続
-- [Spanner の CPU 使用率とアラートのベストプラクティス](https://cloud.google.com/spanner/docs/cpu-utilization?hl=ja): 推奨 CPU 閾値（高優先度タスク 65%）
+- [Cloud SQL バックアップと復元の概要](https://docs.cloud.google.com/sql/docs/postgres/backup-recovery/backups?hl=ja): 自動バックアップとオンデマンドバックアップの仕様
+- [Cloud SQL IAM データベース認証の構成](https://docs.cloud.google.com/sql/docs/postgres/iam-authentication?hl=ja): サービスアカウントを用いたキーレス接続
+- [Spanner の CPU 使用率とアラートのベストプラクティス](https://docs.cloud.google.com/spanner/docs/cpu-utilization?hl=ja): 推奨 CPU 閾値（高優先度タスク 65%）
 
 #### 推奨ハンズオン・ラボ（実機検証）
-- [Manage PostgreSQL Databases on Cloud SQL (Google Skills)](https://www.skills.google/focuses/16084?parent=catalog):
+- [Manage PostgreSQL Databases on Cloud SQL (Google Skills)](https://www.skills.google/):
   - **学習目標**: Cloud SQL for PostgreSQL インスタンスの作成、ユーザー管理、IAM データベース認証の構成、Query Insights によるスロークエリの特定と分析
-- [Cloud Spanner - Key Visualizer (Google Skills)](https://www.skills.google/focuses/1162?parent=catalog):
+- [Cloud Spanner - Key Visualizer (Google Skills)](https://www.skills.google/):
   - **学習目標**: Spanner インスタンスへの大規模トラフィック負荷生成、Key Visualizer によるヒートマップ診断、ホットスポットの視覚的特定と主キー設計の改善
 
 ---
@@ -469,8 +469,8 @@ Google Cloud マネージドデータベースへの接続には、セキュリ�
 #### シナリオ 3-1: 24時間稼働のミッションクリティカル MySQL の Cloud SQL への最小停止移行
 
 - **状況**: オンプレミスデータセンターの MySQL データベース（データ量 3TB）を Cloud SQL for MySQL へ移行する必要があるが、ビジネス要件として許容されるダウンタイムが最大 10 分間である場合
-- **対応**: Database Migration Service（DMS）を採用し、Cloud VPN / Interconnect 経由でプライベート接続を構成し、初期データロード後に binlog に基づく継続的レプリケーションを実行し、レプリケーション遅延がゼロになったタイミングでアプリの接続先を切り替える
-- **結果**: データベースの停止時間はアプリケーションの接続先切り替えと DNS 反映の数分間のみに抑えられ、データ損失なしで移行が完了する
+- **対応**: Database Migration Service（DMS）を採用し、Cloud VPN / Interconnect 経由でプライベート接続を構成し、初期データロード後に binlog に基づく継続的レプリケーションを実行し、レプリケーション遅延がゼロになったタイミングでアプリの接続先を切り替える。
+- **結果**: データベースの停止時間はアプリケーションの接続先切り替えと DNS 反映の数分間のみに抑えられ、データ損失なしで移行が完了する。
 - **解説**: DMS は移行元データベースを稼働させたまま初期スナップショットを取得し、その間に発生した差分をトランザクションログ（CDC）経由で継続的に同期するため、最終的な切り替え（カットオーバー）時のダウンタイムを最小化できるためです。mysqldump によるオフライン移行は、3TB のデータ転送とインポートに半日以上を要し、許容ダウンタイム（10分）を大幅に超過するため不適格です。また、Storage Transfer Service はオブジェクトストレージ間の転送ツールであり、稼働中 RDBMS のトランザクション整合性を保った移行には適用できないため不適格です。
 - **参考ドキュメント**:
   - [Database Migration Service による MySQL から Cloud SQL への移行](https://cloud.google.com/database-migration-service/docs/mysql?hl=ja): 継続的レプリケーションの構成
@@ -478,8 +478,8 @@ Google Cloud マネージドデータベースへの接続には、セキュリ�
 #### シナリオ 3-2: カットオーバー直後の致命的不具合に備えた安全な切り戻し（フォールバック）の実現
 
 - **状況**: AWS RDS PostgreSQL から Cloud SQL for PostgreSQL への大規模移行プロジェクトにおいて、本番トラフィック切り替え後に重大なアプリケーション障害が発覚した場合、直ちに旧 AWS RDS 側へ業務を切り戻し、その間に Google Cloud 側で書き込まれた新規データを一切失わないようにしたい場合
-- **対応**: カットオーバーの直前に、Cloud SQL をレプリケーションマスター、AWS RDS をスタンバイとする「リバースレプリケーション（逆方向レプリケーション）」の設定を確立し、切り替え完了と同時に逆方向同期を開始する
-- **結果**: 万一の障害発生時でも、旧環境に最新データが反映されているため、アプリケーションの接続先を AWS RDS へ差し戻すだけでデータ損失ゼロの切り戻しが完了する
+- **対応**: カットオーバーの直前に、Cloud SQL をレプリケーションマスター、AWS RDS をスタンバイとする「リバースレプリケーション（逆方向レプリケーション）」の設定を確立し、切り替え完了と同時に逆方向同期を開始する。
+- **結果**: 万一の障害発生時でも、旧環境に最新データが反映されているため、アプリケーションの接続先を AWS RDS へ差し戻すだけでデータ損失ゼロの切り戻しが完了する。
 - **解説**: リバースレプリケーションは、新環境で発生した差分更新を旧環境へストリーミングすることで、新旧両環境のデータ整合性を維持し、安全なフォールバックを可能にするエンタープライズ移行の標準原則であるためです。切り替え後に問題が発生してから mysqldump でデータを旧環境へ書き戻す手法は、エクスポート・インポートに数時間を要して長時間の二次障害を引き起こすため不適格です。また、切り戻しを諦めて新環境上で緊急パッチを適用する対応は、原因究明に時間がかかる場合のリスクが極めて高いため不適格です。
 - **参考ドキュメント**:
   - [Database Migration Service の移行完了とフォールバック戦略](https://cloud.google.com/database-migration-service/docs/postgres/promote-migration?hl=ja): カットオーバーと切り戻しのベストプラクティス
@@ -487,8 +487,8 @@ Google Cloud マネージドデータベースへの接続には、セキュリ�
 #### シナリオ 3-3: AWS RDS PostgreSQL から AlloyDB への安全なプライベートネットワーク移行
 
 - **状況**: AWS 上で稼働する RDS PostgreSQL インスタンスから Google Cloud の AlloyDB for PostgreSQL への移行において、セキュリティポリシーによりパブリックインターネットを経由したデータ転送が固く禁じられている場合
-- **対応**: AWS VPC と Google Cloud VPC の間に HA VPN（IPsec VPN）または Cloud Interconnect を構築し、DMS の接続プロファイルで VPC ピアリング / プライベート IP 接続を選択して移行ジョブを実行する
-- **結果**: すべてのデータベース初期データおよび CDC トランザクションログが暗号化された閉域網内を転送され、セキュリティ監査基準を満たして移行が完了する
+- **対応**: AWS VPC と Google Cloud VPC の間に HA VPN（IPsec VPN）または Cloud Interconnect を構築し、DMS の接続プロファイルで VPC ピアリング / プライベート IP 接続を選択して移行ジョブを実行する。
+- **結果**: すべてのデータベース初期データおよび CDC トランザクションログが暗号化された閉域網内を転送され、セキュリティ監査基準を満たして移行が完了する。
 - **解説**: DMS はプライベート IP（内部 IP）接続プロファイルをサポートしており、Cloud VPN や Cloud Interconnect などのハイブリッド接続を経由して閉域網内で安全に通信できるためです。RDS にパブリック IP を付与して SSL で保護する手法は、インターネット経由の通信を禁止する厳格な社内セキュリティポリシーに抵触するため不適格です。また、Cloud Storage への CSV エクスポートを経由するオフライン手法は、CDC 継続同期が行えずダウンタイムが長大化するため不適格です。
 - **参考ドキュメント**:
   - [DMS におけるプライベート IP 接続の構成](https://cloud.google.com/database-migration-service/docs/postgres/configure-connectivity?hl=ja): ハイブリッドネットワークの構成
@@ -496,26 +496,26 @@ Google Cloud マネージドデータベースへの接続には、セキュリ�
 #### シナリオ 3-4: 商用リレーショナル DB から Cloud Spanner への異種移行におけるスキーマ変換
 
 - **状況**: オンプレミス Oracle データベースで運用している大規模トランザクションテーブル群を Cloud Spanner へ移行するにあたり、主キー設計の妥当性、データ型の非互換性、外部キー制約の影響を事前に評価したい場合
-- **対応**: Spanner Migration Tool（SMT）を実行して既存スキーマの DDL を解析し、自動生成される評価レポートを確認して、シーケンシャルキーの排除やインターリーブ（交差）テーブル構造への最適化を適用した上で Spanner スキーマを生成する
-- **結果**: Spanner の分散アーキテクチャに適したスキーマ定義が確立され、移行後のホットスポット発生リスクや型変換エラーが事前に排除される
+- **対応**: Spanner Migration Tool（SMT）を実行して既存スキーマの DDL を解析し、自動生成される評価レポートを確認して、シーケンシャルキーの排除やインターリーブ（交差）テーブル構造への最適化を適用した上で Spanner スキーマを生成する。
+- **結果**: Spanner の分散アーキテクチャに適したスキーマ定義が確立され、移行後のホットスポット発生リスクや型変換エラーが事前に排除される。
 - **解説**: Spanner Migration Tool（SMT）は、異種 RDBMS のスキーマ定義を解析し、Spanner 固有の制約（ホットスポットを避ける主キー、親子関係を持つテーブルのインターリーブ設計）に合わせたスキーマ変換の推奨事項を提示する専用ツールであるためです。Oracle の DDL をそのまま Spanner に手動で流し込む手法は、未サポートのデータ型やシーケンスによるホットスポットが発生し、運用破綻を招くため不適格です。また、BigQuery 用のデータ転送サービス（DTS）はデータウェアハウス向けのツールであり、Spanner への OLTP スキーマ変換には対応していないため不適格です。
 - **参考ドキュメント**:
-  - [Spanner Migration Tool によるスキーマとデータの移行](https://cloud.google.com/spanner/docs/migration-tool-overview?hl=ja): 異種移行の評価手順
+  - [Spanner Migration Tool によるスキーマとデータの移行](https://docs.cloud.google.com/spanner/docs/overview?hl=ja): 異種移行の評価手順
 
 #### シナリオ 3-5: 大規模テラバイト級データベースの初期データ移行遅延の解消
 
 - **状況**: オンプレミス PostgreSQL から Cloud SQL へ 10TB のデータを移行する計画において、ネットワーク帯域の制約により DMS の初期フルダンプ転送がタイムアウトまたは数日以上かかり、移行が失敗する場合
-- **対応**: オンプレミス側で物理バックアップを取得し、Storage Transfer Service や並列アップロードを用いて Cloud Storage バケットへ事前にシードデータを転送・インポートした上で、DMS の CDC（継続的レプリケーション）を開始する
-- **結果**: 大容量データの転送が高速かつ確実に完了し、追いついた CDC ストリームによって数分以内のレプリケーション遅延で同期状態が確立される
+- **対応**: オンプレミス側で物理バックアップを取得し、Storage Transfer Service や並列アップロードを用いて Cloud Storage バケットへ事前にシードデータを転送・インポートした上で、DMS の CDC（継続的レプリケーション）を開始する。
+- **結果**: 大容量データの転送が高速かつ確実に完了し、追いついた CDC ストリームによって数分以内のレプリケーション遅延で同期状態が確立される。
 - **解説**: 非常に大規模なデータベース移行では、ネットワーク経由のオンライン初期スキャンに過度な時間をかけるのではなく、ダンプファイルを分割・圧縮して Cloud Storage を経由する事前シード（プレローディング）手法を組み合わせることで、移行の安定性を劇的に高められるためです。単に DMS のタイムアウト値を延長して再試行を繰り返す対応は、長時間のトランザクションログ蓄積によりソース DB のディスクを枯渇させる危険があるため不適格です。また、Transfer Appliance を用いて物理アプライアンスを郵送する手法は、数週間のリードタイムを要し、CDC ログ保持期間の限界を超えるため不適格です。
 - **参考ドキュメント**:
-  - [Cloud SQL への大容量データのインポートのベストプラクティス](https://cloud.google.com/sql/docs/postgres/import-export/importing?hl=ja): 高速インポート手法
+  - [Cloud SQL への大容量データのインポートのベストプラクティス](https://docs.cloud.google.com/sql/docs/postgres/import-export?hl=ja): 高速インポート手法
 
 #### シナリオ 3-6: 移行カットオーバー前におけるデータ整合性とチェックサムの検証
 
 - **状況**: 基幹決済データベースを Cloud SQL へ移行するにあたり、本番切り替えを実行する前に、移行元と移行先の間でデータの欠損や不整合が一切ないことを監査証跡として客観的に証明したい場合
-- **対応**: DMS のデータ検証（Data Validation）機能を有効化し、テーブルごとの行数比較および主キーに基づく行レベルのハッシュチェックサム照合をバックグラウンドで実行する
-- **結果**: 100% のデータ整合性が確認され、不整合行が存在しないことがレポートとして出力された状態で安全にカットオーバーが承認される
+- **対応**: DMS のデータ検証（Data Validation）機能を有効化し、テーブルごとの行数比較および主キーに基づく行レベルのハッシュチェックサム照合をバックグラウンドで実行する。
+- **結果**: 100% のデータ整合性が確認され、不整合行が存在しないことがレポートとして出力された状態で安全にカットオーバーが承認される。
 - **解説**: 厳格なコンプライアンスや金融システム移行では、単にレプリケーション遅延がゼロであることの確認だけでなく、データ検証機能によって行レベル・カラムレベルでの完全な一致を数学的チェックサムで検証することがベストプラクティスであるためです。手動で `SELECT COUNT(*)` のみを実行して比較する手法は、行内のカラム値の化けや型変換エラーを検知できないため不適格です。また、本番環境を長時間停止して全件 `EXCEPT` クエリを実行する手法は、システム停止時間が長大化しソース DB に過大な負荷をかけるため不適格です。
 - **参考ドキュメント**:
   - [Database Migration Service におけるデータ検証](https://cloud.google.com/database-migration-service/docs/data-validation?hl=ja): 整合性チェックの実行
@@ -523,11 +523,11 @@ Google Cloud マネージドデータベースへの接続には、セキュリ�
 #### シナリオ 3-7: オンプレミス Oracle から Cloud SQL for PostgreSQL への異種移行における段階的移行
 
 - **状況**: 複雑なストアドプロシージャを多数含むオンプレミス Oracle システムを Cloud SQL for PostgreSQL へ移行したいが、一括移行はリスクが高すぎるため、機能単位・マイクロサービス単位で数か月かけて段階的に移行したい場合
-- **対応**: Datastream を使用して Oracle から PostgreSQL への継続的 CDC パイプラインを構築し、移行が完了した機能から順次 PostgreSQL 側を参照・更新させ、デュアルライトまたはイベント駆動アーキテクチャで両環境の同期を維持する
-- **結果**: ビッグバン移行（一括切り替え）に伴う巨大なリスクを回避し、段階的な機能リリースと検証を行いながら安全にクラウド移行が完了する
+- **対応**: Datastream を使用して Oracle から PostgreSQL への継続的 CDC パイプラインを構築し、移行が完了した機能から順次 PostgreSQL 側を参照・更新させ、デュアルライトまたはイベント駆動アーキテクチャで両環境の同期を維持する。
+- **結果**: ビッグバン移行（一括切り替え）に伴う巨大なリスクを回避し、段階的な機能リリースと検証を行いながら安全にクラウド移行が完了する。
 - **解説**: 異種データベース間の大規模移行では、一度に全システムを切り替えるのではなく、Datastream によるストリーミング CDC を活用して異種データストア間のレプリケーションを行い、段階的にワークロードを移行するアプローチが最も安全であるためです。ストアドプロシージャをすべて手動で書き換えてから一括移行するビッグバン手法は、潜在的なバグが本番リリース時に一斉に噴出し、ビジネス破綻を招くリスクが極めて高いため不適格です。
 - **参考ドキュメント**:
-  - [Datastream によるリアルタイム レプリケーション](https://cloud.google.com/datastream/docs/overview?hl=ja): 異種 DB 間のストリーミング
+  - [Datastream によるリアルタイム レプリケーション](https://docs.cloud.google.com/datastream/docs/overview?hl=ja): 異種 DB 間のストリーミング
 
 ---
 
@@ -535,11 +535,11 @@ Google Cloud マネージドデータベースへの接続には、セキュリ�
 
 #### 公式一次ドキュメント
 - [Database Migration Service の概要](https://cloud.google.com/database-migration-service/docs/overview?hl=ja): サポートされる移行元と移行先、前提条件
-- [Spanner Migration Tool のドキュメント](https://cloud.google.com/spanner/docs/migration-tool-overview?hl=ja): スキーマ評価とマイグレーションの実行
-- [MySQL から Cloud SQL への移行のベストプラクティス](https://cloud.google.com/sql/docs/mysql/migrate-data?hl=ja): ダウンタイム最小化のチェックリスト
+- [Spanner Migration Tool のドキュメント](https://docs.cloud.google.com/spanner/docs/overview?hl=ja): スキーマ評価とマイグレーションの実行
+- [MySQL から Cloud SQL への移行のベストプラクティス](https://docs.cloud.google.com/sql/docs/mysql/migrate-data?hl=ja): ダウンタイム最小化のチェックリスト
 
 #### 推奨ハンズオン・ラボ（実機検証）
-- [Migrate MySQL Data to Cloud SQL using Database Migration Service (Google Skills)](https://www.skills.google/focuses/17650?parent=catalog):
+- [Migrate MySQL Data to Cloud SQL using Database Migration Service (Google Skills)](https://www.skills.google/):
   - **学習目標**: 移行元 MySQL インスタンスの binlog 設定、DMS 接続プロファイルの作成、移行ジョブの開始、CDC 継続同期の確認、およびカットオーバーの実行
 
 ---
@@ -611,44 +611,44 @@ Google Cloud マネージドデータベースへの接続には、セキュリ�
 #### シナリオ 4-1: ゾーン障害時におけるデータ損失ゼロ（RPO=0）と自動フェイルオーバーの実現
 
 - **状況**: 基幹業務システムで稼働する Cloud SQL for PostgreSQL において、データセンター（ゾーン）レベルのハードウェア障害が発生した場合でも、コミット済みトランザクションの消失（RPO>0）を絶対に許さず、人間の介在なしに数分以内に業務を再開したい場合
-- **対応**: Cloud SQL インスタンスの作成時に「高可用性（リージョン）」構成を選択し、プライマリゾーンとセカンダリ（スタンバイ）ゾーンを指定する
-- **結果**: ゾーン A の障害発生時にヘルスチェックが異常を検知し、同一 IP アドレスを維持したまま約 60 秒以内にゾーン B のスタンバイインスタンスへ自動フェイルオーバーし、データ損失ゼロ（RPO=0）で稼働が継続する
+- **対応**: Cloud SQL インスタンスの作成時に「高可用性（リージョン）」構成を選択し、プライマリゾーンとセカンダリ（スタンバイ）ゾーンを指定する。
+- **結果**: ゾーン A の障害発生時にヘルスチェックが異常を検知し、同一 IP アドレスを維持したまま約 60 秒以内にゾーン B のスタンバイインスタンスへ自動フェイルオーバーし、データ損失ゼロ（RPO=0）で稼働が継続する。
 - **解説**: Cloud SQL の高可用性（Regional HA）構成は、リージョナル永続ディスク（Regional Persistent Disk）による同期ディスクレプリケーションを採用しているため、プライマリがダウンしてもスタンバイ側のディスクにすべてのコミット済みデータが既に書き込まれており RPO=0 が保証されるためです。シングルゾーンインスタンスにリードレプリカを配置する構成は、非同期レプリケーションであるためフェイルオーバー時にデータ損失が発生するリスクがあり、自動フェイルオーバーも行われないため不適格です。また、手動でバックアップから別ゾーンへリストアする手順は、数十分以上の長大な停止時間（RTO）を要するため不適格です。
 - **参考ドキュメント**:
-  - [Cloud SQL 高可用性 (HA) の概要](https://cloud.google.com/sql/docs/postgres/high-availability?hl=ja): アーキテクチャとフェイルオーバープロセス
+  - [Cloud SQL 高可用性 (HA) の概要](https://docs.cloud.google.com/sql/docs/postgres/high-availability?hl=ja): アーキテクチャとフェイルオーバープロセス
 
 #### シナリオ 4-2: リージョン全損の広域災害に備えた目標復旧時間（RTO）最小化
 
 - **状況**: 大規模自然災害により東京リージョン（asia-northeast1）全体が機能停止した場合でも、大阪リージョン（asia-northeast2）で迅速にデータベースを再開し、RTO 15 分以内を達成するディザスタリカバリ（DR）計画を策定したい場合
-- **対応**: 東京リージョンの Cloud SQL インスタンスに対して、大阪リージョンにクロスリージョン リードレプリカをプロビジョニングし、DR 発動時に該当レプリカをスタンドアロンインスタンスへ昇格（Promote）させる自動化スクリプトを準備する
-- **結果**: リージョン障害発生時、オペレーターが昇格コマンドを実行（または Cloud Functions で自動トリガー）することで、数分以内に大阪側で書き込み可能な独立インスタンスが立ち上がり、業務が再開する
+- **対応**: 東京リージョンの Cloud SQL インスタンスに対して、大阪リージョンにクロスリージョン リードレプリカをプロビジョニングし、DR 発動時に該当レプリカをスタンドアロンインスタンスへ昇格（Promote）させる自動化スクリプトを準備する。
+- **結果**: リージョン障害発生時、オペレーターが昇格コマンドを実行（または Cloud Functions で自動トリガー）することで、数分以内に大阪側で書き込み可能な独立インスタンスが立ち上がり、業務が再開する。
 - **解説**: クロスリージョンリードレプリカは平時から非同期でトランザクションを受信しているため、障害時に「昇格（Promote）」を実行するだけで即座に書き込み可能なプライマリインスタンスへと変貌し、RTO を最小限に抑えられるためです。別リージョンにバックアップをエクスポートしておき災害時に新規作成する手法は、テラバイト級データのダウンロードとリストアに数時間を要し RTO 15 分を満たせないため不適格です。また、東京リージョン内での HA 構成はリージョン全体の障害には無力であるため不適格です。
 - **参考ドキュメント**:
-  - [Cloud SQL クロスリージョン レプリケーションと DR](https://cloud.google.com/sql/docs/mysql/replication/cross-region-replicas?hl=ja): レプリカの昇格手順
+  - [Cloud SQL クロスリージョン レプリケーションと DR](https://docs.cloud.google.com/sql/docs/mysql/replication/cross-region-replicas?hl=ja): レプリカの昇格手順
 
 #### シナリオ 4-3: Cloud Spanner における SLA 99.999% を達成するためのマルチリージョン トポロジ設計
 
 - **状況**: グローバル決済ネットワークにおいて、年間停止時間を数分以内（SLA 99.999%）に抑え、任意の 1 つのリージョンが完全に停止した場合でも、データの読み取りおよび書き込みの両方を一切停止させない要件がある場合
-- **対応**: Cloud Spanner のマルチリージョン インスタンス構成（例: 2 つの読み書きリージョンと 1 つのウィットネスリージョンを含む構成）を採用する
-- **結果**: 1 つのリージョンが全損した場合でも、残りの 2 つのリージョンで Paxos クォーラム（過半数の合意）が維持され、ダウンタイムゼロ・データ損失ゼロで読み書きトランザクションが継続する
+- **対応**: Cloud Spanner のマルチリージョン インスタンス構成（例: 2 つの読み書きリージョンと 1 つのウィットネスリージョンを含む構成）を採用する。
+- **結果**: 1 つのリージョンが全損した場合でも、残りの 2 つのリージョンで Paxos クォーラム（過半数の合意）が維持され、ダウンタイムゼロ・データ損失ゼロで読み書きトランザクションが継続する。
 - **解説**: Spanner のマルチリージョン構成は、奇数個の投票レプリカ（読み書きレプリカおよびウィットネスレプリカ）を複数の地理的リージョンに分散配置し、Paxos アルゴリズムによって単一リージョンの完全停止時でも過半数を確保できるため、99.999% の業界最高水準の可用性 SLA を提供できるためです。Spanner のシングルリージョン構成では、リージョン障害時に書き込みが停止し可用性 SLA が 99.99% に低下するため要件を満たせません。また、Cloud SQL ではマルチリージョンにまたがる同期書き込みを提供できないため不適格です。
 - **参考ドキュメント**:
-  - [Cloud Spanner リージョン構成とマルチリージョン構成](https://cloud.google.com/spanner/docs/instance-configurations?hl=ja): クォーラムと可用性の仕組み
+  - [Cloud Spanner リージョン構成とマルチリージョン構成](https://docs.cloud.google.com/spanner/docs/instance-configurations?hl=ja): クォーラムと可用性の仕組み
 
 #### シナリオ 4-4: 本番運用前のフェイルオーバー動作検証とアプリケーション回復力テスト
 
 - **状況**: 新規システムのサービスインに先立ち、Cloud SQL インスタンスで障害が発生した際に、クライアントアプリケーションが自動的にコネクションを再試行し、正常にスタンバイ側へ再接続できるかを実機でシミュレーションしたい場合
-- **対応**: Google Cloud コンソールまたは gcloud CLI（`gcloud sql instances failover`）を使用して手動フェイルオーバーをトリガーし、アプリケーションのログ、エラーハンドリング、および復旧所要時間を検証する
-- **結果**: プライマリインスタンスがスタンバイゾーンへ安全に切り替わり、アプリケーション側で設定した指数バックオフ付きリトライ処理が意図通り動作することが証明される
+- **対応**: Google Cloud コンソールまたは gcloud CLI（`gcloud sql instances failover`）を使用して手動フェイルオーバーをトリガーし、アプリケーションのログ、エラーハンドリング、および復旧所要時間を検証する。
+- **結果**: プライマリインスタンスがスタンバイゾーンへ安全に切り替わり、アプリケーション側で設定した指数バックオフ付きリトライ処理が意図通り動作することが証明される。
 - **解説**: Cloud SQL は公式に手動フェイルオーバー機能を提供しており、本番環境の安全性を担保するためのカオステストや DR 訓練をいつでも安全に実行できるためです。インスタンスをコンソールから突然「削除」または「停止」する手法は、設定やデータが失われるリスクがある上、HA フェイルオーバーのシミュレーションにはならないため不適格です。また、スタンバイインスタンスの VM を直接 Compute Engine 画面から停止させる手法は、Cloud SQL のマネージドプレーンが管理する内部リソースであり直接操作できないため不適格です。
 - **参考ドキュメント**:
-  - [Cloud SQL インスタンスの手動フェイルオーバーの開始](https://cloud.google.com/sql/docs/postgres/high-availability#testing): フェイルオーバーテストの手順
+  - [Cloud SQL インスタンスの手動フェイルオーバーの開始](https://docs.cloud.google.com/sql/docs/postgres/high-availability): フェイルオーバーテストの手順
 
 #### シナリオ 4-5: Terraform を用いた高可用性データベース環境の宣言的自動プロビジョニング
 
 - **状況**: 複数の開発・検証・本番環境に対して、人為的ミスを排除し、監査可能なコード（IaC）として同一の Cloud SQL 高可用性構成、プライベート接続、バックアップ設定を迅速に展開したい場合
-- **対応**: Terraform を使用し、`google_sql_database_instance` リソース内で `availability_type = "REGIONAL"`、`backup_configuration.enabled = true`、`backup_configuration.point_in_time_recovery_enabled = true`、および `ip_configuration.psc_enabled = true` を宣言してデプロイする
-- **結果**: バージョン管理されたコードから環境ごとの差異なく数分で高可用性データベースが自動構築され、構成ドリフトが防止される
+- **対応**: Terraform を使用し、`google_sql_database_instance` リソース内で `availability_type = "REGIONAL"`、`backup_configuration.enabled = true`、`backup_configuration.point_in_time_recovery_enabled = true`、および `ip_configuration.psc_enabled = true` を宣言してデプロイする。
+- **結果**: バージョン管理されたコードから環境ごとの差異なく数分で高可用性データベースが自動構築され、構成ドリフトが防止される。
 - **解説**: Terraform（IaC）を活用することで、高可用性（REGIONAL）、PITR、プライベート接続などのクリティカルな設定漏れを防ぎ、再現性とコンプライアンスを完全に自動化できるためです。コンソールから手動で GUI 操作を行って作成する手法は、設定漏れが発生しやすく、複数環境への展開時に人的ミスを誘発するため不適格です。また、シェルスクリプトで gcloud コマンドを羅列する手法は、リソースの更新・削除や依存関係の解決（状態管理）が困難であるため不適格です。
 - **参考ドキュメント**:
   - [Terraform Google Provider - google_sql_database_instance](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/sql_database_instance): HA 構成の記述方法
@@ -656,32 +656,32 @@ Google Cloud マネージドデータベースへの接続には、セキュリ�
 #### シナリオ 4-6: リードレプリカのレプリケーション遅延増大に対するプロアクティブな監視と対策
 
 - **状況**: 大量のバッチ更新処理を実行した際に、Cloud SQL リードレプリカのレプリケーション遅延（Replication Lag）が数分以上に拡大し、Web ユーザーに古いデータが表示される苦情が発生している場合
-- **対応**: Cloud Monitoring で `database/replication/replica_lag` メトリクスに対するアラートポリシーを設定し、遅延が閾値を超えた際に通知を発行するとともに、バッチ処理のトランザクションを小さく分割して実行する
-- **結果**: レプリケーション遅延の発生が即座に運用チームに通知され、バッチの小分けコミットによりレプリカの反映キュー滞留が解消される
+- **対応**: Cloud Monitoring で `database/replication/replica_lag` メトリクスに対するアラートポリシーを設定し、遅延が閾値を超えた際に通知を発行するとともに、バッチ処理のトランザクションを小さく分割して実行する。
+- **結果**: レプリケーション遅延の発生が即座に運用チームに通知され、バッチの小分けコミットによりレプリカの反映キュー滞留が解消される。
 - **解説**: 非同期レプリケーションでは、プライマリで実行された巨大な単一トランザクションがレプリカ側で単一スレッドで適用される際に遅延が急増するため、メトリクス監視とバッチトランザクションの分割（マイクロバッチ化）が根本的な解決策であるためです。レプリカインスタンスのストレージを増設するだけの対応は、I/O 帯域が若干改善する可能性はあるものの、シングルスレッド適用による根本的な遅延原因を解消できないため不適格です。また、レプリケーションを一時停止する対応は、遅延をさらに悪化させるため不適格です。
 - **参考ドキュメント**:
-  - [Cloud SQL レプリケーション遅延のモニタリング](https://cloud.google.com/sql/docs/mysql/replication/replication-overview?hl=ja#replication-lag): 指標の確認と対策
+  - [Cloud SQL レプリケーション遅延のモニタリング](https://docs.cloud.google.com/sql/docs/mysql/replication?hl=ja): 指標の確認と対策
 
 #### シナリオ 4-7: AlloyDB における複数リードプールを活用した高スループット読み取り基盤の構築
 
 - **状況**: AlloyDB for PostgreSQL で運用する大規模ソーシャルメディアにおいて、一般ユーザーからのタイムライン閲覧リクエスト（高頻度・低レイテンシ）と、バックオフィスのデータアナリストによる重いレポート集計クエリが同一の参照インスタンスで競合している場合
-- **対応**: AlloyDB クラスタ内に 2 つの独立したリードプール（Read Pool A: Web 参照用、Read Pool B: レポート集計用）を作成し、Web トラフィック用プールはノード数を自動スケールさせ、分析用プールにはカラム型エンジンを割り当てる
-- **結果**: ワークロードごとにコンピュートリソースが完全に分離され、重い集計クエリが実行されても一般ユーザーの画面表示レイテンシに一切影響を与えなくなる
+- **対応**: AlloyDB クラスタ内に 2 つの独立したリードプール（Read Pool A: Web 参照用、Read Pool B: レポート集計用）を作成し、Web トラフィック用プールはノード数を自動スケールさせ、分析用プールにはカラム型エンジンを割り当てる。
+- **結果**: ワークロードごとにコンピュートリソースが完全に分離され、重い集計クエリが実行されても一般ユーザーの画面表示レイテンシに一切影響を与えなくなる。
 - **解説**: AlloyDB はストレージレイヤが共有されているため、同一クラスタ内に特性やサイズの異なる複数のリードプールを自由に追加でき、ワークロード（OLTP 参照 vs OLAP 分析）ごとにコンピュートを完全分離できるためです。単一の巨大なリードプールですべてのリクエストを処理する構成は、重い分析クエリが CPU やメモリキャッシュを独占し一般ユーザーのリクエストを巻き込んで遅延させるため不適格です。また、プライマリインスタンスで分析クエリを実行する手法は、書き込み処理を直接阻害するため最も避けるべきアンチパターンです。
 - **参考ドキュメント**:
-  - [AlloyDB リードプールの概要と作成](https://cloud.google.com/alloydb/docs/create-read-pool?hl=ja): 読み取りトラフィックの分離
+  - [AlloyDB リードプールの概要と作成](https://docs.cloud.google.com/alloydb/docs/overview?hl=ja): 読み取りトラフィックの分離
 
 ---
 
 ### 4. 参考ドキュメント & 推奨ハンズオン
 
 #### 公式一次ドキュメント
-- [Cloud SQL 高可用性 (HA) の構成](https://cloud.google.com/sql/docs/postgres/high-availability?hl=ja): リージョナル構成のデプロイ
-- [AlloyDB 高可用性と障害復旧](https://cloud.google.com/alloydb/docs/overview?hl=ja): クロスゾーン冗長性とストレージ分離
-- [Terraform を使用した Cloud SQL インスタンスの管理](https://cloud.google.com/sql/docs/postgres/terraform?hl=ja): IaC ベストプラクティス
+- [Cloud SQL 高可用性 (HA) の構成](https://docs.cloud.google.com/sql/docs/postgres/high-availability?hl=ja): リージョナル構成のデプロイ
+- [AlloyDB 高可用性と障害復旧](https://docs.cloud.google.com/alloydb/docs/overview?hl=ja): クロスゾーン冗長性とストレージ分離
+- [Terraform を使用した Cloud SQL インスタンスの管理](https://docs.cloud.google.com/sql/docs/postgres/instance-settings?hl=ja): IaC ベストプラクティス
 
 #### 推奨ハンズオン・ラボ（実機検証）
-- [Configuring High Availability and Read Replicas on Cloud SQL (Google Skills)](https://www.skills.google/focuses/16084?parent=catalog):
+- [Configuring High Availability and Read Replicas on Cloud SQL (Google Skills)](https://www.skills.google/):
   - **学習目標**: Cloud SQL インスタンスの Regional HA 構成の有効化、手動フェイルオーバーのシミュレーションと復旧時間の測定、リードレプリカのプロビジョニングと昇格の検証
 
 ---

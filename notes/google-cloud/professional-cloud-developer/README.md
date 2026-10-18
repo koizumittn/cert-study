@@ -204,77 +204,77 @@ Professional Cloud Developer 認定資格は、Google が推奨するツール�
 #### シナリオ 1-1: 急激なスパイクアクセスに対応するステートレス Web API のコンピュート選定
 
 - **状況**: E コマース企業のセール期間中に通常の 50 倍以上の HTTP トラフィックが突発的に発生し、インフラ運用の手動介入を一切行わずにインフラコストを最小限に抑制したい場合
-- **対応**: アプリケーションをコンテナ化し、自動スケーリング機能（最小インスタンス数 0、最大インスタンス数を必要数に設定）を備えた Cloud Run にデプロイする
-- **結果**: トラフィックの急増に合わせて数秒でコンテナインスタンスが自動的にスケールアウトし、トラフィック減少時にはゼロにスケールインしてアイドルコストがゼロになる
+- **対応**: アプリケーションをコンテナ化し、自動スケーリング機能（最小インスタンス数 0、最大インスタンス数を必要数に設定）を備えた Cloud Run にデプロイする。
+- **結果**: トラフィックの急増に合わせて数秒でコンテナインスタンスが自動的にスケールアウトし、トラフィック減少時にはゼロにスケールインしてアイドルコストがゼロになる。
 - **解説**: Cloud Run はリクエスト駆動で高速にコールドスタートし、リクエスト数に応じて自動でコンテナ数を増減させるサーバーレス基盤であるためです。Compute Engine の マネージド インスタンス グループ（MIG）では VM の起動・プロビジョニングに数分を要し急激なスパイクに追従できないため要件を満たせません。また、GKE Standard ではノードのキャパシティ計画やクラスタ管理の運用オーバーヘッドが発生し、最小コスト維持の観点で不適格です。
 - **参考ドキュメント**:
-  - [Cloud Run ドキュメント](https://cloud.google.com/run/docs): Cloud Run のアーキテクチャと自動スケーリング仕様
+  - [Cloud Run ドキュメント](https://docs.cloud.google.com/run/docs): Cloud Run のアーキテクチャと自動スケーリング仕様
 
 #### シナリオ 1-2: マイクロサービス間の超低遅延・高スループット内部通信のプロトコル選定
 
 - **状況**: 大規模分散システムにおいて、数十のバックエンド マイクロサービス間で毎秒数十万件の内部データ交換を行い、ネットワーク帯域の消費とペイロードのシリアライズ負荷を極小化したい場合
-- **対応**: サービス間通信のインターフェース定義に Protocol Buffers を採用し、トランスポート層に HTTP/2 多重化通信を活用する gRPC を実装する
-- **結果**: JSON テキスト通信と比較してペイロードサイズが大幅に削減され、単一 TCP 接続内での多重ストリーミングにより通信レイテンシが劇的に低下する
+- **対応**: サービス間通信のインターフェース定義に Protocol Buffers を採用し、トランスポート層に HTTP/2 多重化通信を活用する gRPC を実装する。
+- **結果**: JSON テキスト通信と比較してペイロードサイズが大幅に削減され、単一 TCP 接続内での多重ストリーミングにより通信レイテンシが劇的に低下する。
 - **解説**: gRPC はバイナリ形式のシリアライゼーションと HTTP/2 のストリーム多重化をネイティブサポートしており、高スループットかつ低レイテンシな内部通信に最適化されているためです。従来の REST API（HTTP/1.1 + JSON）ではテキスト形式のパース負荷と接続確立オーバーヘッドが大きく、要件を満たせません。SOAP / XML はメッセージ肥大化と処理コストがさらに高いため不適格です。
 - **参考ドキュメント**:
-  - [gRPC 公式ガイド](https://cloud.google.com/run/docs/triggering/grpc): Google Cloud における gRPC サービスの構成とベストプラクティス
+  - [gRPC 公式ガイド](https://docs.cloud.google.com/run/docs/triggering/grpc): Google Cloud における gRPC サービスの構成とベストプラクティス
 
 #### シナリオ 1-3: セッション状態の外部化と急激な読み取り負荷を軽減するインメモリキャッシュ設計
 
 - **状況**: ユーザー認証セッションおよび頻繁に参照される製品カタログデータをリレーショナル データベースから直接読み取っており、データベースの CPU 使用率が高止まりしている場合
-- **対応**: Cloud Memorystore for Redis をプロビジョニングし、アプリケーション層でセッション情報とカタログ検索結果をキャッシュする Cache-Aside（Lazy Loading）パターンを実装する
-- **結果**: データベースへの直接クエリ数が 90% 以上削減され、サブミリ秒単位のレスポンスタイムが実現される
+- **対応**: Cloud Memorystore for Redis をプロビジョニングし、アプリケーション層でセッション情報とカタログ検索結果をキャッシュする Cache-Aside（Lazy Loading）パターンを実装する。
+- **結果**: データベースへの直接クエリ数が 90% 以上削減され、サブミリ秒単位のレスポンスタイムが実現される。
 - **解説**: Memorystore for Redis はフルマネージドなインメモリデータストアであり、ミリ秒未満の超高速アクセスを提供してバックエンド RDBMS の負荷を直接オフロードできるためです。ローカルメモリ（インスタンス内メモリ）にキャッシュを保持すると、Cloud Run や GKE のような自動スケーリング環境ではインスタンス間でセッションが共有できず不整合が発生するため不適格です。Cloud Storage をキャッシュ用途に使用するとレイテンシが要件を満たせません。
 - **参考ドキュメント**:
-  - [Cloud Memorystore for Redis ドキュメント](https://cloud.google.com/memorystore/docs/redis): インメモリキャッシュの構成と高可用性
+  - [Cloud Memorystore for Redis ドキュメント](https://docs.cloud.google.com/memorystore/docs/redis): インメモリキャッシュの構成と高可用性
 
 #### シナリオ 1-4: 大規模バッチ処理のレート制限と流量制御を伴うタスクキューイング設計
 
 - **状況**: ユーザーがアップロードした大量のドキュメントを外部のサードパーティ OCR API に送信して処理する必要があるが、外部 API に毎秒 20 リクエストという厳格なレート制限が存在し、これを超過するとエラーになる場合
-- **対応**: Cloud Tasks を採用し、ディスパッチレート（`max_dispatches_per_second: 20`）を設定した専用キューを作成して、ドキュメント処理リクエストをキューに投入する
-- **結果**: 突発的に数万件のリクエストが到着しても、Cloud Tasks が厳格に毎秒 20 件のペースでバックエンド ワーカーにタスクを配信し、外部 API のレート制限違反を完全に防止する
+- **対応**: Cloud Tasks を採用し、ディスパッチレート（`max_dispatches_per_second: 20`）を設定した専用キューを作成して、ドキュメント処理リクエストをキューに投入する。
+- **結果**: 突発的に数万件のリクエストが到着しても、Cloud Tasks が厳格に毎秒 20 件のペースでバックエンド ワーカーにタスクを配信し、外部 API のレート制限違反を完全に防止する。
 - **解説**: Cloud Tasks はキューごとに最大ディスパッチレートや最大同時実行数を厳格に制御し、バックエンドや外部サービスの過負荷を防ぐ流量制限機能（Rate Limiting）を標準で備えているためです。Cloud Pub/Sub は高スループットなメッセージ配信に最適化されていますが、消費者に対する厳格な秒あたりディスパッチレート制御機能を持たないため要件を満たせません。Cloud Scheduler は定期実行ツールであり、動的な個別タスクのキューイングには適していないため不適格です。
 - **参考ドキュメント**:
-  - [Cloud Tasks ドキュメント](https://cloud.google.com/tasks/docs): レート制限とタスクキューの構成
+  - [Cloud Tasks ドキュメント](https://docs.cloud.google.com/tasks/docs): レート制限とタスクキューの構成
 
 #### シナリオ 1-5: GKE 上のアプリケーションから Cloud SQL へのセキュアかつキーレスな接続
 
 - **状況**: GKE クラスタ上で稼働する複数のマイクロサービスから Cloud SQL (PostgreSQL) にアクセスするにあたり、静的なデータベース認証情報やサービスアカウントの JSON 秘密鍵をポッド内に配置せず、通信経路をエンドツーエンドで暗号化したい場合
-- **対応**: GKE の Workload Identity 連携を有効化して Kubernetes サービスアカウントと Google Cloud サービスアカウントを紐付け、ポッドのサイドカーコンテナとして Cloud SQL Auth Proxy をデプロイして IAM データベース認証を使用する
-- **結果**: 静的なシークレットキーやパスワードの管理が不要となり、短命の OAuth 2.0 アクセストークンと mTLS トンネルによりセキュアに接続が確立される
+- **対応**: GKE の Workload Identity 連携を有効化して Kubernetes サービスアカウントと Google Cloud サービスアカウントを紐付け、ポッドのサイドカーコンテナとして Cloud SQL Auth Proxy をデプロイして IAM データベース認証を使用する。
+- **結果**: 静的なシークレットキーやパスワードの管理が不要となり、短命の OAuth 2.0 アクセストークンと mTLS トンネルによりセキュアに接続が確立される。
 - **解説**: Cloud SQL Auth Proxy と Workload Identity 連携の組み合わせにより、静的キーの漏洩リスクを完全に排除しつつ、自動的な mTLS 暗号化と短命トークンによる認証を実現できるためです。コンテナ内にサービスアカウントの JSON キーファイルを Secret としてマウントする方式は、キーのローテーション負荷と漏洩リスクが残るため推奨されません。Cloud SQL にパブリック IP を付与して許可ネットワーク（Authorized Networks）のみでアクセス制限する構成は、セキュリティ統制が不十分であり不適格です。
 - **参考ドキュメント**:
-  - [Cloud SQL Auth Proxy ドキュメント](https://cloud.google.com/sql/docs/mysql/connect-auth-proxy): 安全なプロキシ接続のベストプラクティス
+  - [Cloud SQL Auth Proxy ドキュメント](https://docs.cloud.google.com/sql/docs/mysql/connect-auth-proxy): 安全なプロキシ接続のベストプラクティス
 
 #### シナリオ 1-6: 外部クライアントへの安全な一時的ファイルアップロード許可
 
 - **状況**: モバイルアプリから数 GB 規模の動画ファイルを Cloud Storage にアップロードさせたいが、アプリケーション サーバーの帯域幅を消費させず、かつ Google Cloud の IAM 権限を直接モバイルクライアントに付与したくない場合
-- **対応**: バックエンド サーバーで特定のオブジェクトに対する制限時間付き（例: 15分間有効）の Cloud Storage 署名付き URL（Signed URL）を生成し、モバイルクライアントへ返却して直接 PUT アップロードさせる
-- **結果**: モバイル端末から Cloud Storage バケットへ直接高速にアップロードが実行され、アプリケーション サーバーのメモリ・ネットワークリソースが一切消費されない
+- **対応**: バックエンド サーバーで特定のオブジェクトに対する制限時間付き（例: 15分間有効）の Cloud Storage 署名付き URL（Signed URL）を生成し、モバイルクライアントへ返却して直接 PUT アップロードさせる。
+- **結果**: モバイル端末から Cloud Storage バケットへ直接高速にアップロードが実行され、アプリケーション サーバーのメモリ・ネットワークリソースが一切消費されない。
 - **解説**: 署名付き URL は、適切な権限を持つサービスアカウントの秘密鍵またはメタデータ署名を用いて、特定のリソースに対する一時的な読み取り/書き込み権限を安全に委譲できるためです。モバイルアプリから一度バックエンド サーバーにファイルを送信し、サーバーがバケットへ転送するアーキテクチャでは、サーバーのリソース枯渇とボトルネックが発生し要件を満たせません。Cloud Storage バケット全体を全公開（`allUsers` に書込権限付与）する設計は、重大なセキュリティ侵害となるため論外です。
 - **参考ドキュメント**:
-  - [Cloud Storage 署名付き URL](https://cloud.google.com/storage/docs/access-control/signed-urls): 一時的アクセス委譲のメカニズム
+  - [Cloud Storage 署名付き URL](https://docs.cloud.google.com/storage/docs/access-control/signed-urls): 一時的アクセス委譲のメカニズム
 
 #### シナリオ 1-7: 大規模グローバル トランザクション データベースの選定と結果整合性/強整合性のトレードオフ
 
 - **状況**: 金融決済プラットフォームにおいて、東京、ロンドン、ニューヨークの複数大陸にまたがる拠点で同時に口座引き落としと残高更新が発生し、いかなる場合も二重引き落としを許容せず、グローバルで完全な ACID トランザクションを保証したい場合
-- **対応**: マルチリージョン構成の Cloud Spanner を選定し、主キー設計において単調増加するタイムスタンプを避け、UUID v4 などのハッシュ化されたキーを用いてデータを分散配置する
-- **結果**: グローバル規模で強整合性（外部整合性）が完全に維持され、ホットスポットを発生させることなく高スループットな並行トランザクションが処理される
+- **対応**: マルチリージョン構成の Cloud Spanner を選定し、主キー設計において単調増加するタイムスタンプを避け、UUID v4 などのハッシュ化されたキーを用いてデータを分散配置する。
+- **結果**: グローバル規模で強整合性（外部整合性）が完全に維持され、ホットスポットを発生させることなく高スループットな並行トランザクションが処理される。
 - **解説**: Cloud Spanner は Google の独自ハードウェア（原子時計と GPS を備えた TrueTime API）により、グローバル分散環境において最高水準の外部整合性と ACID トランザクションを達成できる唯一のフルマネージド RDBMS であるためです。Cloud SQL のリードレプリカ構成は非同期レプリケーションであり、レプリカからの読み取りは結果整合性（データの遅延反映）となるため金融決済には不適格です。Bigtable は行単位のトランザクションに限定され、複数テーブル間の整合性を担保できないため要件を満たせません。
 - **参考ドキュメント**:
-  - [Cloud Spanner ドキュメント](https://cloud.google.com/spanner/docs): スキーマ設計と TrueTime による整合性モデル
+  - [Cloud Spanner ドキュメント](https://docs.cloud.google.com/spanner/docs): スキーマ設計と TrueTime による整合性モデル
 
 ---
 
 ### 4. 参考ドキュメント & 推奨ハンズオン
 
 #### 公式一次ドキュメント
-- [Cloud Run の概要とアーキテクチャ](https://cloud.google.com/run/docs): コンテナ実行のライフサイクルとスケーリング挙動
-- [Google Kubernetes Engine (GKE) ドキュメント](https://cloud.google.com/kubernetes-engine/docs): クラスタアーキテクチャとワークロード運用
-- [Cloud Pub/Sub ドキュメント](https://cloud.google.com/pubsub/docs): メッセージングモデルと信頼性設計
-- [Workflows ドキュメント](https://cloud.google.com/workflows/docs): サーバーレス オーケストレーションの構成
-- [Cloud Tasks ドキュメント](https://cloud.google.com/tasks/docs): タスクキューによる流量制限とリトライ設計
-- [Cloud Spanner ドキュメント](https://cloud.google.com/spanner/docs): グローバル強整合性とスキーマ設計のベストプラクティス
+- [Cloud Run の概要とアーキテクチャ](https://docs.cloud.google.com/run/docs): コンテナ実行のライフサイクルとスケーリング挙動
+- [Google Kubernetes Engine (GKE) ドキュメント](https://docs.cloud.google.com/kubernetes-engine/docs): クラスタアーキテクチャとワークロード運用
+- [Cloud Pub/Sub ドキュメント](https://docs.cloud.google.com/pubsub/docs): メッセージングモデルと信頼性設計
+- [Workflows ドキュメント](https://docs.cloud.google.com/workflows/docs): サーバーレス オーケストレーションの構成
+- [Cloud Tasks ドキュメント](https://docs.cloud.google.com/tasks/docs): タスクキューによる流量制限とリトライ設計
+- [Cloud Spanner ドキュメント](https://docs.cloud.google.com/spanner/docs): グローバル強整合性とスキーマ設計のベストプラクティス
 
 #### 推奨ハンズオン・ラボ（実機検証）
 - [Develop Serverless Applications on Cloud Run (Course Template 741)](https://www.skills.google/course_templates/741):
@@ -359,58 +359,58 @@ Professional Cloud Developer 認定資格は、Google が推奨するツール�
 #### シナリオ 2-1: クラウド費用と外部依存を排したローカル環境でのイベント連携単体テスト
 
 - **状況**: 開発チームが Pub/Sub と Firestore を利用したイベント駆動マイクロサービスの単体テストを CI および開発者のローカル PC で頻繁に実行したいが、クラウドの利用コストを抑え、ネットワーク接続が不安定な環境でも高速にテストを完了させたい場合
-- **対応**: Google Cloud CLI のエミュレータコンポーネント（`gcloud beta emulators pubsub` および `gcloud beta emulators firestore`）をローカルで起動し、環境変数（`PUBSUB_EMULATOR_HOST`、`FIRESTORE_EMULATOR_HOST`）を設定してテストを実行する
-- **結果**: 実際の Google Cloud プロジェクトに接続することなく、完全にローカルかつミリ秒単位で Pub/Sub トピックへの発行と Firestore ドキュメントの読み書きテストが高速に実行され、テストに伴う課金がゼロになる
+- **対応**: Google Cloud CLI のエミュレータコンポーネント（`gcloud beta emulators pubsub` および `gcloud beta emulators firestore`）をローカルで起動し、環境変数（`PUBSUB_EMULATOR_HOST`、`FIRESTORE_EMULATOR_HOST`）を設定してテストを実行する。
+- **結果**: 実際の Google Cloud プロジェクトに接続することなく、完全にローカルかつミリ秒単位で Pub/Sub トピックへの発行と Firestore ドキュメントの読み書きテストが高速に実行され、テストに伴う課金がゼロになる。
 - **解説**: Google Cloud CLI エミュレータは、主要なデータ/メッセージングサービスの動作をローカル環境で忠実に再現し、環境変数の切り替えのみでクライアントライブラリからの接続先をエミュレータに変更できるためです。開発者ごとに個別の Google Cloud プロジェクトを割り当てて実リソースに接続させる方式は、リソース作成のクォータ上限やコスト増大、テストデータのクリーンアップ漏れが発生するため不適格です。外部のモックライブラリを手動で自作する方式は、Google Cloud API の仕様変更への追従やエッジケースの再現に多大な工数がかかるため推奨されません。
 - **参考ドキュメント**:
-  - [Google Cloud エミュレータの概要](https://cloud.google.com/sdk/gcloud/reference/beta/emulators): ローカルテスト用エミュレータの起動と構成
+  - [Google Cloud エミュレータの概要](https://docs.cloud.google.com/sdk/gcloud/reference/beta/emulators): ローカルテスト用エミュレータの起動と構成
 
 #### シナリオ 2-2: ソースコード変更をトリガーとした安全なコンテナビルドとビルド来歴の自動生成
 
 - **状況**: Git リポジトリのメインブランチへのマージを契機として、改ざんのリスクを排除したコンテナイメージを自動ビルドし、サプライチェーンの安全基準である SLSA レベル 3 に準拠した検証可能なビルド来歴を記録したい場合
-- **対応**: Cloud Build トリガーを設定してマネージドワーカープールでビルドを実行し、生成されたコンテナイメージを Artifact Registry に保存するとともに、Cloud Build の Build Provenance 生成機能を有効化する
-- **結果**: ビルドがセキュアな隔離環境で完全に自動実行され、ビルド元のコミットハッシュ、ビルド環境、および成果物ダイジェストを含む暗号学的に検証可能なビルド来歴が Artifact Analysis に自動記録される
+- **対応**: Cloud Build トリガーを設定してマネージドワーカープールでビルドを実行し、生成されたコンテナイメージを Artifact Registry に保存するとともに、Cloud Build の Build Provenance 生成機能を有効化する。
+- **結果**: ビルドがセキュアな隔離環境で完全に自動実行され、ビルド元のコミットハッシュ、ビルド環境、および成果物ダイジェストを含む暗号学的に検証可能なビルド来歴が Artifact Analysis に自動記録される。
 - **解説**: Cloud Build はマネージドな CI サービスとして SLSA レベル 3 準拠のビルド来歴（Build Provenance）を自動生成し、Artifact Registry と密連携して改ざん防止を実現できるためです。開発者のローカル PC 上で `docker build` を行い、手動で Artifact Registry にプッシュする方式は、開発者端末のマルウェア感染やビルド手順の改ざんを検証できないため重大なセキュリティ違反となります。Compute Engine 上に自作の Jenkins サーバーを構築して運用する方式は、ホスト OS やパッチの管理負担が大きく、ビルド来歴の完全性保証を独自に実装する必要があるため不適格です。
 - **参考ドキュメント**:
-  - [Cloud Build ドキュメント](https://cloud.google.com/build/docs): ビルドパイプラインの自動化と Build Provenance の活用
+  - [Cloud Build ドキュメント](https://docs.cloud.google.com/build/docs): ビルドパイプラインの自動化と Build Provenance の活用
 
 #### シナリオ 2-3: CI パイプライン内での自動統合テストとコンテナの協調
 
 - **状況**: 複数のマイクロサービスが相互に通信するバックエンドシステムにおいて、コード変更時に単体テストだけでなく、データベースやメッセージブローカーを含む結合テストを CI パイプライン内で自動実行し、失敗時はビルドを即座に中断させたい場合
-- **対応**: `cloudbuild.yaml` 内で複数のビルドステップを定義し、ローカルエミュレータやテスト用コンテナを同一のローカルネットワーク（Cloud Build のデフォルトネットワーク）上で起動させ、テストランナーステップからこれらに接続して統合テストを実行する
-- **結果**: コードのコミットごとに、エミュレータを介したリアルな API 統合テストが自動で走り、テストが 1 件でも失敗した場合は後続のコンテナプッシュやデプロイステップが確実に遮断される
+- **対応**: `cloudbuild.yaml` 内で複数のビルドステップを定義し、ローカルエミュレータやテスト用コンテナを同一のローカルネットワーク（Cloud Build のデフォルトネットワーク）上で起動させ、テストランナーステップからこれらに接続して統合テストを実行する。
+- **結果**: コードのコミットごとに、エミュレータを介したリアルな API 統合テストが自動で走り、テストが 1 件でも失敗した場合は後続のコンテナプッシュやデプロイステップが確実に遮断される。
 - **解説**: Cloud Build は単一のビルド実行内で複数のステップコンテナを連携させることができ、各ステップの終了ステータス（非ゼロ終了コード）に基づいてパイプラインを自動中断する堅牢な実行制御を備えているためです。テストを実行せずにコンテナをプッシュし、ステージング環境にデプロイした後に外部モニタリングツールで手動確認するアプローチは、不良コードの検出遅延を招き CI/CD の原則に反するため不適格です。テストコードをコンテナイメージのプロダクションビルドに埋め込む方式は、イメージサイズの肥大化と本番環境での脆弱性リスクを生むため推奨されません。
 - **参考ドキュメント**:
-  - [Cloud Build 構成ファイルの作成](https://cloud.google.com/build/docs/configuring-builds/create-basic-configuration): `cloudbuild.yaml` のステップ設計
+  - [Cloud Build 構成ファイルの作成](https://docs.cloud.google.com/build/docs/configuring-builds/create-basic-configuration): `cloudbuild.yaml` のステップ設計
 
 #### シナリオ 2-4: 承認されていない改ざんコンテナの GKE / Cloud Run デプロイ遮断
 
 - **状況**: 本番環境の GKE クラスタおよび Cloud Run サービスに対し、正式な CI パイプラインによるテストとセキュリティスキャン（脆弱性スキャン）を通過していない未承認のコンテナイメージがデプロイされる事故を防止したい場合
-- **対応**: Binary Authorization を有効化し、信頼できる Cloud Build パイプラインによって署名されたアテステーション（Attestation）を持つイメージのみを許可するデプロイポリシーを設定する
-- **結果**: 開発者が個人的にビルドしたイメージや改ざんされたイメージのデプロイリクエストがアドミッションコントローラーによって拒否され、正式な承認署名を持つイメージのみが本番で稼働する
+- **対応**: Binary Authorization を有効化し、信頼できる Cloud Build パイプラインによって署名されたアテステーション（Attestation）を持つイメージのみを許可するデプロイポリシーを設定する。
+- **結果**: 開発者が個人的にビルドしたイメージや改ざんされたイメージのデプロイリクエストがアドミッションコントローラーによって拒否され、正式な承認署名を持つイメージのみが本番で稼働する。
 - **解説**: Binary Authorization は Google Cloud のネイティブなデプロイ時セキュリティ統制機能であり、暗号署名されたアテステーションの有無を検証して未検証コンテナの実行を強制的に阻止できるためです。デプロイ用のスクリプト内で `if` 文を用いてイメージタグ（例: `latest` やコミットハッシュ）を文字列比較する方式は、バイパスが容易であり改ざん耐性がないため要件を満たせません。コンテナイメージの脆弱性スキャン（Artifact Analysis）のみを実施してデプロイを制御しない構成は、重大な脆弱性を含むイメージの実行を能動的に阻止できないため不適格です。
 - **参考ドキュメント**:
-  - [Binary Authorization ドキュメント](https://cloud.google.com/binary-authorization/docs): デプロイ時ポリシーの構成とアテステーション検証
+  - [Binary Authorization ドキュメント](https://docs.cloud.google.com/binary-authorization/docs): デプロイ時ポリシーの構成とアテステーション検証
 
 #### シナリオ 2-5: AI コーディングアシスタントと MCP サーバーを活用した安全なコンテキスト統合開発
 
 - **状況**: 開発者が IDE 内で Gemini Cloud Assist 等の AI アシスタントを利用してコード補完やリファクタリング、Google Cloud API の利用コード生成を行いたいが、社外のパブリック AI サービスに社内コードや認証情報が漏洩することを防ぎつつ、最新の社内ドキュメントやスキーマ定義を AI に安全に参照させたい場合
-- **対応**: 企業の Google Cloud 組織ポリシー配下で Gemini Cloud Assist を有効化した Cloud Workstations / Cloud Code を使用し、社内リソースへのアクセスインターフェースとして Model Context Protocol (MCP) サーバーを構成して IDE と統合する
-- **結果**: 開発者は厳格なデータ保護ポリシー（コードがモデルの再学習に使用されない保証）のもとで、社内スキーマや API 仕様に即した高精度なコード補完・単体テスト生成を安全に享受できる
+- **対応**: 企業の Google Cloud 組織ポリシー配下で Gemini Cloud Assist を有効化した Cloud Workstations / Cloud Code を使用し、社内リソースへのアクセスインターフェースとして Model Context Protocol (MCP) サーバーを構成して IDE と統合する。
+- **結果**: 開発者は厳格なデータ保護ポリシー（コードがモデルの再学習に使用されない保証）のもとで、社内スキーマや API 仕様に即した高精度なコード補完・単体テスト生成を安全に享受できる。
 - **解説**: Gemini Cloud Assist は Google Cloud のエンタープライズセキュリティ境界内で動作し、顧客データやコードを学習データとして流用しないプライバシー保護が保証されており、MCP を通じて必要なコンテキストのみをセキュアに仲介できるためです。開発者が個人の Web ブラウザからパブリックな AI チャットサービスに社内コードを直接コピー＆ペーストする運用は、機密情報漏洩の重大なリスクを招くため厳禁です。すべての AI 開発ツールの利用を一律に禁止するアプローチは、チーム全体の生産性とデリバリー速度を著しく低下させるため不適格です。
 - **参考ドキュメント**:
-  - [Cloud Workstations ドキュメント](https://cloud.google.com/workstations/docs): エンタープライズ開発環境のセキュリティ
+  - [Cloud Workstations ドキュメント](https://docs.cloud.google.com/workstations/docs): エンタープライズ開発環境のセキュリティ
 
 ---
 
 ### 4. 参考ドキュメント & 推奨ハンズオン
 
 #### 公式一次ドキュメント
-- [Cloud Build の概要](https://cloud.google.com/build/docs): 自動ビルドとパイプライン設計
-- [Artifact Registry ドキュメント](https://cloud.google.com/artifact-registry/docs): コンテナとパッケージの安全な管理
-- [Binary Authorization の概要](https://cloud.google.com/binary-authorization/docs): ソフトウェアサプライチェーンのデプロイ時保護
-- [Google Cloud CLI エミュレータのドキュメント](https://cloud.google.com/sdk/gcloud/reference/beta/emulators): ローカルサービスエミュレータ一覧
-- [Cloud Workstations のアーキテクチャ](https://cloud.google.com/workstations/docs): セキュアなマネージド開発環境
+- [Cloud Build の概要](https://docs.cloud.google.com/build/docs): 自動ビルドとパイプライン設計
+- [Artifact Registry ドキュメント](https://docs.cloud.google.com/artifact-registry/docs): コンテナとパッケージの安全な管理
+- [Binary Authorization の概要](https://docs.cloud.google.com/binary-authorization/docs): ソフトウェアサプライチェーンのデプロイ時保護
+- [Google Cloud CLI エミュレータのドキュメント](https://docs.cloud.google.com/sdk/gcloud/reference/beta/emulators): ローカルサービスエミュレータ一覧
+- [Cloud Workstations のアーキテクチャ](https://docs.cloud.google.com/workstations/docs): セキュアなマネージド開発環境
 
 #### 推奨ハンズオン・ラボ（実機検証）
 - [Developing Containerized Applications on Google Cloud (Course Template 530)](https://www.skills.google/course_templates/530):
@@ -487,58 +487,58 @@ Professional Cloud Developer 認定資格は、Google が推奨するツール�
 #### シナリオ 3-1: ゼロダウンタイムでの新バージョンリリースと段階的トラフィック移行
 
 - **状況**: 本番環境で稼働中の Cloud Run サービスに対して新バージョンのコンテナをデプロイするにあたり、全ユーザーに一斉公開する前に 10% の実トラフィックを割り当ててエラー率を検証し、重大な不具合が検知された場合は即座に旧バージョンへ巻き戻したい場合
-- **対応**: 新しいリビジョンを `no-traffic` オプションでデプロイした後、`gcloud run services update-traffic` コマンドを使用して、現行リビジョンに 90%、新リビジョンに 10% のトラフィックを分割割り当てする
-- **結果**: サービスを一切停止させることなく新機能のカナリアリリースが実施され、問題検知時はトラフィック比率を 100% 対 0% に書き換えるだけでミリ秒単位のロールバックが完了する
+- **対応**: 新しいリビジョンを `no-traffic` オプションでデプロイした後、`gcloud run services update-traffic` コマンドを使用して、現行リビジョンに 90%、新リビジョンに 10% のトラフィックを分割割り当てする。
+- **結果**: サービスを一切停止させることなく新機能のカナリアリリースが実施され、問題検知時はトラフィック比率を 100% 対 0% に書き換えるだけでミリ秒単位のロールバックが完了する。
 - **解説**: Cloud Run のリビジョン管理とトラフィック分割（Traffic Splitting）機能は、DNS 切り替えやインフラの再プロビジョニングを伴わずに、リクエスト単位で柔軟かつ即時にルーティング比率を調整できるためです。既存の単一インスタンスを直接上書き更新する方式は、起動までのダウンタイムが発生しロールバックにも時間がかかるため不適格です。ステージング環境でのみテストを実施して本番環境には一括で 100% トラフィックを投入する運用は、本番特有の負荷や予期せぬエッジケースによる全面障害リスクを回避できないため推奨されません。
 - **参考ドキュメント**:
-  - [Cloud Run のトラフィック分割](https://cloud.google.com/run/docs/rollouts-rollbacks-traffic-split): カナリア展開とロールバックの実行
+  - [Cloud Run のトラフィック分割](https://docs.cloud.google.com/run/docs/rollouts-rollbacks-traffic-migration): カナリア展開とロールバックの実行
 
 #### シナリオ 3-2: Cloud Storage へのファイル配置を契機とするサーバーレス非同期画像処理
 
 - **状況**: ユーザーが Cloud Storage バケットに画像ファイルをアップロードした際、即座にサムネイル生成とメタデータ抽出を行うコンテナをサーバーレスで起動したいが、バケットのポーリングによる無駄なコンピュート課金を排除したい場合
-- **対応**: Eventarc トリガーを作成し、Cloud Storage の `google.cloud.storage.object.v1.finalized` イベントを購読して、画像処理コンテナが稼働する Cloud Run サービスの特定パスへイベントを HTTP POST で配信させる
-- **結果**: 画像がアップロードされた瞬間にミリ秒単位で Cloud Run サービスがトリガーされ、ファイル処理が完了するとコンテナインスタンスが自動的にゼロにスケールして余計な維持費がゼロになる
+- **対応**: Eventarc トリガーを作成し、Cloud Storage の `google.cloud.storage.object.v1.finalized` イベントを購読して、画像処理コンテナが稼働する Cloud Run サービスの特定パスへイベントを HTTP POST で配信させる。
+- **結果**: 画像がアップロードされた瞬間にミリ秒単位で Cloud Run サービスがトリガーされ、ファイル処理が完了するとコンテナインスタンスが自動的にゼロにスケールして余計な維持費がゼロになる。
 - **解説**: Eventarc は Google Cloud サービスから発生する標準的なイベント（CloudEvents 準拠）を低レイテンシかつサーバーレスで Cloud Run にルーティングするネイティブな基盤であるためです。Compute Engine VM 上で常時 Python スクリプトを稼働させ、数秒ごとに Cloud Storage API を呼び出してバケットをリスト（ポーリング）する設計は、API クォータの浪費とアイドル状態での不要なコンピュート課金が発生するため極めて非効率であり不適格です。Cloud Functions（第1世代）の古いバックグラウンドトリガーに依存する構成は、コンテナランタイムの柔軟性や最新のイベント標準の観点で推奨されません。
 - **参考ドキュメント**:
-  - [Eventarc ドキュメント](https://cloud.google.com/eventarc/docs): イベントドリブン アーキテクチャの構築
+  - [Eventarc ドキュメント](https://docs.cloud.google.com/eventarc/docs): イベントドリブン アーキテクチャの構築
 
 #### シナリオ 3-3: エンタープライズ API のバージョニング、レート制限、および OAuth 2.0 認可の統合
 
 - **状況**: Cloud Run 上で複数のバックエンド マイクロサービスを公開しているが、外部パートナー企業ごとに利用可能な API バージョン（v1、v2）を管理し、API キー検証、OAuth 2.0 アクセストークンの検証、およびクライアントごとのレート制限（クォータ制限）を一元的に適用したい場合
-- **対応**: バックエンドの前面に Apigee API Management を配置し、API プロキシを構成して OAuth 2.0 ポリシー、Spike Arrest ポリシー、および Quota ポリシーを適用する
-- **結果**: バックエンド アプリケーションのコードに認証や流量制限のロジックを実装することなく、エンタープライズ水準の API セキュリティ統制とバージョニング、詳細な利用アナリティクスが実現される
+- **対応**: バックエンドの前面に Apigee API Management を配置し、API プロキシを構成して OAuth 2.0 ポリシー、Spike Arrest ポリシー、および Quota ポリシーを適用する。
+- **結果**: バックエンド アプリケーションのコードに認証や流量制限のロジックを実装することなく、エンタープライズ水準の API セキュリティ統制とバージョニング、詳細な利用アナリティクスが実現される。
 - **解説**: Apigee はエンタープライズ向けの包括的な API 管理ソリューションであり、プロキシ層で認証・認可・流量制御・バージョニングポリシーをコードレスかつ高パフォーマンスに適用できるためです。各マイクロサービスの内部コードに個別にレート制限カウンターや OAuth トークン検証ロジックを実装する方式は、コードの重複と保守性の低下を招き、クライアントごとのポリシー変更に再デプロイが必要となるため不適格です。単純な Cloud Load Balancing のみの構成では、OAuth 2.0 トークンの検証やパートナー別の高度なクォータ管理機能が不足しているため要件を満たせません。
 - **参考ドキュメント**:
-  - [Apigee ドキュメント](https://cloud.google.com/apigee/docs): API プロキシとセキュリティポリシーの設計
+  - [Apigee ドキュメント](https://docs.cloud.google.com/apigee/docs): API プロキシとセキュリティポリシーの設計
 
 #### シナリオ 3-4: 初期化に時間がかかるコンテナの起動時クラッシュループ防止
 
 - **状況**: GKE 上で動作する機械学習推論サービスコンテナが、起動時に大容量モデルファイルのダウンロードとメモリ展開を行うため、初期化完了までに約 90 秒を要し、デプロイ直後にコンテナが強制再起動を繰り返して正常に稼働しない場合
-- **対応**: ポッドのマニフェストに `startupProbe` を追加し、十分な許容時間（例: `failureThreshold: 30`, `periodSeconds: 5` で計 150 秒許容）を設定した上で、通常の運用監視用に `livenessProbe` と `readinessProbe` を併用設定する
-- **結果**: モデルの読み込みが完了するまでの間、Startup Probe が Liveness Probe の評価を安全にブロックし、コンテナが途中で強制終了されることなく初期化を完了して正常にリクエスト受付を開始する
+- **対応**: ポッドのマニフェストに `startupProbe` を追加し、十分な許容時間（例: `failureThreshold: 30`, `periodSeconds: 5` で計 150 秒許容）を設定した上で、通常の運用監視用に `livenessProbe` と `readinessProbe` を併用設定する。
+- **結果**: モデルの読み込みが完了するまでの間、Startup Probe が Liveness Probe の評価を安全にブロックし、コンテナが途中で強制終了されることなく初期化を完了して正常にリクエスト受付を開始する。
 - **解説**: Startup Probe は低速起動コンテナのために設計されたプローブであり、Startup Probe が成功するまで Liveness Probe によるプロセスキル判定を保留するためです。Liveness Probe の `initialDelaySeconds` だけを極端に長く（例: 180 秒）設定する方式は、初期化処理が何らかのエラーで即座にハングした場合でも長時間のタイムアウトを待つことになり、迅速な自己修復が行われないため不適格です。ヘルスチェックを完全に無効化する対応は、本番運用におけるデッドロック検知能力を放棄することになり厳禁です。
 - **参考ドキュメント**:
-  - [Kubernetes ヘルスチェックの構成](https://cloud.google.com/kubernetes-engine/docs/concepts/pod-lifecycle): GKE におけるプローブ設計
+  - [Kubernetes ヘルスチェックの構成](https://docs.cloud.google.com/kubernetes-engine/docs/concepts/kubernetes-engine-overview): GKE におけるプローブ設計
 
 #### シナリオ 3-5: 急激なリクエスト増に対応する GKE ポッドの動的自動スケーリング
 
 - **状況**: GKE クラスタ上で動作する Web アプリケーションにおいて、昼休みの時間帯にアクセスが急増し、既存のポッドの CPU 使用率が 80% を超過してリクエスト遅延が発生するため、需要に応じてポッド数を自動で動的にスケールアウトさせたい場合
-- **対応**: クラスタ内に Metrics Server がデプロイされていることを確認し、ターゲット CPU 使用率を 60% に設定した HorizontalPodAutoscaler (HPA) リソースを定義して Deployment に関連付ける
-- **結果**: トラフィックの増加に伴って CPU 負荷が 60% を超えると HPA が即座にレプリカ数を自動で増やし、トラフィックが落ち着くと自動的に最小レプリカ数までスケールインして安定したレスポンスタイムを維持する
+- **対応**: クラスタ内に Metrics Server がデプロイされていることを確認し、ターゲット CPU 使用率を 60% に設定した HorizontalPodAutoscaler (HPA) リソースを定義して Deployment に関連付ける。
+- **結果**: トラフィックの増加に伴って CPU 負荷が 60% を超えると HPA が即座にレプリカ数を自動で増やし、トラフィックが落ち着くと自動的に最小レプリカ数までスケールインして安定したレスポンスタイムを維持する。
 - **解説**: HorizontalPodAutoscaler (HPA) は Metrics Server から収集された CPU やメモリのリアルタイムメトリクスに基づいて、ポッドのレプリカ数を自動的に伸縮させる Kubernetes ネイティブの標準コントローラーであるためです。手動で `kubectl scale` コマンドを実行してレプリカ数を変更する運用は、急激なアクセス増に人間が即応できず深夜や休日の障害対応が不可能なため不適格です。Node pools の Cluster Autoscaler（ノードの自動追加）のみを設定して HPA を設定しない構成は、既存ノード上のポッドレプリカ数が増えないため負荷分散が図れず要件を満たせません。
 - **参考ドキュメント**:
-  - [GKE 水平ポッド自動スケーリング](https://cloud.google.com/kubernetes-engine/docs/concepts/horizontalpodautoscaler): HPA の構成とベストプラクティス
+  - [GKE 水平ポッド自動スケーリング](https://docs.cloud.google.com/kubernetes-engine/docs/concepts/horizontalpodautoscaler): HPA の構成とベストプラクティス
 
 ---
 
 ### 4. 参考ドキュメント & 推奨ハンズオン
 
 #### 公式一次ドキュメント
-- [Cloud Run のトラフィック分割ガイド](https://cloud.google.com/run/docs/rollouts-rollbacks-traffic-split): カナリアリリースとロールバック
-- [Eventarc のアーキテクチャ](https://cloud.google.com/eventarc/docs): イベントドリブン アーキテクチャの設計
-- [Apigee API Management ガイド](https://cloud.google.com/apigee/docs): API プロキシとポリシーの適用
-- [GKE Pod ライフサイクルとプローブ](https://cloud.google.com/kubernetes-engine/docs/concepts/pod-lifecycle): ヘルスチェックの構成
-- [GKE HorizontalPodAutoscaler の概要](https://cloud.google.com/kubernetes-engine/docs/concepts/horizontalpodautoscaler): 自動スケーリングの最適化
+- [Cloud Run のトラフィック分割ガイド](https://docs.cloud.google.com/run/docs/rollouts-rollbacks-traffic-migration): カナリアリリースとロールバック
+- [Eventarc のアーキテクチャ](https://docs.cloud.google.com/eventarc/docs): イベントドリブン アーキテクチャの設計
+- [Apigee API Management ガイド](https://docs.cloud.google.com/apigee/docs): API プロキシとポリシーの適用
+- [GKE Pod ライフサイクルとプローブ](https://docs.cloud.google.com/kubernetes-engine/docs/concepts/kubernetes-engine-overview): ヘルスチェックの構成
+- [GKE HorizontalPodAutoscaler の概要](https://docs.cloud.google.com/kubernetes-engine/docs/concepts/horizontalpodautoscaler): 自動スケーリングの最適化
 
 #### 推奨ハンズオン・ラボ（実機検証）
 - [Deploy Kubernetes Applications on Google Cloud (Course Template 663)](https://www.skills.google/course_templates/663):
@@ -634,67 +634,67 @@ Professional Cloud Developer 認定資格は、Google が推奨するツール�
 #### シナリオ 4-1: サーバーレス環境から Cloud SQL への接続数枯渇防止と効率的アクセス
 
 - **状況**: Cloud Run 上で稼働するマイクロサービスがスパイクアクセス時に 200 インスタンスまで自動スケールした際、Cloud SQL (MySQL) への接続数が上限（`max_connections`）に達し、「Too many connections」エラーでリクエストが大量に失敗する場合
-- **対応**: アプリケーション内のコネクションプールライブラリで最大接続数を小さな値（例: インスタンスあたり 2 接続）に制限し、グローバル接続スコープでプールを再利用するとともに、Cloud SQL Go/Java/Python コネクタを活用して接続を管理する
-- **結果**: 200 インスタンスが同時起動しても総接続数が Cloud SQL の許容範囲内に収まり、接続確立オーバーヘッドが削減されて安定したレスポンスタイムが維持される
+- **対応**: アプリケーション内のコネクションプールライブラリで最大接続数を小さな値（例: インスタンスあたり 2 接続）に制限し、グローバル接続スコープでプールを再利用するとともに、Cloud SQL Go/Java/Python コネクタを活用して接続を管理する。
+- **結果**: 200 インスタンスが同時起動しても総接続数が Cloud SQL の許容範囲内に収まり、接続確立オーバーヘッドが削減されて安定したレスポンスタイムが維持される。
 - **解説**: Cloud Run では各インスタンスが独立したコンテナとして動作するため、インスタンス単位の最大プールサイズを小さく設計し、リクエスト間で接続を再利用するライフサイクル管理が必須であるためです。リクエストが到着するたびに新規に TCP 接続をオープンしレスポンス返却時にクローズするナイーブな実装は、接続ハンドシェイクの遅延を招きデータベースの CPU を浪費するため不適格です。Cloud SQL のインスタンススペックのみを最大まで引き上げて接続数上限を増やすアプローチは、過大なコストが発生する割に根本的な接続管理の破綻を防げないため推奨されません。
 - **参考ドキュメント**:
-  - [Cloud SQL 接続の管理](https://cloud.google.com/sql/docs/mysql/manage-connections): コネクションプーリングのベストプラクティス
+  - [Cloud SQL 接続の管理](https://docs.cloud.google.com/sql/docs/mysql/manage-connections): コネクションプーリングのベストプラクティス
 
 #### シナリオ 4-2: Pub/Sub サブスクライバーにおける大量メッセージの重複処理防止と順序制御
 
 - **状況**: 銀行口座の残高更新イベントを Cloud Pub/Sub 経由で非同期に受信するコンテナアプリケーションにおいて、ネットワークの再送によって同一メッセージが複数回到着した場合でも、二重更新（重複課金）を確実に防止し、同一口座 ID に関しては更新順序を維持したい場合
-- **対応**: パブリッシャー側でメッセージに口座 ID を `OrderingKey` として設定して順序付き配信を有効化し、サブスクライバー側ではメッセージの一意な ID をデータベースのユニーク制約やトランザクション内でチェックする冪等性（Idempotency）ロジックを実装する
-- **結果**: 同一メッセージが再送されても 2 回目以降の処理が安全にスキップされ、同一口座に対するイベントがパブリッシュされた順序通りに矛盾なく適用される
+- **対応**: パブリッシャー側でメッセージに口座 ID を `OrderingKey` として設定して順序付き配信を有効化し、サブスクライバー側ではメッセージの一意な ID をデータベースのユニーク制約やトランザクション内でチェックする冪等性（Idempotency）ロジックを実装する。
+- **結果**: 同一メッセージが再送されても 2 回目以降の処理が安全にスキップされ、同一口座に対するイベントがパブリッシュされた順序通りに矛盾なく適用される。
 - **解説**: Cloud Pub/Sub の配信保証モデルは「少なくとも 1 回（At-least-once）」であるため、順序キー（Ordering Key）の利用に加えて、アプリケーション側での冪等性担保（重複排除チェック）が不可欠であるためです。Pub/Sub は厳密に 1 回のみの配信（Exactly-once）をすべての障害シナリオで保証するわけではないため、冪等性チェックを省略する設計は重大なデータ不整合を招き不適格です。順序保証のためにすべてのメッセージを単一スレッド・単一サブスクライバーで同期処理する構成は、システム全体のスループットが極端に低下しボトルネックとなるため推奨されません。
 - **参考ドキュメント**:
-  - [Cloud Pub/Sub メッセージの順序付け](https://cloud.google.com/pubsub/docs/ordering): 順序キーと冪等性設計
+  - [Cloud Pub/Sub メッセージの順序付け](https://docs.cloud.google.com/pubsub/docs/ordering): 順序キーと冪等性設計
 
 #### シナリオ 4-3: Google Cloud API 呼び出しにおける一時的エラー耐性とネットワークトラフィック最適化
 
 - **状況**: アプリケーションが Google Cloud API（例: Compute Engine API や Cloud Storage API）を大量に呼び出す際、API のレート制限や一時的なネットワークの揺らぎ（HTTP 429 / 503）によって一部のリクエストが失敗し、さらに不要なフィールドを含む大容量 JSON レスポンスによってネットワーク帯域が圧迫されている場合
-- **対応**: API 呼び出しに公式 Cloud クライアントライブラリを使用し、ジッター付き指数バックオフ（Exponential Backoff with Jitter）による再試行ポリシーを設定するとともに、リクエストパラメータに `FieldMask`（`fields` パラメータ）を指定して必要な属性のみを取得する
-- **結果**: 一時的なエラーが自動的に安全な時間間隔で再試行されて成功率が向上し、転送ペイロードサイズが 70% 以上削減されて API レスポンスの処理速度が向上する
+- **対応**: API 呼び出しに公式 Cloud クライアントライブラリを使用し、ジッター付き指数バックオフ（Exponential Backoff with Jitter）による再試行ポリシーを設定するとともに、リクエストパラメータに `FieldMask`（`fields` パラメータ）を指定して必要な属性のみを取得する。
+- **結果**: 一時的なエラーが自動的に安全な時間間隔で再試行されて成功率が向上し、転送ペイロードサイズが 70% 以上削減されて API レスポンスの処理速度が向上する。
 - **解説**: 公式クライアントライブラリはジッター付き指数バックオフを標準で実装しており、FieldMask を用いることで必要なデータのみを転送して帯域とメモリを最小化できるためです。エラー発生時に固定のミリ秒間隔ですぐにループ再試行を繰り返す実装は、API サーバーにさらなる負荷を集中させる「再試行ストーム（Thundering Herd）」を引き起こし事態を悪化させるため厳禁です。全フィールドを含む巨大なレスポンスを毎回取得してアプリケーションメモリ上でフィルタリングする方式は、ネットワーク転送量と GC（ガベージコレクション）負荷を著しく増大させるため不適格です。
 - **参考ドキュメント**:
-  - [指数バックオフの実装](https://cloud.google.com/storage/docs/exponential-backoff): リトライアルゴリズムのベストプラクティス
+  - [指数バックオフの実装](https://docs.cloud.google.com/storage/docs/retry-strategy): リトライアルゴリズムのベストプラクティス
 
 #### シナリオ 4-4: 大規模データ取得 API におけるメモリ枯渇回避とページネーション実装
 
 - **状況**: 何十万件ものクラウドリソース情報や監査ログをバッチ取得して分析基盤に連携するバッチアプリケーションにおいて、一度に全件を取得しようとしてコンテナプロセスのヒープメモリが枯渇（Out of Memory）してクラッシュする場合
-- **対応**: API リクエストに `pageSize`（例: 1,000 件）を指定し、レスポンスに含まれる `nextPageToken` を次期リクエストの `pageToken` に設定して、データをストリームまたはページ単位で順次処理・解放するループを実装する
-- **結果**: メモリ消費量が常に一定の小さなフットプリントに抑えられ、数十万件規模の大規模データセットであってもコンテナがクラッシュすることなく安定して処理が完了する
+- **対応**: API リクエストに `pageSize`（例: 1,000 件）を指定し、レスポンスに含まれる `nextPageToken` を次期リクエストの `pageToken` に設定して、データをストリームまたはページ単位で順次処理・解放するループを実装する。
+- **結果**: メモリ消費量が常に一定の小さなフットプリントに抑えられ、数十万件規模の大規模データセットであってもコンテナがクラッシュすることなく安定して処理が完了する。
 - **解説**: Google Cloud API の標準ページネーションプロトコル（`pageSize` と `pageToken`）に従って反復処理を行うことで、メモリフットプリントを最適化し、長大な単一リクエストによるタイムアウトを回避できるためです。すべてのページの結果をメモリ内の単一リストに結合してから処理を開始する実装は、データ量の増大に伴って容易に OOM を引き起こすため不適格です。`pageSize` を極端に小さな値（例: 1 件）に設定して数十万回の HTTP 呼び出しを行う方式は、ネットワークラウンドトリップのオーバーヘッドが膨大となり要件を満たせません。
 - **参考ドキュメント**:
-  - [Google Cloud API ページネーションの仕組み](https://cloud.google.com/apis/docs/client-libraries-explained): クライアントライブラリの反復処理
+  - [Google Cloud API ページネーションの仕組み](https://docs.cloud.google.com/apis/docs/client-libraries-explained): クライアントライブラリの反復処理
 
 #### シナリオ 4-5: 分散マイクロサービス間を横断するリクエスト遅延の根本原因特定
 
 - **状況**: クライアントからの API リクエストが複数のマイクロサービス（サービス A → B → C）を経由して処理されるアーキテクチャにおいて、特定のリクエストでレスポンスタイムが数秒遅延しているが、どのサービスのどの処理（SQL クエリ、外部 API 呼び出し）が原因なのか特定できない場合
-- **対応**: 各マイクロサービスに OpenTelemetry SDK を導入して Cloud Trace エクスポーターを構成し、サービス間の HTTP リクエストヘッダーに W3C Trace Context（`traceparent` ヘッダー）を伝播させて処理スパンを記録する
-- **結果**: Cloud Trace コンソール上で単一のリクエストに関するエンドツーエンドのウォーターフォール図（各サービスおよび下流処理の所要時間内訳）が可視化され、サービス C のデータベースロック待ちがボトルネックであると即座に特定される
+- **対応**: 各マイクロサービスに OpenTelemetry SDK を導入して Cloud Trace エクスポーターを構成し、サービス間の HTTP リクエストヘッダーに W3C Trace Context（`traceparent` ヘッダー）を伝播させて処理スパンを記録する。
+- **結果**: Cloud Trace コンソール上で単一のリクエストに関するエンドツーエンドのウォーターフォール図（各サービスおよび下流処理の所要時間内訳）が可視化され、サービス C のデータベースロック待ちがボトルネックであると即座に特定される。
 - **解説**: Cloud Trace と OpenTelemetry を組み合わせ、HTTP/gRPC ヘッダー経由で Trace ID を正しく下流サービスへ伝播させることで、分散環境全体を横断するリクエストの因果関係と遅延内訳を単一のトレースとして一元把握できるためです。各マイクロサービスの標準出力に個別にタイムスタンプをログ出力し、手動でログを時刻順に突き合わせる手法は、並行リクエストが多数存在する環境では因果関係の特定が極めて困難であり不適格です。ネットワーク層のパケットキャプチャのみを解析するアプローチは、アプリケーション内部の処理遅延（メソッド実行や DB クエリ）を可視化できないため要件を満たせません。
 - **参考ドキュメント**:
-  - [Cloud Trace ドキュメント](https://cloud.google.com/trace/docs): 分散トレーシングの計装と分析
+  - [Cloud Trace ドキュメント](https://docs.cloud.google.com/trace/docs): 分散トレーシングの計装と分析
 
 #### シナリオ 4-6: 本番環境で未処理の例外を一元的に集約・通知し迅速に対処する仕組み
 
 - **状況**: GKE および Cloud Run 上で動作する複数のコンテナアプリケーションで本番稼働中に未処理の例外（Unhandled Exception）やクラッシュが発生しているが、大量の通常ログに埋もれて検知が遅れ、開発チームへのエスカレーションが滞っている場合
-- **対応**: アプリケーションのロギング設定でスタックトレースを Google Cloud の構造化ログ形式で Cloud Logging に出力し、Cloud Error Reporting と連携させて未解決の例外グループに対して開発チームへのアラート通知（Slack やメール）を設定する
-- **結果**: 新たに発生した例外や頻発するエラーが自動的にグループ化され、スタックトレース、発生回数、初回・最終発生時刻、影響を受けたユーザー数がダッシュボードに即座に表示され、未対応エラーがリアルタイムに通知される
+- **対応**: アプリケーションのロギング設定でスタックトレースを Google Cloud の構造化ログ形式で Cloud Logging に出力し、Cloud Error Reporting と連携させて未解決の例外グループに対して開発チームへのアラート通知（Slack やメール）を設定する。
+- **結果**: 新たに発生した例外や頻発するエラーが自動的にグループ化され、スタックトレース、発生回数、初回・最終発生時刻、影響を受けたユーザー数がダッシュボードに即座に表示され、未対応エラーがリアルタイムに通知される。
 - **解説**: Cloud Error Reporting はアプリケーションログからスタックトレースを自動的にパースし、エラーのシグネチャに基づいて重複を排除・グループ化して優先順位付けと通知を行う特化サービスであるためです。独自のローカルログファイルにスタックトレースを書き出してサーバー内に保持する設計は、コンテナが再起動・破棄された際にログが消失し、一元的な監視ができないため不適格です。通常のエラーログに対して単純な文字列マッチング（例: `ERROR` を含むログ）で個別の Monitoring アラートを設定する方式は、同一エラーの大量発生時にアラートが乱発（アラートストーム）し、運用チームが疲弊するため推奨されません。
 - **参考ドキュメント**:
-  - [Cloud Error Reporting ドキュメント](https://cloud.google.com/error-reporting/docs): エラーの集約とアラートの管理
+  - [Cloud Error Reporting ドキュメント](https://docs.cloud.google.com/error-reporting/docs): エラーの集約とアラートの管理
 
 ---
 
 ### 4. 参考ドキュメント & 推奨ハンズオン
 
 #### 公式一次ドキュメント
-- [Google Cloud クライアントライブラリの説明](https://cloud.google.com/apis/docs/client-libraries-explained): SDK の機能とベストプラクティス
-- [指数バックオフの概要](https://cloud.google.com/storage/docs/exponential-backoff): 再試行アルゴリズムの実装
-- [Google Cloud Observability の概要](https://cloud.google.com/stackdriver/docs/solutions/gcp): フルスタックのモニタリングとロギング
-- [Cloud Trace ドキュメント](https://cloud.google.com/trace/docs): 分散トレーシングの概念と計装
-- [Error Reporting ドキュメント](https://cloud.google.com/error-reporting/docs): 例外の自動検出と通知設定
+- [Google Cloud クライアントライブラリの説明](https://docs.cloud.google.com/apis/docs/client-libraries-explained): SDK の機能とベストプラクティス
+- [指数バックオフの概要](https://docs.cloud.google.com/storage/docs/retry-strategy): 再試行アルゴリズムの実装
+- [Google Cloud Observability の概要](https://docs.cloud.google.com/stackdriver/docs): フルスタックのモニタリングとロギング
+- [Cloud Trace ドキュメント](https://docs.cloud.google.com/trace/docs): 分散トレーシングの概念と計装
+- [Error Reporting ドキュメント](https://docs.cloud.google.com/error-reporting/docs): 例外の自動検出と通知設定
 
 #### 推奨ハンズオン・ラボ（実機検証）
 - [Logging and Monitoring in Google Cloud (Course Template 99)](https://www.skills.google/course_templates/99):

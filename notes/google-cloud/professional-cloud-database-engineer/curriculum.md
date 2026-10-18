@@ -3,7 +3,7 @@
 - **対象資格**: Google Cloud Certified - Professional Cloud Database Engineer (PCDBE)
 - **公式試験ガイド**: [Professional Cloud Database Engineer 認定試験ガイド (日本語版)](https://services.google.com/fh/files/misc/professional_cloud_database_engineer_exam_guide_japanese.pdf?hl=ja)
 - **公式試験ページ**: [Professional Cloud Database Engineer | Google Cloud Certification](https://cloud.google.com/learn/certification/cloud-database-engineer?hl=ja)
-- **公式学習パス**: [Google Skills - Database Engineer Learning Path](https://www.skills.google/paths/49?hl=ja)
+- **公式学習パス**: [Google Skills - Database Engineer Learning Path](https://www.skills.google/)
 - **最終更新日**: 2026-10-13
 
 ---
@@ -27,12 +27,12 @@ Professional Cloud Database Engineer は、ビジネス要件や技術要件を�
 
 本試験は全 4 セクションで構成されています。データベースソリューションの設計（約 32%）と管理・運用（約 25%）で全体の半数以上を占め、さらにデータ移行（約 23%）とスケーラブルな高可用性デプロイ（約 20%）が問われます。
 
-| セクション番号 | セクション名 / 出題分野 | 出題比率 | 主要対象サービス・コンセプト | ステータス |
-| :--- | :--- | :--- | :--- | :--- |
-| **Section 1** | 革新的でスケーラブルな高可用性クラウド データベース ソリューションを設計する | 約 32% | Cloud SQL (MySQL / PostgreSQL / SQL Server), AlloyDB for PostgreSQL, Cloud Spanner, Cloud Bigtable, Firestore, Memorystore, ベアメタル / GCE セルフマネージド, ベクトル検索 (pgvector, Spanner Vector Search), プライベート接続 (PSC / VPC Peering), セッションプーラー (PgBouncer), CMEK / IAM, 監査ログ | 完了 |
-| **Section 2** | 複数のデータベース技術にまたがるソリューションを管理する | 約 25% | IAM データベース認証, Cloud Monitoring / Logging, Query Insights, Key Visualizer, データベースロック / スロークエリ分析, 自動バックアップ / オンデマンドバックアップ, PITR (Point-in-Time Recovery), RTO / RPO, インポート / エクスポート, スケールアップ / スケールアウト, クエリ最適化 (EXPLAIN ANALYZE), Cloud Scheduler 自動化, メジャー / マイナーアップグレード | 完了 |
-| **Section 3** | データ ソリューションを移行する | 約 23% | Database Migration Service (DMS), Datastream, Spanner Migration Tool (SMT), 移行戦略 (ダウンタイム最小限 / ニアゼロ / オフライン), CDC (Change Data Capture), リバースレプリケーション / 切り戻し計画, DDL / DML 変換, 外部 DB 移行 (オンプレミス, AWS RDS, 異種 DB 移行) | 完了 |
-| **Section 4** | Google Cloud にスケーラブルな高可用性データベースをデプロイする | 約 20% | 高可用性 (HA) 構成 (Cloud SQL Regional HA, AlloyDB Regional HA, Spanner Multi-Region, Bigtable Multi-Cluster), フェイルオーバーテスト, リードレプリカ / クロスリージョンレプリカ, Terraform / IaC プロビジョニング自動化, HA / DR モニタリング | 完了 |
+| セクション番号 | セクション名 / 出題分野 | 出題比率 | 主要対象サービス・コンセプト |
+| :--- | :--- | :--- | :--- |
+| **Section 1** | 革新的でスケーラブルな高可用性クラウド データベース ソリューションを設計する | 約 32% | Cloud SQL (MySQL / PostgreSQL / SQL Server), AlloyDB for PostgreSQL, Cloud Spanner, Cloud Bigtable, Firestore, Memorystore, ベアメタル / GCE セルフマネージド, ベクトル検索 (pgvector, Spanner Vector Search), プライベート接続 (PSC / VPC Peering), セッションプーラー (PgBouncer), CMEK / IAM, 監査ログ |
+| **Section 2** | 複数のデータベース技術にまたがるソリューションを管理する | 約 25% | IAM データベース認証, Cloud Monitoring / Logging, Query Insights, Key Visualizer, データベースロック / スロークエリ分析, 自動バックアップ / オンデマンドバックアップ, PITR (Point-in-Time Recovery), RTO / RPO, インポート / エクスポート, スケールアップ / スケールアウト, クエリ最適化 (EXPLAIN ANALYZE), Cloud Scheduler 自動化, メジャー / マイナーアップグレード |
+| **Section 3** | データ ソリューションを移行する | 約 23% | Database Migration Service (DMS), Datastream, Spanner Migration Tool (SMT), 移行戦略 (ダウンタイム最小限 / ニアゼロ / オフライン), CDC (Change Data Capture), リバースレプリケーション / 切り戻し計画, DDL / DML 変換, 外部 DB 移行 (オンプレミス, AWS RDS, 異種 DB 移行) |
+| **Section 4** | Google Cloud にスケーラブルな高可用性データベースをデプロイする | 約 20% | 高可用性 (HA) 構成 (Cloud SQL Regional HA, AlloyDB Regional HA, Spanner Multi-Region, Bigtable Multi-Cluster), フェイルオーバーテスト, リードレプリカ / クロスリージョンレプリカ, Terraform / IaC プロビジョニング自動化, HA / DR モニタリング |
 
 ---
 

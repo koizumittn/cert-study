@@ -39,7 +39,7 @@ Professional Data Engineer 試験は、Google Cloud のプロフェッショナ�
 1. **公式一次ドキュメントとアーキテクチャベストプラクティスの精読**:
    各サービスの概要だけでなく、「割り当てと上限（Quotas & Limits）」「ベストプラクティス」「トラブルシューティングガイド」を重点的に読み込みます。
 2. **実機ハンズオンによる手触り感の獲得**:
-   Google Skills（Cloud Skills Boost）のスキルバッジを活用し、Dataflow パイプラインの作成、BigQuery のパーティショニング・クラスタリング・マテリアライズドビューの構築、Cloud Composer による DAG オーケストレーションを実際にコマンドおよびコンソールで検証します。
+   Google Skills のスキルバッジを活用し、Dataflow パイプラインの作成、BigQuery のパーティショニング・クラスタリング・マテリアライズドビューの構築、Cloud Composer による DAG オーケストレーションを実際にコマンドおよびコンソールで検証します。
 3. **構造化実践シナリオ（状況・対応・結果・解説）による意思決定の追体験**:
    本ガイドに収録された網羅的な実践シナリオを通じ、「なぜその構成が選ばれるのか」「なぜ他の類似選択肢では不適格なのか」という全代替案の棄却理由を論理的に言語化できるレベルまで思考を深めます。
 
@@ -50,30 +50,10 @@ Professional Data Engineer 試験は、Google Cloud のプロフェッショナ�
 1. [はじめに](#はじめに)
 2. [学習カリキュラム・出題範囲ロードマップ](#学習カリキュラム出題範囲ロードマップ)
 3. [Section 1: データ処理システムの設計 (22%)](#section-1-データ処理システムの設計-22)
-   - [1. セクション概要](#1-セクション概要)
-   - [2. 重要トピック](#2-重要トピック)
-   - [3. 実践シナリオ](#3-実践シナリオ)
-   - [4. 参考ドキュメント & 推奨ハンズオン](#4-参考ドキュメント--推奨ハンズオン)
 4. [Section 2: データの取り込みと処理 (25%)](#section-2-データの取り込みと処理-25)
-   - [1. セクション概要](#1-セクション概要-1)
-   - [2. 重要トピック](#2-重要トピック-1)
-   - [3. 実践シナリオ](#3-実践シナリオ-1)
-   - [4. 参考ドキュメント & 推奨ハンズオン](#4-参考ドキュメント--推奨ハンズオン-1)
 5. [Section 3: データの保存 (20%)](#section-3-データの保存-20)
-   - [1. セクション概要](#1-セクション概要-2)
-   - [2. 重要トピック](#2-重要トピック-2)
-   - [3. 実践シナリオ](#3-実践シナリオ-2)
-   - [4. 参考ドキュメント & 推奨ハンズオン](#4-参考ドキュメント--推奨ハンズオン-2)
 6. [Section 4: 分析用データの準備と使用 (15%)](#section-4-分析用データの準備と使用-15)
-   - [1. セクション概要](#1-セクション概要-3)
-   - [2. 重要トピック](#2-重要トピック-3)
-   - [3. 実践シナリオ](#3-実践シナリオ-3)
-   - [4. 参考ドキュメント & 推奨ハンズオン](#4-参考ドキュメント--推奨ハンズオン-3)
 7. [Section 5: データ ワークロードの管理と自動化 (18%)](#section-5-データ-ワークロードの管理と自動化-18)
-   - [1. セクション概要](#1-セクション概要-4)
-   - [2. 重要トピック](#2-重要トピック-4)
-   - [3. 実践シナリオ](#3-実践シナリオ-4)
-   - [4. 参考ドキュメント & 推奨ハンズオン](#4-参考ドキュメント--推奨ハンズオン-4)
 8. [まとめと推奨学習ステップ](#まとめと推奨学習ステップ)
 
 ---
@@ -221,7 +201,7 @@ Professional Data Engineer 試験は、Google Cloud のプロフェッショナ�
 - **結果**: データベースの静止データ（Data-at-rest）が指定した KMS 鍵で暗号化され、鍵のローテーション管理や暗号化操作の Cloud Audit Logs 記録が実現し、鍵の無効化による即時アクセス遮断が可能となる。
 - **解説**: CMEK を採用することで、Google が管理するデフォルトの暗号化鍵とは異なり、組織のセキュリティ管理者が鍵のライフサイクルを完全に掌握できるためです。暗号化操作を自前でアプリケーション実装するクライアントサイド暗号化（CSEK）は、BigQuery の分析機能（集計・フィルタリング）が失われるため不適格です。また、Google 管理の暗号化鍵では、自社ポリシーに基づく即時失効や定期ローテーションの統制要件を満たせません。
 - **参考ドキュメント**:
-  - [BigQuery 顧客管理の暗号鍵](https://cloud.google.com/bigquery/docs/customer-managed-encryption?hl=ja): CMEK の設定方法と暗号化の仕組み。
+  - [BigQuery 顧客管理の暗号鍵](https://docs.cloud.google.com/bigquery/docs/customer-managed-encryption?hl=ja): CMEK の設定方法と暗号化の仕組み。
 
 #### シナリオ 1-2: グローバル分散環境におけるデータ主権規制（GDPR）とプロジェクト分離
 
@@ -230,7 +210,7 @@ Professional Data Engineer 試験は、Google Cloud のプロフェッショナ�
 - **結果**: 開発者や運用担当者の人為的ミスによる欧州外リージョンへのリソースプロビジョニングが根本的に遮断され、完全なデータ主権が担保される。
 - **解説**: 組織ポリシー制約は、個々のプロジェクト作成やデータセット構成におけるリージョン違反をプラットフォームレベルで強制拒否できるためです。Cloud IAM 権限のみで運用規程を設けるアプローチでは、権限を持つ管理者の誤操作や設定ミスによる越境保存を防止できないため不適格です。また、マルチリージョン `EU` を選択した場合は欧州内の複数データセンターに分散されるため、特定国（ドイツ国内など）のデータ所在地規制がある場合は単一リージョン（`europe-west3`）の指定が必須となり、マルチリージョン構成では要件を満たせません。
 - **参考ドキュメント**:
-  - [リソース ロケーションの制限 (組織ポリシー)](https://cloud.google.com/resource-manager/docs/organization-policy/defining-locations?hl=ja): データ所在地とコンプライアンスの統制。
+  - [リソース ロケーションの制限 (組織ポリシー)](https://docs.cloud.google.com/organization-policy/restrict-locations?hl=ja): データ所在地とコンプライアンスの統制。
 
 #### シナリオ 1-3: ELT パイプラインにおける SQL 変換の自動テストと依存関係管理
 
@@ -239,7 +219,7 @@ Professional Data Engineer 試験は、Google Cloud のプロフェッショナ�
 - **結果**: テーブルの更新順序が DAG（有向非巡回グラフ）として自動解決され、主キー重複や NULL 検証アサーションがパスした場合のみ本番テーブルに公開される信頼性の高い ELT が実現する。
 - **解説**: Dataform は BigQuery にネイティブ統合された宣言型 ELT オーケストレーションツールであり、SQL 開発者が追加インフラを構築・管理することなくデータ変換のバージョン管理と品質検証（アサーション）を自動化できるためです。Cloud Composer（Airflow）単体で BashOperator や PythonOperator を用いて生の SQL スクリプトを逐次実行する構成は、SQL 間の細かなカラムレベル依存関係やアサーションの記述負荷が著しく増大するため不適格です。また、Linux cron でスケジューリングするアプローチは、依存関係の制御や障害時のロールバックが困難であり要件を満たせません。
 - **参考ドキュメント**:
-  - [Dataform の概要](https://cloud.google.com/dataform/docs/overview?hl=ja): BigQuery における宣言型データ変換のベストプラクティス。
+  - [Dataform の概要](https://docs.cloud.google.com/dataform/docs/overview?hl=ja): BigQuery における宣言型データ変換のベストプラクティス。
 
 #### シナリオ 1-4: 大規模オンプレミス RDBMS から Google Cloud への無停止移行
 
@@ -248,7 +228,7 @@ Professional Data Engineer 試験は、Google Cloud のプロフェッショナ�
 - **結果**: 業務データベースへの負荷を最小限に抑えつつ、数秒のレイテンシでトランザクション変更が BigQuery に自動反映されるリアルタイム分析環境が稼働する。
 - **解説**: Datastream はサーバーレスのマネージド CDC サービスであり、データベースのトランザクションログ（REDO ログ）を直接読み取って差分イベントのみをストリーミング転送するため、本番 DB に重いクエリ負荷をかけることなく無停止同期を実現できるためです。定期的なバッチ抽出（JDBC クエリによる全件/差分取得）は、大量の SELECT 文発行により本番 DB のトランザクション処理を阻害するため不適格です。また、BigQuery Data Transfer Service はスケジュールベースのバッチ転送であり、ミリ秒〜数秒の低レイテンシ継続同期要件を満たせません。
 - **参考ドキュメント**:
-  - [Datastream の概要](https://cloud.google.com/datastream/docs/overview?hl=ja): サーバーレス CDC によるリアルタイムレプリケーション。
+  - [Datastream の概要](https://docs.cloud.google.com/datastream/docs/overview?hl=ja): サーバーレス CDC によるリアルタイムレプリケーション。
 
 #### シナリオ 1-5: 100TB を超えるペタバイト級オンプレミスアーカイブの閉域網移行
 
@@ -257,7 +237,7 @@ Professional Data Engineer 試験は、Google Cloud のプロフェッショナ�
 - **結果**: ネットワーク帯域を一切圧迫することなく、高セキュリティかつ数日間のスケジュールで 300TB のデータ移行が完了する。
 - **解説**: 100Mbps の回線で 300TB を転送する場合、理論上でも約 300 日以上を要するため物理的な転送アプライアンス（Transfer Appliance）の利用が最も現実的かつ経済的であるためです。Cloud Storage Transfer Service や `gsutil -m cp` を低速回線上で実行するアプローチは、転送が完了するまでに数ヶ月以上を要し、業務帯域を枯渇させるため不適格です。また、一時的な移行のためだけに専用線（Dedicated Interconnect）を新規敷設することは、リードタイム（数ヶ月）とコストの観点から要件を満たせません。
 - **参考ドキュメント**:
-  - [Transfer Appliance の概要](https://cloud.google.com/transfer-appliance/docs/4.0/overview?hl=ja): 大容量データの安全な物理転送。
+  - [Transfer Appliance の概要](https://docs.cloud.google.com/transfer-appliance/docs/4.0/overview?hl=ja): 大容量データの安全な物理転送。
 
 #### シナリオ 1-6: 生成 AI を活用した自然言語からのセキュアな SQL クエリ自動生成
 
@@ -266,16 +246,16 @@ Professional Data Engineer 試験は、Google Cloud のプロフェッショナ�
 - **結果**: 実際の行データや個人情報（PII）が LLM の外部プロンプトに露出することなく、高精度な SQL クエリが自動生成され、最小権限での実行が担保される。
 - **解説**: LLM による SQL 生成に必要な情報はテーブルのメタデータ（スキーマ定義、列名、型、テーブル説明）のみであり、実データをプロンプトに含めないことがセキュリティおよびトークン消費最適化のベストプラクティスであるためです。実データを含むクエリ結果セットをプロンプトに埋め込んで推論させる構成は、重大な PII 漏洩リスクを招き、コンテキストウィンドウの上限に達するため不適格です。また、モデルに直接 BigQuery のフル管理者権限（`roles/bigquery.admin`）を委譲する構成は、悪意あるプロンプト注入によるデータ改ざんや破壊のリスクがあるため要件を満たせません。
 - **参考ドキュメント**:
-  - [BigQuery での Gemini によるコード支援](https://cloud.google.com/bigquery/docs/gemini-code-assist?hl=ja): 生成 AI を用いた安全な SQL 生成と分析支援。
+  - [BigQuery での Gemini によるコード支援](https://docs.cloud.google.com/bigquery/docs/write-sql-gemini?hl=ja): 生成 AI を用いた安全な SQL 生成と分析支援。
 
 ---
 
 ### 4. 参考ドキュメント & 推奨ハンズオン
 
 #### 公式一次ドキュメント
-- [データ ガバナンスの原則とアプローチ](https://cloud.google.com/architecture/data-governance-principles-and-approaches?hl=ja): クラウドデータ基盤のセキュリティとガバナンス設計。
-- [BigQuery 顧客管理の暗号鍵 (CMEK)](https://cloud.google.com/bigquery/docs/customer-managed-encryption?hl=ja): 鍵管理とコンプライアンスのベストプラクティス。
-- [データ移行のガイダンス](https://cloud.google.com/architecture/migration-to-google-cloud-choosing-your-migration-path?hl=ja): ワークロードに応じた移行手法の選択。
+- [データ ガバナンスの原則とアプローチ](https://docs.cloud.google.com/architecture/framework?hl=ja): クラウドデータ基盤のセキュリティとガバナンス設計。
+- [BigQuery 顧客管理の暗号鍵 (CMEK)](https://docs.cloud.google.com/bigquery/docs/customer-managed-encryption?hl=ja): 鍵管理とコンプライアンスのベストプラクティス。
+- [データ移行のガイダンス](https://docs.cloud.google.com/architecture/migration-to-gcp-getting-started?hl=ja): ワークロードに応じた移行手法の選択。
 
 #### 推奨ハンズオン・ラボ（実機検証）
 - [Create and Manage BigQuery Datasets and Tables (Google Skills)](https://www.skills.google/course_templates/624?hl=ja):
@@ -366,8 +346,8 @@ Dataflow は、ストリーミングデータにおける時間概念（イベ�
 - **結果**: センサーごとの時系列順序が担保された状態で取り込まれ、30 分以内の遅延データは破棄されることなく既存ウィンドウの集計結果が自動更新される。
 - **解説**: Pub/Sub の Ordering Key は同一キーを持つメッセージの配信順序を厳格に保証し、Dataflow の `withAllowedLateness` はウォーターマーク通過後の遅延データを安全に再計算して正確な集計値を反映できるためです。順序キーを指定しない標準 Pub/Sub ではメッセージの到着順序が保証されないため、ステートマシンの順序不整合が発生し不適格です。また、遅延許容時間を設定しない場合、ウォーターマークを過ぎた遅延データは黙示的に破棄され、工場の異常検知に欠損が生じるため要件を満たせません。
 - **参考ドキュメント**:
-  - [Pub/Sub メッセージの順序付け](https://cloud.google.com/pubsub/docs/ordering?hl=ja): 順序キーによる正確な順序保証の仕組み。
-  - [Dataflow の遅延データの処理](https://cloud.google.com/dataflow/docs/concepts/streaming-pipelines#late-data?hl=ja): ウォーターマークと許容遅延の設定。
+  - [Pub/Sub メッセージの順序付け](https://docs.cloud.google.com/pubsub/docs/ordering?hl=ja): 順序キーによる正確な順序保証の仕組み。
+  - [Dataflow の遅延データの処理](https://docs.cloud.google.com/dataflow/docs/concepts/streaming-pipelines): ウォーターマークと許容遅延の設定。
 
 #### シナリオ 2-2: 不正フォーマットメッセージの自動分離とパイプライン停止防止
 
@@ -376,7 +356,7 @@ Dataflow は、ストリーミングデータにおける時間概念（イベ�
 - **結果**: 不正なメッセージが混入しても正常なメッセージの処理が一切ブロックされることなく継続し、エラーデータのみが隔離されて後から原因調査や再処理が可能となる。
 - **解説**: DLQ および Side Output によるエラーレコードの隔離は、ストリーミングデータ処理におけるフォールトトレランスの標準パターンであり、不正データによるパイプラインの無限再試行ループやレイテンシ急増を完全に防止できるためです。例外発生時にパイプラインをクラッシュさせる設計は、後続の全正常トランザクションを道連れにしてサービス停止を引き起こすため不適格です。また、例外を単にログに出力して破棄（Drop）する構成は、データ欠損の監査や再送処理ができなくなるため要件を満たせません。
 - **参考ドキュメント**:
-  - [Pub/Sub デッドレター トピックの使用](https://cloud.google.com/pubsub/docs/dead-letter-topics?hl=ja): 配信不能メッセージの安全な隔離。
+  - [Pub/Sub デッドレター トピックの使用](https://docs.cloud.google.com/pubsub/docs/dead-letter-topics?hl=ja): 配信不能メッセージの安全な隔離。
 
 #### シナリオ 2-3: オンプレミス Hadoop/Spark ジョブの Google Cloud 移行とコスト最適化
 
@@ -385,7 +365,7 @@ Dataflow は、ストリーミングデータにおける時間概念（イベ�
 - **結果**: 常時稼働する仮想マシンの待機コストがゼロになり、Spark ジョブの実行時間分（2時間）のコンピュートリソース課金のみで運用負荷のないバッチ処理が実現する。
 - **解説**: Dataproc サーバーレスはクラスタのプロビジョニングや構成管理を不要にし、ジョブ実行時のみ動的にスケーリングして完了時にリソースを解放するため、運用コストとインフラ費用の双方を極小化できるためです。Compute Engine 上に常時稼働（24/7）の固定 Dataproc クラスタを構築するアプローチは、1日22時間のアイドル時間に対しても課金が発生し莫大な無駄が生じるため不適格です。また、コードを Dataflow（Apache Beam）に全面書き直すアプローチは、Spark 資産の再開発コストと検証期間が膨大となるため不適格です。
 - **参考ドキュメント**:
-  - [Dataproc Serverless の概要](https://cloud.google.com/dataproc-serverless/docs/overview?hl=ja): クラスタ管理不要のサーバーレス Spark 実行環境。
+  - [Dataproc Serverless の概要](https://docs.cloud.google.com/managed-spark/docs/serverless-overview?hl=ja): クラスタ管理不要のサーバーレス Spark 実行環境。
 
 #### シナリオ 2-4: プライベート VPC 環境でのセキュアな外部 SaaS データ取り込み
 
@@ -394,7 +374,7 @@ Dataflow は、ストリーミングデータにおける時間概念（イベ�
 - **結果**: パイプラインワーカーにパブリック IP を一切付与することなく、インターネットへの露出を完全に防いだプライベートなデータ取り込みが実現する。
 - **解説**: Private Service Connect を使用すると、外部または別プロジェクトのサービスに対して VPC 内のプライベート IP アドレス経由で安全に通信でき、インターネットゲートウェイを介さないセキュアな閉域接続が確立できるためです。パイプラインにパブリック IP を割り当ててファイアウォールで制限する構成は、セキュリティポリシー（インターネット非接続）に違反するため不適格です。また、Cloud NAT を経由させるアプローチはパブリックなインターネットを経由するため、厳格な閉域要件を満たせません。
 - **参考ドキュメント**:
-  - [Private Service Connect の概要](https://cloud.google.com/vpc/docs/private-service-connect?hl=ja): プライベート IP による安全な外部・内部サービス連携。
+  - [Private Service Connect の概要](https://docs.cloud.google.com/vpc/docs/private-service-connect?hl=ja): プライベート IP による安全な外部・内部サービス連携。
 
 #### シナリオ 2-5: 機械学習推論を用いたリアルタイムストリーミングデータ拡充
 
@@ -403,7 +383,7 @@ Dataflow は、ストリーミングデータにおける時間概念（イベ�
 - **結果**: 外部推論 API の過負荷やボトルネックを防ぎながら、高スループットなストリーミングデータに対してミリ秒単位のモデル推論と不正イベント検出が実現する。
 - **解説**: Apache Beam の `RunInference` はパイプラインのワーカープロセス内で直接モデルを効率的にロード・共有・バッチ推論する最適化機構を備えており、ストリーミングデータに対する低遅延・高スループットな ML エンリッチメントに最適化されているためです。イベントごとに個別の HTTP リクエストを同期的に外部エンドポイントへ送信する構成は、ネットワーク遅延の蓄積と API レートリミット超過によりパイプライン全体の致命的な詰まりを引き起こすため不適格です。また、BigQuery に一度データを保存してから BigQuery ML で定期バッチ推論するアプローチは、ミリ秒〜数秒単位での即時アラート通知要件を満たせません。
 - **参考ドキュメント**:
-  - [Dataflow での ML モデル推論 (RunInference)](https://cloud.google.com/dataflow/docs/guides/machine-learning/runinference-beam?hl=ja): 高性能なストリーミング推論パイプライン。
+  - [Dataflow での ML モデル推論 (RunInference)](https://docs.cloud.google.com/dataflow/docs/overview?hl=ja): 高性能なストリーミング推論パイプライン。
 
 #### シナリオ 2-6: 複雑なデータパイプラインの依存関係制御と自動リトライ
 
@@ -412,16 +392,16 @@ Dataflow は、ストリーミングデータにおける時間概念（イベ�
 - **結果**: タスク間の依存関係が DAG に沿って自動解決され、一時的障害に対する自動復旧と、致命的エラー発生時の運用担当者への即時通知が統合管理される。
 - **解説**: Cloud Composer はエンタープライズ向けの堅牢なワークフローエンジンであり、タスク間の厳密な順序制御、動的パラメータ渡し、ステート管理、および自動再試行メカニズムをコード（Python）として一元管理できるためです。Linux の cron スクリプトを組み合わせて時刻ベースで各処理を逐次起動する構成は、先行ジョブの遅延や失敗を検知できず、不整合なデータマートが作成されるリスクが極めて高いため不適格です。また、Workflows は軽量なマイクロサービス連携には適していますが、大規模なビッグデータ ETL パイプラインの複雑な依存関係監視や Airflow エコシステムの豊富な BigData オペレータ要件を満たせないため不適格です。
 - **参考ドキュメント**:
-  - [Cloud Composer の概要](https://cloud.google.com/composer/docs/concepts/overview?hl=ja): マネージド Apache Airflow によるデータオーケストレーション。
+  - [Cloud Composer の概要](https://docs.cloud.google.com/composer/docs/composer-3/composer-overview?hl=ja): マネージド Apache Airflow によるデータオーケストレーション。
 
 ---
 
 ### 4. 参考ドキュメント & 推奨ハンズオン
 
 #### 公式一次ドキュメント
-- [Dataflow ストリーミング パイプラインの設計](https://cloud.google.com/dataflow/docs/concepts/streaming-pipelines?hl=ja): ウィンドウ、ウォーターマーク、トリガーのベストプラクティス。
-- [Cloud Pub/Sub のアーキテクチャ](https://cloud.google.com/pubsub/docs/overview?hl=ja): グローバルメッセージングと順序保証。
-- [Dataproc サーバーレス ガイド](https://cloud.google.com/dataproc-serverless/docs?hl=ja): サーバーレス Spark ワークロードの構成。
+- [Dataflow ストリーミング パイプラインの設計](https://docs.cloud.google.com/dataflow/docs/concepts/streaming-pipelines?hl=ja): ウィンドウ、ウォーターマーク、トリガーのベストプラクティス。
+- [Cloud Pub/Sub のアーキテクチャ](https://docs.cloud.google.com/pubsub/docs/overview?hl=ja): グローバルメッセージングと順序保証。
+- [Dataproc サーバーレス ガイド](https://docs.cloud.google.com/managed-spark/docs?hl=ja): サーバーレス Spark ワークロードの構成。
 
 #### 推奨ハンズオン・ラボ（実機検証）
 - [Engineer Data in Google Cloud (Skill Badge)](https://www.skills.google/course_templates/626?hl=ja):
@@ -518,7 +498,7 @@ Orders テーブル:
 - **結果**: 特定ユーザーの最新履歴に対する単一行読み取りおよび連続スキャンが数ミリ秒以内で完了し、ホットスポットを回避しながら 50 万 QPS のトラフィックを安定処理できる。
 - **解説**: Cloud Bigtable は大規模なキーバリューストレージであり、適切な行キー設計によって読み取り・書き込み負荷がクラスタ内の複数ノードに均等分散され、1桁ミリ秒のレスポンスを維持できるためです。連番 ID や連続する生の日時を行キーの先頭に配置すると、特定の単一ノードに書き込みが集中するホットスポット（Hotspotting）が発生し、システム全体の遅延が跳ね上がるため不適格です。また、BigQuery は分析クエリには最適ですが、数秒単位のクエリ遅延が発生するためミリ秒応答の OLTP 要件を満たせません。
 - **参考ドキュメント**:
-  - [Bigtable スキーマ設計のベスト プラクティス](https://cloud.google.com/bigtable/docs/schema-design?hl=ja): 行キーの設計原則とホットスポットの防止。
+  - [Bigtable スキーマ設計のベスト プラクティス](https://docs.cloud.google.com/bigtable/docs/schema-design?hl=ja): 行キーの設計原則とホットスポットの防止。
 
 #### シナリオ 3-2: グローバル金融取引における外部整合性とマルチリージョン高可用性の担保
 
@@ -527,7 +507,7 @@ Orders テーブル:
 - **結果**: 拠点間をまたぐ分散トランザクションにおいて、TrueTime API による厳格な外部整合性が担保され、ゾーンやリージョン全体の障害発生時にもダウンタイムなしで自動フェイルオーバーが完了する。
 - **解説**: Cloud Spanner は原子時計と GPS を用いた TrueTime 技術により、グローバル規模での分散合意（Paxos）と外部整合性を両立させた唯一のフルマネージド RDBMS であり、99.999%（マルチリージョン時）の可用性 SLA を提供するためです。Cloud SQL は単一リージョンでの高可用性（HA）にとどまり、マルチリージョン間での強い同期トランザクション整合性を保証できないため不適格です。また、Cassandra や Firestore などの NoSQL では、複数アカウントにまたがる複雑な分散 ACID トランザクションと外部整合性を保証することが困難であり要件を満たせません。
 - **参考ドキュメント**:
-  - [Cloud Spanner の概要](https://cloud.google.com/spanner/docs/overview?hl=ja): グローバル分散 ACID データベース。
+  - [Cloud Spanner の概要](https://cloud.google.com/spanner?hl=ja): グローバル分散 ACID データベース。
 
 #### シナリオ 3-3: 1日数十億件のイベントログに対するクエリコストとスキャン量最小化
 
@@ -536,8 +516,8 @@ Orders テーブル:
 - **結果**: クエリ実行時に該当する日付範囲以外のパーティションが完全に除外（Pruning）され、対象パーティション内でもクラスタキーによって該当ブロックのみが読み込まれるため、データスキャン量が 95% 以上削減される。
 - **解説**: パーティショニングによって日付範囲による物理スキャン境界が作られ、クラスタリングによって特定キーのソート済みブロックのみを効率的に刈り込めるため、クエリ費用とスロット占有時間を劇的に圧縮できるためです。シャーディング（日付ごとに `click_log_20261014` のようにテーブルを分割する手法）は、テーブル数が肥大化してメタデータ管理が逼迫し、複数日にまたがるクエリでワイルドカード指定が必要となりパフォーマンスが劣化するため非推奨・不適格です。また、クラスタリングを行わずにパーティショニングのみを適用した場合は、パーティション内の全データをスキャンするため要件を満たせません。
 - **参考ドキュメント**:
-  - [BigQuery パーティション分割テーブルの概要](https://cloud.google.com/bigquery/docs/partitioned-tables?hl=ja): パーティショニングによるコスト最適化。
-  - [BigQuery クラスタ化テーブルの概要](https://cloud.google.com/bigquery/docs/clustered-tables?hl=ja): クラスタリングによる高速化。
+  - [BigQuery パーティション分割テーブルの概要](https://docs.cloud.google.com/bigquery/docs/partitioned-tables?hl=ja): パーティショニングによるコスト最適化。
+  - [BigQuery クラスタ化テーブルの概要](https://docs.cloud.google.com/bigquery/docs/clustered-tables?hl=ja): クラスタリングによる高速化。
 
 #### シナリオ 3-4: 1対多のリレーショナル構造における JOIN 排除と高速集計
 
@@ -546,7 +526,7 @@ Orders テーブル:
 - **結果**: 顧客データと購買履歴データが物理的に同一の行（ブロック）に局所化して保存され、テーブル間の大規模 JOIN が完全に不要となり、シャッフルオーバーヘッドが解消して集計クエリが数倍高速化する。
 - **解説**: BigQuery はカラム型分散ストレージであり、ネストおよび反復レコード（ARRAY / STRUCT）を用いることでリレーショナルの正規化による結合コスト（ネットワークシャッフル）を物理的に排除できるためです。従来の RDBMS と同様に第 3 正規形を維持したまま別テーブルとして管理し、実行時に毎回 INNER JOIN / LEFT JOIN を行う設計は、ペタバイト級データにおいて膨大なシャッフル通信を引き起こしスロット枯渇を招くため不適格です。また、購買履歴を単純なカンマ区切り文字列や非構造化 JSON 文字列として 1 カラムに押し込めるアプローチは、型安全性が失われ、SQL 集計関数の適用に高コストなパース処理を伴うため要件を満たせません。
 - **参考ドキュメント**:
-  - [BigQuery ネストされたフィールドと繰り返しフィールドの指定](https://cloud.google.com/bigquery/docs/nested-repeated?hl=ja): 非正規化設計のベストプラクティス。
+  - [BigQuery ネストされたフィールドと繰り返しフィールドの指定](https://docs.cloud.google.com/bigquery/docs/nested-repeated?hl=ja): 非正規化設計のベストプラクティス。
 
 #### シナリオ 3-5: マルチクラウド・ハイブリッド環境におけるオープンフォーマットデータの一元ガバナンス
 
@@ -555,7 +535,7 @@ Orders テーブル:
 - **結果**: 外部オブジェクトストレージ上のオープンフォーマットデータに対し、複製コストとネットワーク転送を発生させることなく高速な SQL 分析が可能となり、BigQuery ネイティブテーブルと同等のきめ細やかなセキュリティ統制が実現する。
 - **解説**: BigLake はストレージエンジンとコンピュートを疎結合に保ちながら、Cloud Storage やマルチクラウド（S3/Azure）上の Parquet/Iceberg などのファイルに対して BigQuery のセキュリティレイヤー（行・列レベル制御）とパフォーマンス最適化（メタデータキャッシュ）を適用できるためです。すべてのデータを BigQuery の内部ストレージに `bq load` で複製・取り込むアプローチは、二重のストレージ課金と継続的な同期パイプラインの運用負荷が発生するため不適格です。また、従来の BigQuery 外部テーブル（External Table）は列レベルのマスキングや高度なキャッシュ最適化に対応しておらず、セキュリティおよびパフォーマンス要件を満たせません。
 - **参考ドキュメント**:
-  - [BigLake の概要](https://cloud.google.com/biglake/docs/introduction?hl=ja): レイクハウス向けオープンストレージエンジン。
+  - [BigLake の概要](https://cloud.google.com/lakehouse/docs/introduction?hl=ja): レイクハウス向けオープンストレージエンジン。
 
 #### シナリオ 3-6: 規制アーカイブデータの長期保持とアクセス頻度に応じた自動階層化
 
@@ -564,16 +544,16 @@ Orders テーブル:
 - **結果**: データのアクセスパターンに応じてストレージクラスが自動的により安価な階層へダウングレードされ、長期間アクセスのないデータは最も安価な Archive クラスに移行し、ストレージコストが最大 80% 以上削減される。
 - **解説**: Cloud Storage の Autoclass（およびオブジェクトライフサイクル管理）は、人手による管理介入なしにアクセス頻度に基づいて最適なストレージ階層へオブジェクトを自動配置し、かつどのクラスにあってもミリ秒〜数秒単位での即時データアクセスを提供できるためです。すべてのデータを常時 Standard ストレージに保管し続ける構成は、長期間にわたり巨額の不要コストが発生するため不適格です。また、テープバックアップなどの外部オフライン媒体にエクスポートする構成は、監査要求時の復元に数日〜数週間のリードタイムを要し、迅速なデータ取得要件を満たせません。
 - **参考ドキュメント**:
-  - [Cloud Storage Autoclass の概要](https://cloud.google.com/storage/docs/autoclass?hl=ja): コスト自動最適化ストレージ管理。
+  - [Cloud Storage Autoclass の概要](https://docs.cloud.google.com/storage/docs/autoclass?hl=ja): コスト自動最適化ストレージ管理。
 
 ---
 
 ### 4. 参考ドキュメント & 推奨ハンズオン
 
 #### 公式一次ドキュメント
-- [BigQuery ストレージの概要](https://cloud.google.com/bigquery/docs/storage_overview?hl=ja): カラム型ストレージアーキテクチャ。
-- [Bigtable 行キーの設計](https://cloud.google.com/bigtable/docs/schema-design?hl=ja): 高スループットとホットスポット回避。
-- [Dataplex の概要](https://cloud.google.com/dataplex/docs/introduction?hl=ja): データメッシュと分散ガバナンス。
+- [BigQuery ストレージの概要](https://docs.cloud.google.com/bigquery/docs/storage_overview?hl=ja): カラム型ストレージアーキテクチャ。
+- [Bigtable 行キーの設計](https://docs.cloud.google.com/bigtable/docs/schema-design?hl=ja): 高スループットとホットスポット回避。
+- [Dataplex の概要](https://docs.cloud.google.com/knowledge-catalog/docs/introduction?hl=ja): データメッシュと分散ガバナンス。
 
 #### 推奨ハンズオン・ラボ（実機検証）
 - [Build a Data Warehouse with BigQuery (Skill Badge)](https://www.skills.google/course_templates/624?hl=ja):
@@ -659,8 +639,8 @@ BI ダッシュボードのレスポンス改善およびクエリコスト削�
 - **結果**: ダッシュボードの主要な集計クエリが BI Engine のインメモリキャッシュから数百ミリ秒以内で返却され、スロット競合が解消し、クエリスキャン費用が劇的に削減される。
 - **解説**: BI Engine はメモリ内でクエリを直接評価し、マテリアライズドビューは元テーブルの更新差分を自動追跡しながら集計済みデータを保持するため、ダッシュボードの高速化とコスト削減を同時に達成できるためです。ダッシュボードの更新頻度を落として静的 PDF として配信するアプローチは、役員が求める対話的なドリルダウン分析が不可能となるため不適格です。また、通常の論理ビュー（View）を作成するアプローチは、実行時に元テーブルの全スキャンが毎回走るため要件を満たせません。
 - **参考ドキュメント**:
-  - [BigQuery BI Engine の概要](https://cloud.google.com/bigquery/docs/bi-engine-overview?hl=ja): 高速インメモリ分析。
-  - [マテリアライズド ビューの使用](https://cloud.google.com/bigquery/docs/materialized-views-intro?hl=ja): 自動クエリリライトと事前計算。
+  - [BigQuery BI Engine の概要](https://docs.cloud.google.com/bigquery/docs/bi-engine-intro?hl=ja): 高速インメモリ分析。
+  - [マテリアライズド ビューの使用](https://docs.cloud.google.com/bigquery/docs/materialized-views-intro?hl=ja): 自動クエリリライトと事前計算。
 
 #### シナリオ 4-2: 同一テーブル内における役職別の閲覧権限統制と個人情報秘匿
 
@@ -669,8 +649,8 @@ BI ダッシュボードのレスポンス改善およびクエリコスト削�
 - **結果**: 役職や所属部署に応じた適切な行のみが表示され、機密カラムはリアルタイムに自動マスキングされ、単一テーブルで完全な職掌分離が実現する。
 - **解説**: 行レベルセキュリティと動的データマスキングを組み合わせることで、テーブルを物理的に複製・分割することなく、IAM プリンシパルのコンテキストに応じたきめ細やかなアクセス制御を集中管理できるためです。部門ごと、役職ごとに別々のテーブルやデータセットをバッチパイプラインで生成・同期する構成は、データパイプラインの二重三重の運用管理負荷とストレージ費用の増大を招き、同期遅延や不整合のリスクが極めて高いため不適格です。また、認可ビュー（Authorized View）のみで行制御を行う構成は、カラム数が多くマスキングルールが複雑な場合に多数のビュー作成が必要となり管理が破綻するため要件を満たせません。
 - **参考ドキュメント**:
-  - [動的データ マスキングの概要](https://cloud.google.com/bigquery/docs/column-data-masking-intro?hl=ja): ポリシータグによる動的秘匿。
-  - [行レベルのセキュリティの概要](https://cloud.google.com/bigquery/docs/row-level-security-intro?hl=ja): プリンシパルに応じた行フィルタリング。
+  - [動的データ マスキングの概要](https://docs.cloud.google.com/bigquery/docs/column-data-masking-intro?hl=ja): ポリシータグによる動的秘匿。
+  - [行レベルのセキュリティの概要](https://docs.cloud.google.com/bigquery/docs/row-level-security-intro?hl=ja): プリンシパルに応じた行フィルタリング。
 
 #### シナリオ 4-3: 外部パートナー企業への大規模分析データセットの安全かつ複製なし共有
 
@@ -679,7 +659,7 @@ BI ダッシュボードのレスポンス改善およびクエリコスト削�
 - **結果**: サプライヤー企業は自社の Google Cloud プロジェクトから直接リンクされたデータセットを参照（ゼロコピー共有）でき、自社製品の売上データのみをリアルタイムにクエリ可能となる。
 - **解説**: Analytics Hub はデータ複製を伴わない「ゼロコピー共有」を実現し、データプロバイダー側で適用された行レベルセキュリティやポリシータグがサブスクライバー側のクエリ実行時にも強制適用されるため、極めて安全かつ低コストに大規模共有が可能なためです。Cloud Storage に毎晩サプライヤーごとの CSV ファイルをエクスポートして SFTP で転送するアプローチは、大量のデータ複製、転送遅延、およびファイル誤送信による深刻なセキュリティ漏洩リスクを招くため不適格です。また、外部企業のサービスアカウントに直接 BigQuery のデータセット読み取り権限を付与する方式は、アクセス監査や共有ガバナンスの一元管理が困難であり推奨されません。
 - **参考ドキュメント**:
-  - [Analytics Hub の概要](https://cloud.google.com/bigquery/docs/analytics-hub-introduction?hl=ja): 安全なデータエクスチェンジとゼロコピー共有。
+  - [Analytics Hub の概要](https://docs.cloud.google.com/bigquery/docs/analytics-hub-introduction?hl=ja): 安全なデータエクスチェンジとゼロコピー共有。
 
 #### シナリオ 4-4: データウェアハウス内での SQL による直接顧客離反予測モデル構築とバッチ推論
 
@@ -688,7 +668,7 @@ BI ダッシュボードのレスポンス改善およびクエリコスト削�
 - **結果**: データを BigQuery 外部に一切エクスポートすることなく、SQL のみでモデルのトレーニング、評価、推論パイプラインが即座に構築・稼働する。
 - **解説**: BigQuery ML は SQL 構文のみで機械学習モデルのライフサイクル全体をデータウェアハウス内で完結させることができ、データ移動のオーバーヘッドや外部 ML インフラの運用負荷を完全に排除できるためです。すべてのデータを Cloud Storage に抽出し、Compute Engine 上で Python スクリプトを実行して Scikit-learn でモデルを訓練する構成は、データ転送コスト、追加インフラ管理、および ML エンジニアのリソース不足により迅速な開発要件を満たせないため不適格です。また、単純なルールベースの SQL 条件分岐（CASE WHEN）で離反を判定する構成は、機械学習による高精度な予測精度が得られないため不適格です。
 - **参考ドキュメント**:
-  - [BigQuery ML の概要](https://cloud.google.com/bigquery/docs/bqml-introduction?hl=ja): SQL による機械学習モデルの構築と推論。
+  - [BigQuery ML の概要](https://docs.cloud.google.com/bigquery/docs/bqml-introduction?hl=ja): SQL による機械学習モデルの構築と推論。
 
 #### シナリオ 4-5: 社内ドキュメント・問い合わせ履歴を活用した検索拡張生成（RAG）用ベクトル検索基盤
 
@@ -697,7 +677,7 @@ BI ダッシュボードのレスポンス改善およびクエリコスト削�
 - **結果**: 外部のベクトルデータベースを新規導入することなく、BigQuery 単体で高パフォーマンスなベクトルインデックス検索と類似ドキュメント抽出が実現する。
 - **解説**: BigQuery は `ML.GENERATE_EMBEDDING` および `VECTOR_SEARCH`（ベクトル検索インデックス）をネイティブサポートしており、既存の構造化メタデータとベクトル埋め込みを単一の SQL クエリ内で高速に結合・フィルタリングできるためです。オープンソースのベクトル DB（Chroma, Milvus 等）を Compute Engine や GKE 上に自前構築するアプローチは、クラスタの冗長化、バックアップ、同期パイプラインの構築など莫大な運用保守工数を要するため不適格です。また、ベクトル埋め込みを行わず、通常の `LIKE '%キーワード%'` 検索で過去事例を検索する構成は、同義語や文脈の揺らぎを捉えられず、RAG の検索精度が著しく低下するため要件を満たせません。
 - **参考ドキュメント**:
-  - [BigQuery でのベクトル検索の概要](https://cloud.google.com/bigquery/docs/vector-search?hl=ja): SQL によるセマンティック検索と RAG 基盤。
+  - [BigQuery でのベクトル検索の概要](https://docs.cloud.google.com/bigquery/docs/vector-search?hl=ja): SQL によるセマンティック検索と RAG 基盤。
 
 #### シナリオ 4-6: スロット枯渇によるクエリ遅延のボトルネック特定とチューニング
 
@@ -706,16 +686,16 @@ BI ダッシュボードのレスポンス改善およびクエリコスト削�
 - **結果**: ワーカーノード間でのデータシャッフル量が大幅に削減され、特定スロットへの負荷集中（ロングテール）が解消してクエリ実行時間が正常な範囲に短縮される。
 - **解説**: BigQuery の EXPLAIN 出力における各ステージの `Slot-ms`、`Shuffle output bytes`、および最大ワーカー実行時間と平均ワーカー実行時間の乖離を確認することで、データスキューや非効率な結合アルゴリズム（Hash Join の偏り等）を正確に特定し、根本的な SQL チューニングを実施できるためです。単にクエリを複数回再実行するだけのアプローチは、根本原因の解決にならずスロット浪費を続けるため不適格です。また、問題の原因を分析せずに予約スロット数のみを倍増させる対応は、不要なインフラ費用の高騰を招くだけであり、エンジニアリングとしてのトラブルシューティング規範に反し根本解決とならないため不適格です。
 - **参考ドキュメント**:
-  - [クエリプランとタイムラインについて](https://cloud.google.com/bigquery/docs/query-plan-explanation?hl=ja): EXPLAIN による実行ボトルネックの特定。
+  - [クエリプランとタイムラインについて](https://docs.cloud.google.com/bigquery/docs/query-plan-explanation?hl=ja): EXPLAIN による実行ボトルネックの特定。
 
 ---
 
 ### 4. 参考ドキュメント & 推奨ハンズオン
 
 #### 公式一次ドキュメント
-- [BigQuery BI Engine の使用](https://cloud.google.com/bigquery/docs/bi-engine-overview?hl=ja): メモリ予約と Looker 最適化。
-- [BigQuery ML ガイド](https://cloud.google.com/bigquery/docs/bqml-introduction?hl=ja): SQL による機械学習の実装。
-- [BigQuery ベクトル検索](https://cloud.google.com/bigquery/docs/vector-search?hl=ja): RAG とセマンティック検索。
+- [BigQuery BI Engine の使用](https://docs.cloud.google.com/bigquery/docs/bi-engine-intro?hl=ja): メモリ予約と Looker 最適化。
+- [BigQuery ML ガイド](https://docs.cloud.google.com/bigquery/docs/bqml-introduction?hl=ja): SQL による機械学習の実装。
+- [BigQuery ベクトル検索](https://docs.cloud.google.com/bigquery/docs/vector-search?hl=ja): RAG とセマンティック検索。
 
 #### 推奨ハンズオン・ラボ（実機検証）
 - [Build a Data Warehouse with BigQuery (Skill Badge)](https://www.skills.google/course_templates/624?hl=ja):
@@ -805,7 +785,7 @@ BI ダッシュボードのレスポンス改善およびクエリコスト削�
 - **結果**: 他部門のアドホッククエリがどれほど大量に実行されても財務決算専用のスロットが確保され、決算処理が目標時間内に確実に完了する。
 - **解説**: スロット予約を作成してプロジェクトに割り当てることで、ワークロード間の完全なリソース分離が実現し、他プロジェクトの予期せぬ負荷から重要ワークロードを保護できるためです。オンデマンド課金プールで全クエリを実行し続ける構成は、プロジェクト全体で 2,000 スロットの上限を共有するため、クエリの急増によるスロット枯渇を回避できず不適格です。また、決算バッチの実行時刻を深夜 2 時にずらすだけのアプローチは、海外拠点のアクセスや突発的な深夜分析と競合する可能性を排除できないため不適格です。
 - **参考ドキュメント**:
-  - [BigQuery ワークロード管理の概要](https://cloud.google.com/bigquery/docs/reservations-intro?hl=ja): スロット予約とキャパシティ管理。
+  - [BigQuery ワークロード管理の概要](https://docs.cloud.google.com/bigquery/docs/reservations-intro?hl=ja): スロット予約とキャパシティ管理。
 
 #### シナリオ 5-2: 夜間大規模 ELT 処理のコスト最適化とクラスタ運用ゼロ化
 
@@ -814,7 +794,7 @@ BI ダッシュボードのレスポンス改善およびクエリコスト削�
 - **結果**: 仮想マシンのサイジング、OS パッチ適用、クラスタ起動・停止の自動化スクリプト作成などの運用工数が一切不要となり、ジョブ実行時間（コンピュート使用分）のみの課金でコストが最小化される。
 - **解説**: Dataproc サーバーレスは、ユーザーがクラスタインフラを意識することなく Spark コードを実行できる完全マネージド環境を提供し、ジョブ完了とともにリソースが自動解放されるためです。Compute Engine インスタンスを用いた常時稼働の Dataproc クラスタを運用する構成は、1日のうち 20 時間以上アイドル状態であるにもかかわらずインフラ費用が発生し、ノードの管理負担が重いため不適格です。また、Cloud Functions で 10TB のデータを分散処理しようとする構成は、タイムアウト上限（最大 60 分）およびメモリ制限に抵触するため要件を満たせません。
 - **参考ドキュメント**:
-  - [Dataproc Serverless の概要](https://cloud.google.com/dataproc-serverless/docs/overview?hl=ja): インフラ管理不要の Spark 実行環境。
+  - [Dataproc Serverless の概要](https://docs.cloud.google.com/managed-spark/docs/serverless-overview?hl=ja): インフラ管理不要の Spark 実行環境。
 
 #### シナリオ 5-3: ネットワーク断や一時的 API エラーによるパイプライン重複実行・二重計上防止
 
@@ -823,7 +803,7 @@ BI ダッシュボードのレスポンス改善およびクエリコスト削�
 - **結果**: ネットワーク断によってタスクが何度再実行されても、同一日の売上データが重複することなく正確に 1 回分のみ更新・反映される。
 - **解説**: `WRITE_TRUNCATE` や `MERGE` による冪等（Idempotent）な書き込み設計は、リトライが発生してもデータの一貫性と正確性を完全に保証できるためです。単純な `INSERT INTO` を実行する構成は、リトライのたびに行が多重追加される致命的なデータ不整合を引き起こすため不適格です。また、Airflow のリトライ設定を無効化（`retries=0`）するアプローチは、一時的な通信エラーでも夜間バッチ全体が異常停止し、手動復旧工数が爆発するため不適格です。
 - **参考ドキュメント**:
-  - [BigQuery MERGE ステートメント](https://cloud.google.com/bigquery/docs/reference/standard-sql/dml-syntax#merge_statement): 冪等なデータ更新と Upsert。
+  - [BigQuery MERGE ステートメント](https://docs.cloud.google.com/bigquery/docs/reference/standard-sql/dml-syntax): 冪等なデータ更新と Upsert。
 
 #### シナリオ 5-4: 高額クエリの早期検知とスロット消費異常の特定
 
@@ -832,8 +812,8 @@ BI ダッシュボードのレスポンス改善およびクエリコスト削�
 - **結果**: 制限を超過した暴走クエリは実行前に即時エラーとして遮断され、突発的な高額課金が完全に防止されるとともに、異常クエリを発行したユーザーやジョブが即時特定される。
 - **解説**: クエリの課金バイト数制限（`maximum_bytes_billed`）は、非効率なクエリの実行を未然に防ぐ最も確実な安全弁であり、`INFORMATION_SCHEMA` と Cloud Monitoring を組み合わせることで組織全体のクエリ利用傾向を可視化・監査できるためです。月次の請求書が届くまで待ってから確認する運用は、すでに巨額の費用が発生した後の対応となり損害を防げないため不適格です。また、全ユーザーのクエリ実行権限を剥奪して承認制にする運用は、分析業務の生産性を著しく阻害するため不適格です。
 - **参考ドキュメント**:
-  - [クエリ費用の管理](https://cloud.google.com/bigquery/docs/best-practices-costs#limit_costs): 課金上限の設定とコスト制御。
-  - [INFORMATION_SCHEMA.JOBS によるジョブ分析](https://cloud.google.com/bigquery/docs/information-schema-jobs?hl=ja): 実行クエリの監査。
+  - [クエリ費用の管理](https://docs.cloud.google.com/bigquery/docs/best-practices-costs): 課金上限の設定とコスト制御。
+  - [INFORMATION_SCHEMA.JOBS によるジョブ分析](https://docs.cloud.google.com/bigquery/docs/information-schema-jobs?hl=ja): 実行クエリの監査。
 
 #### シナリオ 5-5: リージョン障害時における RPO ゼロ・数秒以内 RTO のデータベース継続性確保
 
@@ -842,7 +822,7 @@ BI ダッシュボードのレスポンス改善およびクエリコスト削�
 - **結果**: リージョン全体の壊滅的な障害が発生した場合でも、データ損失ゼロ（RPO = 0）を維持したまま Paxos クオラムが自動維持され、手動介入なしに数秒以内でフェイルオーバーが完了する。
 - **解説**: Cloud Spanner のマルチリージョン構成は、地理的に離れた複数リージョン間で Paxos 合意プロトコルを実行し、同期レプリケーションを常時維持するため、リージョン喪失時にもデータ損失ゼロ（RPO = 0）と自動フェイルオーバー（RTO < 数秒）を同時に達成できるためです。Cloud SQL の非同期クロスリージョンリードレプリカを用いる構成は、レプリケーション遅延により最新データの損失（RPO > 0）が発生し、フェイルオーバーに手動昇格手順が必要となるため要件を満たせません。また、定期的なバックアップファイルを別リージョンへコピーする構成は、復旧に数時間〜数十時間を要し要件を満たせません。
 - **参考ドキュメント**:
-  - [Cloud Spanner レプリケーションの概要](https://cloud.google.com/spanner/docs/replication?hl=ja): マルチリージョン高可用性とゼロデータロス。
+  - [Cloud Spanner レプリケーションの概要](https://docs.cloud.google.com/spanner/docs/replication?hl=ja): マルチリージョン高可用性とゼロデータロス。
 
 #### シナリオ 5-6: 大規模データロードにおける API クォータ制限の回避と回復
 
@@ -851,17 +831,17 @@ BI ダッシュボードのレスポンス改善およびクエリコスト削�
 - **結果**: API のレート制限超過エラーが解消され、一時的なスロットリングが発生しても自動復旧し、安定したデータ取り込みが継続する。
 - **解説**: BigQuery のロードジョブにはプロジェクトおよびテーブル単位での 1 日あたりの実行回数クォータ（上限）が存在するため、マイクロバッチでの頻繁なロードジョブ発行を避け、 Storage Write API やバルクロードジョブに集約することが推奨されるためです。制限エラーが発生した際に即時（Sleep なし）に同一の API をループで呼び出し続けるアプローチは、API サーバーに負荷を集中させスロットリングをさらに長期化させるため不適格です。また、Google Cloud サポートに上限緩和申請を出すだけのアプローチは、根本的なパイプライン設計の欠陥（マイクロバッチの濫用）を解決できず再発するため不適格です。
 - **参考ドキュメント**:
-  - [BigQuery の割り当てと上限](https://cloud.google.com/bigquery/docs/quotas?hl=ja): ロードジョブとクエリの制限事項。
-  - [切断された接続のエラー処理 (指数バックオフ)](https://cloud.google.com/storage/docs/exponential-backoff?hl=ja): 回復力のある API 連携設計。
+  - [BigQuery の割り当てと上限](https://docs.cloud.google.com/bigquery/quotas?hl=ja): ロードジョブとクエリの制限事項。
+  - [切断された接続のエラー処理 (指数バックオフ)](https://docs.cloud.google.com/storage/docs/retry-strategy?hl=ja): 回復力のある API 連携設計。
 
 ---
 
 ### 4. 参考ドキュメント & 推奨ハンズオン
 
 #### 公式一次ドキュメント
-- [BigQuery ワークロード管理のベストプラクティス](https://cloud.google.com/bigquery/docs/reservations-intro?hl=ja): エディションとスロット予約。
-- [BigQuery の監視とトラブルシューティング](https://cloud.google.com/bigquery/docs/monitoring?hl=ja): INFORMATION_SCHEMA と Cloud Monitoring。
-- [Cloud Composer DAG の作成とトラブルシューティング](https://cloud.google.com/composer/docs/how-to/using/writing-dags?hl=ja): 堅牢なワークフロー設計。
+- [BigQuery ワークロード管理のベストプラクティス](https://docs.cloud.google.com/bigquery/docs/reservations-intro?hl=ja): エディションとスロット予約。
+- [BigQuery の監視とトラブルシューティング](https://docs.cloud.google.com/bigquery/docs/monitoring?hl=ja): INFORMATION_SCHEMA と Cloud Monitoring。
+- [Cloud Composer DAG の作成とトラブルシューティング](https://docs.cloud.google.com/composer/docs/composer-3/write-dags?hl=ja): 堅牢なワークフロー設計。
 
 #### 推奨ハンズオン・ラボ（実機検証）
 - [Optimize BigQuery Costs and Performance](https://www.skills.google/course_templates/624?hl=ja):

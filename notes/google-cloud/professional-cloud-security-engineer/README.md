@@ -71,13 +71,13 @@ Professional Cloud Security Engineer は、組織が Google Cloud 上で安全�
 
 ### セクション一覧と出題比率
 
-| セクション番号 | セクション名 / 出題分野 | 出題比率 | 主要対象サービス・ツール | ステータス |
-| :--- | :--- | :--- | :--- | :--- |
-| **Section 1** | アクセスの構成 | 約 25.0% | Cloud Identity, GCDS, SSO (SAML / OAuth 2.0), 2 段階認証, Workforce Identity 連携, サービスアカウント管理（キーレス化, 短期認証情報, 権限借用, Workload Identity 連携）, Cloud IAM（事前定義/カスタムロール, IAM 条件, 拒否ポリシー, Access Context Manager, ポリシーインテリジェンス）, リソース階層（組織・フォルダ・プロジェクト・組織ポリシー） | 完了 |
-| **Section 2** | 通信の保護と境界保護の確立 | 約 20.0% | 境界セキュリティ（階層型ファイアウォールポリシー, Cloud Armor WAF, IAP, Certificate Authority Service, Secure Web Proxy, Cloud DNS SEC）, 境界セグメント（VPC, Shared VPC, VPC ピアリング, N 層分離, VPC Service Controls [境界, 境界ブリッジ, Egress/Ingress ルール]）, プライベート接続（HA-VPN, Cloud Interconnect, MACsec, プライベート Google アクセス, Private Service Connect, Cloud NAT） | 完了 |
-| **Section 3** | 確実なデータ保護 | 約 23.0% | センシティブデータ保護（Sensitive Data Protection / Cloud DLP, PII 検査/秘匿化, 継続的プロファイリング, 仮名化, フォーマット保持暗号化 [FPE]）, データストアアクセス制限（BigQuery, Cloud Storage, Cloud SQL）, Secret Manager, VM メタデータ保護, 暗号化管理（デフォルト暗号化, CMEK, Cloud HSM, Cloud EKM, オブジェクトライフサイクル）, Confidential Computing（Confidential VM / GKE）, AI セキュリティ＆プライバシー（Vertex AI セキュリティ, トレーニングデータ/モデル保護） | 完了 |
-| **Section 4** | オペレーションの管理 | 約 20.0% | セキュリティ自動化（CI/CD パイプライン脆弱性スキャン, Artifact Analysis, Binary Authorization, VM / コンテナのベースイメージ強化・パッチ管理, Security Health Analytics カスタムモジュール）, ロギング・モニタリング・検知（Cloud Logging, VPC フローログ, Packet Mirroring, Cloud IDS, ログ分析, ログシンク・集約シンク, Cloud Audit Logs, Security Command Center [SCC Enterprise / Premium, イベント脅威検出, 異常検出, 脆弱性管理, ガバナンス]） | 完了 |
-| **Section 5** | コンプライアンス要件のサポート | 約 12.0% | 規制要件（PCI DSS, HIPAA, FedRAMP, GDPR, 責任共有モデル）, データとサービスのリージョン化, 規制遵守のための制御（Assured Workloads, 組織ポリシー制約, アクセスの透明性 [Access Transparency], アクセス承認 [Access Approval]） | 完了 |
+| セクション番号 | セクション名 / 出題分野 | 出題比率 | 主要対象サービス・ツール |
+| :--- | :--- | :--- | :--- |
+| **Section 1** | アクセスの構成 | 約 25.0% | Cloud Identity, GCDS, SSO (SAML / OAuth 2.0), 2 段階認証, Workforce Identity 連携, サービスアカウント管理（キーレス化, 短期認証情報, 権限借用, Workload Identity 連携）, Cloud IAM（事前定義/カスタムロール, IAM 条件, 拒否ポリシー, Access Context Manager, ポリシーインテリジェンス）, リソース階層（組織・フォルダ・プロジェクト・組織ポリシー） |
+| **Section 2** | 通信の保護と境界保護の確立 | 約 20.0% | 境界セキュリティ（階層型ファイアウォールポリシー, Cloud Armor WAF, IAP, Certificate Authority Service, Secure Web Proxy, Cloud DNS SEC）, 境界セグメント（VPC, Shared VPC, VPC ピアリング, N 層分離, VPC Service Controls [境界, 境界ブリッジ, Egress/Ingress ルール]）, プライベート接続（HA-VPN, Cloud Interconnect, MACsec, プライベート Google アクセス, Private Service Connect, Cloud NAT） |
+| **Section 3** | 確実なデータ保護 | 約 23.0% | センシティブデータ保護（Sensitive Data Protection / Cloud DLP, PII 検査/秘匿化, 継続的プロファイリング, 仮名化, フォーマット保持暗号化 [FPE]）, データストアアクセス制限（BigQuery, Cloud Storage, Cloud SQL）, Secret Manager, VM メタデータ保護, 暗号化管理（デフォルト暗号化, CMEK, Cloud HSM, Cloud EKM, オブジェクトライフサイクル）, Confidential Computing（Confidential VM / GKE）, AI セキュリティ＆プライバシー（Vertex AI セキュリティ, トレーニングデータ/モデル保護） |
+| **Section 4** | オペレーションの管理 | 約 20.0% | セキュリティ自動化（CI/CD パイプライン脆弱性スキャン, Artifact Analysis, Binary Authorization, VM / コンテナのベースイメージ強化・パッチ管理, Security Health Analytics カスタムモジュール）, ロギング・モニタリング・検知（Cloud Logging, VPC フローログ, Packet Mirroring, Cloud IDS, ログ分析, ログシンク・集約シンク, Cloud Audit Logs, Security Command Center [SCC Enterprise / Premium, イベント脅威検出, 異常検出, 脆弱性管理, ガバナンス]） |
+| **Section 5** | コンプライアンス要件のサポート | 約 12.0% | 規制要件（PCI DSS, HIPAA, FedRAMP, GDPR, 責任共有モデル）, データとサービスのリージョン化, 規制遵守のための制御（Assured Workloads, 組織ポリシー制約, アクセスの透明性 [Access Transparency], アクセス承認 [Access Approval]） |
 
 ---
 
@@ -156,8 +156,8 @@ Google Cloud の認可エンジンは、プリンシパルからリクエスト�
 - **結果**: 外部リポジトリへのクレデンシャル保存が完全に撤廃され、GitHub Actions の実行ごとに短期間有効な Google Cloud フェデレーションアクセストークンが動的に発行される安全なデプロイパイプラインが確立される。
 - **解説**: Workload Identity 連携を採用することで、秘密鍵の漏洩や定期的なキーローテーションの手間を根本から解消できるためです。サービスアカウントキーを暗号化して Secrets に格納し続ける運用や、IP 制限のみで運用を継続する手法は、キー自体が流出した際のリスクを排除できないため不適格です。
 - **参考ドキュメント**:
-  - [Workload Identity 連携の概要](https://cloud.google.com/iam/docs/workload-identity-federation?hl=ja): 外部ワークロードのキーレス認証アーキテクチャ。
-  - [組織ポリシー制約: サービスアカウント キーの作成の無効化](https://cloud.google.com/resource-manager/docs/organization-policy/org-policy-constraints?hl=ja): キー作成抑止のベストプラクティス。
+  - [Workload Identity 連携の概要](https://docs.cloud.google.com/iam/docs/workload-identity-federation?hl=ja): 外部ワークロードのキーレス認証アーキテクチャ。
+  - [組織ポリシー制約: サービスアカウント キーの作成の無効化](https://docs.cloud.google.com/resource-manager/docs/organization-policy/org-policy-constraints?hl=ja): キー作成抑止のベストプラクティス。
 
 #### シナリオ 1-2: 組織全体における管理者権限の不正付与を防止する IAM 拒否ポリシー
 
@@ -166,7 +166,7 @@ Google Cloud の認可エンジンは、プリンシパルからリクエスト�
 - **結果**: 個別のプロジェクト管理者が持つ IAM 管理権限に関わらず、組織レベルの拒否ポリシーによって重要権限の不正昇格がプラットフォーム全体で不可逆的に抑止される。
 - **解説**: IAM 拒否ポリシーは許可ポリシー（Allow）に常に優先し、下位リソースで付与されたいかなる強い権限であっても上書きして遮断できるためです。カスタムロールを作成してプロジェクト管理者の権限を制限する手法は、新規プロジェクト作成時やロール更新時のメンテナンス負荷が高く、設定漏れが発生するリスクがあるため不適格です。
 - **参考ドキュメント**:
-  - [IAM 拒否ポリシーの概要](https://cloud.google.com/iam/docs/deny-overview?hl=ja): 拒否ポリシーの構文と適用ルール。
+  - [IAM 拒否ポリシーの概要](https://docs.cloud.google.com/iam/docs/deny-overview?hl=ja): 拒否ポリシーの構文と適用ルール。
 
 #### シナリオ 1-3: 本番環境リソースに対する時間限定・属性ベースの条件付きアクセス付与
 
@@ -175,7 +175,7 @@ Google Cloud の認可エンジンは、プリンシパルからリクエスト�
 - **結果**: メンテナンス時間枠外のアクセスが自動的に失効し、手動での権限剥奪忘れによるセキュリティホールの発生を防止できる。
 - **解説**: IAM 条件を用いることで、ロールの割り当て自体を維持したまま、リクエストの属性（時間、リソース名、アクセス元等）に応じてアクセス可否を自動的に動的評価できるためです。手動でメンテナンス開始時に権限を付与し終了時に剥奪する運用は、オペレーションミスや剥奪漏れのリスクが極めて高いため要件を満たせません。
 - **参考ドキュメント**:
-  - [IAM 条件の概要](https://cloud.google.com/iam/docs/conditions-overview?hl=ja): CEL（Common Expression Language）を用いた条件付きアクセスの実装。
+  - [IAM 条件の概要](https://docs.cloud.google.com/iam/docs/conditions-overview?hl=ja): CEL（Common Expression Language）を用いた条件付きアクセスの実装。
 
 #### シナリオ 1-4: サービスアカウントの直接キー発行を廃止した権限借用（Impersonation）運用
 
@@ -184,7 +184,7 @@ Google Cloud の認可エンジンは、プリンシパルからリクエスト�
 - **結果**: 開発者のローカルディスク上に秘密鍵ファイルが一切残存しなくなり、すべてのデータアクセスログに「誰がどのサービスアカウントを借用してクエリを実行したか」の完全な監査証跡が記録される。
 - **解説**: サービスアカウントの権限借用を利用することで、ローカルへの静的キー保存をゼロにし、Cloud Audit Logs に借用元プリンシパル（Caller）と借用先サービスアカウントの双方が記録されるためです。サービスアカウントキーに有効期限を設定して定期的に再発行する運用は、キー自体のローカル保存リスクを解消できないため不適格です。
 - **参考ドキュメント**:
-  - [サービス アカウントの権限借用](https://cloud.google.com/iam/docs/impersonating-service-accounts?hl=ja): キーレスな管理者アクセスの実現。
+  - [サービス アカウントの権限借用](https://docs.cloud.google.com/iam/docs/service-account-impersonation?hl=ja): キーレスな管理者アクセスの実現。
 
 #### シナリオ 1-5: Access Context Manager によるデバイス健全性に基づくゼロトラストアクセス制御
 
@@ -193,17 +193,17 @@ Google Cloud の認可エンジンは、プリンシパルからリクエスト�
 - **結果**: 従業員が正しい社内アカウントとパスワード、MFA を入力した場合であっても、私用端末や暗号化が無効な非準拠デバイスからのアクセスは IAP レベルで確実にブロックされる。
 - **解説**: BeyondCorp アーキテクチャに基づき、ユーザーのアイデンティティ（Who）だけでなくデバイスの健全性（Device State）を動的に評価してアクセスを決定できるためです。社内ネットワーク接続用の VPN を構築して全トラフィックを中継させる方式は、VPN に接続された私用端末経由でのラテラルムーブメントを防御できず、運用負荷とネットワーク遅延が増大するため不適格です。
 - **参考ドキュメント**:
-  - [Access Context Manager の概要](https://cloud.google.com/access-context-manager/docs/overview?hl=ja): コンテキスト認識アクセスレベルの構成。
-  - [IAP によるコンテキスト認識アクセスの有効化](https://cloud.google.com/iap/docs/context-aware-access-core?hl=ja): デバイス状態に基づくアクセス制御。
+  - [Access Context Manager の概要](https://docs.cloud.google.com/access-context-manager/docs/overview?hl=ja): コンテキスト認識アクセスレベルの構成。
+  - [IAP によるコンテキスト認識アクセスの有効化](https://docs.cloud.google.com/iap/docs/concepts-overview?hl=ja): デバイス状態に基づくアクセス制御。
 
 ### 4. 参考ドキュメント & 推奨ハンズオン
 
 #### 公式一次ドキュメント
-- [IAM の概要](https://cloud.google.com/iam/docs/overview?hl=ja): プリンシパル、ロール、リソース階層の設計。
-- [Workload Identity 連携](https://cloud.google.com/iam/docs/workload-identity-federation?hl=ja): 外部クラウドや CI/CD とのキーレスフェデレーション。
-- [IAM 条件の概要](https://cloud.google.com/iam/docs/conditions-overview?hl=ja): 属性ベースのアクセス制御。
-- [IAM 拒否ポリシーの概要](https://cloud.google.com/iam/docs/deny-overview?hl=ja): ガードレールポリシーの適用。
-- [Access Context Manager の概要](https://cloud.google.com/access-context-manager/docs/overview?hl=ja): コンテキスト認識アクセスレベルの定義。
+- [IAM の概要](https://docs.cloud.google.com/iam/docs/overview?hl=ja): プリンシパル、ロール、リソース階層の設計。
+- [Workload Identity 連携](https://docs.cloud.google.com/iam/docs/workload-identity-federation?hl=ja): 外部クラウドや CI/CD とのキーレスフェデレーション。
+- [IAM 条件の概要](https://docs.cloud.google.com/iam/docs/conditions-overview?hl=ja): 属性ベースのアクセス制御。
+- [IAM 拒否ポリシーの概要](https://docs.cloud.google.com/iam/docs/deny-overview?hl=ja): ガードレールポリシーの適用。
+- [Access Context Manager の概要](https://docs.cloud.google.com/access-context-manager/docs/overview?hl=ja): コンテキスト認識アクセスレベルの定義。
 
 #### 推奨ハンズオン・ラボ（実機検証）
 - [Security Best Practices in Google Cloud (Skill Badge)](https://www.skills.google/paths/15):
@@ -282,7 +282,7 @@ Google Cloud 環境内のワークロードやオンプレミス環境から Goo
 - **結果**: アナリストが社内バケットからデータを読み出すことは可能である一方、境界外に存在する任意の外部バケットに対する書き込みや転送リクエストが VPC SC レベルで自動的に遮断される。
 - **解説**: VPC Service Controls は、プリンシパルの IAM 権限の有無に関わらず、リクエストの発信元ネットワークと宛先リソースの境界所属関係を評価してデータ持ち出しを物理的にブロックできるためです。IAM 権限を絞り込むだけでは、外部バケット側で書き込み権限が付与されている場合に通信をブロックできず要件を満たせません。
 - **参考ドキュメント**:
-  - [VPC Service Controls の概要](https://cloud.google.com/vpc-service-controls/docs/overview?hl=ja): サービス境界アーキテクチャとデータ持ち出し対策。
+  - [VPC Service Controls の概要](https://docs.cloud.google.com/vpc-service-controls/docs/overview?hl=ja): サービス境界アーキテクチャとデータ持ち出し対策。
 
 #### シナリオ 2-2: Identity-Aware Proxy (IAP) によるパブリック IP を持たない VM へのセキュア SSH 接続
 
@@ -291,7 +291,7 @@ Google Cloud 環境内のワークロードやオンプレミス環境から Goo
 - **結果**: インターネット上に一切の SSH ポートを公開することなく、Google の強固な IAM 認証および 2 段階認証を経由した暗号化トンネルを通じて安全に VM 管理が可能となる。
 - **解説**: IAP TCP 転送を利用することで、踏み台サーバーを構築・パッチ管理することなく、Google のゼロトラスト基盤経由でセキュアなリモートアクセスを実現できるためです。踏み台サーバーを設置して特定 IP からのみ SSH を許可する構成は、踏み台自体のパッチ管理負荷や資格情報漏洩時の踏み台侵害リスクが残るため不適格です。
 - **参考ドキュメント**:
-  - [TCP 転送での IAP の使用](https://cloud.google.com/iap/docs/using-tcp-forwarding?hl=ja): パブリック IP なしでの安全な SSH / RDP アクセス。
+  - [TCP 転送での IAP の使用](https://docs.cloud.google.com/iap/docs/using-tcp-forwarding?hl=ja): パブリック IP なしでの安全な SSH / RDP アクセス。
 
 #### シナリオ 2-3: Google Cloud Armor による SQL インジェクションおよびレイヤ 7 DDoS 攻撃の緩和
 
@@ -300,7 +300,7 @@ Google Cloud 環境内のワークロードやオンプレミス環境から Goo
 - **結果**: 悪意のある SQL インジェクションペイロードを含むリクエストや急激な大量リクエストが、Google のグローバルエッジネットワークにおいて即座に 403 Forbidden で遮断され、バックエンドのコンピュート負荷とデータベースへの脅威が完全に排除される。
 - **解説**: Cloud Armor は Google のグローバルエッジで動作し、インフラに到達する前のレイヤ 7 およびレイヤ 3/4 攻撃を吸収・ブロックできるためです。Compute Engine インスタンス内にソフトウェア型 WAF（ModSecurity 等）をインストールする方式は、DDoS によるネットワーク帯域枯渇やインスタンスの CPU 逼迫を防ぐことができず不適格です。
 - **参考ドキュメント**:
-  - [Google Cloud Armor の概要](https://cloud.google.com/armor/docs/cloud-armor-overview?hl=ja): WAF ルールと DDoS 対策。
+  - [Google Cloud Armor の概要](https://docs.cloud.google.com/armor/docs/cloud-armor-overview?hl=ja): WAF ルールと DDoS 対策。
 
 #### シナリオ 2-4: 階層型ファイアウォールポリシーによる組織横断の通信ガードレール強制
 
@@ -309,7 +309,7 @@ Google Cloud 環境内のワークロードやオンプレミス環境から Goo
 - **結果**: 各プロジェクトの管理者が個別の VPC で `Allow 0.0.0.0/0:22` のルールを作成した場合であっても、組織レベルの階層型ポリシーが優先評価され、危険なポート開放が確実に無効化される。
 - **解説**: 階層型ファイアウォールポリシーは VPC ファイアウォールルールよりも先に評価され、下位プロジェクト側でオーバーライドできない強制力を持つためです。プロジェクトごとに個別の VPC ファイアウォールルールを定期監査して削除する運用は、監査のタイムラグの間に侵入を許すリスクがあり要件を満たせません。
 - **参考ドキュメント**:
-  - [階層型ファイアウォール ポリシーの概要](https://cloud.google.com/firewall/docs/hierarchical-firewalls-overview?hl=ja): 組織レベルのネットワークガードレール。
+  - [階層型ファイアウォール ポリシーの概要](https://docs.cloud.google.com/firewall/docs/firewall-policies-overview?hl=ja): 組織レベルのネットワークガードレール。
 
 #### シナリオ 2-5: Secure Web Proxy による送信トラフィックの URL / FQDN ベース監査とフィルタリング
 
@@ -318,16 +318,16 @@ Google Cloud 環境内のワークロードやオンプレミス環境から Goo
 - **結果**: 許可された正規の外部ドメインとの HTTPS 通信のみが成立し、未認可の外部サーバーへのアウトバウンド接続やデータ送出がプロキシレベルで遮断・ログ記録される。
 - **解説**: Secure Web Proxy はクラウドネイティブなマネージドサービスであり、IP アドレスが動的に変化するクラウドサービスに対しても FQDN や URL パス単位できめ細やかな送信トラフィック制御を提供できるためです。Cloud NAT のみを利用する方式は、IP / ポートベースのルーティングしか行えず、悪意のある外部 Web サイトへの接続を URL レベルで制御できないため不適格です。
 - **参考ドキュメント**:
-  - [Secure Web Proxy の概要](https://cloud.google.com/secure-web-proxy/docs/overview?hl=ja): クラウド送信トラフィックの保護。
+  - [Secure Web Proxy の概要](https://docs.cloud.google.com/secure-web-proxy/docs/overview?hl=ja): クラウド送信トラフィックの保護。
 
 ### 4. 参考ドキュメント & 推奨ハンズオン
 
 #### 公式一次ドキュメント
-- [VPC Service Controls のベスト プラクティス](https://cloud.google.com/vpc-service-controls/docs/best-practices?hl=ja): 境界アーキテクチャ設計。
-- [Google Cloud Armor の概要](https://cloud.google.com/armor/docs/cloud-armor-overview?hl=ja): WAF および DDoS 対策。
-- [Identity-Aware Proxy (IAP) の概要](https://cloud.google.com/iap/docs/concepts-overview?hl=ja): ゼロトラストプロキシの実装。
-- [階層型ファイアウォール ポリシーの概要](https://cloud.google.com/firewall/docs/hierarchical-firewalls-overview?hl=ja): 全社ネットワーク統制。
-- [Private Service Connect の概要](https://cloud.google.com/vpc/docs/private-service-connect?hl=ja): プライベートサービス公開と接続。
+- [VPC Service Controls のベスト プラクティス](https://docs.cloud.google.com/vpc-service-controls/docs/overview?hl=ja): 境界アーキテクチャ設計。
+- [Google Cloud Armor の概要](https://docs.cloud.google.com/armor/docs/cloud-armor-overview?hl=ja): WAF および DDoS 対策。
+- [Identity-Aware Proxy (IAP) の概要](https://docs.cloud.google.com/iap/docs/concepts-overview?hl=ja): ゼロトラストプロキシの実装。
+- [階層型ファイアウォール ポリシーの概要](https://docs.cloud.google.com/firewall/docs/firewall-policies-overview?hl=ja): 全社ネットワーク統制。
+- [Private Service Connect の概要](https://docs.cloud.google.com/vpc/docs/private-service-connect?hl=ja): プライベートサービス公開と接続。
 
 #### 推奨ハンズオン・ラボ（実機検証）
 - [Build and Secure Networks in Google Cloud (Skill Badge)](https://www.skills.google/paths/15):
@@ -403,7 +403,7 @@ Google Cloud で利用可能な 4 つの暗号鍵管理アプローチについ�
 - **結果**: 分析業務に必要な文脈情報を損なうことなく、機密情報が自動的にマスキングされ、分析担当者や外部委託先からの偶発的な個人情報漏洩が完全に防止される。
 - **解説**: Sensitive Data Protection を利用することで、非構造化テキストに含まれる多種多様な機密データを高精度に自動検出・非識別化（De-identification）できるためです。正規表現のみを用いた自前のバッチスクリプトを作成する手法は、未知の形式や表記揺れへの対応が困難で誤検知・検知漏れが発生するため不適格です。
 - **参考ドキュメント**:
-  - [Sensitive Data Protection の概要](https://cloud.google.com/sensitive-data-protection/docs?hl=ja): 機密データの自動検出と変換。
+  - [Sensitive Data Protection の概要](https://docs.cloud.google.com/sensitive-data-protection/docs?hl=ja): 機密データの自動検出と変換。
 
 #### シナリオ 3-2: BigQuery における列レベルおよび行レベルセキュリティによる職掌分散
 
@@ -412,7 +412,7 @@ Google Cloud で利用可能な 4 つの暗号鍵管理アプローチについ�
 - **結果**: 単一のデータテーブルを共有したまま、クエリ実行者の権限に応じてセンシティブ列が自動的にアクセス拒否またはマスクされ、不要なテーブル複製を伴わずに厳格な最小権限アクセスが達成される。
 - **解説**: BigQuery の列レベルセキュリティを利用することで、データセットやテーブルを分割することなく、単一の信頼できる情報源（Single Source of Truth）に対してきめ細やかな権限制御を適用できるためです。アクセス権ごとにビュー（View）を分割して個別に権限管理する手法は、ビューの数が増加した際のメンテナンスや元テーブル更新時の同期破綻リスクが高いため不適格です。
 - **参考ドキュメント**:
-  - [BigQuery 列レベルのセキュリティの概要](https://cloud.google.com/bigquery/docs/column-level-security-intro?hl=ja): ポリシータグによる列アクセス制御。
+  - [BigQuery 列レベルのセキュリティの概要](https://docs.cloud.google.com/bigquery/docs/column-level-security-intro?hl=ja): ポリシータグによる列アクセス制御。
 
 #### シナリオ 3-3: 金融規制に対応した Cloud HSM による CMEK 暗号化と即時暗号化消去
 
@@ -421,7 +421,7 @@ Google Cloud で利用可能な 4 つの暗号鍵管理アプローチについ�
 - **結果**: ハードウェア保護要件を満たした強固な暗号化が実現されるとともに、KMS 内の KEK を破棄するだけで、ストレージ上に残存するすべての暗号化データ（DEK で暗号化された実データ）が瞬時に復号不能となる。
 - **解説**: Cloud HSM を用いた CMEK によりハードウェア要件をクリアし、エンベロープ暗号化の特性を活かした「暗号化消去（Crypto-shredding）」により、物理的なストレージ完全消去を待つことなく安全なデータ破棄が完了するためです。Google のデフォルト暗号化に依存する方式は、顧客自身の判断による即時暗号化破棄が実行できず、規制要件を満たせません。
 - **参考ドキュメント**:
-  - [Cloud HSM の概要](https://cloud.google.com/kms/docs/hsm?hl=ja): ハードウェアセキュリティモジュールによる鍵保護。
+  - [Cloud HSM の概要](https://docs.cloud.google.com/kms/docs/hsm?hl=ja): ハードウェアセキュリティモジュールによる鍵保護。
 
 #### シナリオ 3-4: Confidential Computing による使用中データ（メモリ内平文）の完全暗号化
 
@@ -430,7 +430,7 @@ Google Cloud で利用可能な 4 つの暗号鍵管理アプローチについ�
 - **結果**: ゲスト OS のコードを変更することなく、CPU のハードウェア専用暗号化エンジンによってメモリ空間全体が専用キーでインライン暗号化され、ホスト OS やハイパーバイザからもメモリ内平文を読み取ることが不可能となる。
 - **解説**: Confidential Computing は、データのライフサイクルにおける「使用中データ（Data in Use）」をハードウェアレベルで保護する標準機能であり、パフォーマンス低下を最小限に抑えながら極めて機密性の高い計算処理を保護できるためです。アプリケーション層でデータを独自暗号化・復号しながら処理する方式は、開発コストが膨大になり、結局 CPU 処理時にはメモリ上で平文となるため本質的な解決になりません。
 - **参考ドキュメント**:
-  - [Confidential VM の概要](https://cloud.google.com/confidential-computing/confidential-vm/docs/confidential-vm-overview?hl=ja): 使用中データのハードウェア保護。
+  - [Confidential VM の概要](https://docs.cloud.google.com/confidential-computing/confidential-vm/docs/confidential-vm-overview?hl=ja): 使用中データのハードウェア保護。
 
 #### シナリオ 3-5: Secret Manager と Workload Identity による動的シークレットマウント
 
@@ -439,17 +439,17 @@ Google Cloud で利用可能な 4 つの暗号鍵管理アプローチについ�
 - **結果**: Kubernetes の etcd やコンテナイメージ内にシークレットが保存されることなく、Pod 起動時にのみメモリ上のテンポラリボリュームとして安全にシークレットが提供される。
 - **解説**: Secret Manager と CSI Driver を連携させることで、Google Cloud の厳格な IAM と Cloud Audit Logs によるアクセス監査を受けながら、安全に Pod へ資格情報を注入できるためです。Kubernetes Secret に直接 Base64 で格納する運用は、etcd へのアクセス権を持つクラスタ管理者やマニフェスト閲覧者全員にシークレットが露出するため不適格です。
 - **参考ドキュメント**:
-  - [Secret Manager の概要](https://cloud.google.com/secret-manager/docs/overview?hl=ja): API キーやパスワードの一元管理。
-  - [GKE での Secret Manager の使用](https://cloud.google.com/secret-manager/docs/secret-manager-gke?hl=ja): CSI Driver によるマウント。
+  - [Secret Manager の概要](https://docs.cloud.google.com/secret-manager/docs/overview?hl=ja): API キーやパスワードの一元管理。
+  - [GKE での Secret Manager の使用](https://docs.cloud.google.com/secret-manager/docs/overview?hl=ja): CSI Driver によるマウント。
 
 ### 4. 参考ドキュメント & 推奨ハンズオン
 
 #### 公式一次ドキュメント
-- [エンベロープ暗号化の概要](https://cloud.google.com/kms/docs/envelope-encryption?hl=ja): DEK と KEK の暗号化アーキテクチャ。
-- [Cloud Key Management Service (KMS) の概要](https://cloud.google.com/kms/docs/overview?hl=ja): 暗号鍵のライフサイクル管理。
-- [Sensitive Data Protection のドキュメント](https://cloud.google.com/sensitive-data-protection/docs?hl=ja): 機密データの自動検査と仮名化。
-- [Confidential Computing の概要](https://cloud.google.com/confidential-computing/docs/overview?hl=ja): 使用中データの保護。
-- [Secret Manager のドキュメント](https://cloud.google.com/secret-manager/docs?hl=ja): シークレット管理と自動ローテーション。
+- [エンベロープ暗号化の概要](https://docs.cloud.google.com/kms/docs/envelope-encryption?hl=ja): DEK と KEK の暗号化アーキテクチャ。
+- [Cloud Key Management Service (KMS) の概要](https://docs.cloud.google.com/kms/docs?hl=ja): 暗号鍵のライフサイクル管理。
+- [Sensitive Data Protection のドキュメント](https://docs.cloud.google.com/sensitive-data-protection/docs?hl=ja): 機密データの自動検査と仮名化。
+- [Confidential Computing の概要](https://docs.cloud.google.com/confidential-computing/confidential-vm/docs/confidential-vm-overview?hl=ja): 使用中データの保護。
+- [Secret Manager のドキュメント](https://docs.cloud.google.com/secret-manager/docs?hl=ja): シークレット管理と自動ローテーション。
 
 #### 推奨ハンズオン・ラボ（実機検証）
 - [Protect Sensitive Data with Cloud Logging, Cloud KMS, and Sensitive Data Protection (Skill Badge)](https://www.skills.google/paths/15):
@@ -533,7 +533,7 @@ SCC は Google Cloud の SecOps の核となるサービスです。どの検出
 - **結果**: CI/CD パイプラインでの脆弱性スキャンを通過して正式に署名されたイメージのみがクラスタ上で起動を許可され、開発者による手動デプロイや未検証イメージの実行がアドミッションコントローラレベルで自動拒否される。
 - **解説**: Binary Authorization は Kubernetes の受付制御（Admission Controller）とネイティブに統合されており、署名のないコンテナの作成リクエストを根本から遮断できるためです。開発者からクラスタ管理権限を奪うだけでは、権限を持つ他の運用者が誤って不正なイメージをデプロイするリスクを排除できません。
 - **参考ドキュメント**:
-  - [Binary Authorization の概要](https://cloud.google.com/binary-authorization/docs/overview?hl=ja): 署名ベースのデプロイ制御。
+  - [Binary Authorization の概要](https://docs.cloud.google.com/binary-authorization/docs/overview?hl=ja): 署名ベースのデプロイ制御。
 
 #### シナリオ 4-2: Security Command Center と Cloud Functions による不審な公開バケットの自動即時修復
 
@@ -542,7 +542,7 @@ SCC は Google Cloud の SecOps の核となるサービスです。どの検出
 - **結果**: 設定ミスが発生してから数秒以内に自動的にパブリックアクセス権が剥奪され、管理者にインシデント通知が送信されるため、情報漏洩のリスクウィンドウが最小化される。
 - **解説**: SCC と Pub/Sub、Cloud Functions を組み合わせることで、イベント駆動型のサーバーレス自動修復（SOAR）パイプラインを構築できるためです。日次の定期監査スクリプトを実行する方式では、バケットが公開されてから検知・修正されるまでに最大 24 時間のタイムラグが発生し、機密データが持ち出されるリスクを防げません。
 - **参考ドキュメント**:
-  - [Security Command Center の通知の構成](https://cloud.google.com/security-command-center/docs/how-to-notifications?hl=ja): 検出結果の Pub/Sub 連携。
+  - [Security Command Center の通知の構成](https://docs.cloud.google.com/security-command-center/docs/how-to-notifications?hl=ja): 検出結果の Pub/Sub 連携。
 
 #### シナリオ 4-3: 組織全体の監査ログを集約シンク（Aggregated Sinks）で集中 SIEM へリアルタイム転送
 
@@ -551,7 +551,7 @@ SCC は Google Cloud の SecOps の核となるサービスです。どの検出
 - **結果**: 将来的に新規プロジェクトが追加された場合であっても、個別の設定作業なしで自動的に監査ログが集約・転送され、設定漏れのない中央集権的な監査ログ基盤が確立される。
 - **解説**: 組織レベルの集約シンクを使用することで、子プロジェクト側の設定に依存せず、組織配下の全リソースのログを確実にキャプチャできるためです。各プロジェクトで個別にログシンクを作成する手法は、プロジェクト増加時の管理コストが膨大になり、プロジェクト管理者が故意または誤ってシンクを削除するリスクがあるため不適格です。
 - **参考ドキュメント**:
-  - [組織レベルの集約シンクの構成](https://cloud.google.com/logging/docs/export/aggregated_sinks?hl=ja): 集中ロギングのベストプラクティス。
+  - [組織レベルの集約シンクの構成](https://docs.cloud.google.com/logging/docs/export/aggregated_sinks?hl=ja): 集中ロギングのベストプラクティス。
 
 #### シナリオ 4-4: Cloud IDS と Packet Mirroring による侵入検知と不審な C2 通信の可視化
 
@@ -560,7 +560,7 @@ SCC は Google Cloud の SecOps の核となるサービスです。どの検出
 - **結果**: 仮想マシンにエージェントを追加導入することなく、パケットペイロード内のマルウェア通信や脆弱性悪用シグネチャが高精度に検出され、SCC を通じて即座に隔離アクションへ移行できる。
 - **解説**: Cloud IDS はパロアルトネットワークスの脅威防御エンジンをベースとしたフルマネージド IDS であり、レイヤ 7 のシグネチャベース侵入検知をクラウドネイティブに提供できるためです。VPC フローログのみを分析する手法は、IP やポートなどのメタデータしか記録されず、パケット内容のシグネチャ解析ができないため不適格です。
 - **参考ドキュメント**:
-  - [Cloud IDS の概要](https://cloud.google.com/intrusion-detection-system/docs/overview?hl=ja): クラウド侵入検知システムの実装。
+  - [Cloud IDS の概要](https://docs.cloud.google.com/intrusion-detection-system/docs/overview?hl=ja): クラウド侵入検知システムの実装。
 
 #### シナリオ 4-5: VM およびコンテナのゴールデンイメージ自動作成と脆弱性パッチ管理
 
@@ -569,16 +569,16 @@ SCC は Google Cloud の SecOps の核となるサービスです。どの検出
 - **結果**: 組織全体で起動されるすべての VM が、常に脆弱性の修正された承認済みゴールデンイメージに基づくことが保証され、野良イメージによる脆弱性の混入が排除される。
 - **解説**: 組織ポリシーによるイメージ作成者の制限と、自動化されたイメージパイプラインを組み合わせることで、インフラのブートストラップ段階でセキュリティガードレールを強制できるためです。手動で作成したイメージを各プロジェクトにコピーして配布する運用は、パッチ適用の追従や古いイメージの廃止が徹底できず要件を満たせません。
 - **参考ドキュメント**:
-  - [組織ポリシー制約: 信頼できるイメージの定義](https://cloud.google.com/compute/docs/images/restricting-image-access?hl=ja): 承認済みゴールデンイメージの強制。
+  - [組織ポリシー制約: 信頼できるイメージの定義](https://docs.cloud.google.com/compute/docs/images/restricting-image-access?hl=ja): 承認済みゴールデンイメージの強制。
 
 ### 4. 参考ドキュメント & 推奨ハンズオン
 
 #### 公式一次ドキュメント
-- [Security Command Center の概要](https://cloud.google.com/security-command-center/docs/concepts-security-command-center-overview?hl=ja): 統合セキュリティ管理。
-- [Binary Authorization の概要](https://cloud.google.com/binary-authorization/docs/overview?hl=ja): 署名ベースのデプロイ制御。
-- [Cloud Audit Logs の概要](https://cloud.google.com/logging/docs/audit?hl=ja): 監査ログの種類と設計。
-- [Cloud IDS の概要](https://cloud.google.com/intrusion-detection-system/docs/overview?hl=ja): 侵入検知の実装。
-- [Security Health Analytics のルール](https://cloud.google.com/security-command-center/docs/concepts-vulnerabilities-findings?hl=ja): 設定ミス検出。
+- [Security Command Center の概要](https://docs.cloud.google.com/security-command-center/docs/security-command-center-overview?hl=ja): 統合セキュリティ管理。
+- [Binary Authorization の概要](https://docs.cloud.google.com/binary-authorization/docs/overview?hl=ja): 署名ベースのデプロイ制御。
+- [Cloud Audit Logs の概要](https://docs.cloud.google.com/logging/docs/audit?hl=ja): 監査ログの種類と設計。
+- [Cloud IDS の概要](https://docs.cloud.google.com/intrusion-detection-system/docs/overview?hl=ja): 侵入検知の実装。
+- [Security Health Analytics のルール](https://docs.cloud.google.com/security-command-center/docs/concepts-vulnerabilities-findings): 設定ミス検出。
 
 #### 推奨ハンズオン・ラボ（実機検証）
 - [Mitigate Threats and Vulnerabilities with Security Command Center (Skill Badge)](https://www.skills.google/paths/15):
@@ -643,7 +643,7 @@ Google 自身の運用介入を厳格に管理・監査するための高度な�
 - **結果**: 開発者が誤って、あるいは意図的に米国や欧州のリージョンを指定してリソースを作成しようとした場合、リソース作成 API コールがプラットフォームレベルで即座に拒否される。
 - **解説**: 組織ポリシー制約 `gcp.resourceLocations` を用いることで、リソース作成時にリージョンを自動検証し、指定外の地理的ロケーションへのデータ展開を根本から防止できるためです。IAM 権限のみで制限しようとするアプローチは、リージョン指定ミスを技術的にブロックできず、プロジェクトごとに設定が形骸化するリスクがあるため不適格です。
 - **参考ドキュメント**:
-  - [リソース ロケーションの制限](https://cloud.google.com/resource-manager/docs/organization-policy/defining-locations?hl=ja): データレジデンシーの強制。
+  - [リソース ロケーションの制限](https://docs.cloud.google.com/organization-policy/restrict-locations?hl=ja): データレジデンシーの強制。
 
 #### シナリオ 5-2: アクセス承認（Access Approval）による Google サポート介入時の明示的許可フロー
 
@@ -652,7 +652,7 @@ Google 自身の運用介入を厳格に管理・監査するための高度な�
 - **結果**: 顧客による明示的な暗号署名付き承認が得られない限り、Google のエンジニアであっても顧客環境の内部データにアクセスすることが不可能となる。
 - **解説**: アクセス承認を有効化することで、クラウドプロバイダ側の特権アクセスに対する「顧客による事前承認ゲート」を強制できるためです。アクセスの透明性（Access Transparency）のみを有効化する手法は、アクセスされた事実はログで追跡できるものの、事前のアクセス阻止はできないため要件を満たせません。
 - **参考ドキュメント**:
-  - [アクセス承認の概要](https://cloud.google.com/access-approval/docs/overview?hl=ja): プロバイダアクセスの事前制御。
+  - [アクセス承認の概要](https://docs.cloud.google.com/assured-workloads/access-approval/docs/overview?hl=ja): プロバイダアクセスの事前制御。
 
 #### シナリオ 5-3: アクセスの透明性（Access Transparency）によるクラウドプロバイダ運用の監査証跡確保
 
@@ -670,7 +670,7 @@ Google 自身の運用介入を厳格に管理・監査するための高度な�
 - **結果**: 必要な組織ポリシー（ロケーション制限、CMEK 強制、アクセス承認など）が事前適用された安全なフォルダ階層が自動的に作成され、構成ドリフトが発生した際も Assured Workloads ダッシュボードで継続的に違反が監視・通知される。
 - **解説**: Assured Workloads を利用することで、業界規制に特化したガードレールをワンストップで自動構成し、自社で手動設定する際の構成ミスやコンプライアンス監査落ちのリスクを排除できるためです。ゼロから個別の組織ポリシーを手動作成する方式は、規制要件の網羅性検証に多大な工数がかかり、監査証跡の担保が困難なため不適格です。
 - **参考ドキュメント**:
-  - [Assured Workloads の概要](https://cloud.google.com/assured-workloads/docs?hl=ja): 規制準拠環境の自動構成。
+  - [Assured Workloads の概要](https://docs.cloud.google.com/assured-workloads/docs?hl=ja): 規制準拠環境の自動構成。
 
 #### シナリオ 5-5: 責任共有モデルに基づく IaaS から PaaS への移行による OS 脆弱性リスクのオフロード
 
@@ -679,16 +679,16 @@ Google 自身の運用介入を厳格に管理・監査するための高度な�
 - **結果**: ゲスト OS のハードニング、カーネルパッチ適用、ランタイム基盤のセキュリティ更新の責任が完全に Google 側へオフロードされ、自社はコンテナイメージ内のコードと IAM のセキュリティのみに注力可能となる。
 - **解説**: 責任共有モデルにおいて、PaaS / サーバーレスを採用することで、OS レイヤ以下の運用責任がクラウドプロバイダに移行するためです。Compute Engine のままパッチ管理ツール（OS Config 等）を自動化する手法は、自動化は進むものの OS レイヤの最終的なセキュリティ維持責任が自社に残るため、本質的な責任移管になりません。
 - **参考ドキュメント**:
-  - [Google Cloud のセキュリティに関するベスト プラクティス](https://cloud.google.com/docs/security/best-practices?hl=ja): 責任共有モデルの理解と設計。
+  - [Google Cloud のセキュリティに関するベスト プラクティス](https://docs.cloud.google.com/architecture/framework/security?hl=ja): 責任共有モデルの理解と設計。
 
 ### 4. 参考ドキュメント & 推奨ハンズオン
 
 #### 公式一次ドキュメント
-- [Google Cloud の責任共有モデル](https://cloud.google.com/architecture/framework/security?hl=ja): クラウドセキュリティの責任分界。
-- [Assured Workloads の概要](https://cloud.google.com/assured-workloads/docs?hl=ja): 規制準拠フォルダの作成。
-- [組織ポリシー制約によるロケーション制限](https://cloud.google.com/resource-manager/docs/organization-policy/defining-locations?hl=ja): データレジデンシーの管理。
+- [Google Cloud の責任共有モデル](https://docs.cloud.google.com/architecture/framework/security?hl=ja): クラウドセキュリティの責任分界。
+- [Assured Workloads の概要](https://docs.cloud.google.com/assured-workloads/docs?hl=ja): 規制準拠フォルダの作成。
+- [組織ポリシー制約によるロケーション制限](https://docs.cloud.google.com/organization-policy/restrict-locations?hl=ja): データレジデンシーの管理。
 - [アクセスの透明性の概要](https://cloud.google.com/access-transparency/docs/overview?hl=ja): プロバイダアクセスの可視化。
-- [アクセス承認の概要](https://cloud.google.com/access-approval/docs/overview?hl=ja): プロバイダアクセスの事前承認。
+- [アクセス承認の概要](https://docs.cloud.google.com/assured-workloads/access-approval/docs/overview?hl=ja): プロバイダアクセスの事前承認。
 
 #### 推奨ハンズオン・ラボ（実機検証）
 - [Security Best Practices in Google Cloud (Skill Badge)](https://www.skills.google/paths/15):

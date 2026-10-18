@@ -21,13 +21,13 @@ AWS Certified Generative AI Developer - Professional (AIP-C01) は、生成 AI (
 
 ## 2. 出題分野（Domain）と出題比率一覧
 
-| ドメイン番号 | 出題分野（Domain） | 出題比率 | 主要対象サービス・技術要素 | ステータス |
-| :--- | :--- | :--- | :--- | :--- |
-| **Domain 1** | 基盤モデルの統合、データ管理、コンプライアンス | 31% | Amazon Bedrock, Knowledge Bases, OpenSearch Service, pgvector, Titan Embeddings, Prompt Flows, Data Automation, Step Functions | 進行中 |
-| **Domain 2** | 実装と統合 | 26% | Strands Agents, AWS Agent Squad, Model Context Protocol (MCP), ReAct, Bedrock Streaming API, API Gateway, EventBridge, CodePipeline | 未着手 |
-| **Domain 3** | AI の安全性、セキュリティ、ガバナンス | 20% | Bedrock Guardrails, SageMaker Model Cards, Lake Formation, Macie, Comprehend PII, VPC Endpoints, IAM, CloudTrail | 未着手 |
-| **Domain 4** | GenAI アプリケーションの運用効率と最適化 | 12% | プロンプトキャッシング, セマンティックキャッシュ, コンテキストプルーニング, バッチ推論, プロビジョンドスループット, CloudWatch, X-Ray | 未着手 |
-| **Domain 5** | テスト、検証、トラブルシューティング | 11% | Bedrock Model Evaluation, LLM-as-a-judge, RAG評価, エージェント評価, ゴールデンデータセット, CloudWatch Logs Insights | 未着手 |
+| ドメイン番号 | 出題分野（Domain） | 出題比率 | 主要対象サービス・技術要素 |
+| :--- | :--- | :--- | :--- |
+| **Domain 1** | 基盤モデルの統合、データ管理、コンプライアンス | 31% | Amazon Bedrock, Knowledge Bases, OpenSearch Service, pgvector, Titan Embeddings, Prompt Flows, Data Automation, Step Functions |
+| **Domain 2** | 実装と統合 | 26% | Strands Agents, AWS Agent Squad, Model Context Protocol (MCP), ReAct, Bedrock Streaming API, API Gateway, EventBridge, CodePipeline |
+| **Domain 3** | AI の安全性、セキュリティ、ガバナンス | 20% | Bedrock Guardrails, SageMaker Model Cards, Lake Formation, Macie, Comprehend PII, VPC Endpoints, IAM, CloudTrail |
+| **Domain 4** | GenAI アプリケーションの運用効率と最適化 | 12% | プロンプトキャッシング, セマンティックキャッシュ, コンテキストプルーニング, バッチ推論, プロビジョンドスループット, CloudWatch, X-Ray |
+| **Domain 5** | テスト、検証、トラブルシューティング | 11% | Bedrock Model Evaluation, LLM-as-a-judge, RAG評価, エージェント評価, ゴールデンデータセット, CloudWatch Logs Insights |
 
 ---
 

@@ -27,12 +27,12 @@ Professional Cloud Developer は、Google が推奨するツール、ランタ�
 
 本試験は全 4 セクションで構成されています。アプリケーション設計（約 32%）を最重要基盤とし、構築とテスト（約 23%）、デプロイ構成（約 24%）、サービス統合とオブザーバビリティ（約 21%）がバランス良く問われます。
 
-| セクション番号 | セクション名 / 出題分野 | 出題比率 | 主要対象サービス・コンセプト | ステータス |
-| :--- | :--- | :--- | :--- | :--- |
-| **Section 1** | スケーラビリティ、安全性、信頼性に優れたクラウド ネイティブなアプリケーションの設計 | 約 32.0% | プラットフォーム選定 (Cloud Run, GKE, GCE), 地理的冗長性・レイテンシ, ロードバランサ, キャッシュ (Memorystore), API設計 (REST, gRPC), 非同期/イベント駆動 (Pub/Sub, Eventarc, Workflows, Cloud Tasks, Cloud Scheduler), トラフィック分割 (Canary, Blue/Green), セキュリティ (IAM, IAP, Secret Manager, Cloud KMS, Workload Identity 連携, Cloud SQL/AlloyDB Auth Proxy, Cloud Service Mesh), ストレージ選定・スキーマ設計 (Cloud Storage, Cloud SQL, AlloyDB, Spanner, Bigtable, Firestore, BigQuery) | 完了 |
-| **Section 2** | アプリケーションの構築とテスト | 約 23.0% | 開発環境 (Google Cloud CLI エミュレータ, Cloud SDK, Cloud Code, Cloud Shell, Cloud Workstations, Gemini Cloud Assist, MCP サーバー統合), ビルド自動化 (Cloud Build, Artifact Registry, ビルド来歴 / Provenance), セキュリティ検証 (Binary Authorization), テスト自動化 (AI コーディングアシスタントによる単体テスト, Cloud Build 統合テスト) | 完了 |
-| **Section 3** | デプロイのためのクラウドネイティブ アプリケーションの構成 | 約 24.0% | Cloud Run デプロイ (ソースデプロイ, コンテナデプロイ, Eventarc/Pub/Sub トリガー, イベントレシーバ), API 管理・保護 (Apigee), GKE デプロイ (コンテナデプロイ, Kubernetes ヘルスチェック [Liveness, Readiness, Startup], HorizontalPodAutoscaler [HPA], スケーリング指標) | 完了 |
-| **Section 4** | アプリケーションと Google Cloud サービスの統合 | 約 21.0% | データストア統合 (Cloud SQL, Firestore, Cloud Storage, 接続プール・コネクタ), Pub/Sub メッセージング (パブリッシャー/サブスクライバー実装), Google Cloud API 呼び出し (クライアントライブラリ, gRPC/REST, 一括処理, 戻り値制限/フィールドマスク, ページネーション, キャッシュ, 指数バックオフ, サービスアカウント認証), トラブルシューティング・オブザーバビリティ (Cloud Monitoring, Cloud Logging, Cloud Trace 分散トレース, Error Reporting, AI 支援オブザーバビリティ) | 完了 |
+| セクション番号 | セクション名 / 出題分野 | 出題比率 | 主要対象サービス・コンセプト |
+| :--- | :--- | :--- | :--- |
+| **Section 1** | スケーラビリティ、安全性、信頼性に優れたクラウド ネイティブなアプリケーションの設計 | 約 32.0% | プラットフォーム選定 (Cloud Run, GKE, GCE), 地理的冗長性・レイテンシ, ロードバランサ, キャッシュ (Memorystore), API設計 (REST, gRPC), 非同期/イベント駆動 (Pub/Sub, Eventarc, Workflows, Cloud Tasks, Cloud Scheduler), トラフィック分割 (Canary, Blue/Green), セキュリティ (IAM, IAP, Secret Manager, Cloud KMS, Workload Identity 連携, Cloud SQL/AlloyDB Auth Proxy, Cloud Service Mesh), ストレージ選定・スキーマ設計 (Cloud Storage, Cloud SQL, AlloyDB, Spanner, Bigtable, Firestore, BigQuery) |
+| **Section 2** | アプリケーションの構築とテスト | 約 23.0% | 開発環境 (Google Cloud CLI エミュレータ, Cloud SDK, Cloud Code, Cloud Shell, Cloud Workstations, Gemini Cloud Assist, MCP サーバー統合), ビルド自動化 (Cloud Build, Artifact Registry, ビルド来歴 / Provenance), セキュリティ検証 (Binary Authorization), テスト自動化 (AI コーディングアシスタントによる単体テスト, Cloud Build 統合テスト) |
+| **Section 3** | デプロイのためのクラウドネイティブ アプリケーションの構成 | 約 24.0% | Cloud Run デプロイ (ソースデプロイ, コンテナデプロイ, Eventarc/Pub/Sub トリガー, イベントレシーバ), API 管理・保護 (Apigee), GKE デプロイ (コンテナデプロイ, Kubernetes ヘルスチェック [Liveness, Readiness, Startup], HorizontalPodAutoscaler [HPA], スケーリング指標) |
+| **Section 4** | アプリケーションと Google Cloud サービスの統合 | 約 21.0% | データストア統合 (Cloud SQL, Firestore, Cloud Storage, 接続プール・コネクタ), Pub/Sub メッセージング (パブリッシャー/サブスクライバー実装), Google Cloud API 呼び出し (クライアントライブラリ, gRPC/REST, 一括処理, 戻り値制限/フィールドマスク, ページネーション, キャッシュ, 指数バックオフ, サービスアカウント認証), トラブルシューティング・オブザーバビリティ (Cloud Monitoring, Cloud Logging, Cloud Trace 分散トレース, Error Reporting, AI 支援オブザーバビリティ) |
 
 ---
 

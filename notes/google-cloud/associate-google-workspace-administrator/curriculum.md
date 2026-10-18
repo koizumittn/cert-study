@@ -2,7 +2,7 @@
 
 - **対象資格**: Google Cloud Certified - Associate Google Workspace Administrator
 - **公式試験ガイド**: [Associate Google Workspace Administrator 認定試験ガイド (日本語版)](https://services.google.com/fh/files/misc/associate_google_workspace_administrator_exam_guide_japanese.pdf?hl=ja)
-- **公式試験ページ**: [Associate Google Workspace Administrator | Google Cloud Certification](https://cloud.google.com/certification/google-workspace-administrator)
+- **公式試験ページ**: [Associate Google Workspace Administrator | Google Cloud Certification](https://cloud.google.com/learn/certification/associate-google-workspace-administrator)
 - **公式学習パス**: [Google Skills - Associate Google Workspace Administrator](https://www.skills.google/paths/24?hl=ja)
 - **最終更新日**: 2026-10-12
 
@@ -27,14 +27,14 @@ Associate Google Workspace Administrator は、組織内のチームメンバー
 
 本試験は全 6 セクションで構成されています。ユーザー アカウント・ディレクトリ管理（22%）、コアサービス管理（20%）、セキュリティ ポリシーとアクセス制御（20%）が中核をなし、さらにトラブルシューティング（14%）、データ ガバナンス（14%）、エンドポイント管理（10%）がバランスよく出題されます。
 
-| セクション番号 | セクション名 / 出題分野 | 出題比率 | 主要対象サービス・コンセプト | ステータス |
-| :--- | :--- | :--- | :--- | :--- |
-| **Section 1** | ユーザー アカウント、ドメイン、ディレクトリの管理 | 約 22% | ユーザー ライフサイクル、プロビジョニング、SAML SSO、GCDS、組織部門（OU）階層設計、Google グループ、動的グループ、セキュリティ グループ、プライマリ/セカンダリ ドメイン、ドメイン エイリアス、ビルディングと会議室リソース | 完了 |
-| **Section 2** | Workspace コアサービスの管理 | 約 20% | Gmail（MX、分割/二重配信、コンテンツ コンプライアンス、SPF/DKIM/DMARC、検疫）、Google ドライブ（共有ドライブ、信頼ルール、対象グループ、保存容量）、Google カレンダー、Google Meet、Google Chat、Gemini for Google Workspace、AppSheet / Apps Script | 完了 |
-| **Section 3** | データ ガバナンスとコンプライアンスの管理 | 約 14% | Google Vault（保持ルール、訴訟ホールド、検索/エクスポート）、データ損失防止（DLP）、ドライブの信頼ルール、Google データ エクスポート、データ リージョン（地理的保管場所）、データ分類とラベル | 完了 |
-| **Section 4** | セキュリティ ポリシーとアクセス制御の管理 | 約 20% | パスワード ポリシー、2 段階認証プロセス（2SV / パスキー）、コンテキストアウェア アクセス（CAA）、管理者ロールと権限委任、セキュリティ調査ツール、セキュリティ センター、監査ログ、Marketplace アプリ管理、SAML アプリ連携 | 完了 |
-| **Section 5** | エンドポイントの管理 | 約 10% | モバイル デバイス管理（基本管理 vs 高度な管理 vs サードパーティ EMM）、BYOD（仕事用プロファイル） vs 会社所有、リモートワイプ（アカウント ワイプ vs デバイス ワイプ）、Chrome ブラウザ クラウド管理（CBCM）、ブラウザ ポリシー、拡張機能管理 | 完了 |
-| **Section 6** | 一般的な問題のトラブルシューティング | 約 14% | 監査ログ分析、Google Workspace ステータス ダッシュボード、メール配信障害（SPF/DKIM/DMARC ヘッダー解析）、カレンダー同期障害、ドライブ権限/削除ファイル復元、Meet 品質管理ツール、HAR ファイル生成、Google サポート連携 | 完了 |
+| セクション番号 | セクション名 / 出題分野 | 出題比率 | 主要対象サービス・コンセプト |
+| :--- | :--- | :--- | :--- |
+| **Section 1** | ユーザー アカウント、ドメイン、ディレクトリの管理 | 約 22% | ユーザー ライフサイクル、プロビジョニング、SAML SSO、GCDS、組織部門（OU）階層設計、Google グループ、動的グループ、セキュリティ グループ、プライマリ/セカンダリ ドメイン、ドメイン エイリアス、ビルディングと会議室リソース |
+| **Section 2** | Workspace コアサービスの管理 | 約 20% | Gmail（MX、分割/二重配信、コンテンツ コンプライアンス、SPF/DKIM/DMARC、検疫）、Google ドライブ（共有ドライブ、信頼ルール、対象グループ、保存容量）、Google カレンダー、Google Meet、Google Chat、Gemini for Google Workspace、AppSheet / Apps Script |
+| **Section 3** | データ ガバナンスとコンプライアンスの管理 | 約 14% | Google Vault（保持ルール、訴訟ホールド、検索/エクスポート）、データ損失防止（DLP）、ドライブの信頼ルール、Google データ エクスポート、データ リージョン（地理的保管場所）、データ分類とラベル |
+| **Section 4** | セキュリティ ポリシーとアクセス制御の管理 | 約 20% | パスワード ポリシー、2 段階認証プロセス（2SV / パスキー）、コンテキストアウェア アクセス（CAA）、管理者ロールと権限委任、セキュリティ調査ツール、セキュリティ センター、監査ログ、Marketplace アプリ管理、SAML アプリ連携 |
+| **Section 5** | エンドポイントの管理 | 約 10% | モバイル デバイス管理（基本管理 vs 高度な管理 vs サードパーティ EMM）、BYOD（仕事用プロファイル） vs 会社所有、リモートワイプ（アカウント ワイプ vs デバイス ワイプ）、Chrome ブラウザ クラウド管理（CBCM）、ブラウザ ポリシー、拡張機能管理 |
+| **Section 6** | 一般的な問題のトラブルシューティング | 約 14% | 監査ログ分析、Google Workspace ステータス ダッシュボード、メール配信障害（SPF/DKIM/DMARC ヘッダー解析）、カレンダー同期障害、ドライブ権限/削除ファイル復元、Meet 品質管理ツール、HAR ファイル生成、Google サポート連携 |
 
 ---
 

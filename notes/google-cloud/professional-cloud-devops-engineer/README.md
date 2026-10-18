@@ -46,7 +46,7 @@ Professional Cloud DevOps Engineer 試験は、Google Cloud 認定資格の中�
 1. **公式一次ドキュメントおよび SRE 書籍の精読**:
    Google Cloud 公式ドキュメントの「ベストプラクティス」「アーキテクチャガイド」に加え、Google SRE チームが公開している『Site Reliability Engineering: How Google Runs Production Systems』の核心概念（SLI/SLO/SLA、エラーバジェット、トイルの削減、障害の根本原因分析）を体系的に学習します。
 2. **実機ハンズオンによる手触り感の獲得**:
-   Google Skills（Cloud Skills Boost）の DevOps / SRE 関連学習パス（「Implement DevOps Workflows in Google Cloud」等）を活用し、Cloud Build トリガー、Cloud Deploy パイプライン、Artifact Registry 脆弱性スキャン、Cloud Monitoring によるアラートポリシー策定を実機で検証します。
+   Google Skills の DevOps / SRE 関連学習パス（「Implement DevOps Workflows in Google Cloud」等）を活用し、Cloud Build トリガー、Cloud Deploy パイプライン、Artifact Registry 脆弱性スキャン、Cloud Monitoring によるアラートポリシー策定を実機で検証します。
 3. **構造化実践シナリオ（状況・対応・結果・解説）による意思決定プロセスの追体験**:
    本ガイドに網羅された各セクションの実践シナリオを読み込み、「なぜその手法が最適なのか」「なぜ類似の他手法では不適格なのか」という全代替案の棄却理由を論理的に説明できるレベルまで思考を深めます。
 
@@ -57,30 +57,10 @@ Professional Cloud DevOps Engineer 試験は、Google Cloud 認定資格の中�
 1. [はじめに](#はじめに)
 2. [学習カリキュラム・出題範囲ロードマップ](#学習カリキュラム出題範囲ロードマップ)
 3. [Section 1: Google Cloud 組織のブートストラップと保守 (15%)](#section-1-google-cloud-組織のブートストラップと保守-15)
-   - [1. セクション概要](#1-セクション概要)
-   - [2. 重要トピック](#2-重要トピック)
-   - [3. 実践シナリオ](#3-実践シナリオ)
-   - [4. 参考ドキュメント & 推奨ハンズオン](#4-参考ドキュメント--推奨ハンズオン)
 4. [Section 2: アプリケーションとインフラストラクチャの CI / CD パイプラインの構築および実装 (27%)](#section-2-アプリケーションとインフラストラクチャの-ci--cd-パイプラインの構築および実装-27)
-   - [1. セクション概要](#1-セクション概要-1)
-   - [2. 重要トピック](#2-重要トピック-1)
-   - [3. 実践シナリオ](#3-実践シナリオ-1)
-   - [4. 参考ドキュメント & 推奨ハンズオン](#4-参考ドキュメント--推奨ハンズオン-1)
 5. [Section 3: サイト信頼性エンジニアリング手法のアプリケーションへの適用 (23%)](#section-3-サイト信頼性エンジニアリング手法のアプリケーションへの適用-23)
-   - [1. セクション概要](#1-セクション概要-2)
-   - [2. 重要トピック](#2-重要トピック-2)
-   - [3. 実践シナリオ](#3-実践シナリオ-2)
-   - [4. 参考ドキュメント & 推奨ハンズオン](#4-参考ドキュメント--推奨ハンズオン-2)
 6. [Section 4: オブザーバビリティ手法の実装 (20%)](#section-4-オブザーバビリティ手法の実装-20)
-   - [1. セクション概要](#1-セクション概要-3)
-   - [2. 重要トピック](#2-重要トピック-3)
-   - [3. 実践シナリオ](#3-実践シナリオ-3)
-   - [4. 参考ドキュメント & 推奨ハンズオン](#4-参考ドキュメント--推奨ハンズオン-3)
 7. [Section 5: パフォーマンスの最適化とトラブルシューティング (15%)](#section-5-パフォーマンスの最適化とトラブルシューティング-15)
-   - [1. セクション概要](#1-セクション概要-4)
-   - [2. 重要トピック](#2-重要トピック-4)
-   - [3. 実践シナリオ](#3-実践シナリオ-4)
-   - [4. 参考ドキュメント & 推奨ハンズオン](#4-参考ドキュメント--推奨ハンズオン-4)
 8. [まとめと推奨学習ステップ](#まとめと推奨学習ステップ)
 
 ---
@@ -151,8 +131,8 @@ Professional Cloud DevOps Engineer 試験は、Google Cloud 認定資格の中�
 - **結果**: ネットワークセキュリティポリシーと IP アドレス設計の中央集権化が達成され、開発プロジェクト間の不要なピアリングが不要になるとともに、単一のダッシュボードから全環境の横断的な監視が可能となる。
 - **解説**: 共有 VPC を使用することで、ネットワーク管理の職掌分散（Separation of Duties）を実現し、ホストプロジェクト管理者のみがサブネットの払い出しやファイアウォール規則を制御できるためです。各プロジェクトで個別に VPC を作成し VPC ネットワークピアリングで相互接続する構成は、プロジェクト数の増加に伴いピアリング数の上限に達し、ルーティング管理が破綻するため不適格です。また、プロジェクトごとに個別のモニタリングダッシュボードを運用するアプローチは、組織横断的な障害の早期相関分析が不可能となり要件を満たせません。
 - **参考ドキュメント**:
-  - [共有 VPC の概要](https://cloud.google.com/vpc/docs/shared-vpc?hl=ja): ホストプロジェクトとサービスプロジェクトの設計原則。
-  - [複数プロジェクトの指標の表示](https://cloud.google.com/monitoring/settings/multiple-projects?hl=ja): スコーププロジェクトの設定とモニタリング統制。
+  - [共有 VPC の概要](https://docs.cloud.google.com/vpc/docs/shared-vpc?hl=ja): ホストプロジェクトとサービスプロジェクトの設計原則。
+  - [複数プロジェクトの指標の表示](https://docs.cloud.google.com/monitoring/settings/multiple-projects?hl=ja): スコーププロジェクトの設定とモニタリング統制。
 
 #### シナリオ 1-2: Config Connector による Kubernetes ネイティブなクラウドリソース宣言
 
@@ -161,7 +141,7 @@ Professional Cloud DevOps Engineer 試験は、Google Cloud 認定資格の中�
 - **結果**: Git リポジトリへのマージをトリガーとして Kubernetes コントローラが Google Cloud リソースを自動生成・調整（Reconcile）し、インフラとアプリのマニフェストが一元管理される。
 - **解説**: Config Connector は Kubernetes の宣言的 API 思想を Google Cloud リソース全体に拡張し、Kubernetes 側の構成同期ツール（Config Sync や Argo CD）とシームレスに GitOps を実現できるためです。開発者ごとに Terraform 実行権限をローカル付与するアプローチは、tfstate の不整合やクレデンシャル漏洩のリスクが高まるため不適格です。また、Pod の起動スクリプト（Init Container）内で gcloud CLI を使ってリソースを作成する手法は、クラスタ再起動時の多重作成やエラーハンドリングが極めて困難であり要件を満たせません。
 - **参考ドキュメント**:
-  - [Config Connector の概要](https://cloud.google.com/config-connector/docs/overview?hl=ja): Kubernetes ネイティブなクラウドリソース管理。
+  - [Config Connector の概要](https://docs.cloud.google.com/config-connector/docs/overview?hl=ja): Kubernetes ネイティブなクラウドリソース管理。
 
 #### シナリオ 1-3: プライベートワーカープールを用いたセキュアなハイブリッド CI/CD スタック
 
@@ -170,7 +150,7 @@ Professional Cloud DevOps Engineer 試験は、Google Cloud 認定資格の中�
 - **結果**: ビルド環境が VPC 内部のプライベート IP のみで稼働し、パブリック IP を介さない安全なビルドパイプラインが確立される。
 - **解説**: Cloud Build のプライベートプールは、マネージドの実行環境でありながら VPC ピアリングを通じて特定の内部 IP 空間へのみ安全にアクセスできるためです。デフォルトの Cloud Build パブリックワーカープールを使用する構成は、ビルド環境にパブリック IP が割り当てられ、閉域ネットワークへのセキュアな到達性が担保できないため不適格です。また、Compute Engine VM 上に自前で Jenkins を構築して完全管理するアプローチは、パッチ適用やスケーリングの運用負荷（トイル）が著しく増大するため推奨されません。
 - **参考ドキュメント**:
-  - [プライベート プールでのビルドの実行](https://cloud.google.com/build/docs/private-pools/run-builds-in-private-pools?hl=ja): 閉域ネットワーク接続構成。
+  - [プライベート プールでのビルドの実行](https://docs.cloud.google.com/build/docs/private-pools/private-pools-overview?hl=ja): 閉域ネットワーク接続構成。
 
 #### シナリオ 1-4: GKE フリートと Config Sync によるマルチクラスタポリシーの一元統制
 
@@ -179,8 +159,8 @@ Professional Cloud DevOps Engineer 試験は、Google Cloud 認定資格の中�
 - **結果**: クラスタの追加やポリシー更新時に、Git へのコミットのみで全クラスタへの均一なポリシー適用とドリフト自動修復が実現する。
 - **解説**: GKE フリートと Config Sync は、マルチクラスタ環境における構成管理の Single Source of Truth を Git に集約し、継続的な同期とコンプライアンス検証を自動実行するためです。クラスタごとに `kubectl apply` を手動実行する、あるいは単純なシェルスクリプトでループ実行するアプローチは、実行失敗時のリトライやクラスタ間での設定差分（ドリフト）を検知・修復できないため不適格です。また、Terraform 単体で全クラスタの Kubernetes リソースを直接流し込む構成は、クラスタ数の増加に伴いプロビジョニング時間が極度に肥大化し要件を満たせません。
 - **参考ドキュメント**:
-  - [フリート管理の概要](https://cloud.google.com/kubernetes-engine/docs/concepts/fleets-overview?hl=ja): 複数クラスタの論理的グループ化。
-  - [Config Sync の概要](https://cloud.google.com/kubernetes-engine/docs/add-ons/config-sync/overview?hl=ja): GitOps による構成同期。
+  - [フリート管理の概要](https://docs.cloud.google.com/kubernetes-engine/fleet-management/docs/fleet-concepts?hl=ja): 複数クラスタの論理的グループ化。
+  - [Config Sync の概要](https://docs.cloud.google.com/kubernetes-engine/config-sync/docs/overview?hl=ja): GitOps による構成同期。
 
 #### シナリオ 1-5: Cloud Workstations によるリモート開発環境のゼロトラスト化
 
@@ -189,20 +169,20 @@ Professional Cloud DevOps Engineer 試験は、Google Cloud 認定資格の中�
 - **結果**: 開発者はブラウザ経由でセキュアな IDE にアクセスでき、ローカル端末へのデータ保存を禁止しつつ、開発環境のセットアップ時間をゼロに短縮できる。
 - **解説**: Cloud Workstations は企業管理の VPC 内にワークステーションをホストし、プライベートクラスタ構成や IAM 制御を組み合わせることで強固な情報漏洩防止を実現できるためです。各開発者のローカル PC に VPN クライアントを配布して直接 VPC に接続させる手法は、端末からのデータ持ち出しやマルウェア感染のリスクを排除できないため不適格です。また、単なる Compute Engine VM を作成して SSH ポートを開放するアプローチは、ポート管理やセッション制御、一括イメージ管理の面でガバナンス要件を満たせません。
 - **参考ドキュメント**:
-  - [Cloud Workstations の概要](https://cloud.google.com/workstations/docs/overview?hl=ja): セキュアなマネージド開発環境。
+  - [Cloud Workstations の概要](https://docs.cloud.google.com/workstations/docs/overview?hl=ja): セキュアなマネージド開発環境。
 
 ---
 
 ### 4. 参考ドキュメント & 推奨ハンズオン
 
 #### 公式一次ドキュメント
-- [エンタープライズ組織の設計ガイド](https://cloud.google.com/architecture/enterprise-landing-zone?hl=ja): リソース階層とネットワークのベストプラクティス。
-- [Google Cloud 組織ポリシー サービス](https://cloud.google.com/resource-manager/docs/organization-policy/overview?hl=ja): ガードレール設計。
+- [エンタープライズ組織の設計ガイド](https://docs.cloud.google.com/architecture/landing-zones?hl=ja): リソース階層とネットワークのベストプラクティス。
+- [Google Cloud 組織ポリシー サービス](https://docs.cloud.google.com/resource-manager/docs/organization-policy/overview?hl=ja): ガードレール設計。
 
 #### 推奨ハンズオン・ラボ（実機検証）
-- **Build Infrastructure with Terraform on Google Cloud (Skill Badge)**:
+- [Build Infrastructure with Terraform on Google Cloud (Skill Badge) (Google Skills)](https://www.skills.google/paths/20):
   - **学習目標**: Terraform によるリソースプロビジョニング、tfstate の GCS バックエンド管理、モジュール設計を習得。
-- **Config Connector による Google Cloud リソースの管理**:
+- [Config Connector による Google Cloud リソースの管理 (Google Skills)](https://www.skills.google/paths/20):
   - **学習目標**: GKE クラスタ内から Kubernetes マニフェストを用いて Cloud Storage や Cloud SQL をプロビジョニングする GitOps フローを検証。
 
 ---
@@ -267,7 +247,7 @@ Professional Cloud DevOps Engineer 試験は、Google Cloud 認定資格の中�
 - **結果**: ステージングへのデプロイ完了後、パイプラインが自動的に本番昇格待ち状態で一時停止し、運用リードがコンソールまたは CLI で差分を確認して承認した時のみ本番クラスタへのロールアウトが実行される。
 - **解説**: Cloud Deploy は承認ゲート（Approval Gate）および監査証跡をネイティブに提供し、GitOps の宣言的マニフェスト（Skaffold）に基づいた安全なプロモーションをフルマネージドで実現できるためです。Cloud Build のスクリプト内でシェルコマンドの `read` 入力待ちを組み込む手法は、ビルドタイムアウトの浪費やセッション切断に弱く、CI/CD の運用標準を満たせません。また、本番環境のデプロイのみ Jenkins の手動ジョブに切り替える構成は、パイプラインの断片化と成果物のトレーサビリティ喪失を招くため不適格です。
 - **参考ドキュメント**:
-  - [リリースの承認](https://cloud.google.com/deploy/docs/approving-release?hl=ja): 承認プロセスの構成。
+  - [リリースの承認](https://docs.cloud.google.com/deploy/docs/deploy-app-run?hl=ja): 承認プロセスの構成。
 
 #### シナリオ 2-2: Cloud Deploy カナリアリリースと自動指標評価に基づく自動ロールバック
 
@@ -276,7 +256,7 @@ Professional Cloud DevOps Engineer 試験は、Google Cloud 認定資格の中�
 - **結果**: 潜在的な致命的バグを含むリリースであっても、影響を受けるユーザーが最大 10% に限定され、障害検知から数分以内に自動で安全な状態に復旧する。
 - **解説**: Cloud Deploy のネイティブな自動カナリア機能および検証フェーズ（Verify）を活用することで、デプロイからモニタリング、自動切り戻しまでを標準化されたワークフローとして自動実行できるためです。ローリングアップデート（RollingUpdate）を全量実行した後に、オンコールエンジニアが手動で監視ダッシュボードを確認して `kubectl rollout undo` を実行する手法は、全ユーザーへ障害が波及し、かつ人手介入による初動遅延が発生するため不適格です。
 - **参考ドキュメント**:
-  - [デリバリー パイプラインでのカナリア デプロイの使用](https://cloud.google.com/deploy/docs/canary?hl=ja): カナリア構成ガイド。
+  - [デリバリー パイプラインでのカナリア デプロイの使用](https://docs.cloud.google.com/deploy/docs/deployment-strategies/canary?hl=ja): カナリア構成ガイド。
 
 #### シナリオ 2-3: Cloud Run におけるトラフィック分割を活用したゼロダウンタイム移行
 
@@ -285,7 +265,7 @@ Professional Cloud DevOps Engineer 試験は、Google Cloud 認定資格の中�
 - **結果**: アプリケーションの稼働を一切中断することなく、新リビジョンの負荷耐性とエラー率を実トラフィックで確認しながら安全に全量移行が完了する。
 - **解説**: Cloud Run はマネージドな Envoy プロキシを内蔵しており、複数リビジョンに対する精密なトラフィック分割（Traffic Splitting）を API コール一つで即座に実行できるためです。新リビジョンを別名サービスとしてデプロイし、外部 DNS の A レコードや重み付け CNAME でトラフィックを分散させる手法は、クライアント側の DNS キャッシュによって切り替えに数時間から数日を要し、緊急時のロールバックも即応できないため不適格です。
 - **参考ドキュメント**:
-  - [トラフィックの分割](https://cloud.google.com/run/docs/rollouts-rollbacks-traffic-migration?hl=ja): Cloud Run でのリビジョン管理。
+  - [トラフィックの分割](https://docs.cloud.google.com/run/docs/rollouts-rollbacks-traffic-migration?hl=ja): Cloud Run でのリビジョン管理。
 
 #### シナリオ 2-4: Secret Manager と Workload Identity による動的シークレット参照
 
@@ -294,7 +274,7 @@ Professional Cloud DevOps Engineer 試験は、Google Cloud 認定資格の中�
 - **結果**: シークレットがストレージやコンテナレイヤーに永続化されることなく、実行中の Pod のメモリ内ファイルシステム（tmpfs）としてのみ安全に供給される。
 - **解説**: Workload Identity と Secret Manager、Secrets Store CSI Driver の組み合わせは、長期的な認証キー（サービスアカウントキー JSON）の管理を不要にし、Kubernetes の Pod 単位で最小権限の動的シークレットアクセスを実現する Google Cloud の推奨ベストプラクティスであるためです。Docker ビルド時に `--build-arg` で API キーを渡してイメージ内に環境変数として焼き込む手法は、イメージを pull した第三者にシークレットが漏洩するため重大なアンチパターンです。また、サービスアカウントの JSON 秘密鍵をダウンロードして Kubernetes Secret に登録する構成は、キーの漏洩・ローテーション放置のリスクがあるため不適格です。
 - **参考ドキュメント**:
-  - [Secrets Store CSI ドライバの使用](https://cloud.google.com/secret-manager/docs/secret-manager-csi-driver?hl=ja): Kubernetes への安全なシークレットマウント。
+  - [Secrets Store CSI ドライバの使用](https://docs.cloud.google.com/secret-manager/docs/overview?hl=ja): Kubernetes への安全なシークレットマウント。
 
 #### シナリオ 2-5: Binary Authorization と SLSA レベル 3 による改ざんコンテナデプロイ遮断
 
@@ -303,19 +283,19 @@ Professional Cloud DevOps Engineer 試験は、Google Cloud 認定資格の中�
 - **結果**: 承認された CI/CD パイプラインを経由していないコンテナ、およびテスト未実施のイメージのデプロイが Kubernetes アドミッションコントローラによって即座に拒否される。
 - **解説**: Binary Authorization は、クラスタへのデプロイ直前にイメージの暗号署名とポリシー整合性を検証するため、悪意ある改ざんや人為的ミスによる未検証イメージの混入を根本的に遮断できるためです。IAM 権限でクラスタへのデプロイ実行権限を絞り込むだけのアプローチでは、正当な権限を持つ開発者が誤ってローカルでビルドした未検証タグをデプロイしてしまう事故を防止できないため不適格です。また、Artifact Registry の脆弱性スキャンを有効にするだけでは、警告通知は行われてもクラスタへのデプロイ自体を自動拒否できないため要件を満たせません。
 - **参考ドキュメント**:
-  - [Binary Authorization の概要](https://cloud.google.com/binary-authorization/docs/overview?hl=ja): デプロイ時セキュリティ検証。
-  - [SLSA によるサプライ チェーンの保護](https://cloud.google.com/build/docs/securing-builds/view-build-provenance?hl=ja): ビルド元の完全性証明。
+  - [Binary Authorization の概要](https://docs.cloud.google.com/binary-authorization/docs/overview?hl=ja): デプロイ時セキュリティ検証。
+  - [SLSA によるサプライ チェーンの保護](https://docs.cloud.google.com/build/docs/securing-builds/generate-validate-build-provenance?hl=ja): ビルド元の完全性証明。
 
 ---
 
 ### 4. 参考ドキュメント & 推奨ハンズオン
 
 #### 公式一次ドキュメント
-- [Google Cloud Deploy のベスト プラクティス](https://cloud.google.com/deploy/docs/best-practices?hl=ja): 継続的デリバリーの設計。
-- [ソフトウェア サプライ チェーン セキュリティの概要](https://cloud.google.com/software-supply-chain-security/docs/overview?hl=ja): SLSA と Binary Authorization。
+- [Google Cloud Deploy のベスト プラクティス](https://docs.cloud.google.com/deploy/docs/overview?hl=ja): 継続的デリバリーの設計。
+- [ソフトウェア サプライ チェーン セキュリティの概要](https://docs.cloud.google.com/software-supply-chain-security/docs/overview?hl=ja): SLSA と Binary Authorization。
 
 #### 推奨ハンズオン・ラボ（実機検証）
-- **Implement DevOps Workflows in Google Cloud (Skill Badge)**:
+- [Implement DevOps Workflows in Google Cloud (Skill Badge) (Google Skills)](https://www.skills.google/paths/20):
   - **学習目標**: Cloud Build によるコンテナ自動ビルド、Artifact Registry への push、GKE への自動デプロイパイプライン構築。
 - **Securing Google Kubernetes Engine with Binary Authorization**:
   - **学習目標**: 暗号鍵（Cloud KMS）を用いた証明書作成、Attestor の設定、未署名コンテナのデプロイ拒否動作の確認。
@@ -384,7 +364,7 @@ GKE におけるオートスケーリングは、レイヤーごとに異なる�
 - **結果**: 内部インフラリソースの消費量ではなく、ユーザーの実際の購買成功体験を客観的に計測できるようになり、障害発生の早期検知と適切な事業判断が可能となる。
 - **解説**: SLI はサーバー側の負荷（CPU/メモリ）ではなく、ユーザー体験の品質（可用性、レイテンシ、スループット）を測定すべきであり、かつ SLA はペナルティが発生する防御的境界値であるため、社内 SLO より安全マージンを持たせて低く設定するのが鉄則であるためです。CPU 使用率はリソースの飽和度（Saturation）を示す補助指標に過ぎず、これ単体を SLI に設定してもアプリケーション層のエラーを検知できないため不適格です。また、SLO と SLA を同一の数値（99.9%）にする構成は、SLO 違反の瞬間に即座に金銭的ペナルティが発生し、チームの心理的プレッシャーと機会費用を不必要に高めるため避けるべきです。
 - **参考ドキュメント**:
-  - [サービスレベル目標の定義](https://cloud.google.com/stackdriver/docs/solutions/slo-monitoring/defining-slos?hl=ja): 適切な SLI / SLO の策定手法。
+  - [サービスレベル目標の定義](https://docs.cloud.google.com/stackdriver/docs/solutions/slo-monitoring?hl=ja): 適切な SLI / SLO の策定手法。
 
 #### シナリオ 3-2: エラーバジェット枯渇に伴うデプロイ凍結と信頼性改善スプリントへの移行
 
@@ -402,7 +382,7 @@ GKE におけるオートスケーリングは、レイヤーごとに異なる�
 - **結果**: 本番稼働後に発生する運用上の予期せぬトラブルやインフラ不足が事前排除され、スムーズなサービスインと運用移管が達成される。
 - **解説**: PRR はサービスが本番のトラフィックを受け入れる前に、信頼性要件を満たしているかを包括的に評価・担保するための Google 標準のゲートキーピング手法であるためです。開発完了後にレビューを行わずそのまま DNS を切り替える手法は、高確率で初期インシデントを引き起こすため論外です。また、ソースコードのロジックレビューのみを実施するアプローチでは、インフラ層のクォータ上限やオブザーバビリティの不足を発見できないため不適格です。
 - **参考ドキュメント**:
-  - [Google SRE Book - 本番環境への導入](https://sre.google/sre-book/launching-system/): PRR の原則。
+  - [Google SRE Book - 本番環境への導入](https://sre.google/sre-book/table-of-contents/): PRR の原則。
 
 #### シナリオ 3-4: GKE における HPA と Cluster Autoscaler の協調動作と適正サイジング
 
@@ -411,7 +391,7 @@ GKE におけるオートスケーリングは、レイヤーごとに異なる�
 - **結果**: 急激なアクセス増に対して Pod が即座に増殖し、クラスタリソースが不足した瞬間にノードが自動追加されてリクエストを捌ききるとともに、セール終了後は自動で最小構成へ縮退する。
 - **解説**: HPA（ワークロードのスケール）と Cluster Autoscaler（コンピュートインフラのスケール）を協調動作させることで、アプリケーション層とインフラ層の双方で真の弾力性（Elasticity）を実現できるためです。セール期間中、あらかじめ最大ノード数でクラスタを常時固定稼働させるアプローチは、膨大なインフラコストを浪費するため不適格です。また、CPU 指標に基づいて HPA と Vertical Pod Autoscaler（VPA）を同一の Deployment に対して同時に有効化する構成は、両コントローラが互いの変更を打ち消し合ってスケーリングループに陥るため推奨されません。
 - **参考ドキュメント**:
-  - [クラスタの自動スケーリング](https://cloud.google.com/kubernetes-engine/docs/concepts/cluster-autoscaler?hl=ja): Cluster Autoscaler の動作原理。
+  - [クラスタの自動スケーリング](https://docs.cloud.google.com/kubernetes-engine/docs/concepts/cluster-autoscaler?hl=ja): Cluster Autoscaler の動作原理。
 
 #### シナリオ 3-5: リージョン障害発生時における Cloud Load Balancing を用いたトラフィックドレイン
 
@@ -420,7 +400,7 @@ GKE におけるオートスケーリングは、レイヤーごとに異なる�
 - **結果**: ユーザー接続の強制切断を伴わずに、東京側の既存インフライトリクエストの処理完了を待ちつつ、新規トラフィックがすべて大阪リージョンへスムーズにリダイレクトされる。
 - **解説**: Google Cloud のグローバル外部アプリケーションロードバランサは、単一の Anycast IP アドレスの背後で複数リージョンのバックエンドを統合管理しており、キャパシティ調整によるトラフィックドレイン（Draining）を行うことで、DNS の伝播遅延を待たずに数秒で健全なリージョンへトラフィックを誘導できるためです。DNS レコードを手動で書き換えて東京リージョンの IP を削除する手法は、世界中のキャッシュ DNS による遅延が発生し、数十分から数時間にわたりユーザーにエラーが返り続けるため不適格です。また、東京側の GKE クラスタをいきなり即時削除する対応は、処理中のトランザクションデータが破損するため避けるべきです。
 - **参考ドキュメント**:
-  - [コネクション ドレインの構成](https://cloud.google.com/load-balancing/docs/enabling-connection-draining?hl=ja): グレースフルなトラフィック制御。
+  - [コネクション ドレインの構成](https://docs.cloud.google.com/load-balancing/docs/enabling-connection-draining?hl=ja): グレースフルなトラフィック制御。
 
 ---
 
@@ -428,7 +408,7 @@ GKE におけるオートスケーリングは、レイヤーごとに異なる�
 
 #### 公式一次ドキュメント
 - [Google SRE 公式ドキュメント・書籍](https://sre.google/books/): SRE 原則とベストプラクティス。
-- [Cloud Monitoring による SLO のモニタリング](https://cloud.google.com/stackdriver/docs/solutions/slo-monitoring?hl=ja): SLI/SLO の定義と設定。
+- [Cloud Monitoring による SLO のモニタリング](https://docs.cloud.google.com/stackdriver/docs/solutions/slo-monitoring?hl=ja): SLI/SLO の定義と設定。
 
 #### 推奨ハンズオン・ラボ（実機検証）
 - **Managing Deployments Using Kubernetes Engine**:
@@ -452,7 +432,7 @@ GKE におけるオートスケーリングは、レイヤーごとに異なる�
 
 #### 重要キーワード
 
-- **Ops Agent**: Compute Engine 仮想マシン上でログ収集（Fluentbit ベース）およびメトリクス収集（OpenTelemetry ベース）を一元的に実行する統合エージェント。
+- **Ops Agent**: Compute Engine 仮想マシン上でログ収集（Fluent Bit ベース）およびメトリクス収集（OpenTelemetry ベース）を一元的に実行する統合エージェント。
 - **ログルーター（Log Router）**: プロジェクト内で生成されるすべてのログを受け取り、除外フィルタ（Exclusion Filters）で不要ログを破棄し、シンク（Sinks）を通じてログバケット、BigQuery、Pub/Sub、Cloud Storage へルーティングする中核エンジン。
 - **ログベース指標（Log-based Metrics）**: ログエントリのテキストパターンや JSON ペイロードから値を抽出し、Cloud Monitoring のメトリクス（カウンターまたはディストリビューション）としてリアルタイム生成する機能。
 - **Google Cloud Managed Service for Prometheus (GMP)**: Prometheus 形式のメトリクスをフルマネージドで収集・保存・照会できるサーバーレス監視ソリューション。PromQL をそのまま使用可能。
@@ -491,7 +471,7 @@ Cloud Logging で収集したログは、要件（リアルタイム性、分析
 - **結果**: Cloud Logging への不要な高額取り込み料金が削減されつつ、BigQuery の安価なストレージ料金で 1 年間のログが安全に保持され、監査時には高速な SQL クエリ分析が可能となる。
 - **解説**: Cloud Logging の除外フィルタを通過したログはログバケットに保存されないため課金対象外（無料）となり、一方で BigQuery 宛てシンクへのルーティングは Cloud Logging の取り込み料金とは独立して安価な BigQuery 料金体系で処理できるためです。すべてのログをそのまま Cloud Logging のデフォルトバケットに取り込み続ける構成は、毎月莫大なログ取り込み費用が発生するため不適格です。また、すべてのログ収集を完全に停止する手法は、セキュリティ監査要件を満たせないため論外です。
 - **参考ドキュメント**:
-  - [ログのルーティングとストレージの概要](https://cloud.google.com/logging/docs/routing/overview?hl=ja): ログルーターと除外フィルタの活用。
+  - [ログのルーティングとストレージの概要](https://docs.cloud.google.com/logging/docs/routing/overview?hl=ja): ログルーターと除外フィルタの活用。
 
 #### シナリオ 4-2: Sensitive Data Protection とログルーター連携による PII / PHI の自動マスキング
 
@@ -500,7 +480,7 @@ Cloud Logging で収集したログは、要件（リアルタイム性、分析
 - **結果**: 機密情報がマスキングされた安全なログのみが運用担当者の閲覧するログバケットに保管され、法令順守（HIPAA 等）が徹底される。
 - **解説**: Sensitive Data Protection とストリーミングデータパイプラインを組み合わせることで、ログの取り込み経路で確実にコンテンツを検査・非識別化（De-identification）できるためです。アプリケーションのソースコード修正のみに依存するアプローチは、将来の新規コード追加に伴う人為的ミスを完全に防ぐことができないため不適格です。また、ログバケット全体へのアクセス権を全員から剥奪する手法は、本番障害発生時のトラブルシューティングが一切不可能になるため要件を満たせません。
 - **参考ドキュメント**:
-  - [機密データの保護の概要](https://cloud.google.com/sensitive-data-protection/docs/overview?hl=ja): PII / PHI の自動検出とマスキング。
+  - [機密データの保護の概要](https://docs.cloud.google.com/sensitive-data-protection/docs?hl=ja): PII / PHI の自動検出とマスキング。
 
 #### シナリオ 4-3: Managed Service for Prometheus (GMP) によるマルチクラスタ監視の統合
 
@@ -509,7 +489,7 @@ Cloud Logging で収集したログは、要件（リアルタイム性、分析
 - **結果**: 自前の Prometheus サーバー、Thanos、ストレージバックエンドのパッチ適用や運用管理が不要となり、単一のインターフェースから PromQL を用いてマルチクラスタの横断クエリが可能となる。
 - **解説**: GMP は Google Cloud が提供するフルマネージドな Prometheus 互換サービスであり、PromQL や既存のエクスポーター設定をそのまま利用しながら、ペタバイト規模のメトリクスを自動スケーラブルにグローバル集約できるためです。各クラスタ内に自前で Prometheus + Grafana + Persistent Volume を維持し続ける手法は、ストレージ障害対応やバックアップ運用のトイルが肥大化するため不適格です。また、すべてのアプリケーションコードを Google Cloud Monitoring 独自 API クライアントに書き換えるアプローチは、改修工数が膨大となりオープンソース標準を失うため推奨されません。
 - **参考ドキュメント**:
-  - [Managed Service for Prometheus の概要](https://cloud.google.com/stackdriver/docs/managed-prometheus?hl=ja): マネージド Prometheus 監視。
+  - [Managed Service for Prometheus の概要](https://docs.cloud.google.com/stackdriver/docs/managed-prometheus?hl=ja): マネージド Prometheus 監視。
 
 #### シナリオ 4-4: ログベース指標による特定 HTTP エラーパターンのリアルタイムメトリクス化
 
@@ -518,7 +498,7 @@ Cloud Logging で収集したログは、要件（リアルタイム性、分析
 - **結果**: アプリケーションのコード変更や再デプロイを一切行うことなく、ログの出現頻度に応じたリアルタイムのアラート検知とダッシュボード可視化が完了する。
 - **解説**: ログベース指標は、Cloud Logging に取り込まれるログストリームから正規表現や JSON フィールド抽出によって即座に Cloud Monitoring メトリクスを生成できるため、アプリケーション改修が困難な状況下での迅速な可視化に最適であるためです。ログエクスプローラを開いてオペレータが定期的に手動クエリを実行する運用は、夜間障害や急激なインシデントを見逃すため論外です。また、BigQuery にログをエクスポートしてからスケジュールクエリでカウントするアプローチは、数分から数十分の検知遅延が発生し、リアルタイムのインシデント検知要件を満たせません。
 - **参考ドキュメント**:
-  - [ログベースの指標の概要](https://cloud.google.com/logging/docs/logs-based-metrics?hl=ja): ログからのメトリクス抽出。
+  - [ログベースの指標の概要](https://docs.cloud.google.com/logging/docs/logs-based-metrics?hl=ja): ログからのメトリクス抽出。
 
 #### シナリオ 4-5: 複数ウィンドウ・複数バーンレートアラートと Runbook 連携によるアラート疲れの撲滅
 
@@ -527,14 +507,14 @@ Cloud Logging で収集したログは、要件（リアルタイム性、分析
 - **結果**: 一時的なトラフィックの揺らぎによる偽陽性（誤報）が完全に排除され、真にサービスレベル目標を脅かすインシデントのみが通知され、初動対応の迅速化が実現する。
 - **解説**: Google SRE が提唱する複数ウィンドウ・複数バーンレートアラートは、リセット時間の異なる複数の時間枠を論理積（AND）条件で評価することにより、スパイクノイズに対する耐性と致命的障害に対する即応性を数学的に両立できるためです。アラートのしきい値を単純に引き上げる（例: エラー率 10% 以上にする）アプローチは、緩やかにエラーバジェットを食いつぶす深刻なバグを見逃すため不適格です。また、すべての通知を Slack チャンネルに集約して人間が目視監視する手法は、重大アラートが日常チャットに埋もれて検知遅延を招くため避けるべきです。
 - **参考ドキュメント**:
-  - [バーンレート アラートの構成](https://cloud.google.com/stackdriver/docs/solutions/slo-monitoring/alerting-on-budget-burn-rate?hl=ja): SRE 準拠のアラート設計。
+  - [バーンレート アラートの構成](https://docs.cloud.google.com/stackdriver/docs/solutions/slo-monitoring/alerting-on-budget-burn-rate?hl=ja): SRE 準拠のアラート設計。
 
 ---
 
 ### 4. 参考ドキュメント & 推奨ハンズオン
 
 #### 公式一次ドキュメント
-- [Google Cloud Observability の概要](https://cloud.google.com/stackdriver/docs?hl=ja): 統合オブザーバビリティ。
+- [Google Cloud Observability の概要](https://docs.cloud.google.com/stackdriver/docs?hl=ja): 統合オブザーバビリティ。
 - [SRE ワークブック - アラートの設計](https://sre.google/workbook/alerting-on-slos/): バーンレートアラートの実装手法。
 
 #### 推奨ハンズオン・ラボ（実機検証）
@@ -606,7 +586,7 @@ Cloud Logging で収集したログは、要件（リアルタイム性、分析
 - **結果**: 勘に頼ったリソースの当てずっぽうな引き上げを避け、メモリリークの根本原因となったコードバグが解消され、Pod の安定稼働が回復する。
 - **解説**: `OOMKilled`（終了コード 137）は Linux カーネルの cgroup メモリ制限超過によってプロセスが強制終了されたことを明確に示しており、`describe` と `--previous` ログ確認を順序立てて行うことが Kubernetes トラブルシューティングの標準手順であるためです。原因を特定せずにノードサイズ（マシンスペック）を単純に 2 倍にする手法は、一時的に症状を先送りするだけでメモリリークにより再発し、コストを無駄に浪費するため不適格です。また、クラスタ全体を再起動する対応は、障害の証拠（ログや終了状態）を破壊し、他サービスへの二次被害を引き起こすため論外です。
 - **参考ドキュメント**:
-  - [Kubernetes ワークロードのトラブルシューティング](https://cloud.google.com/kubernetes-engine/docs/troubleshooting?hl=ja): Pod のクラッシュ解析。
+  - [Kubernetes ワークロードのトラブルシューティング](https://docs.cloud.google.com/kubernetes-engine/docs/troubleshooting?hl=ja): Pod のクラッシュ解析。
 
 #### シナリオ 5-2: OpenTelemetry と Cloud Trace によるマイクロサービス間遅延のボトルネック特定
 
@@ -615,7 +595,7 @@ Cloud Logging で収集したログは、要件（リアルタイム性、分析
 - **結果**: 決済サービスから外部サードパーティ API への通信待機に 2800ms を要していることが一目で判明し、該当処理の非同期キュー化（Pub/Sub 連携）とタイムアウト短縮を実施して解決に至る。
 - **解説**: Cloud Trace の分散トレーシングは、サービス境界を越えて単一トランザクションの全スパン処理時間をミリ秒単位で追跡できるため、インフラ指標に現れない外部依存先やネットワークレイテンシのボトルネックを特定できる唯一の手法であるためです。各サーバーの SSH ログインやログファイルを目視でタイムスタンプ突き合わせする手法は、マイクロサービス数が数十に達する環境では事実上不可能であり不適格です。また、フロントエンドの Pod 数を無作為に増やす対応は、背後のボトルネックが外部 API にあるため効果がなく、コストを浪費するだけです。
 - **参考ドキュメント**:
-  - [Cloud Trace の概要](https://cloud.google.com/trace/docs/overview?hl=ja): 分散トレーシングの実装。
+  - [Cloud Trace の概要](https://docs.cloud.google.com/trace/docs/overview?hl=ja): 分散トレーシングの実装。
 
 #### シナリオ 5-3: Cloud Profiler と Error Reporting による本番障害のプロアクティブ解消
 
@@ -624,7 +604,7 @@ Cloud Logging で収集したログは、要件（リアルタイム性、分析
 - **結果**: 開発環境で再現しなかった本番特有のコードレベルのボトルネック行が特定され、正規表現アルゴリズムの修正により CPU 負荷が即座に平時水準へ低下する。
 - **解説**: Cloud Profiler は本番の実行中プロセスに対して統計的サンプリングを行うため、パフォーマンスを損なうことなく CPU を消費している厳密な関数やコード行を特定できるためです。開発環境で負荷テストを繰り返して当て推量でコードを探すアプローチは、本番固有のデータパターンに起因する問題を再現できず解決に膨大な時間を要するため不適格です。また、CPU 飽和に対してマシンタイプを無制限にスケールアップする対応は、根本原因のアルゴリズム欠陥を放置したまま莫大なクラウド利用料を支払うことになるため避けるべきです。
 - **参考ドキュメント**:
-  - [Cloud Profiler のコンセプト](https://cloud.google.com/profiler/docs/concepts-profiling?hl=ja): 継続的プロファイリング。
+  - [Cloud Profiler のコンセプト](https://docs.cloud.google.com/profiler/docs/concepts-profiling?hl=ja): 継続的プロファイリング。
 
 #### シナリオ 5-4: GKE バッチワークロードへの Spot VM 導入とグレースフルシャットダウン
 
@@ -633,7 +613,7 @@ Cloud Logging で収集したログは、要件（リアルタイム性、分析
 - **結果**: コンピュートコストが約 80% 削減され、ノードのプリエンプション（回収）が発生した場合でもチェックポイントからジョブが自動再開され、データ破損なく完了する。
 - **解説**: Spot VM はオンデマンド VM と同等の性能を最大 91% 引きの破格で利用できるため、中断耐性のあるバッチ処理に最適であり、30 秒前の停止通知（`SIGTERM`）を適切にハンドリングすることで安全に処理を退避できるためです。ステートレスで中断可能なワークロードに対して全量オンデマンド VM をプロビジョニングし続ける構成は、予算を著しく無駄にするため不適格です。また、事前のシャットダウン処理を記述せずに Spot VM を導入する手法は、プリエンプション発生時に処理データが途中で消し飛び、再試行時に多重実行の不整合を引き起こすため推奨されません。
 - **参考ドキュメント**:
-  - [GKE での Spot VM の使用](https://cloud.google.com/kubernetes-engine/docs/concepts/spot-vms?hl=ja): 低コストノードの運用。
+  - [GKE での Spot VM の使用](https://docs.cloud.google.com/kubernetes-engine/docs/concepts/spot-vms?hl=ja): 低コストノードの運用。
 
 #### シナリオ 5-5: 費用ベース CUD と Active Assist / Cloud Recommender によるクラウドアセット最適化
 
@@ -642,21 +622,21 @@ Cloud Logging で収集したログは、要件（リアルタイム性、分析
 - **結果**: ワークロードの変更やダウンタイムを一切伴わずに、リソースの適正化で約 10%、CUD の割引適用でさらに約 30% のコスト削減が達成され、目標を大幅に上回る財務最適化が実現する。
 - **解説**: Cloud Recommender は実際の使用率データに基づいて過剰プロビジョニングを是正し、費用ベース CUD は特定の VM ファミリーに縛られず柔軟に全般的なコンピュート費用に割引を適用できるため、最もリスクが低く即効性の高い最適化手法であるためです。割引率の高さだけに目を奪われて、将来縮退する予定の特定リージョン・特定マシンタイプに対して 3 年間のリソースベース CUD を過剰契約するアプローチは、将来的な構成変更時に割引枠が無駄になり費用を増大させるリスクがあるため不適格です。また、開発環境の全リソースを無差別に一律停止する手法は、開発速度（Velocity）を著しく損なうため避けるべきです。
 - **参考ドキュメント**:
-  - [確約利用割引の概要](https://cloud.google.com/docs/cuds?hl=ja): コスト最適化の基盤。
-  - [Recommender の概要](https://cloud.google.com/recommender/docs/overview?hl=ja): インテリジェントな最適化推奨。
+  - [確約利用割引の概要](https://docs.cloud.google.com/docs/cuds?hl=ja): コスト最適化の基盤。
+  - [Recommender の概要](https://docs.cloud.google.com/recommender/docs/whatis-activeassist?hl=ja): インテリジェントな最適化推奨。
 
 ---
 
 ### 4. 参考ドキュメント & 推奨ハンズオン
 
 #### 公式一次ドキュメント
-- [Google Cloud のコスト最適化フレームワーク](https://cloud.google.com/architecture/framework/cost-optimization?hl=ja): 体系的コスト管理。
-- [Cloud Trace のトラブルシューティングガイド](https://cloud.google.com/trace/docs/troubleshooting?hl=ja): 分散トレーシングの分析。
+- [Google Cloud のコスト最適化フレームワーク](https://docs.cloud.google.com/architecture/framework/cost-optimization?hl=ja): 体系的コスト管理。
+- [Cloud Trace のトラブルシューティングガイド](https://docs.cloud.google.com/trace/docs/troubleshooting?hl=ja): 分散トレーシングの分析。
 
 #### 推奨ハンズオン・ラボ（実機検証）
-- **Optimize Costs for Google Kubernetes Engine**:
+- [Optimize Costs for Google Kubernetes Engine (Google Skills)](https://www.skills.google/paths/20):
   - **学習目標**: Spot VM ノードプールの構成、ワークロードのライトサイジング、GKE Autopilot コスト効率の検証。
-- **Application Performance Management with Cloud Trace and Cloud Profiler**:
+- [Application Performance Management with Cloud Trace and Cloud Profiler (Google Skills)](https://www.skills.google/paths/20):
   - **学習目標**: OpenTelemetry 計装によるトレース送信、Cloud Profiler による CPU 消費コードの特定演習。
 
 ---

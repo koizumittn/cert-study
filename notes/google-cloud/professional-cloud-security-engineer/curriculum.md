@@ -3,7 +3,7 @@
 - **対象資格**: Google Cloud Certified - Professional Cloud Security Engineer
 - **公式試験ガイド**: [Professional Cloud Security Engineer 認定試験ガイド (日本語版)](https://services.google.com/fh/files/misc/professional_cloud_security_engineer_exam_guide_japanese.pdf?hl=ja)
 - **公式試験ページ**: [Professional Cloud Security Engineer | Google Cloud Certification](https://cloud.google.com/learn/certification/cloud-security-engineer?hl=ja)
-- **公式学習パス**: [Google Skills - Security Engineer Learning Path](https://www.cloudskillsboost.google/paths/15)
+- **公式学習パス**: [Google Skills - Security Engineer Learning Path](https://www.skills.google/paths/15)
 - **最終更新日**: 2026-10-14
 
 ---
@@ -27,13 +27,13 @@ Professional Cloud Security Engineer は、Google Cloud において安全なワ
 
 本試験は全 5 セクションで構成されています。アクセスの構成（25%）、確実なデータ保護（23%）、通信の保護と境界保護の確立（20%）、オペレーションの管理（20%）が試験の約 90% を占めており、これらを支えるコンプライアンス要件のサポート（12%）が網羅的に評価されます。
 
-| セクション番号 | セクション名 / 出題分野 | 出題比率 | 主要対象サービス・コンセプト | ステータス |
-| :--- | :--- | :--- | :--- | :--- |
-| **Section 1** | アクセスの構成 | 約 25.0% | Cloud Identity, GCDS, SSO (SAML / OAuth 2.0), 2 段階認証, Workforce Identity 連携, サービスアカウント（キーレス化, 短期認証情報, 権限借用, Workload Identity 連携）, Cloud IAM（事前定義/カスタムロール, IAM 条件, 拒否ポリシー, Access Context Manager, ポリシーインテリジェンス）, リソース階層（組織・フォルダ・プロジェクト・組織ポリシー） | 未着手 |
-| **Section 2** | 通信の保護と境界保護の確立 | 約 20.0% | 境界セキュリティ（階層型ファイアウォールポリシー, Cloud Armor WAF, IAP, Certificate Authority Service, Secure Web Proxy, Cloud DNS SEC）, 境界セグメント（VPC, Shared VPC, VPC ピアリング, N 層分離, VPC Service Controls [境界, 境界ブリッジ, Egress/Ingress ルール]）, プライベート接続（HA-VPN, Cloud Interconnect, MACsec, プライベート Google アクセス, Private Service Connect, Cloud NAT） | 未着手 |
-| **Section 3** | 確実なデータ保護 | 約 23.0% | センシティブデータ保護（Sensitive Data Protection / Cloud DLP, PII 検査/秘匿化, 継続的プロファイリング, 仮名化, フォーマット保持暗号化 [FPE]）, データストアアクセス制限（BigQuery, Cloud Storage, Cloud SQL）, Secret Manager, VM メタデータ保護, 暗号化管理（デフォルト暗号化, CMEK, Cloud HSM, Cloud EKM, オブジェクトライフサイクル）, Confidential Computing（Confidential VM / GKE）, AI セキュリティ＆プライバシー（Vertex AI セキュリティ, トレーニングデータ/モデル保護） | 未着手 |
-| **Section 4** | オペレーションの管理 | 約 20.0% | セキュリティ自動化（CI/CD パイプライン脆弱性スキャン, Artifact Analysis, Binary Authorization, VM / コンテナのベースイメージ強化・パッチ管理, Security Health Analytics カスタムモジュール）, ロギング・モニタリング・検知（Cloud Logging, VPC フローログ, Packet Mirroring, Cloud IDS, ログ分析, ログシンク・集約シンク, Cloud Audit Logs, Security Command Center [SCC Enterprise / Premium, イベント脅威検出, 異常検出, 脆弱性管理, ガバナンス]） | 未着手 |
-| **Section 5** | コンプライアンス要件のサポート | 約 12.0% | 規制要件（PCI DSS, HIPAA, FedRAMP, GDPR, 責任共有モデル）, データとサービスのリージョン化, 規制遵守のための制御（Assured Workloads, 組織ポリシー制約, アクセスの透明性 [Access Transparency], アクセス承認 [Access Approval]） | 未着手 |
+| セクション番号 | セクション名 / 出題分野 | 出題比率 | 主要対象サービス・コンセプト |
+| :--- | :--- | :--- | :--- |
+| **Section 1** | アクセスの構成 | 約 25.0% | Cloud Identity, GCDS, SSO (SAML / OAuth 2.0), 2 段階認証, Workforce Identity 連携, サービスアカウント（キーレス化, 短期認証情報, 権限借用, Workload Identity 連携）, Cloud IAM（事前定義/カスタムロール, IAM 条件, 拒否ポリシー, Access Context Manager, ポリシーインテリジェンス）, リソース階層（組織・フォルダ・プロジェクト・組織ポリシー） |
+| **Section 2** | 通信の保護と境界保護の確立 | 約 20.0% | 境界セキュリティ（階層型ファイアウォールポリシー, Cloud Armor WAF, IAP, Certificate Authority Service, Secure Web Proxy, Cloud DNS SEC）, 境界セグメント（VPC, Shared VPC, VPC ピアリング, N 層分離, VPC Service Controls [境界, 境界ブリッジ, Egress/Ingress ルール]）, プライベート接続（HA-VPN, Cloud Interconnect, MACsec, プライベート Google アクセス, Private Service Connect, Cloud NAT） |
+| **Section 3** | 確実なデータ保護 | 約 23.0% | センシティブデータ保護（Sensitive Data Protection / Cloud DLP, PII 検査/秘匿化, 継続的プロファイリング, 仮名化, フォーマット保持暗号化 [FPE]）, データストアアクセス制限（BigQuery, Cloud Storage, Cloud SQL）, Secret Manager, VM メタデータ保護, 暗号化管理（デフォルト暗号化, CMEK, Cloud HSM, Cloud EKM, オブジェクトライフサイクル）, Confidential Computing（Confidential VM / GKE）, AI セキュリティ＆プライバシー（Vertex AI セキュリティ, トレーニングデータ/モデル保護） |
+| **Section 4** | オペレーションの管理 | 約 20.0% | セキュリティ自動化（CI/CD パイプライン脆弱性スキャン, Artifact Analysis, Binary Authorization, VM / コンテナのベースイメージ強化・パッチ管理, Security Health Analytics カスタムモジュール）, ロギング・モニタリング・検知（Cloud Logging, VPC フローログ, Packet Mirroring, Cloud IDS, ログ分析, ログシンク・集約シンク, Cloud Audit Logs, Security Command Center [SCC Enterprise / Premium, イベント脅威検出, 異常検出, 脆弱性管理, ガバナンス]） |
+| **Section 5** | コンプライアンス要件のサポート | 約 12.0% | 規制要件（PCI DSS, HIPAA, FedRAMP, GDPR, 責任共有モデル）, データとサービスのリージョン化, 規制遵守のための制御（Assured Workloads, 組織ポリシー制約, アクセスの透明性 [Access Transparency], アクセス承認 [Access Approval]） |
 
 ---
 
@@ -83,14 +83,14 @@ Professional Cloud Security Engineer は、Google Cloud において安全なワ
 ## 4. 推奨学習リソース＆公式ハンズオン・ラボ一覧
 
 ### 公式ドキュメント＆アーキテクチャフレームワーク
-- [Google Cloud Architecture Framework: セキュリティ、プライバシー、コンプライアンス](https://cloud.google.com/architecture/framework/security?hl=ja)
-- [Google Cloud セキュリティのベスト プラクティス ガイド](https://cloud.google.com/docs/security/best-practices?hl=ja)
-- [BeyondCorp Enterprise 公式ドキュメント](https://cloud.google.com/beyondcorp-enterprise/docs?hl=ja)
-- [VPC Service Controls のベスト プラクティス](https://cloud.google.com/vpc-service-controls/docs/best-practices?hl=ja)
-- [Cloud Key Management Service (KMS) のディープダイブ](https://cloud.google.com/kms/docs?hl=ja)
-- [Security Command Center 公式ドキュメント](https://cloud.google.com/security-command-center/docs?hl=ja)
+- [Google Cloud Architecture Framework: セキュリティ、プライバシー、コンプライアンス](https://docs.cloud.google.com/architecture/framework/security?hl=ja)
+- [Google Cloud セキュリティのベスト プラクティス ガイド](https://docs.cloud.google.com/architecture/framework/security?hl=ja)
+- [BeyondCorp Enterprise 公式ドキュメント](https://docs.cloud.google.com/chrome-enterprise-premium/docs?hl=ja)
+- [VPC Service Controls のベスト プラクティス](https://docs.cloud.google.com/vpc-service-controls/docs/overview?hl=ja)
+- [Cloud Key Management Service (KMS) のディープダイブ](https://docs.cloud.google.com/kms/docs?hl=ja)
+- [Security Command Center 公式ドキュメント](https://docs.cloud.google.com/security-command-center/docs?hl=ja)
 
-### 公式ハンズオンラボ（Google Skills / Cloud Skills Boost）
+### 公式ハンズオンラボ（Google Skills）
 1. **Security Best Practices in Google Cloud (Skill Badge)**
    - IAM、VPC ファイアウォール、Cloud KMS、Cloud Storage 暗号化を実機演習。
 2. **Mitigate Threats and Vulnerabilities with Security Command Center (Skill Badge)**

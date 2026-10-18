@@ -159,8 +159,8 @@ Professional Cloud Architect は、ビジネス目標を満たす堅牢かつス
 - **結果**: オンプレミスのストレージ枯渇と処理能力不足を解消し、イベント駆動による自動スケーリングトランスコーディングと高品質なメディアカタログメタデータの自動生成が実現される。
 - **解説**: Dedicated Interconnect により大容量データを安全かつ安定した専用帯域で転送できるためです。また、Dual-Region Cloud Storage はリージョン障害時でも無停止でデータアクセスを継続でき、Cloud Run はトランスコーディング処理の負荷に応じてゼロから数千インスタンスまで即座にオートスケールするため最適です。代替案として Compute Engine インスタンスを常時稼働させる構成は、アイドル時の無駄なコンピュート費用が発生するため不適格です。また、パブリックインターネット経由の VPN を使用する構成は、ペタバイト級のデータ転送に必要な帯域幅と SLA を満たせないため不適格です。
 - **参考ドキュメント**:
-  - [Cloud Storage デュアルリージョン](https://cloud.google.com/storage/docs/locations#location-dr): 地理的冗長性とフェイルオーバーの仕組み
-  - [Cloud Run イベント駆動処理](https://cloud.google.com/run/docs/tutorials/eventarc): Eventarc と Cloud Run の連携
+  - [Cloud Storage デュアルリージョン](https://docs.cloud.google.com/storage/docs/locations): 地理的冗長性とフェイルオーバーの仕組み
+  - [Cloud Run イベント駆動処理](https://docs.cloud.google.com/run/docs/tutorials/eventarc): Eventarc と Cloud Run の連携
 
 #### シナリオ 1-2: EHR Healthcare の厳格な医療規制を満たす高可用性カルテ基盤の移行設計
 
@@ -169,8 +169,8 @@ Professional Cloud Architect は、ビジネス目標を満たす堅牢かつス
 - **結果**: 計画外停止時でもダウンタイムゼロで自動フェイルオーバーが完了し、厳格な法規制要件に準拠した医療データ連携基盤が確立される。
 - **解説**: Cloud Spanner のマルチリージョン構成は、同期レプリケーションと Paxos コンセンサスにより、ゾーンやリージョンの全損時でも RPO=0、RTO=0（トランザクション損失なし・自動透過的フェイルオーバー）で 99.999% の可用性 SLA を提供するためです。また、Cloud Healthcare API は HIPAA 適合のフルマネージド FHIR ストアを提供し、Confidential VM はメモリ上の機密データをハードウェアレベルで暗号化するため要件を完全に満たします。代替案として Cloud SQL の高可用性（HA）構成を採用する案は、リージョン内フェイルオーバー時に数十秒〜数分のダウンタイムが発生し、99.999% SLA を満たせないため不適格です。また、セルフマネージドのオープンソース DB を Compute Engine 上に構築する案は、パッチ適用やフェイルオーバーの運用負荷が極めて高大となり、コンプライアンス監査の負担も増大するため不適格です。
 - **参考ドキュメント**:
-  - [Cloud Spanner 高可用性とレプリケーション](https://cloud.google.com/spanner/docs/replication): マルチリージョン構成と Paxos の仕組み
-  - [Cloud Healthcare API の概要](https://cloud.google.com/healthcare-api/docs): FHIR / HL7v2 / DICOM の標準規格対応
+  - [Cloud Spanner 高可用性とレプリケーション](https://docs.cloud.google.com/spanner/docs/replication): マルチリージョン構成と Paxos の仕組み
+  - [Cloud Healthcare API の概要](https://docs.cloud.google.com/healthcare-api/docs): FHIR / HL7v2 / DICOM の標準規格対応
 
 #### シナリオ 1-3: Cymbal Retail の商品カタログ自動エンリッチメントと生成 AI 検索基盤の設計
 
@@ -179,22 +179,22 @@ Professional Cloud Architect は、ビジネス目標を満たす堅牢かつス
 - **結果**: 手動でのカタログ登録工数を 90% 削減し、ユーザーの曖昧な自然言語クエリに対して適合率の高い商品検索と対話型レコメンデーションが実現される。
 - **解説**: Gemini のマルチモーダル処理能力により、画像とテキストを同時に理解して高精度な商品属性タグや魅力的な紹介文を自動生成できるためです。また、Vertex AI Search はフルマネージドで高度な検索エンジン（ベクトル検索とキーワード検索のハイブリッド）を提供し、自前での検索クラスタ運用が不要となるため最適です。代替案として Elasticsearch クラスタをセルフマネージドで GCE 上に構築する案は、インフラのパッチ当てやスケーリング運用負荷が非常に高く、最新の生成 AI モデルとの統合も複雑化するため不適格です。また、ルールベースの正規表現スクリプトでテキスト抽出を行う案は、サプライヤーごとの非構造化フォーマットの多様性に追従できず精度が著しく低下するため不適格です。
 - **参考ドキュメント**:
-  - [Vertex AI Search and Conversation の概要](https://cloud.google.com/generative-ai-app-builder/docs): エンタープライズ検索とエージェント基盤
-  - [Vertex AI Gemini モデルの機能](https://cloud.google.com/vertex-ai/generative-ai/docs/multimodal-overview): マルチモーダルプロンプティング
+  - [Vertex AI Search and Conversation の概要](https://docs.cloud.google.com/generative-ai-app-builder/docs): エンタープライズ検索とエージェント基盤
+  - [Vertex AI Gemini モデルの機能](https://docs.cloud.google.com/gemini-enterprise-agent-platform/models): マルチモーダルプロンプティング
 
 ---
 
 ### 4. 参考ドキュメント & 推奨ハンズオン
 
 #### 公式一次ドキュメント
-- [Google Cloud Well-Architected Framework](https://cloud.google.com/architecture/framework): クラウドアーキテクチャ設計の原則とベストプラクティス
-- [Google Cloud Migration Center](https://cloud.google.com/migration-center/docs): オンプレミス資産の検出・アセスメント・TCO 予測
-- [Vertex AI アーキテクチャガイド](https://cloud.google.com/vertex-ai/docs): 機械学習および生成 AI システムの設計標準
+- [Google Cloud Well-Architected Framework](https://docs.cloud.google.com/architecture/framework): クラウドアーキテクチャ設計の原則とベストプラクティス
+- [Google Cloud Migration Center](https://docs.cloud.google.com/migration-center/docs): オンプレミス資産の検出・アセスメント・TCO 予測
+- [Vertex AI アーキテクチャガイド](https://docs.cloud.google.com/gemini-enterprise-agent-platform): 機械学習および生成 AI システムの設計標準
 
 #### 推奨ハンズオン・ラボ（実機検証）
-- [Google Skills: Google Cloud Fundamentals - Core Infrastructure](https://www.skills.google/focuses/2794?hl=ja):
+- [Google Skills: Google Cloud Fundamentals - Core Infrastructure](https://www.skills.google/):
   - **学習目標**: VPC、Compute Engine、Cloud Storage、Cloud SQL、GKE のコアコンポーネントを構築し、多層アーキテクチャの基本疎通を体感する。
-- [Google Skills: Build a Resilient, Scalable Architecture](https://www.skills.google/focuses/43519?hl=ja):
+- [Google Skills: Build a Resilient, Scalable Architecture](https://www.skills.google/users/sign_in):
   - **学習目標**: グローバル外部 HTTP(S) ロードバランサとマネージドインスタンスグループ（MIG）を組み合わせ、自動修復・オートスケーリング動作を検証する。
 
 ---
@@ -265,8 +265,8 @@ Professional Cloud Architect は、ビジネス目標を満たす堅牢かつス
 - **結果**: 突発的なトラフィック急増時でもパケットロスなくリアルタイムにデータを取り込み、ミリ秒未満の読み書きレイテンシと 99.999% のデータ可用性を維持する。
 - **解説**: Cloud Pub/Sub はグローバル規模で毎秒数百万件のメッセージを自動スケールで吸収でき、Cloud Dataflow はサーバーレスでストリーミングウィンドウ集約を処理できるためです。また、Cloud Bigtable はペタバイト規模の時系列データに対して一貫したミリ秒未満の低遅延書き込みを提供し、マルチクラスタ構成によりゾーン障害時の自動レプリケーションと高可用性を担保するため最適です。代替案として Cloud SQL (MySQL / PostgreSQL) を使用する構成は、毎秒数十万件の連続書き込みスループットを単一インスタンスで処理しきれず、ディスク IOPS と接続数が即座に枯渇するため不適格です。また、Cloud Storage に毎秒小さなファイルを直接書き込む構成は、オブジェクト作成の API レート制限に抵触し、リアルタイム検索が不可能なため不適格です。
 - **参考ドキュメント**:
-  - [Cloud Bigtable スキーマ設計のベストプラクティス](https://cloud.google.com/bigtable/docs/schema-design): 時系列データの行キー設計
-  - [Cloud Pub/Sub ストリーミングアーキテクチャ](https://cloud.google.com/pubsub/docs/overview): 大規模メッセージング
+  - [Cloud Bigtable スキーマ設計のベストプラクティス](https://docs.cloud.google.com/bigtable/docs/schema-design): 時系列データの行キー設計
+  - [Cloud Pub/Sub ストリーミングアーキテクチャ](https://docs.cloud.google.com/pubsub/docs/overview): 大規模メッセージング
 
 #### シナリオ 2-2: Altostrat Media の大規模 AI モデル学習と AI Hypercomputer のインフラ最適化
 
@@ -275,8 +275,8 @@ Professional Cloud Architect は、ビジネス目標を満たす堅牢かつス
 - **結果**: 分散学習時のノード間通信ボトルネックを解消し、GPU/TPU の稼働率（MFU: Model FLOPs Utilization）を最大化しつつ、コミットメント割引およびスケジューリング最適化によりインフラコストを 35% 削減する。
 - **解説**: TPU v5p および AI Hypercomputer は、超大規模 LLM トレーニングに特化した光サーキットスイッチング（OCS）と高速インターコネクトを提供し、分散並列学習の通信オーバーヘッドを極小化するためです。また、Dynamic Workload Scheduler によりジョブが必要な全リソースが揃った時点で一括割り当て（All-or-Nothing）されるため、一部ノードのアイドル待機による無駄な課金を防止できます。代替案として標準の Compute Engine N1/N2 インスタンスに仮想 GPU をアタッチして手動構成する案は、ノード間ネットワーク帯域が不足して分散学習の勾配同期で著しい遅延が発生するため不適格です。また、リソース予約なしに単一のオンデマンドインスタンスを順次起動する案は、大規模学習に必要なアクセラレータ枠を同時に確保できずジョブが失敗するため不適格です。
 - **参考ドキュメント**:
-  - [Google Cloud AI Hypercomputer の概要](https://cloud.google.com/ai-hypercomputer/docs): AI 向けスーパーコンピューティング基盤
-  - [GKE での機械学習ワークロードのオーケストレーション](https://cloud.google.com/kubernetes-engine/docs/concepts/machine-learning-on-gke): Kueue とアクセラレータ管理
+  - [Google Cloud AI Hypercomputer の概要](https://docs.cloud.google.com/ai-hypercomputer/docs): AI 向けスーパーコンピューティング基盤
+  - [GKE での機械学習ワークロードのオーケストレーション](https://docs.cloud.google.com/kubernetes-engine/docs/concepts/kubernetes-engine-overview): Kueue とアクセラレータ管理
 
 #### シナリオ 2-3: 複数事業部プロジェクト間における共有 VPC と Private Service Connect の統制トポロジ
 
@@ -285,22 +285,22 @@ Professional Cloud Architect は、ビジネス目標を満たす堅牢かつス
 - **結果**: IP アドレスの枯渇や重複を防止し、ネットワーク管理権限とアプリケーション開発権限の完全な分離（最小権限の原則）を維持しつつ、事業部間のセキュアな内部 API 連携が実現される。
 - **解説**: 共有 VPC を使用することで、中央のインフラチームがネットワークトポロジとルーティングを統制し、サービスプロジェクトの管理者はサブネット作成権限を持たずにコンピュートリソースを安全にデプロイできるためです。さらに、Private Service Connect により VPC ピアリングの制限（推移的ルーティング不可、IP 重複不可、ピアリング上限数）を回避し、サービスプロデューサーとコンシューマーを疎結合に保護できるため最適です。代替案として各プロジェクトごとに VPC を作成してフルメッシュで VPC ネットワークピアリングを結ぶ構成は、IP レンジの重複管理が困難であり、推移的ルーティングがサポートされないため構成が破綻し不適格です。また、外部 IP アドレスを付与してパブリックインターネット経由で通信させる構成は、セキュリティ侵害リスクとネットワークエグレス課金が増大するため不適格です。
 - **参考ドキュメント**:
-  - [共有 VPC の概要](https://cloud.google.com/vpc/docs/shared-vpc): ホストプロジェクトとサービスプロジェクトの分離
-  - [Private Service Connect の概要](https://cloud.google.com/vpc/docs/private-service-connect): プライベートなサービス接続
+  - [共有 VPC の概要](https://docs.cloud.google.com/vpc/docs/shared-vpc): ホストプロジェクトとサービスプロジェクトの分離
+  - [Private Service Connect の概要](https://docs.cloud.google.com/vpc/docs/private-service-connect): プライベートなサービス接続
 
 ---
 
 ### 4. 参考ドキュメント & 推奨ハンズオン
 
 #### 公式一次ドキュメント
-- [ハイブリッドおよびマルチクラウド接続ガイド](https://cloud.google.com/architecture/hybrid-and-multi-cloud-architecture-patterns): ネットワークアーキテクチャパターン
-- [Cloud Load Balancing ドキュメント](https://cloud.google.com/load-balancing/docs): ロードバランサの機能比較と設定
-- [GKE Autopilot の概要](https://cloud.google.com/kubernetes-engine/docs/concepts/autopilot-overview): フルマネージド Kubernetes クラスタ
+- [ハイブリッドおよびマルチクラウド接続ガイド](https://docs.cloud.google.com/architecture/hybrid-multicloud-patterns-and-practices): ネットワークアーキテクチャパターン
+- [Cloud Load Balancing ドキュメント](https://docs.cloud.google.com/load-balancing/docs): ロードバランサの機能比較と設定
+- [GKE Autopilot の概要](https://docs.cloud.google.com/kubernetes-engine/docs/concepts/autopilot-overview): フルマネージド Kubernetes クラスタ
 
 #### 推奨ハンズオン・ラボ（実機検証）
-- [Google Skills: Networking in Google Cloud](https://www.skills.google/courses/1066?hl=ja):
+- [Google Skills: Networking in Google Cloud](https://www.skills.google/catalog):
   - **学習目標**: 共有 VPC、VPC ピアリング、ファイアウォールルール、Cloud NAT、Cloud VPN トンネルを構築し、ルーティング動作を検証する。
-- [Google Skills: Deploying to Google Kubernetes Engine](https://www.skills.google/focuses/2798?hl=ja):
+- [Google Skills: Deploying to Google Kubernetes Engine](https://www.skills.google/):
   - **学習目標**: GKE クラスタを作成し、マルチゾーンデプロイ、水平ポッドオートスケーラー（HPA）、クラスタオートスケーラーを構成して負荷分散を体感する。
 
 ---
@@ -383,12 +383,12 @@ Professional Cloud Architect は、ビジネス目標を満たす堅牢かつス
 #### シナリオ 3-1: EHR Healthcare の患者医療情報（PHI）漏洩防止と VPC Service Controls 境界設計
 
 - **状況**: 大手医療プロバイダー EHR Healthcare が、数百万件の患者健康記録（PHI）を Cloud Storage および BigQuery で管理しており、悪意ある内部関係者や不正なサービスアカウントによる未承認の個人 Google Cloud プロジェクトへのデータエクスポートやインターネットへの持ち出しを物理的・論理的に完全に防ぎたい場合
-- **対応**: 医療データプロジェクトおよび関連する GKE クラスタを「VPC Service Controls サービス境界（Service Perimeter）」内に包含し、Cloud Storage、BigQuery、Cloud Healthcare API を保護対象サービスとして設定する。境界外の社内分析端末からの安全なアクセスにはアクセスレベル（Access Levels: 送信元 IP、クライアント証明書、デバイス暗号化状態）を定義したコンテキストアウェアアクセスを適用し、他組織とのデータ共有にはプライベートかつ明示的な「境界ブリッジ（Perimeter Bridge）」または「入力・出力（Ingress/Egress）ポリリシールール」を定義する。
+- **対応**: 医療データプロジェクトおよび関連する GKE クラスタを「VPC Service Controls サービス境界（Service Perimeter）」内に包含し、Cloud Storage、BigQuery、Cloud Healthcare API を保護対象サービスとして設定する。境界外の社内分析端末からの安全なアクセスにはアクセスレベル（Access Levels: 送信元 IP、クライアント証明書、デバイス暗号化状態）を定義したコンテキストアウェアアクセスを適用し、他組織とのデータ共有にはプライベートかつ明示的な「境界ブリッジ（Perimeter Bridge）」または「入力・出力（Ingress/Egress）ポリシールール」を定義する。
 - **結果**: 認証情報（クレデンシャル）が盗難された場合でも、境界外のプロジェクトへのデータコピーやパブリックネットワークへのダウンロードが GCP バックエンド側で確実にブロックされ、HIPAA 監査要件を完全に充足する。
 - **解説**: VPC Service Controls は、IAM による ID 認証が成功した場合であっても、リクエストが許可されたサービス境界内または正当なアクセスレベルから発行されているかを検証し、認可外プロジェクトへのデータ移動をネットワーク・API レベルで強制遮断するためです。代替案として IAM 権限のみで制限する案は、権限を持つサービスアカウントの鍵が漏洩した場合や悪意のある内部者が自身の個人バケットへデータをコピーすることを防げないため不適格です。また、VPC ファイアウォールルールのみで制御する案は、Google API（ストレージや BigQuery のパブリックエンドポイント）への通信には関与できず、API 経由のデータ流出を阻止できないため不適格です。
 - **参考ドキュメント**:
-  - [VPC Service Controls のアーキテクチャ](https://cloud.google.com/vpc-service-controls/docs/overview): サービス境界とデータ損失防止
-  - [コンテキストアウェア アクセスの概要](https://cloud.google.com/context-aware-access/docs/overview): 条件付きアクセスポリシー
+  - [VPC Service Controls のアーキテクチャ](https://docs.cloud.google.com/vpc-service-controls/docs/overview): サービス境界とデータ損失防止
+  - [コンテキストアウェア アクセスの概要](https://docs.cloud.google.com/chrome-enterprise-premium/docs/overview): 条件付きアクセスポリシー
 
 #### シナリオ 3-2: KnightMotives Automotive の GDPR 準拠データ主権と Cloud KMS 暗号化設計
 
@@ -397,8 +397,8 @@ Professional Cloud Architect は、ビジネス目標を満たす堅牢かつス
 - **結果**: 誤って EU 域外のリージョンにリソースが作成される人的ミスを組織ポリシーで根本防止し、鍵破棄による確実なデータ読み取り不能化により GDPR 監査基準を達成する。
 - **解説**: 組織ポリシーのロケーション制約により、開発者が誤って他の大陸リージョン（米国内等）にストレージを作成することを組織全体で強制遮断できるためです。また、CMEK を用いた暗号化破棄（Crypto-shredding）は、分散ストレージ上に書き込まれた膨大なブロックを個別に完全消去する処理を待たずに、暗号鍵の破棄によって瞬時に復号を不可能にし、法的なデータ削除要件を満たせるため最適です。代替案として Google マネージドのデフォルト暗号化に依存する案は、顧客自身で鍵の破棄権限を行使できず、暗号化破棄の証明が不可能なため不適格です。また、手動で SQL の DELETE クエリやオブジェクト削除コマンドを実行する案は、バックアップやスナップショット内部に残存するデータの消去を即座に証明できず、GDPR 違反のリスクを負うため不適格です。
 - **参考ドキュメント**:
-  - [リソースのロケーションの制限 (組織ポリシー)](https://cloud.google.com/resource-manager/docs/organization-policy/defining-locations): データ主権の統制
-  - [顧客管理の暗号鍵 (CMEK) の概要](https://cloud.google.com/kms/docs/cmek): 暗号鍵ライフサイクル管理
+  - [リソースのロケーションの制限 (組織ポリシー)](https://docs.cloud.google.com/organization-policy/restrict-locations): データ主権の統制
+  - [顧客管理の暗号鍵 (CMEK) の概要](https://docs.cloud.google.com/kms/docs/cmek): 暗号鍵ライフサイクル管理
 
 #### シナリオ 3-3: 外部 CI/CD パイプライン連携におけるサービスアカウントキー全廃と Workload Identity 連携
 
@@ -407,8 +407,8 @@ Professional Cloud Architect は、ビジネス目標を満たす堅牢かつス
 - **結果**: 静的な認証情報ファイルの作成・保存・ローテーション運用が完全に不要となり、クレデンシャル漏洩による重大なセキュリティインシデントのリスクが根絶される。
 - **解説**: Workload Identity 連携は、外部プロバイダーの短期間有効な OIDC トークンを Google Cloud STS（Security Token Service）経由でフェデレーション認証し、有効期限が数十分の安全な短期アクセストークンをオンデマンドで発行するためです。代替案としてサービスアカウントの JSON キーを定期的に自動ローテーションするスクリプトを運用する案は、キーが存在する限りローテーションの合間にキーが流出する窓（脆弱性ウィンドウ）が残り続け、運用コストも高いため不適格です。また、Compute Engine 上に常時稼働のプライベート GitHub Runner を構築してサービスアカウントを直付けする案は、インフラの維持管理コストとパッチ運用が発生し、サーバーレスな GitHub Actions のアジリティを損なうため不適格です。
 - **参考ドキュメント**:
-  - [Workload Identity 連携の概要](https://cloud.google.com/iam/docs/workload-identity-federation): 外部 ID プロバイダーとの連携
-  - [サービス アカウント キーの管理のベスト プラクティス](https://cloud.google.com/iam/docs/best-practices-for-managing-service-account-keys): キーの安全な運用
+  - [Workload Identity 連携の概要](https://docs.cloud.google.com/iam/docs/workload-identity-federation): 外部 ID プロバイダーとの連携
+  - [サービス アカウント キーの管理のベスト プラクティス](https://docs.cloud.google.com/iam/docs/best-practices-for-managing-service-account-keys): キーの安全な運用
 
 ---
 
@@ -416,13 +416,13 @@ Professional Cloud Architect は、ビジネス目標を満たす堅牢かつス
 
 #### 公式一次ドキュメント
 - [Google Cloud ゼロトラストセキュリティ](https://cloud.google.com/security/zero-trust): BeyondCorp とアクセス制御
-- [Cloud KMS ドキュメント](https://cloud.google.com/kms/docs): 暗号鍵管理と CMEK の統合
-- [Binary Authorization ガイド](https://cloud.google.com/binary-authorization/docs): コンテナデプロイ時のセキュリティ強制
+- [Cloud KMS ドキュメント](https://docs.cloud.google.com/kms/docs): 暗号鍵管理と CMEK の統合
+- [Binary Authorization ガイド](https://docs.cloud.google.com/binary-authorization/docs): コンテナデプロイ時のセキュリティ強制
 
 #### 推奨ハンズオン・ラボ（実機検証）
-- [Google Skills: Security in Google Cloud](https://www.skills.google/courses/1068?hl=ja):
+- [Google Skills: Security in Google Cloud](https://www.skills.google/paths/15?hl=ja):
   - **学習目標**: IAM 条件、Cloud KMS キーの作成とバケットへの適用、VPC Service Controls 境界の作成と違反ログの分析を検証する。
-- [Google Skills: Implement Cloud Security Fundamentals](https://www.skills.google/focuses/43521?hl=ja):
+- [Google Skills: Implement Cloud Security Fundamentals](https://www.skills.google/):
   - **学習目標**: サービスアカウントの権限借用（Impersonation）と Identity-Aware Proxy を用いたセキュアな内部インスタンスアクセスを実践する。
 
 ---
@@ -502,8 +502,8 @@ Professional Cloud Architect は、ビジネス目標を満たす堅牢かつス
 - **結果**: 人的な DNS 手動変更作業なしに数分以内にトラフィックが待機系へ自動切替され、RTO 15 分・RPO 1 分以内の厳格な事業継続要件が達成される。
 - **解説**: グローバル外部アプリケーションロードバランサのエニーキャスト IP は、バックエンドのヘルスチェック結果に基づいて健全なリージョンへ自動的にトラフィックを誘導し、クライアント側の DNS キャッシュ影響を受けずに数秒で切替を完了できるためです。また、Cloud Storage Dual-Region とターボレプリケーションの組み合わせにより、リージョン間データ整合性と RPO 制約を確実に担保できます。代替案として Route 53 や Cloud DNS のレコードを手動で書き換える Cold スタンバイ構成は、DNS レコードの TTL 反映遅延や待機系インフラの起動・プロビジョニングに数十分以上を要し、RTO 15 分を満たせないため不適格です。また、常に全規模のインフラを両リージョンでフル稼働させる Active-Active 構成は、要件以上の過剰なインフラ費用が発生し、コスト最適化の原則に反するため不適格です。
 - **参考ドキュメント**:
-  - [Google Cloud ディザスタ リカバリ計画ガイド](https://cloud.google.com/architecture/disaster-recovery): DR アーキテクチャパターン
-  - [Cloud Storage ターボ レプリケーション](https://cloud.google.com/storage/docs/turbo-replication): 15分以内の複製保証
+  - [Google Cloud ディザスタ リカバリ計画ガイド](https://docs.cloud.google.com/architecture/disaster-recovery): DR アーキテクチャパターン
+  - [Cloud Storage ターボ レプリケーション](https://docs.cloud.google.com/storage/docs/availability-durability): 15分以内の複製保証
 
 #### シナリオ 4-2: Cymbal Retail のクラウドアジリティと年間インフラコスト 40% 削減の両立（FinOps 実践）
 
@@ -512,7 +512,7 @@ Professional Cloud Architect は、ビジネス目標を満たす堅牢かつス
 - **結果**: サービスのパフォーマンスと可用性を一切犠牲にすることなく、年間総クラウドインフラコストを 42% 削減し、健全な FinOps 運用サイクルが確立される。
 - **解説**: CUD により常時稼働するベースラインリソースに対して大幅なコミットメント割引を享受しつつ、中断を許容できるバッチ処理に Spot VM を割り当てることで最大のコスト削減効果が得られるためです。また、BigQuery 課金エクスポートと Recommender の併用により、無駄なリソースを継続的に検知・排除できるため最適です。代替案としてすべてのワークロードを一律に最安のオンデマンド e2-micro インスタンスに変更する案は、ピーク時のパフォーマンス要件を満たせずサービス停止を招くため不適格です。また、すべてのリソースに対してリソースベースのゾーン固定 CUD を購入する案は、将来のアーキテクチャ刷新やマシンタイプ変更（例: ARM 移行など）に対する柔軟性を失い、柔軟性要件に反するため不適格です。
 - **参考ドキュメント**:
-  - [確約利用割引 (CUD) の概要](https://cloud.google.com/compute/docs/instances/signing-up-committed-use-discounts): コスト削減の基本
+  - [確約利用割引 (CUD) の概要](https://docs.cloud.google.com/compute/docs/instances/signing-up-committed-use-discounts): コスト削減の基本
   - [Cloud FinOps の原則](https://cloud.google.com/blog/topics/cost-management/principles-of-cloud-finops): 財務統制と最適化
 
 #### シナリオ 4-3: 重大障害発生後の非難のないポストモーテム（Blameless Postmortem）と再発防止プロセスの確立
@@ -523,21 +523,21 @@ Professional Cloud Architect は、ビジネス目標を満たす堅牢かつス
 - **解説**: Google SRE の基本理念である Blameless Postmortem は、人間は誰しもミスを犯すという前提に立ち、ミスを許容・防御できないインフラやプロセスの欠陥を修正することで、組織全体の回復力（レジリエンス）を高めるためです。代替案としてミスをした担当エンジニアを特定して懲戒処分を下す、または「今後は注意して二重チェックする」という精神論的対策にとどめる案は、ミスを隠蔽する不健全な文化を生み出し、同じ根本原因による再発を防止できないため不適格です。また、すべての本番変更を役員の紙面承認必須にする案は、開発のデリバリー速度（Time to Market）を著しく損ないアジリティを破壊するため不適格です。
 - **参考ドキュメント**:
   - [Google SRE ブック: インシデントの事後検証](https://sre.google/sre-book/postmortem-culture/): 非難のない文化の実践
-  - [ポストモーテムのベスト プラクティス](https://cloud.google.com/architecture/devops/devops-management-incident-postmortems): DevOps 管理手法
+  - [ポストモーテムのベスト プラクティス](https://docs.cloud.google.com/architecture/devops): DevOps 管理手法
 
 ---
 
 ### 4. 参考ドキュメント & 推奨ハンズオン
 
 #### 公式一次ドキュメント
-- [Google Cloud での FinOps ガイド](https://cloud.google.com/architecture/framework/cost-optimization): クラウド財務運用の標準
-- [ディザスタ リカバリのシナリオと実装](https://cloud.google.com/architecture/dr-scenarios-planning-guide): パターン別実践手順
+- [Google Cloud での FinOps ガイド](https://docs.cloud.google.com/architecture/framework/cost-optimization): クラウド財務運用の標準
+- [ディザスタ リカバリのシナリオと実装](https://docs.cloud.google.com/architecture/dr-scenarios-planning-guide): パターン別実践手順
 - [Google SRE サイト信頼性エンジニアリング](https://sre.google/books/): SRE 原則とインシデント管理
 
 #### 推奨ハンズオン・ラボ（実機検証）
-- [Google Skills: Understanding Google Cloud Cost Optimization](https://www.skills.google/courses/4330?hl=ja):
+- [Google Skills: Understanding Google Cloud Cost Optimization](https://www.skills.google/paths/12?hl=ja):
   - **学習目標**: 課金レポートの分析、予算アラートの設定、Recommender によるリソースサイズ最適化の推奨を適用する。
-- [Google Skills: Site Reliability Engineering: Measuring and Managing Reliability](https://www.skills.google/courses/1069?hl=ja):
+- [Google Skills: Site Reliability Engineering: Measuring and Managing Reliability](https://www.skills.google/paths/12?hl=ja):
   - **学習目標**: SLI/SLO の計測、エラーバジェットの計算、インシデント発生時のトリアージと対応フローを体験する。
 
 ---
@@ -624,8 +624,8 @@ Google Cloud API（Cloud Storage、BigQuery、Vertex AI など）と連携する
 - **結果**: バックエンドのマイクロサービスに一切の認証・レート制限ロジックを実装することなく、サードパーティ連携におけるセキュリティ統制と安全な API エコシステムビジネスが確立される。
 - **解説**: Apigee はエンタープライズ API 管理に特化しており、クォータ、レート制限、OAuth 認証、開発者ポータル、API 収益化の各機能を標準ポリシーとして備えているためです。代替案として Cloud Load Balancing の URL マップと Cloud Armor のみを使用する案は、パートナー別のきめ細やかな月間クォータ管理や API 収益化・開発者ポータル機能を提供できないため不適格です。また、軽量な API Gateway を使用する案は、高度なトラフィックシェーピングや収益化機能を持たず要件を満たせないため不適格です。
 - **参考ドキュメント**:
-  - [Apigee のアーキテクチャ概要](https://cloud.google.com/apigee/docs/api-platform/get-started/what-is-apigee): API プラットフォーム
-  - [Apigee のトラフィック管理ポリシー](https://cloud.google.com/apigee/docs/api-platform/reference/policies/spike-arrest-policy): スパイク停止とレート制限
+  - [Apigee のアーキテクチャ概要](https://docs.cloud.google.com/apigee/docs/api-platform/get-started/what-apigee): API プラットフォーム
+  - [Apigee のトラフィック管理ポリシー](https://docs.cloud.google.com/apigee/docs/api-platform/reference/policies/spike-arrest-policy): スパイク停止とレート制限
 
 #### シナリオ 5-2: CI/CD パイプラインにおけるクラウドエミュレータを用いた自動テスト高速化とコストゼロ化
 
@@ -634,8 +634,8 @@ Google Cloud API（Cloud Storage、BigQuery、Vertex AI など）と連携する
 - **結果**: クラウドへの本番 API コールやリソースプロビジョニング課金が完全にゼロになり、ネットワークレイテンシが排除されてテスト実行時間が 75% 短縮される。
 - **解説**: 公式のクラウドエミュレータは、Google Cloud API と完全互換の動作をローカル環境で提供し、本番プロジェクトのリソース作成・削除オーバーヘッドなしにミリ秒単位でテストを反復実行できるためです。代替案としてテスト実行のたびに Terraform で本番用の実際の Cloud Spanner インスタンスを作成・破棄する案は、インスタンスの作成に数分を要しパイプラインが大幅に遅延する上、テスト頻度に応じた課金が発生するため不適格です。また、データベースやメッセージングの呼び出し部分をすべてコード内のモックオブジェクト（インメモリ辞書等）に差し替える案は、実際の SQL 構文エラーやトランザクション競合、スキーマ不整合を検出できず品質検証として不十分なため不適格です。
 - **参考ドキュメント**:
-  - [Cloud Spanner エミュレータを使用したローカル開発](https://cloud.google.com/spanner/docs/emulator): エミュレータの構成
-  - [Pub/Sub エミュレータを使用したローカルでのテスト](https://cloud.google.com/pubsub/docs/emulator): ローカルテスト
+  - [Cloud Spanner エミュレータを使用したローカル開発](https://docs.cloud.google.com/spanner/docs/emulator): エミュレータの構成
+  - [Pub/Sub エミュレータを使用したローカルでのテスト](https://docs.cloud.google.com/pubsub/docs/emulator): ローカルテスト
 
 #### シナリオ 5-3: Gemini Cloud Assist を活用したマルチリージョン Terraform コード生成と運用診断
 
@@ -644,22 +644,22 @@ Google Cloud API（Cloud Storage、BigQuery、Vertex AI など）と連携する
 - **結果**: 複雑な Terraform パラメータの調査・コーディング工数を 80% 削減し、組織のセキュリティ規範を満たしたインフラコードが迅速にプロビジョニングされる。
 - **解説**: Gemini Cloud Assist は、最新の Google Cloud ドキュメントおよび Well-Architected Framework のベストプラクティスに基づいてトレーニングされており、組織固有のコンテキストに応じた正確な IaC テンプレート生成と設計診断を対話型で支援するためです。代替案としてインターネット上の古い個人ブログの Terraform サンプルコードを検証なしにコピー＆ペーストする案は、構文の陳腐化や非セキュアなデフォルト設定（パブリック IP の露出等）のリスクが高いため不適格です。また、すべて手動で Cloud コンソールの UI からクリックしてリソースを作成する案は、インフラのバージョン管理や環境の再現性が担保できず、IaC の運用原則に反するため不適格です。
 - **参考ドキュメント**:
-  - [Gemini Cloud Assist の概要](https://cloud.google.com/gemini/docs/cloud-assist/overview): AI 支援によるクラウド設計・運用
-  - [Terraform を使用した Google Cloud インフラストラクチャの管理](https://cloud.google.com/docs/terraform): IaC ベストプラクティス
+  - [Gemini Cloud Assist の概要](https://docs.cloud.google.com/cloud-assist/overview): AI 支援によるクラウド設計・運用
+  - [Terraform を使用した Google Cloud インフラストラクチャの管理](https://docs.cloud.google.com/docs/terraform): IaC ベストプラクティス
 
 ---
 
 ### 4. 参考ドキュメント & 推奨ハンズオン
 
 #### 公式一次ドキュメント
-- [Apigee API プラットフォーム ドキュメント](https://cloud.google.com/apigee/docs): エンタープライズ API 管理
+- [Apigee API プラットフォーム ドキュメント](https://docs.cloud.google.com/apigee/docs): エンタープライズ API 管理
 - [Google Cloud Provider for Terraform](https://registry.terraform.io/providers/hashicorp/google/latest/docs): Terraform リソースリファレンス
-- [Google Cloud API クライアント ライブラリ](https://cloud.google.com/apis/docs/client-libraries-explained): 再試行と認証の仕組み
+- [Google Cloud API クライアント ライブラリ](https://docs.cloud.google.com/apis/docs/client-libraries-explained): 再試行と認証の仕組み
 
 #### 推奨ハンズオン・ラボ（実機検証）
-- [Google Skills: Managing Cloud Infrastructure with Terraform](https://www.skills.google/courses/4332?hl=ja):
+- [Google Skills: Managing Cloud Infrastructure with Terraform](https://www.skills.google/course_templates/636):
   - **学習目標**: Terraform の基本、モジュール化、リモートバックエンドステート管理、リソースのインポートと自動更新を体験する。
-- [Google Skills: Developing APIs with Apigee API Platform](https://www.skills.google/courses/1070?hl=ja):
+- [Google Skills: Developing APIs with Apigee API Platform](https://www.skills.google/paths/12?hl=ja):
   - **学習目標**: Apigee API プロキシの作成、OAuth 2.0 認証、スパイク停止ポリシー、クォータポリシーを構成しテストする。
 
 ---
@@ -741,8 +741,8 @@ Google Cloud API（Cloud Storage、BigQuery、Vertex AI など）と連携する
 - **結果**: 複数サービスにまたがる非同期呼び出しのボトルネックを 30 分以内に特定し、コード改修によって P99 レスポンスタイムを 3 秒から 180 ミリ秒へ短縮する。
 - **解説**: Cloud Trace は、複数のマイクロサービスをまたぐ単一リクエストの実行時間（各スパンの開始と終了）を正確にタイムライン表示し、どの内部呼出でレイテンシが発生しているかを視覚的に特定できるためです。また、Cloud Profiler は本番環境で低オーバーヘッド（CPU 負荷 1% 未満）で常時動作し、コード内のどの関数が CPU やメモリを消費しているかをピンポイントで特定できるため最適です。代替案として各サービスのログを手動で時刻突き合わせ（grep）する案は、膨大なログの中から特定のリクエストの一連の流れを追跡することが極めて困難であり、不適格です。また、開発環境で単体ベンチマークを回す案は、本番環境のデータ量や同時並行トラフィック特有の競合を再現できないため不適格です。
 - **参考ドキュメント**:
-  - [Cloud Trace の概要](https://cloud.google.com/trace/docs/overview): 分散トレーシングの仕組み
-  - [Cloud Profiler の概要](https://cloud.google.com/profiler/docs/concepts-profiling): 本番コードプロファイリング
+  - [Cloud Trace の概要](https://docs.cloud.google.com/trace/docs/overview): 分散トレーシングの仕組み
+  - [Cloud Profiler の概要](https://docs.cloud.google.com/profiler/docs/concepts-profiling): 本番コードプロファイリング
 
 #### シナリオ 6-2: Cymbal Retail の安全なリリース管理とエラーバジェットに基づく自動ロールバック
 
@@ -751,8 +751,8 @@ Google Cloud API（Cloud Storage、BigQuery、Vertex AI など）と連携する
 - **結果**: バグを含むリリースによる全社的な売上損失やダウンタイムが未然に回避され、サービス信頼性（99.9% SLO）が厳格に守られる。
 - **解説**: Cloud Deploy と Cloud Load Balancing のトラフィックスプリットを組み合わせた Canary デプロイは、新コードの影響範囲を限定的な割合に抑えつつ、本番トラフィックでの実測メトリクス（SLI）に基づいて客観的にデプロイの可否を自動判定できるためです。代替案として一括で全ポッドを新バージョンに置き換える RollingUpdate 方式は、全インスタンスが入れ替わるまでバグの検出が遅れ、全ユーザーに障害が波及するため不適格です。また、手動でログを目視確認してから管理者がロールバックコマンドを実行する案は、人間の判断と作業に数分〜数十分を要し、エラーバジェットが枯渇するため不適格です。
 - **参考ドキュメント**:
-  - [Cloud Deploy Canary デプロイの概要](https://cloud.google.com/deploy/docs/canary): トラフィックスプリットと検証
-  - [アラートのベスト プラクティス](https://cloud.google.com/monitoring/alerts): バーンレートとアラート設計
+  - [Cloud Deploy Canary デプロイの概要](https://docs.cloud.google.com/deploy/docs/deployment-strategies/canary): トラフィックスプリットと検証
+  - [アラートのベスト プラクティス](https://docs.cloud.google.com/monitoring/alerts): バーンレートとアラート設計
 
 #### シナリオ 6-3: カオスエンジニアリングによるゾーン障害時の自動フェイルオーバー耐性検証
 
@@ -761,8 +761,8 @@ Google Cloud API（Cloud Storage、BigQuery、Vertex AI など）と連携する
 - **結果**: ゾーン停止から 8 秒以内にヘルスチェックが異常ノードを切り離し、別ゾーンの健全なノードのみでトラフィック処理が継続され、ユーザーエラー率がゼロのまま推移することが実証される。
 - **解説**: カオスエンジニアリングは、机上の設計レビューや通常のテストでは見落とされがちなタイムアウト値の不整合、フェイルオーバー時の過渡的な接続エラー、サーキットブレーカーの未動作などの潜在的欠陥を事前に洗い出すための必須プラクティスであるためです。代替案として実際の障害が発生するまでフェイルオーバー動作を検証しない運用は、本番障害時に未知の不具合で大規模停止を引き起こすリスクが極めて高いため不適格です。また、単に開発環境で単一のコンテナを手動停止させるだけの簡易テストは、ゾーン規模の同時ノード停止やリソース再配置に伴うネットワーク遅延をシミュレートできず不十分なため不適格です。
 - **参考ドキュメント**:
-  - [Google Cloud でのカオス エンジニアリングの実践](https://cloud.google.com/architecture/devops/devops-measurement-chaos-engineering): 復元力テストの原則
-  - [Google Cloud Well-Architected 信頼性の柱](https://cloud.google.com/architecture/framework/reliability): 障害からの自動復旧
+  - [Google Cloud でのカオス エンジニアリングの実践](https://docs.cloud.google.com/architecture/devops): 復元力テストの原則
+  - [Google Cloud Well-Architected 信頼性の柱](https://docs.cloud.google.com/architecture/framework/reliability): 障害からの自動復旧
 
 ---
 
@@ -770,13 +770,13 @@ Google Cloud API（Cloud Storage、BigQuery、Vertex AI など）と連携する
 
 #### 公式一次ドキュメント
 - [Google Cloud Observability ドキュメント](https://cloud.google.com/observability): 統合可観測性プラットフォーム
-- [Cloud Deploy ガイド](https://cloud.google.com/deploy/docs): 継続的デリバリーとリリース管理
-- [SRE 原則: サービスレベル目標の定義](https://sre.google/workbook/slo-metrics/): SLO 実践ワークブック
+- [Cloud Deploy ガイド](https://docs.cloud.google.com/deploy/docs): 継続的デリバリーとリリース管理
+- [SRE 原則: サービスレベル目標の定義](https://sre.google/workbook/implementing-slos/): SLO 実践ワークブック
 
 #### 推奨ハンズオン・ラボ（実機検証）
-- [Google Skills: Monitoring in Google Cloud](https://www.skills.google/courses/1067?hl=ja):
+- [Google Skills: Monitoring in Google Cloud](https://www.skills.google/paths/12?hl=ja):
   - **学習目標**: カスタム指標の作成、アラートポリシーの構成、アップタイムチェック、Slack/メール通知チャネルの統合を実践する。
-- [Google Skills: Deploying with Cloud Deploy](https://www.skills.google/focuses/43523?hl=ja):
+- [Google Skills: Deploying with Cloud Deploy](https://www.skills.google/users/sign_in):
   - **学習目標**: Cloud Deploy パイプラインを作成し、Dev から Prod への承認付きデプロイおよび自動ロールバックを体感する。
 
 ---

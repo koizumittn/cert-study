@@ -21,12 +21,12 @@ AWS Certified Cloud Practitioner は、AWS クラウドに関する全体的な�
 
 ## 2. 出題分野（Domain）と出題比率一覧
 
-| ドメイン番号 | ドメイン名 / 出題分野 | 出題比率 | 主要対象サービス・ツール | ステータス |
-| :--- | :--- | :--- | :--- | :--- |
-| **Domain 1** | クラウドのコンセプト | 24% | AWS Well-Architected Framework, AWS CAF, クラウドの6大利点, クラウド移行戦略 (7R), クラウドエコノミクス | 完了 |
-| **Domain 2** | セキュリティとコンプライアンス | 30% | AWS 責任共有モデル, AWS IAM, IAM Identity Center, AWS Artifact, GuardDuty, AWS WAF, AWS Shield, KMS | 完了 |
-| **Domain 3** | クラウドテクノロジーとサービス | 34% | Amazon EC2, AWS Lambda, Amazon ECS/EKS, Amazon S3, Amazon EBS, Amazon RDS, Amazon DynamoDB, Amazon VPC, Route 53, CloudFront | 完了 |
-| **Domain 4** | 請求、料金、サポート | 12% | AWS 料金モデル, AWS Pricing Calculator, AWS Cost Explorer, AWS Budgets, AWS Organizations (一括請求), AWS サポートプラン | 完了 |
+| ドメイン番号 | ドメイン名 / 出題分野 | 出題比率 | 主要対象サービス・ツール |
+| :--- | :--- | :--- | :--- |
+| **Domain 1** | クラウドのコンセプト | 24% | AWS Well-Architected Framework, AWS CAF, クラウドの6大利点, クラウド移行戦略 (7R), クラウドエコノミクス |
+| **Domain 2** | セキュリティとコンプライアンス | 30% | AWS 責任共有モデル, AWS IAM, IAM Identity Center, AWS Artifact, GuardDuty, AWS WAF, AWS Shield, KMS |
+| **Domain 3** | クラウドテクノロジーとサービス | 34% | Amazon EC2, AWS Lambda, Amazon ECS/EKS, Amazon S3, Amazon EBS, Amazon RDS, Amazon DynamoDB, Amazon VPC, Route 53, CloudFront |
+| **Domain 4** | 請求、料金、サポート | 12% | AWS 料金モデル, AWS Pricing Calculator, AWS Cost Explorer, AWS Budgets, AWS Organizations (一括請求), AWS サポートプラン |
 
 ---
 

@@ -22,14 +22,14 @@ AWS Certified DevOps Engineer - Professional (DOP-C02) は、AWS 環境におけ
 
 ## 2. 出題分野（Domain）と出題比率一覧
 
-| ドメイン番号 | 出題分野（Domain） | 出題比率 | 主要対象サービス・技術要素 | ステータス |
-| :--- | :--- | :--- | :--- | :--- |
-| **Domain 1** | SDLC 自動化 (SDLC Automation) | 22% | AWS CodePipeline, AWS CodeBuild, AWS CodeDeploy, Amazon ECR, AWS CodeArtifact, EC2 Image Builder, デプロイ戦略 (Canary, Blue/Green, Linear) | 完了 |
-| **Domain 2** | 構成管理と Infrastructure as Code (IaC) | 17% | AWS CloudFormation, CloudFormation StackSets, AWS CDK, AWS Systems Manager, AWS Config, AWS Service Catalog, AWS Control Tower | 完了 |
-| **Domain 3** | 高回復力クラウドソリューション (Resilient Cloud Solutions) | 15% | Multi-AZ / Multi-Region, Amazon Route 53 ARC, Amazon Aurora Global Database, DynamoDB Global Tables, Auto Scaling, AWS Backup, AWS Fault Injection Simulator (FIS) | 完了 |
-| **Domain 4** | 監視とロギング (Monitoring and Logging) | 15% | Amazon CloudWatch, CloudWatch Logs Insights, CloudWatch Metric Streams, Amazon Kinesis Data Firehose, AWS X-Ray, CloudWatch アノマリー検出, CloudWatch Synthetics | 完了 |
-| **Domain 5** | インシデントとイベント対応 (Incident and Event Response) | 14% | Amazon EventBridge, AWS Health, AWS Systems Manager OpsCenter, SSM Automation ランブック, AWS Step Functions, デプロイ自動ロールバック | 完了 |
-| **Domain 6** | セキュリティとコンプライアンス (Security and Compliance) | 17% | IAM Identity Center, ABAC / RBAC, AWS Organizations SCP, AWS KMS, AWS Secrets Manager, AWS Macie, Amazon GuardDuty, AWS Security Hub, Amazon Inspector, AWS Config 自動修復 | 完了 |
+| ドメイン番号 | 出題分野（Domain） | 出題比率 | 主要対象サービス・技術要素 |
+| :--- | :--- | :--- | :--- |
+| **Domain 1** | SDLC 自動化 (SDLC Automation) | 22% | AWS CodePipeline, AWS CodeBuild, AWS CodeDeploy, Amazon ECR, AWS CodeArtifact, EC2 Image Builder, デプロイ戦略 (Canary, Blue/Green, Linear) |
+| **Domain 2** | 構成管理と Infrastructure as Code (IaC) | 17% | AWS CloudFormation, CloudFormation StackSets, AWS CDK, AWS Systems Manager, AWS Config, AWS Service Catalog, AWS Control Tower |
+| **Domain 3** | 高回復力クラウドソリューション (Resilient Cloud Solutions) | 15% | Multi-AZ / Multi-Region, Amazon Route 53 ARC, Amazon Aurora Global Database, DynamoDB Global Tables, Auto Scaling, AWS Backup, AWS Fault Injection Simulator (FIS) |
+| **Domain 4** | 監視とロギング (Monitoring and Logging) | 15% | Amazon CloudWatch, CloudWatch Logs Insights, CloudWatch Metric Streams, Amazon Kinesis Data Firehose, AWS X-Ray, CloudWatch アノマリー検出, CloudWatch Synthetics |
+| **Domain 5** | インシデントとイベント対応 (Incident and Event Response) | 14% | Amazon EventBridge, AWS Health, AWS Systems Manager OpsCenter, SSM Automation ランブック, AWS Step Functions, デプロイ自動ロールバック |
+| **Domain 6** | セキュリティとコンプライアンス (Security and Compliance) | 17% | IAM Identity Center, ABAC / RBAC, AWS Organizations SCP, AWS KMS, AWS Secrets Manager, AWS Macie, Amazon GuardDuty, AWS Security Hub, Amazon Inspector, AWS Config 自動修復 |
 
 ---
 

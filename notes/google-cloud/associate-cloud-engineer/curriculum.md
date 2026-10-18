@@ -25,12 +25,12 @@ Associate Cloud Engineer は、目標となるパフォーマンス指標を確�
 
 本試験は全4セクションで構成されており、ソリューションの計画・実装（セクション2）と正常な運用（セクション3）がそれぞれ最大30%と大きな割合を占めます。また、環境設定（セクション1）とアクセス・セキュリティ（セクション4）がそれぞれ最大20%を占め、設計から実務的なCLI運用・保守・権限統制に至る一貫したエンジニアリング能力が問われます。
 
-| セクション番号 | セクション名 / 出題分野 | 出題比率 | 主要対象サービス・コンセプト | ステータス |
-| :--- | :--- | :--- | :--- | :--- |
-| **Section 1** | クラウド ソリューション環境の設定 | 20% 以下 | リソース階層（組織/フォルダ/プロジェクト）、組織ポリシー、IAM基礎、Cloud Identity、API有効化、割り当て管理、ロケーション（リージョン/ゾーン）、Cloud Asset Inventory、Workforce Identity 連携、Cloud Billing（請求先アカウント、予算アラート、BigQueryエクスポート） | 完了 |
-| **Section 2** | クラウド ソリューションの計画と実装 | 30% 以下 | Compute Engine、GKE（Autopilot/Standard/Private）、Cloud Run、Cloud Run functions、Gemini Enterprise Agent Platform、Persistent Disk / Hyperdisk、MIG、OS Login、VM Manager、Spot VM、GPU/TPU、Cloud SQL、Spanner、Bigtable、Firestore、AlloyDB、Cloud Storage、Filestore、VPC（共有VPC/ピアリング）、Cloud NGFW、Cloud VPN、Cloud Interconnect、Cloud Load Balancing、Network Service Tiers、Terraform、Config Connector、Gemini CLI | 完了 |
-| **Section 3** | クラウド ソリューションの正常な運用 | 30% 以下 | Compute Engine管理（SSH/OS Login、スナップショット/イメージ）、GKE管理（kubectl、ノードプール、HPA/VPA、Autopilotリソース）、Cloud Run管理（リビジョンデプロイ、トラフィック分割、オートスケール）、Gemini Agent Platform ランタイム、Cloud Workstations、ストレージ管理（ライフサイクル、CMEK）、DB運用（クエリ、バックアップ/復元、Database Center）、VPCネットワーク管理（CIDR拡張、静的IP、静的ルート、Cloud DNS、Cloud NAT）、Cloud Monitoring（アラート、カスタム指標、Prometheus）、Cloud Logging（ログルーター、ログシンク、ログ分析）、Cloud Trace、Profiler、Ops エージェント、Active Assist | 完了 |
-| **Section 4** | アクセスとセキュリティの構成 | 20% 以下 | IAMポリシー管理（基本/事前定義/カスタムロール、権限借用）、リソース階層のポリシー継承、サービス アカウント（Google管理/ユーザー管理、最小権限、キーレス短時間トークン）、GKE Workload Identity、Workforce Identity 連携 | 完了 |
+| セクション番号 | セクション名 / 出題分野 | 出題比率 | 主要対象サービス・コンセプト |
+| :--- | :--- | :--- | :--- |
+| **Section 1** | クラウド ソリューション環境の設定 | 20% 以下 | リソース階層（組織/フォルダ/プロジェクト）、組織ポリシー、IAM基礎、Cloud Identity、API有効化、割り当て管理、ロケーション（リージョン/ゾーン）、Cloud Asset Inventory、Workforce Identity 連携、Cloud Billing（請求先アカウント、予算アラート、BigQueryエクスポート） |
+| **Section 2** | クラウド ソリューションの計画と実装 | 30% 以下 | Compute Engine、GKE（Autopilot/Standard/Private）、Cloud Run、Cloud Run functions、Gemini Enterprise Agent Platform、Persistent Disk / Hyperdisk、MIG、OS Login、VM Manager、Spot VM、GPU/TPU、Cloud SQL、Spanner、Bigtable、Firestore、AlloyDB、Cloud Storage、Filestore、VPC（共有VPC/ピアリング）、Cloud NGFW、Cloud VPN、Cloud Interconnect、Cloud Load Balancing、Network Service Tiers、Terraform、Config Connector、Gemini CLI |
+| **Section 3** | クラウド ソリューションの正常な運用 | 30% 以下 | Compute Engine管理（SSH/OS Login、スナップショット/イメージ）、GKE管理（kubectl、ノードプール、HPA/VPA、Autopilotリソース）、Cloud Run管理（リビジョンデプロイ、トラフィック分割、オートスケール）、Gemini Agent Platform ランタイム、Cloud Workstations、ストレージ管理（ライフサイクル、CMEK）、DB運用（クエリ、バックアップ/復元、Database Center）、VPCネットワーク管理（CIDR拡張、静的IP、静的ルート、Cloud DNS、Cloud NAT）、Cloud Monitoring（アラート、カスタム指標、Prometheus）、Cloud Logging（ログルーター、ログシンク、ログ分析）、Cloud Trace、Profiler、Ops エージェント、Active Assist |
+| **Section 4** | アクセスとセキュリティの構成 | 20% 以下 | IAMポリシー管理（基本/事前定義/カスタムロール、権限借用）、リソース階層のポリシー継承、サービス アカウント（Google管理/ユーザー管理、最小権限、キーレス短時間トークン）、GKE Workload Identity、Workforce Identity 連携 |
 
 ---
 

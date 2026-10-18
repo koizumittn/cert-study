@@ -31,7 +31,7 @@ cert-study/
 
 1. **構造化実践シナリオ（状況/対応/結果/解説）**: 単なる機能説明にとどまらず、前提制約（状況）・選定アクション（対応）・技術的効果（結果）・代替案の棄却理由を含む論理的解説により、実務でのアーキテクチャ設計・意思決定能力を育成します。
 2. **要約スライド挿絵（板書風グラレコ）**: 講義の板書・スケッチノート風インフォグラフィックによる視覚的な直感理解をサポートします。
-3. **公式一次情報 & 実機ハンズオン連携**: 各分野の公式ドキュメントおよび AWS Skill Builder / Google Cloud Skills 等の公式ラボ環境への参照を体系的に整理しています。
+3. **公式一次情報 & 実機ハンズオン連携**: 各分野の公式ドキュメントおよび AWS Skill Builder / Google Skills 等の公式ラボ環境への参照を体系的に整理しています。
 
 ### 免責事項・ご利用上の注意（Disclaimer）
 
@@ -71,3 +71,8 @@ cert-study/
 | **Google Cloud** | Google Cloud Certified - Professional Data Engineer | PDE | [完全対策ガイド](./notes/google-cloud/professional-data-engineer/README.md) |
 | **Google Cloud** | Google Cloud Certified - Professional Cloud DevOps Engineer | PCDOE | [完全対策ガイド](./notes/google-cloud/professional-cloud-devops-engineer/README.md) |
 | **Google Cloud** | Google Cloud Certified - Professional Cloud Security Engineer | PCSE | [完全対策ガイド](./notes/google-cloud/professional-cloud-security-engineer/README.md) |
+| **Google Cloud** | Google Cloud Certified - Professional Cloud Network Engineer | PCNE | [完全対策ガイド](./notes/google-cloud/professional-cloud-network-engineer/README.md) |
+| **Google Cloud** | Google Cloud Certified - Professional Machine Learning Engineer | PMLE | [完全対策ガイド](./notes/google-cloud/professional-machine-learning-engineer/README.md) |
+| **Google Cloud** | Google Cloud Certified - Professional Security Operations Engineer | PSOE | [完全対策ガイド](./notes/google-cloud/professional-security-operations-engineer/README.md) |
+| **Google Cloud** | Google Cloud Certified - Professional Agentic Architect | PAA | [完全対策ガイド](./notes/google-cloud/professional-agentic-architect/README.md) |
+

@@ -27,13 +27,13 @@ Professional Data Engineer は、さまざまなアプリケーションやビ�
 
 本試験は全 5 セクションで構成されています。データの取り込みと処理（25%）、データ処理システムの設計（22%）、データの保存（20%）が中核をなし、さらにデータワークロードの管理と自動化（18%）、分析用データの準備と使用（15%）が網羅的に評価されます。
 
-| セクション番号 | セクション名 / 出題分野 | 出題比率 | 主要対象サービス・コンセプト | ステータス |
-| :--- | :--- | :--- | :--- | :--- |
-| **Section 1** | データ処理システムの設計 | 約 22.0% | Cloud IAM, 暗号化 (CMEK/CSEK), Cloud KMS, 機密データ保護 (Cloud DLP / Sensitive Data Protection), データ主権, ガバナンスアーキテクチャ (プロジェクト・データセット・テーブル階層), マルチ環境運用, Dataform, Dataflow, Cloud Data Fusion, プロンプト設計, パイプラインオーケストレーション, ACID/可用性トレードオフ, データ検証, マルチクラウドポータビリティ, 移行ツール (BigQuery DTS, Database Migration Service, Datastream, Transfer Appliance) | 完了 |
-| **Section 2** | データの取り込みと処理 | 約 25.0% | パイプライン計画 (ソース・シンク・変換ロジック), ネットワーク基礎 (Private Service Connect, VPC ピアリング, 限定公開の Google アクセス), Dataflow (Apache Beam, ウィンドウ処理, 透かし, 遅延データ, トリガー), Dataproc (Spark, Hadoop エコシステム), Cloud Data Fusion, BigQuery パイプライン, Pub/Sub, Kafka, AI によるデータ拡充, バッチ/ストリーミング統合, Cloud Composer (Airflow), Workflows, CI/CD パイプライン | 完了 |
-| **Section 3** | データの保存 | 約 20.0% | ストレージ選定 (BigQuery, BigLake, AlloyDB, Bigtable, Cloud Spanner, Cloud SQL, Cloud Storage, Firestore, Memorystore), データアクセスパターン分析, コストとパフォーマンス最適化, ライフサイクル管理, データウェアハウス設計 (データモデリング, スタースキーマ/スノーフレーク, 非正規化, ネスト＆反復フィールド), データレイク設計 (Cloud Storage, BigLake, オープンフォーマット Parquet/ORC/Iceberg), データプラットフォーム設計 (Dataplex, Dataplex Catalog, データメッシュ, 連合ガバナンス) | 完了 |
-| **Section 4** | 分析用データの準備と使用 | 約 15.0% | 可視化向けデータ準備 (Looker, Looker Studio), フィールド事前計算, BigQuery BI Engine, マテリアライズドビュー, クエリ最適化・トラブルシューティング (EXPLAIN, 実行ステージ, スロット消費, シャッフル), 動的データマスキング, 行・列レベルセキュリティ, AI/ML データ準備 (BigQuery ML, ベクトル埋め込み, 生成 AI・LLM 連携, RAG パイプライン), データ共有統制 (Analytics Hub, BigQuery Sharing) | 完了 |
-| **Section 5** | データ ワークロードの管理と自動化 | 約 18.0% | リソース最適化 (永続クラスタ vs 一時的ジョブクラスタ, Dataproc サーバーレス), 自動化と反復性 (Cloud Composer DAG, 依存関係, 再試行設計), BigQuery キャパシティ管理 (エディション: Standard/Enterprise/Enterprise Plus, 予約スロット, オートスケーリング, ベースライン), インタラクティブクエリ vs バッチクエリ, オブザーバビリティ (Cloud Monitoring, Cloud Logging, BigQuery Information Schema, 管理パネル), 障害復旧 (マルチリージョン/ゾーン, レプリケーション, フェイルオーバー) | 完了 |
+| セクション番号 | セクション名 / 出題分野 | 出題比率 | 主要対象サービス・コンセプト |
+| :--- | :--- | :--- | :--- |
+| **Section 1** | データ処理システムの設計 | 約 22.0% | Cloud IAM, 暗号化 (CMEK/CSEK), Cloud KMS, 機密データ保護 (Cloud DLP / Sensitive Data Protection), データ主権, ガバナンスアーキテクチャ (プロジェクト・データセット・テーブル階層), マルチ環境運用, Dataform, Dataflow, Cloud Data Fusion, プロンプト設計, パイプラインオーケストレーション, ACID/可用性トレードオフ, データ検証, マルチクラウドポータビリティ, 移行ツール (BigQuery DTS, Database Migration Service, Datastream, Transfer Appliance) |
+| **Section 2** | データの取り込みと処理 | 約 25.0% | パイプライン計画 (ソース・シンク・変換ロジック), ネットワーク基礎 (Private Service Connect, VPC ピアリング, 限定公開の Google アクセス), Dataflow (Apache Beam, ウィンドウ処理, 透かし, 遅延データ, トリガー), Dataproc (Spark, Hadoop エコシステム), Cloud Data Fusion, BigQuery パイプライン, Pub/Sub, Kafka, AI によるデータ拡充, バッチ/ストリーミング統合, Cloud Composer (Airflow), Workflows, CI/CD パイプライン |
+| **Section 3** | データの保存 | 約 20.0% | ストレージ選定 (BigQuery, BigLake, AlloyDB, Bigtable, Cloud Spanner, Cloud SQL, Cloud Storage, Firestore, Memorystore), データアクセスパターン分析, コストとパフォーマンス最適化, ライフサイクル管理, データウェアハウス設計 (データモデリング, スタースキーマ/スノーフレーク, 非正規化, ネスト＆反復フィールド), データレイク設計 (Cloud Storage, BigLake, オープンフォーマット Parquet/ORC/Iceberg), データプラットフォーム設計 (Dataplex, Dataplex Catalog, データメッシュ, 連合ガバナンス) |
+| **Section 4** | 分析用データの準備と使用 | 約 15.0% | 可視化向けデータ準備 (Looker, Looker Studio), フィールド事前計算, BigQuery BI Engine, マテリアライズドビュー, クエリ最適化・トラブルシューティング (EXPLAIN, 実行ステージ, スロット消費, シャッフル), 動的データマスキング, 行・列レベルセキュリティ, AI/ML データ準備 (BigQuery ML, ベクトル埋め込み, 生成 AI・LLM 連携, RAG パイプライン), データ共有統制 (Analytics Hub, BigQuery Sharing) |
+| **Section 5** | データ ワークロードの管理と自動化 | 約 18.0% | リソース最適化 (永続クラスタ vs 一時的ジョブクラスタ, Dataproc サーバーレス), 自動化と反復性 (Cloud Composer DAG, 依存関係, 再試行設計), BigQuery キャパシティ管理 (エディション: Standard/Enterprise/Enterprise Plus, 予約スロット, オートスケーリング, ベースライン), インタラクティブクエリ vs バッチクエリ, オブザーバビリティ (Cloud Monitoring, Cloud Logging, BigQuery Information Schema, 管理パネル), 障害復旧 (マルチリージョン/ゾーン, レプリケーション, フェイルオーバー) |
 
 ---
 
@@ -85,7 +85,7 @@ Professional Data Engineer は、さまざまなアプリケーションやビ�
 
 ---
 
-## 4. 推奨ハンズオンラボ（Google Skills / Cloud Skills Boost）
+## 4. 推奨ハンズオンラボ（Google Skills）
 
 実務での手触り感と試験対策を直結させるため、以下の厳選ハンズオンラボの受講を強く推奨します。
 

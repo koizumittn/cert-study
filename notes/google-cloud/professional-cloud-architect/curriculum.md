@@ -27,14 +27,14 @@ Professional Cloud Architect は、Google Cloud テクノロジーを活用し�
 
 本試験は全 6 セクションで構成されています。アーキテクチャの設計と計画（約 25%）、インフラの管理・プロビジョニング（約 17.5%）、セキュリティとコンプライアンス（約 17.5%）が中核をなし、さらにプロセス改善（約 15%）、実装管理（約 12.5%）、オペレーショナル エクセレンス（約 12.5%）が網羅的に評価されます。
 
-| セクション番号 | セクション名 / 出題分野 | 出題比率 | 主要対象サービス・コンセプト | ステータス |
-| :--- | :--- | :--- | :--- | :--- |
-| **Section 1** | クラウド ソリューション アーキテクチャの設計と計画 | 約 25.0% | Well-Architected Framework, ビジネス・技術要件分析, 機能/非機能要件, BCP/DR, コスト最適化, 外部システム統合, マイグレーション戦略 (Migration Center, 評価, 依存関係, ライセンス), 将来性評価, AI/ML ソリューション統合 (Gemini LLM, Agent Builder, Model Garden) | 完了 |
-| **Section 2** | クラウド ソリューション インフラストラクチャの管理とプロビジョニング | 約 17.5% | ハイブリッド・マルチクラウド ネットワーキング (Cloud Interconnect, Cloud VPN, Cross-Cloud Interconnect, NCC), VPC 設計・共有 VPC, Cloud Load Balancing, PSC, ストレージ選定 (Cloud Storage, Filestore, Cloud SQL, AlloyDB, Spanner, Bigtable, Firestore), コンピュート (Compute Engine, GKE, Cloud Run, VMware Engine), ML/生成 AI ワークフロー (Gemini Enterprise Agent Platform, Pipelines, AI Hypercomputer, GPU/TPU 最適化, Google AI APIs) | 完了 |
-| **Section 3** | セキュリティとコンプライアンスを考慮した設計 | 約 17.5% | IAM・リソース階層, 職掌分散 (SoD), データセキュリティ (Cloud KMS, CMEK, Secret Manager), セキュリティ統制 (VPC SC, コンテキストアウェア アクセス, 組織ポリシー, 階層型ファイアウォール), 安全なリモートアクセス (IAP, サービス アカウント借用, Chrome Enterprise Premium, Workload Identity 連携), ソフトウェアサプライチェーン (Binary Authorization, Artifact Registry), AI セキュリティ (Model Armor, Sensitive Data Protection), 法規制・コンプライアンス (HIPAA, PCI-DSS, GDPR, SOC 2, Cloud Audit Logs) | 完了 |
-| **Section 4** | 技術プロセスやビジネス プロセスの分析と改善 | 約 15.0% | SDLC・CI/CD (Cloud Build, Cloud Deploy), トラブルシューティング・根本原因分析 (RCA), テストフレームワーク, サービスカタログ・プロビジョニング, 障害復旧 (DR プラン・RTO/RPO), ステークホルダー管理・チェンジマネジメント, 組織スキル準備, コスト・リソース最適化 (CapEx/OpEx, FinOps, CUD, 予算アラート), ビジネス継続性 | 完了 |
-| **Section 5** | 実装の管理 | 約 12.5% | アプリケーション・インフラのデプロイ支援, API 管理・統制 (Apigee, Cloud Endpoints), 負荷/単体/統合テストフレームワーク, 移行・管理ツール, Gemini Cloud Assist, プログラマティック操作 (Cloud Shell, Cloud Code, Google Cloud SDK [gcloud, gsutil, bq], クラウドエミュレータ, Terraform / IaC, Google API クライアントライブラリ) | 完了 |
-| **Section 6** | ソリューションとオペレーション エクセレンスの確保 | 約 12.5% | Well-Architected オペレーション エクセレンスの柱, Google Cloud Observability (Cloud Monitoring, Cloud Logging, Cloud Trace, Cloud Profiler, ベンチマーク, アラート戦略, SLO/SLI/SLA, エラーバジェット), デプロイ・リリース管理 (Canary, Blue/Green, Rolling), サポート体制・エスカレーション, 品質管理, 本番信頼性検証 (カオスエンジニアリング, ペネトレーションテスト, 負荷テスト) | 完了 |
+| セクション番号 | セクション名 / 出題分野 | 出題比率 | 主要対象サービス・コンセプト |
+| :--- | :--- | :--- | :--- |
+| **Section 1** | クラウド ソリューション アーキテクチャの設計と計画 | 約 25.0% | Well-Architected Framework, ビジネス・技術要件分析, 機能/非機能要件, BCP/DR, コスト最適化, 外部システム統合, マイグレーション戦略 (Migration Center, 評価, 依存関係, ライセンス), 将来性評価, AI/ML ソリューション統合 (Gemini LLM, Agent Builder, Model Garden) |
+| **Section 2** | クラウド ソリューション インフラストラクチャの管理とプロビジョニング | 約 17.5% | ハイブリッド・マルチクラウド ネットワーキング (Cloud Interconnect, Cloud VPN, Cross-Cloud Interconnect, NCC), VPC 設計・共有 VPC, Cloud Load Balancing, PSC, ストレージ選定 (Cloud Storage, Filestore, Cloud SQL, AlloyDB, Spanner, Bigtable, Firestore), コンピュート (Compute Engine, GKE, Cloud Run, VMware Engine), ML/生成 AI ワークフロー (Gemini Enterprise Agent Platform, Pipelines, AI Hypercomputer, GPU/TPU 最適化, Google AI APIs) |
+| **Section 3** | セキュリティとコンプライアンスを考慮した設計 | 約 17.5% | IAM・リソース階層, 職掌分散 (SoD), データセキュリティ (Cloud KMS, CMEK, Secret Manager), セキュリティ統制 (VPC SC, コンテキストアウェア アクセス, 組織ポリシー, 階層型ファイアウォール), 安全なリモートアクセス (IAP, サービス アカウント借用, Chrome Enterprise Premium, Workload Identity 連携), ソフトウェアサプライチェーン (Binary Authorization, Artifact Registry), AI セキュリティ (Model Armor, Sensitive Data Protection), 法規制・コンプライアンス (HIPAA, PCI-DSS, GDPR, SOC 2, Cloud Audit Logs) |
+| **Section 4** | 技術プロセスやビジネス プロセスの分析と改善 | 約 15.0% | SDLC・CI/CD (Cloud Build, Cloud Deploy), トラブルシューティング・根本原因分析 (RCA), テストフレームワーク, サービスカタログ・プロビジョニング, 障害復旧 (DR プラン・RTO/RPO), ステークホルダー管理・チェンジマネジメント, 組織スキル準備, コスト・リソース最適化 (CapEx/OpEx, FinOps, CUD, 予算アラート), ビジネス継続性 |
+| **Section 5** | 実装の管理 | 約 12.5% | アプリケーション・インフラのデプロイ支援, API 管理・統制 (Apigee, Cloud Endpoints), 負荷/単体/統合テストフレームワーク, 移行・管理ツール, Gemini Cloud Assist, プログラマティック操作 (Cloud Shell, Cloud Code, Google Cloud SDK [gcloud, gsutil, bq], クラウドエミュレータ, Terraform / IaC, Google API クライアントライブラリ) |
+| **Section 6** | ソリューションとオペレーション エクセレンスの確保 | 約 12.5% | Well-Architected オペレーション エクセレンスの柱, Google Cloud Observability (Cloud Monitoring, Cloud Logging, Cloud Trace, Cloud Profiler, ベンチマーク, アラート戦略, SLO/SLI/SLA, エラーバジェット), デプロイ・リリース管理 (Canary, Blue/Green, Rolling), サポート体制・エスカレーション, 品質管理, 本番信頼性検証 (カオスエンジニアリング, ペネトレーションテスト, 負荷テスト) |
 
 ---
 

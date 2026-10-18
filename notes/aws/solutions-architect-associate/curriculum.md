@@ -21,12 +21,12 @@ AWS Certified Solutions Architect - Associate は、ビジネス要件および�
 
 ## 2. 出題分野（Domain）と出題比率一覧
 
-| ドメイン番号 | ドメイン名 / 出題分野 | 出題比率 | 主要対象サービス・ツール | ステータス |
-| :--- | :--- | :--- | :--- | :--- |
-| **Domain 1** | セキュアなアーキテクチャの設計 | 30% | AWS IAM, IAM Identity Center, AWS Organizations (SCP), AWS KMS, AWS Secrets Manager, Systems Manager Parameter Store, Amazon VPC, セキュリティグループ, ネットワークACL, VPC エンドポイント, AWS WAF, AWS Shield, Amazon GuardDuty, AWS CloudTrail | 完了 |
-| **Domain 2** | レジリエントなアーキテクチャの設計 | 26% | Amazon SQS (標準/FIFO), Amazon SNS, Amazon EventBridge, AWS Step Functions, AWS Auto Scaling, Elastic Load Balancing (ALB/NLB), Amazon Route 53, Amazon RDS (Multi-AZ), Amazon Aurora, AWS Backup, DR 4大戦略 | 完了 |
-| **Domain 3** | 高パフォーマンスなアーキテクチャの設計 | 24% | Amazon S3, Amazon EBS (gp3/io2), Amazon EFS, Amazon FSx, Amazon EC2 インスタンスファミリー, EC2 配置グループ, AWS Lambda, Amazon ECS/EKS, Amazon DynamoDB (DAX), Amazon ElastiCache, Amazon CloudFront, AWS Global Accelerator, Amazon Kinesis | 完了 |
-| **Domain 4** | コストを最適化したアーキテクチャの設計 | 20% | S3 ライフサイクルルール, S3 Intelligent-Tiering, AWS Compute Optimizer, Savings Plans, スポットインスタンス, Aurora Serverless v2, DynamoDB オンデマンド, Gateway型 VPC エンドポイント, AWS Cost Explorer, AWS Budgets | 完了 |
+| ドメイン番号 | ドメイン名 / 出題分野 | 出題比率 | 主要対象サービス・ツール |
+| :--- | :--- | :--- | :--- |
+| **Domain 1** | セキュアなアーキテクチャの設計 | 30% | AWS IAM, IAM Identity Center, AWS Organizations (SCP), AWS KMS, AWS Secrets Manager, Systems Manager Parameter Store, Amazon VPC, セキュリティグループ, ネットワークACL, VPC エンドポイント, AWS WAF, AWS Shield, Amazon GuardDuty, AWS CloudTrail |
+| **Domain 2** | レジリエントなアーキテクチャの設計 | 26% | Amazon SQS (標準/FIFO), Amazon SNS, Amazon EventBridge, AWS Step Functions, AWS Auto Scaling, Elastic Load Balancing (ALB/NLB), Amazon Route 53, Amazon RDS (Multi-AZ), Amazon Aurora, AWS Backup, DR 4大戦略 |
+| **Domain 3** | 高パフォーマンスなアーキテクチャの設計 | 24% | Amazon S3, Amazon EBS (gp3/io2), Amazon EFS, Amazon FSx, Amazon EC2 インスタンスファミリー, EC2 配置グループ, AWS Lambda, Amazon ECS/EKS, Amazon DynamoDB (DAX), Amazon ElastiCache, Amazon CloudFront, AWS Global Accelerator, Amazon Kinesis |
+| **Domain 4** | コストを最適化したアーキテクチャの設計 | 20% | S3 ライフサイクルルール, S3 Intelligent-Tiering, AWS Compute Optimizer, Savings Plans, スポットインスタンス, Aurora Serverless v2, DynamoDB オンデマンド, Gateway型 VPC エンドポイント, AWS Cost Explorer, AWS Budgets |
 
 ---
 

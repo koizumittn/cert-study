@@ -154,7 +154,7 @@ Cloud Digital Leader は、Google Cloud に関する基礎知識と、組織の�
 - **結果**: アプリケーションコードの再改修を行うことなく、オンプレミスと同等のOS制御権とカスタマイズ性を維持したまま移行が完了する。
 - **解説**: PaaS（Cloud Run等）やSaaSはOSやインフラ層が抽象化されているためレガシーOS固有の依存関係を直接動かすことは困難ですが、IaaSであればOS以上のレイヤを組織が完全に制御できるためです。
 - **参考ドキュメント**:
-  - [Compute Engine の概要](https://cloud.google.com/compute/docs): IaaS による仮想マシンの展開と柔軟な構成
+  - [Compute Engine の概要](https://docs.cloud.google.com/compute/docs): IaaS による仮想マシンの展開と柔軟な構成
 
 #### シナリオ 3: 開発部門の運用負荷軽減とタイムトゥマーケット短縮
 - **状況**: Webサービス企業において、開発チームがサーバーのOSパッチ適用やキャパシティ増強などのインフラ保守作業に追われ、新機能のリリース速度が著しく低下している場合
@@ -162,7 +162,7 @@ Cloud Digital Leader は、Google Cloud に関する基礎知識と、組織の�
 - **結果**: 開発者はサーバー管理業務から完全に解放され、新機能の開発とビジネスロジックの改善に専念できるようになる。
 - **解説**: IaaS では仮想マシンのOS更新やスケーリング設計を自社で運用し続ける必要がありますが、PaaS を採用すればインフラのプロビジョニングや自動復旧が完全に抽象化され、ビジネス価値の提供スピード（Time-to-Market）を最大化できるためです。
 - **参考ドキュメント**:
-  - [Cloud Run の概要](https://cloud.google.com/run/docs/overview): フルマネージドなサーバーレス実行環境のメリット
+  - [Cloud Run の概要](https://docs.cloud.google.com/run/docs): フルマネージドなサーバーレス実行環境のメリット
 
 #### シナリオ 4: ベンダーロックイン回避とマルチクラウド戦略の推進
 - **状況**: 金融機関がクラウド導入を検討するにあたり、特定のクラウドベンダーへの過度な依存によるロックインリスクを回避し、将来的に他社クラウドやオンプレミスへのワークロード移行余地を確保したい場合
@@ -170,7 +170,7 @@ Cloud Digital Leader は、Google Cloud に関する基礎知識と、組織の�
 - **結果**: クラウド固有のプロプライエタリな仕様に縛られず、同一のコンテナ定義を用いてマルチクラウドやハイブリッドクラウド間でワークロードを柔軟に移動できる柔軟性が確保される。
 - **解説**: Google Cloud はオープンソースとオープン標準への深いコミットメントを持っており、Kubernetes や Apache Spark 等のオープン技術を基盤としたマネージドサービスを提供しているため、他環境への可搬性を維持しながら最新クラウドの恩恵を享受できるためです。
 - **参考ドキュメント**:
-  - [オープンクラウドへの取り組み](https://cloud.google.com/open-cloud): オープンソースと相互運用性のビジネス価値
+  - [オープンクラウドへの取り組み](https://cloud.google.com/solutions/modern-infrastructure): オープンソースと相互運用性のビジネス価値
 
 #### シナリオ 5: グローバル展開におけるレイテンシ短縮とネットワーク信頼性確保
 - **状況**: 海外展開を進めるメディア企業が、世界各地のエンドユーザーに対して動画やリッチコンテンツを配信する際、パブリックインターネットの混雑による遅延やパケットロスを抑制したい場合
@@ -182,17 +182,18 @@ Cloud Digital Leader は、Google Cloud に関する基礎知識と、組織の�
 
 ---
 
-### 4. 参考ドキュメント＆推奨ハンズオン
+### 4. 参考ドキュメント & 推奨ハンズオン
 
-- **公式ドキュメント**:
-  - [Google Cloud の概要と基本原則](https://cloud.google.com/docs/overview)
-  - [クラウド導入フレームワーク (Cloud Adoption Framework)](https://cloud.google.com/adoption-framework)
-  - [Google Cloud のインフラストラクチャ拠点 (Regions & Zones)](https://cloud.google.com/about/locations)
-- **推奨ハンズオン（Google Skills）**:
-  - [Google Skills 公式学習ポータル](https://www.skills.google/?locale=ja)
-  - [Cloud Digital Leader ラーニングパス](https://www.cloudskillsboost.google/paths/9)
-  - [Google Cloud コンソールのツアー](https://www.cloudskillsboost.google/focuses/2794?parent=catalog)
-  - [Compute Engine による最初の仮想マシンの作成](https://www.cloudskillsboost.google/focuses/3563?parent=catalog)
+#### 公式一次ドキュメント
+- [Google Cloud の概要と基本原則](https://docs.cloud.google.com/docs/overview)
+- [クラウド導入フレームワーク (Cloud Adoption Framework)](https://cloud.google.com/adoption-framework)
+- [Google Cloud のインフラストラクチャ拠点 (Regions & Zones)](https://cloud.google.com/about/locations)
+
+#### 推奨ハンズオン・ラボ（実機検証）
+- [Google Skills 公式学習ポータル](https://www.skills.google/?locale=ja)
+- [Cloud Digital Leader ラーニングパス](https://www.skills.google/paths/9)
+- [Google Cloud コンソールのツアー](https://www.skills.google/focuses/2794?parent=catalog)
+- [Compute Engine による最初の仮想マシンの作成](https://www.skills.google/focuses/3563?parent=catalog)
 
 ---
 
@@ -273,7 +274,7 @@ Cloud Storage はデータのアクセス頻度に応じた階層化が可能で
 - **結果**: 世界中の拠点から高スループットでトランザクションが処理され、強整合性を維持したまま自動フェイルオーバーと無停止スケールが達成される。
 - **解説**: 従来の Cloud SQL では単一リージョンが基本となりグローバル規模の水平スケールと即時同期書き込みに限界があり、NoSQL（BigtableやFirestore）ではリレーショナルな厳格な外部整合性やACID保証を容易に担保できないのに対し、Cloud Spanner は TrueTime API によりグローバル強整合性と無制限の拡張性を両立できるためです。
 - **参考ドキュメント**:
-  - [Cloud Spanner の概要](https://cloud.google.com/spanner/docs/overview): グローバル強整合性と水平スケーラビリティの仕様
+  - [Cloud Spanner の概要](https://cloud.google.com/spanner): グローバル強整合性と水平スケーラビリティの仕様
 
 #### シナリオ 2: IoTセンサーから届く毎秒数百万件のログ高速書き込み
 - **状況**: 製造業のスマート工場において、世界中の工場に設置された数万台のセンサーから毎秒数百メガバイトの時系列メトリクスが送信され、一桁ミリ秒未満の超低レイテンシで書き込み続ける必要がある場合
@@ -281,7 +282,7 @@ Cloud Storage はデータのアクセス頻度に応じた階層化が可能で
 - **結果**: システムがボトルネックを起こすことなくペタバイト規模のデータを安定して受け付け、下流のリアルタイム監視にデータが即座に供給される。
 - **解説**: Cloud SQL や Cloud Spanner などのリレーショナルDBでは超大量の単純書き込みに対してコストと接続オーバーヘッドが過大になり、Firestore はドキュメント構造向けで大規模な時系列書き込みには適さないのに対し、Bigtable は大容量NoSQLとして極めて高い書き込みスループットと超低レイテンシを提供する設計になっているためです。
 - **参考ドキュメント**:
-  - [Cloud Bigtable の概要](https://cloud.google.com/bigtable/docs/overview): 大規模スループットと低レイテンシのユースケース
+  - [Cloud Bigtable の概要](https://docs.cloud.google.com/bigtable/docs/overview): 大規模スループットと低レイテンシのユースケース
 
 #### シナリオ 3: ペタバイト規模の全社マーケティング分析とSQL活用
 - **状況**: 小売チェーンが数年間蓄積された過去の購買履歴やWebアクセスログ（合計数ペタバイト）を統合し、データアナリストが標準SQLを用いて数秒から数十秒でアドホックな集計クエリを実行したい場合
@@ -289,7 +290,7 @@ Cloud Storage はデータのアクセス頻度に応じた階層化が可能で
 - **結果**: サーバーのプロビジョニングやクラスタ管理を一切行うことなく、ペタバイト規模の集計クエリが超高速に完了し、マーケティング施策の意思決定が加速する。
 - **解説**: 従来のオンプレミスDWHやRDBでは数ペタバイトの集計時にハードウェアの限界や長時間のバッチ処理待ちが発生しますが、BigQuery はコンピュートとストレージが完全に分離されたサーバーレス構成であり、クエリ実行時に数千台のノードを瞬時に割り当てて超並列分散処理を実行するためです。
 - **参考ドキュメント**:
-  - [BigQuery の概要](https://cloud.google.com/bigquery/docs/introduction): サーバーレスエンタープライズDWHのアーキテクチャ
+  - [BigQuery の概要](https://docs.cloud.google.com/bigquery/docs/introduction): サーバーレスエンタープライズDWHのアーキテクチャ
 
 #### シナリオ 4: 長期コンプライアンス監査ログの超低コスト保管
 - **状況**: 金融機関において、法律上の要件により過去7年分の監査ログファイルを安全に保管する必要があるが、日常的な検索はほぼ発生せず、保管コストを極限まで削減したい場合
@@ -297,7 +298,7 @@ Cloud Storage はデータのアクセス頻度に応じた階層化が可能で
 - **結果**: 99.999999999% のデータ耐久性を確保しながら、最も安価なGB単価でコンプライアンス要件を満たした長期データ保管が実現される。
 - **解説**: Standard や Nearline クラスは頻繁な読み取りを前提として保管単価が高めに設定されていますが、Archive クラスは年1回未満のアクセスを想定した最低料金の保管単価を提供しており、滅多に取り出さない法定保管用途に最も費用対効果が高いためです。
 - **参考ドキュメント**:
-  - [Cloud Storage ストレージ クラス](https://cloud.google.com/storage/docs/storage-classes): コストとアクセス頻度の比較
+  - [Cloud Storage ストレージ クラス](https://docs.cloud.google.com/storage/docs/storage-classes): コストとアクセス頻度の比較
 
 #### シナリオ 5: モバイルアプリのオフライン利用とリアルタイム通知同期
 - **状況**: フィールドワーク従事者向けのモバイル業務アプリにおいて、通信が途切れる現場でも端末内でデータ入力を継続でき、電波が復旧した際にクラウドおよび他の作業員端末へ自動同期させたい場合
@@ -305,7 +306,7 @@ Cloud Storage はデータのアクセス頻度に応じた階層化が可能で
 - **結果**: オフライン時でも端末ローカルでデータ操作が完結し、オンライン復旧時に競合なくクラウドと全端末間でリアルタイム同期が実行される。
 - **解説**: Cloud SQL や BigQuery などの一般的なDBではクライアント端末との直接的なリアルタイムリスナーやオフラインローカルキャッシュ同期機構が組み込まれていませんが、Firestore はモバイル/Web特化のSDKによりオフライン永続化と自動同期を標準でマネージド提供するためです。
 - **参考ドキュメント**:
-  - [Firestore の概要](https://cloud.google.com/firestore/docs/overview): リアルタイム同期とオフライン機能
+  - [Firestore の概要](https://cloud.google.com/products/firestore): リアルタイム同期とオフライン機能
 
 #### シナリオ 6: 全社統一の重要ビジネス指標定義とダッシュボード共有
 - **状況**: 企業内で営業部門と財務部門がそれぞれ独自のスプレッドシートで「売上高」を集計しており、会議ごとに数値が不一致となって意思決定が混乱している場合
@@ -313,21 +314,22 @@ Cloud Storage はデータのアクセス頻度に応じた階層化が可能で
 - **結果**: どの部門の担当者がダッシュボードを参照・集計しても同一の定義に基づく正確な数値が導き出され、全社で一貫したデータに基づく意思決定が実現される。
 - **解説**: 従来型の単なるビジュアライゼーションツールでは各利用者が独自のクエリや計算式を書くため指標の不一致が生じやすいのに対し、Looker はセマンティックモデリング層によりビジネス定義を一元管理し、信頼できる単一の情報源（Single Source of Truth）を担保できるためです。
 - **参考ドキュメント**:
-  - [Looker の概要](https://cloud.google.com/looker/docs/intro): セマンティックレイヤによるデータの民主化
+  - [Looker の概要](https://docs.cloud.google.com/looker/docs/intro): セマンティックレイヤによるデータの民主化
 
 ---
 
-### 4. 参考ドキュメント＆推奨ハンズオン
+### 4. 参考ドキュメント & 推奨ハンズオン
 
-- **公式ドキュメント**:
-  - [Google Cloud データベースの選択ガイド](https://cloud.google.com/products/databases)
-  - [BigQuery の仕組みと機能](https://cloud.google.com/bigquery/docs)
-  - [Looker によるビジネスインテリジェンス](https://cloud.google.com/looker)
-- **推奨ハンズオン（Google Skills）**:
-  - [Google Skills 公式学習ポータル](https://www.skills.google/?locale=ja)
-  - [Cloud Storage の基礎: バケットとオブジェクトの作成](https://www.cloudskillsboost.google/focuses/1760?parent=catalog)
-  - [BigQuery の基礎: 初めての SQL クエリ実行](https://www.cloudskillsboost.google/focuses/3692?parent=catalog)
-  - [Cloud SQL for PostgreSQL の起動と接続](https://www.cloudskillsboost.google/focuses/1702?parent=catalog)
+#### 公式一次ドキュメント
+- [Google Cloud データベースの選択ガイド](https://cloud.google.com/products/databases)
+- [BigQuery の仕組みと機能](https://docs.cloud.google.com/bigquery/docs)
+- [Looker によるビジネスインテリジェンス](https://cloud.google.com/looker)
+
+#### 推奨ハンズオン・ラボ（実機検証）
+- [Google Skills 公式学習ポータル](https://www.skills.google/?locale=ja)
+- [Cloud Storage の基礎: バケットとオブジェクトの作成](https://www.skills.google/focuses/1760?parent=catalog)
+- [BigQuery の基礎: 初めての SQL クエリ実行](https://www.skills.google/focuses/3692?parent=catalog)
+- [Cloud SQL for PostgreSQL の起動と接続](https://www.skills.google/)
 
 ---
 
@@ -413,7 +415,7 @@ AIソリューションを導入する際、企業は「実装スピード・コ
 - **結果**: モデルの訓練やアルゴリズム設計を一切行うことなく、APIの呼び出しのみで高精度な領収書読み取りと翻訳処理が即座に本番稼働する。
 - **解説**: 自前でカスタムモデルを一から開発するには大量の教師データ収集と専門データサイエンティストが必要ですが、Google が数百万枚規模のデータで事前学習済みの Vision / Translation API を利用すれば、最小の開発労力と最短の期間で高品質な機能を実現できるためです。
 - **参考ドキュメント**:
-  - [Cloud Vision API の概要](https://cloud.google.com/vision/docs): 事前トレーニング済み画像分析機能
+  - [Cloud Vision API の概要](https://docs.cloud.google.com/vision/docs): 事前トレーニング済み画像分析機能
 
 #### シナリオ 2: 社内規定やマニュアルに基づく自律型問い合わせエージェントの構築
 - **状況**: 大手企業の総務・人事部門において、毎日数百件寄せられる社内手続きや就業規則に関する従業員の問い合わせに対し、社内ドキュメントに基づき自律的に対応・チケット起票を行うAIエージェントを構築したい場合
@@ -421,7 +423,7 @@ AIソリューションを導入する際、企業は「実装スピード・コ
 - **結果**: 社内規定に忠実にグラウンディングされた正確な回答が24時間提供され、複雑な申請についてはエージェントが自動で社内ワークフローを起票する。
 - **解説**: 単なる汎用AIチャットボットでは社内固有のルールに対応できずハルシネーションのリスクがありますが、Agent Studio を用いることで社内ドキュメントへのグラウンディングと外部システム（API）呼び出しを直感的に設定でき、安全かつ実用的な業務エージェントを迅速に構築できるためです。
 - **参考ドキュメント**:
-  - [Vertex AI Agent Builder の概要](https://cloud.google.com/vertex-ai/docs/agent-builder/overview): 生成AIエージェントの迅速な構築
+  - [Vertex AI Agent Builder の概要](https://docs.cloud.google.com/generative-ai-app-builder/docs): 生成AIエージェントの迅速な構築
 
 #### シナリオ 3: データアナリストによるSQLのみを用いた売上予測モデル開発
 - **状況**: 小売企業のデータ分析チームが、BigQuery 内に蓄積された過去の購買データから来月の売上予測モデルを作成したいが、Python や TensorFlow のプログラミングスキルを持つメンバーがいない場合
@@ -429,7 +431,7 @@ AIソリューションを導入する際、企業は「実装スピード・コ
 - **結果**: データを外部ツールへエクスポートすることなく、SQLクエリのみで高精度な予測モデルが構築され、分析結果が即座にレポートへ反映される。
 - **解説**: 通常のML開発ではデータのエクスポート、Python環境の構築、GPUサーバーの手配が必要となりますが、BigQuery ML を用いればデータが保存されているBigQuery内でSQLのみでモデルを完結して訓練・評価できるためです。
 - **参考ドキュメント**:
-  - [BigQuery ML の概要](https://cloud.google.com/bigquery/docs/bqml-introduction): SQLによる機械学習の民主化
+  - [BigQuery ML の概要](https://docs.cloud.google.com/bigquery/docs/bqml-introduction): SQLによる機械学習の民主化
 
 #### シナリオ 4: 大規模生成AIモデルの学習における計算リソースと費用効率最適化
 - **状況**: テック企業が独自の超大規模言語モデル（LLM）の事前学習を実施するにあたり、数千基規模のアクセラレータクラスタを必要とし、ネットワークボトルネックによる学習遅延や過大なインフラ費用を防止したい場合
@@ -453,21 +455,22 @@ AIソリューションを導入する際、企業は「実装スピード・コ
 - **結果**: AIのブラックボックス化が解消され、顧客および監査当局に対して法的に妥当な判断理由を開示できるようになる。
 - **解説**: 一般的な深層学習モデルは入力から出力までの計算が複雑でブラックボックスになりやすいですが、Explainable AI を用いることで各特徴量の貢献度を定量的に特定でき、コンプライアンス要件と倫理的公正性を満たせるためです。
 - **参考ドキュメント**:
-  - [Explainable AI の概要](https://cloud.google.com/explainable-ai): 機械学習モデルの透明性と説明責任
+  - [Explainable AI の概要](https://docs.cloud.google.com/vertex-ai/docs/explainable-ai/overview): 機械学習モデルの透明性と説明責任
 
 ---
 
-### 4. 参考ドキュメント＆推奨ハンズオン
+### 4. 参考ドキュメント & 推奨ハンズオン
 
-- **公式ドキュメント**:
-  - [Google Cloud の AI ソリューション概要](https://cloud.google.com/ai)
-  - [Google の AI 原則 (Responsible AI)](https://cloud.google.com/responsible-ai)
-  - [Vertex AI の製品ドキュメント](https://cloud.google.com/vertex-ai/docs)
-- **推奨ハンズオン（Google Skills）**:
-  - [Google Skills 公式学習ポータル](https://www.skills.google/?locale=ja)
-  - [Cloud Vision API: Qwik Start](https://www.cloudskillsboost.google/focuses/1841?parent=catalog)
-  - [BigQuery ML での機械学習モデルの作成](https://www.cloudskillsboost.google/focuses/2157?parent=catalog)
-  - [Vertex AI Studio を使ったプロンプトデザイン体験](https://www.cloudskillsboost.google/focuses/64350?parent=catalog)
+#### 公式一次ドキュメント
+- [Google Cloud の AI ソリューション概要](https://cloud.google.com/ai)
+- [Google の AI 原則 (Responsible AI)](https://cloud.google.com/responsible-ai)
+- [Vertex AI の製品ドキュメント](https://docs.cloud.google.com/gemini-enterprise-agent-platform)
+
+#### 推奨ハンズオン・ラボ（実機検証）
+- [Google Skills 公式学習ポータル](https://www.skills.google/?locale=ja)
+- [Cloud Vision API: Qwik Start](https://www.skills.google/focuses/1841?parent=catalog)
+- [BigQuery ML での機械学習モデルの作成](https://www.skills.google/focuses/2157?parent=catalog)
+- [Vertex AI Studio を使ったプロンプトデザイン体験](https://www.skills.google/)
 
 ---
 
@@ -543,7 +546,7 @@ APIは単なるシステム間連携の技術仕様を超え、**「自社のデ
 - **結果**: アプリケーションの仕様変更や複雑なテスト期間を挟むことなく、契約満了期限内にデータセンターの撤退とクラウド移行が完了する。
 - **解説**: リファクタリングやコンテナ化にはコードの修正や十分な検証期間が必要であり期限に間に合わないリスクが高いですが、Compute Engine へのリホストであればOSや構成をそのまま持ち込めるため最短期間・最小リスクで移行できるためです。
 - **参考ドキュメント**:
-  - [Google Cloud への移行戦略](https://cloud.google.com/migrate): リホスト、リプラットフォーム、リファクタリングの判断基準
+  - [Google Cloud への移行戦略](https://docs.cloud.google.com/architecture/migration-to-gcp-getting-started): リホスト、リプラットフォーム、リファクタリングの判断基準
 
 #### シナリオ 2: アクセス変動が激しいキャンペーン特設サイトのコスト最適化
 - **状況**: マーケティング部門が新商品の告知サイトを公開するにあたり、テレビCM放送時には瞬間的に数十万アクセスのスパイクが発生する一方で、夜間や通常時はアクセスがほぼゼロになる場合
@@ -551,7 +554,7 @@ APIは単なるシステム間連携の技術仕様を超え、**「自社のデ
 - **結果**: アクセス集中時には瞬時にコンテナが増加してリクエストを捌き、アクセスがない時間帯はインスタンス数がゼロに縮小して費用が一切発生しない構成が実現される。
 - **解説**: Compute Engine で常時VMを起動しておくとアイドル時にも課金が発生し、GKE の標準クラスタでもノードの最低維持費がかかりますが、Cloud Run はサーバーレスアーキテクチャでありリクエスト処理時間のみの100ミリ秒単位課金と完全なゼロスケールを提供するためです。
 - **参考ドキュメント**:
-  - [Cloud Run のスケーリング動作](https://cloud.google.com/run/docs/about-instance-autoscaling): ゼロから数千インスタンスへの高速スケール
+  - [Cloud Run のスケーリング動作](https://docs.cloud.google.com/run/docs/about-instance-autoscaling): ゼロから数千インスタンスへの高速スケール
 
 #### シナリオ 3: 複雑なマイクロサービス群の大規模コンテナオーケストレーション
 - **状況**: 大規模オンラインゲーム企業が、50種類以上の独立したマイクロサービス（認証、マッチング、課金、チャット等）で構成されるシステムを運用し、業界標準の Kubernetes ツールチェーンを用いて統合管理したい場合
@@ -559,7 +562,7 @@ APIは単なるシステム間連携の技術仕様を超え、**「自社のデ
 - **結果**: 数百のコンテナポッドが自動的に最適なノードへ配置され、障害発生時にも自動再起動やローリングアップデートが無停止で運用される。
 - **解説**: 単一のWebアプリであれば Cloud Run がシンプルですが、複雑なPod間通信、ステートフルセット、高度なネットワークポリシーを伴うエンタープライズ規模のマイクロサービス運用には、Kubernetes のフル機能とGoogleの自動運用が融合した GKE が最も適格であるためです。
 - **参考ドキュメント**:
-  - [Google Kubernetes Engine の概要](https://cloud.google.com/kubernetes-engine/docs/concepts/kubernetes-engine-overview): エンタープライズK8sの運用管理
+  - [Google Kubernetes Engine の概要](https://docs.cloud.google.com/kubernetes-engine/docs/concepts/kubernetes-engine-overview): エンタープライズK8sの運用管理
 
 #### シナリオ 4: 大規模バッチ画像変換処理における劇的なインフラ費用削減
 - **状況**: メディア企業が夜間に毎日数百テラバイトのアーカイブ動画のエンコード処理を実行するにあたり、処理に数時間かかってもよく、途中でインスタンスが中断されても再試行可能な仕組みがあるため、コンピュート費用を極限まで圧縮したい場合
@@ -567,7 +570,7 @@ APIは単なるシステム間連携の技術仕様を超え、**「自社のデ
 - **結果**: 通常のオンデマンド仮想マシンと比較して最大91%の大幅な割引価格でコンピュートリソースを調達し、処理コストを最小化できる。
 - **解説**: 通常のオンデマンドVMは可用性が保証される反面定価課金となりますが、Spot VM はGoogle Cloud の余剰リソースを活用する仕組みであり、中断のリスクを受け入れられる耐障害性のあるバッチワークロードにおいて圧倒的な費用削減効果を発揮するためです。
 - **参考ドキュメント**:
-  - [Spot VM の概要](https://cloud.google.com/compute/docs/instances/spot): 割引率と中断時の動作仕様
+  - [Spot VM の概要](https://docs.cloud.google.com/compute/docs/instances/spot): 割引率と中断時の動作仕様
 
 #### シナリオ 5: 自社保有データの外部公開とパートナー向けAPI収益化
 - **状況**: 物流企業が自社の配送追跡機能やリアルタイム在庫データを外部のEC事業者や配送パートナー向けに安全に公開し、API呼び出し数に応じた課金システムを導入したい場合
@@ -575,7 +578,7 @@ APIは単なるシステム間連携の技術仕様を超え、**「自社のデ
 - **結果**: 内部のバックエンドシステムを直接公開することなく安全に保護しながら、外部パートナー向けの開発者ポータルと従量課金ビジネスが即座に構築される。
 - **解説**: 単なるロードバランサやCloud Endpointsでは基本的なルーティングや認証しか行えませんが、Apigee はAPIのライフサイクル管理、高度なアナリティクス、不正利用防止、およびAPIエコノミーを実現するための収益化パッケージを統合して提供するためです。
 - **参考ドキュメント**:
-  - [Apigee の概要](https://cloud.google.com/apigee/docs/api-platform/get-started/what-is-apigee): API管理とビジネスエコノミーの創出
+  - [Apigee の概要](https://docs.cloud.google.com/apigee/docs/api-platform/get-started/what-apigee): API管理とビジネスエコノミーの創出
 
 #### シナリオ 6: 他社クラウドに保管されたデータのデータ移動なしでのクロス分析
 - **状況**: 企業がAWSのS3バケット内に大量の業務ログを保有しており、データのクラウド間転送料金（エグレスコスト）や移行リスクを避けたまま、Google Cloud の BigQuery から直接SQLで横断分析したい場合
@@ -583,21 +586,22 @@ APIは単なるシステム間連携の技術仕様を超え、**「自社のデ
 - **結果**: ペタバイト規模のデータを Google Cloud へ物理的にコピー・転送することなく、使い慣れた BigQuery のクエリ操作で安全にマルチクラウド分析が完了する。
 - **解説**: 通常の分析では他社クラウドから Google Cloud へデータを転送する必要があり莫大なネットワーク転送料金と時間がかかりますが、BigQuery Omni はBigQueryのクエリ実行エンジン（Borg）を他社クラウドのローカル環境で直接稼働させるため、データ移動なしに分析できるためです。
 - **参考ドキュメント**:
-  - [BigQuery Omni の概要](https://cloud.google.com/bigquery/docs/omni-introduction): クロスクラウド分析のアーキテクチャ
+  - [BigQuery Omni の概要](https://docs.cloud.google.com/bigquery/docs/omni-introduction): クロスクラウド分析のアーキテクチャ
 
 ---
 
-### 4. 参考ドキュメント＆推奨ハンズオン
+### 4. 参考ドキュメント & 推奨ハンズオン
 
-- **公式ドキュメント**:
-  - [Google Cloud のコンピューティング オプションの選択](https://cloud.google.com/compute/docs/containers-and-vms)
-  - [GKE (Google Kubernetes Engine) 入門](https://cloud.google.com/kubernetes-engine)
-  - [Apigee による API ファースト戦略](https://cloud.google.com/apigee)
-- **推奨ハンズオン（Google Skills）**:
-  - [Google Skills 公式学習ポータル](https://www.skills.google/?locale=ja)
-  - [Cloud Run による初めてのコンテナデプロイ](https://www.cloudskillsboost.google/focuses/5162?parent=catalog)
-  - [Google Kubernetes Engine の基礎: クラスタのデプロイ](https://www.cloudskillsboost.google/focuses/878?parent=catalog)
-  - [Cloud Run functions: イベント駆動型コードの実行](https://www.cloudskillsboost.google/focuses/916?parent=catalog)
+#### 公式一次ドキュメント
+- [Google Cloud のコンピューティング オプションの選択](https://docs.cloud.google.com/compute/docs/overview)
+- [GKE (Google Kubernetes Engine) 入門](https://cloud.google.com/kubernetes-engine)
+- [Apigee による API ファースト戦略](https://cloud.google.com/apigee)
+
+#### 推奨ハンズオン・ラボ（実機検証）
+- [Google Skills 公式学習ポータル](https://www.skills.google/?locale=ja)
+- [Cloud Run による初めてのコンテナデプロイ](https://www.skills.google/)
+- [Google Kubernetes Engine の基礎: クラスタのデプロイ](https://www.skills.google/focuses/878?parent=catalog)
+- [Cloud Run functions: イベント駆動型コードの実行](https://www.skills.google/focuses/916?parent=catalog)
 
 ---
 
@@ -690,7 +694,7 @@ BeyondCorp では：
 - **結果**: バケットのアクセス権がパブリックに変更された瞬間にリスクとして検知され、セキュリティ管理者に通知されるとともに自動で非公開化される。
 - **解説**: クラウド上のインシデントの9割以上はクラウド自体の欠陥ではなくユーザー側の構成ミスに起因するため、SCC のような CSPM（クラウドセキュリティポスチャー管理）ツールを用いて環境全体の不適切な権限付与や脆弱性を継続的に可視化・自動是正することが極めて重要であるためです。
 - **参考ドキュメント**:
-  - [Security Command Center の概要](https://cloud.google.com/security-command-center/docs/concepts-security-command-center-overview): クラウドのポスチャー管理と脅威検出
+  - [Security Command Center の概要](https://docs.cloud.google.com/security-command-center/docs/security-command-center-overview): クラウドのポスチャー管理と脅威検出
 
 #### シナリオ 2: 大規模DDoS攻撃およびWeb脆弱性（SQLi/XSS）からのサービス保護
 - **状況**: グローバルな金融サービスサイトにおいて、敵対者からの大規模な分散型サービス妨害（DDoS）攻撃や、Webアプリケーションへの不正なSQLインジェクション攻撃からサービスを停止させずに防御したい場合
@@ -698,7 +702,7 @@ BeyondCorp では：
 - **結果**: 悪意のある攻撃トラフィックが Google のグローバルエッジで即座に検知・破棄され、正規のユーザー通信のみがバックエンドサーバーへ安全に到達する。
 - **解説**: 自社のバックエンドサーバーやファイアウォールだけでは数十〜数百Gbps規模のDDoS攻撃に耐えきれずダウンしますが、Cloud Armor は Google の巨大なグローバルエッジネットワークのキャパシティを活用してエッジ上で攻撃を吸収・遮断できるためです。
 - **参考ドキュメント**:
-  - [Cloud Armor の概要](https://cloud.google.com/armor/docs/cloud-armor-overview): DDoS 防御と WAF 機能
+  - [Cloud Armor の概要](https://docs.cloud.google.com/armor/docs/cloud-armor-overview): DDoS 防御と WAF 機能
 
 #### シナリオ 3: 機密データをメモリ展開した状態（使用中）での計算処理保護
 - **状況**: 医療機関が高度な個人ゲノムデータや患者カルテの分析処理をクラウド上で実行するにあたり、厳格な法規制により、保存時や転送時だけでなくメモリ（RAM）上で演算処理されている最中のデータも暗号化したい場合
@@ -706,7 +710,7 @@ BeyondCorp では：
 - **結果**: ハードウェアベースの暗号化プロセッサにより、CPUやメモリ上で実行中のデータがリアルタイムに暗号化され、クラウド事業者やハイパーバイザからも閲覧できない状態で演算が完了する。
 - **解説**: 通常のクラウド暗号化は保存時（At-rest）と転送時（In-transit）をカバーしますが、Confidential Computing はハードウェア分離技術（AMD SEV等）を用いて「使用中（In-use）」のメモリ空間すら暗号化するため、最高レベルの機密性を担保できるためです。
 - **参考ドキュメント**:
-  - [Confidential Computing の概要](https://cloud.google.com/confidential-computing/docs/overview): 使用中データの暗号化保護
+  - [Confidential Computing の概要](https://docs.cloud.google.com/confidential-computing/confidential-vm/docs/confidential-vm-overview): 使用中データの暗号化保護
 
 #### シナリオ 4: 社内LANとリモートワークの境界を撤廃したゼロトラストアクセス制御
 - **状況**: テレワークを推進する企業において、従来のVPN接続がボトルネックとなって通信速度が低下しており、かつVPN侵入による社内ネットワーク全体の侵害リスクを排除したい場合
@@ -714,7 +718,7 @@ BeyondCorp では：
 - **結果**: 従業員は社内・社外を問わず、本人の認証情報と社用端末のセキュリティ状態が検証された場合にのみ、ブラウザ経由で個別の社内Webアプリへ安全にアクセスできる。
 - **解説**: VPNは「一度境界を突破されれば社内の全システムへアクセスできてしまう」という境界防御の根本的リスクを抱えていますが、BeyondCorp によるゼロトラストモデルはアプリケーション単位でコンテキストに応じた厳格な都度認可を行うため、安全で快適なアクセスを実現できるためです。
 - **参考ドキュメント**:
-  - [BeyondCorp Enterprise の概要](https://cloud.google.com/beyondcorp-enterprise/docs/overview): ゼロトラストセキュリティモデルの実現
+  - [BeyondCorp Enterprise の概要](https://docs.cloud.google.com/chrome-enterprise-premium/docs/overview): ゼロトラストセキュリティモデルの実現
 
 #### シナリオ 5: ペタバイト規模のセキュリティログの高速検索と自動対処（SecOps）
 - **状況**: エンタープライズ企業のセキュリティ運用センター（SOC）において、全社のサーバー、ファイアウォール、認証ログが膨大すぎて検索に数時間かかり、サイバー攻撃の兆候を見逃すリスクがある場合
@@ -722,7 +726,7 @@ BeyondCorp では：
 - **結果**: 数ペタバイトにおよぶセキュリティログが数秒で検索可能となり、Mandiant の脅威インテリジェンスと照合して攻撃インシデントの検知から隔離対応までの時間が数時間から数分へ短縮される。
 - **解説**: 従来のSIEMツールではログ量の増大に伴いライセンス費用が高騰し検索性能が極端に劣化しますが、Google Security Operations はGoogleの検索インフラ技術を活用して超大容量ログを定額で高速分析し、SOARによる自動対処まで統合提供するためです。
 - **参考ドキュメント**:
-  - [Google Security Operations の概要](https://cloud.google.com/security-operations): クラウドネイティブな SIEM / SOAR
+  - [Google Security Operations の概要](https://cloud.google.com/security/products/security-operations): クラウドネイティブな SIEM / SOAR
 
 #### シナリオ 6: 国家規制に基づくデータの物理的保管場所と主権の完全制御
 - **状況**: 欧州または日本の公共機関がクラウドを採用するにあたり、法律により「すべてのデータおよび暗号化キーは指定された国内リージョン外へ絶対に移送されてはならない」という要件がある場合
@@ -734,17 +738,18 @@ BeyondCorp では：
 
 ---
 
-### 4. 参考ドキュメント＆推奨ハンズオン
+### 4. 参考ドキュメント & 推奨ハンズオン
 
-- **公式ドキュメント**:
-  - [Google Cloud セキュリティの概要](https://cloud.google.com/security)
-  - [Google の責任共有モデル](https://cloud.google.com/architecture/framework/security/shared-responsibility-shared-fate)
-  - [Google Threat Intelligence の概要](https://cloud.google.com/security/products/threat-intelligence)
-- **推奨ハンズオン（Google Skills）**:
-  - [Google Skills 公式学習ポータル](https://www.skills.google/?locale=ja)
-  - [Cloud IAM の基礎: ユーザーロールと権限の管理](https://www.cloudskillsboost.google/focuses/551?parent=catalog)
-  - [Cloud Armor による DDoS 防御とレート制限の構成](https://www.cloudskillsboost.google/focuses/1231?parent=catalog)
-  - [Security Command Center によるリスク検出体験](https://www.cloudskillsboost.google/focuses/1464?parent=catalog)
+#### 公式一次ドキュメント
+- [Google Cloud セキュリティの概要](https://cloud.google.com/security)
+- [Google の責任共有モデル](https://docs.cloud.google.com/architecture/framework/security/shared-responsibility-shared-fate)
+- [Google Threat Intelligence の概要](https://cloud.google.com/security/products/threat-intelligence)
+
+#### 推奨ハンズオン・ラボ（実機検証）
+- [Google Skills 公式学習ポータル](https://www.skills.google/?locale=ja)
+- [Cloud IAM の基礎: ユーザーロールと権限の管理](https://www.skills.google/)
+- [Cloud Armor による DDoS 防御とレート制限の構成](https://www.skills.google/focuses/1231?parent=catalog)
+- [Security Command Center によるリスク検出体験](https://www.skills.google/)
 
 ---
 
@@ -842,7 +847,7 @@ Google の SRE 哲学において最も象徴的な概念が「100% の可用性
 - **結果**: 月末の請求書が届くまで費用超過に気づけないリスクが排除され、想定外の支出が発生した段階で即座に担当チームがリソースを調査・対処できるようになる。
 - **解説**: クラウドは従量課金であるため放置すると高額請求が発生するリスクがありますが、標準の予算アラートはサービスを強制停止させることなく支出の進捗をリアルタイムに把握でき、事後対応ではなくプロアクティブな費用管理を実現できるためです。
 - **参考ドキュメント**:
-  - [予算と予算アラートの設定](https://cloud.google.com/billing/docs/how-to/budgets): クラウド費用の早期警告設計
+  - [予算と予算アラートの設定](https://docs.cloud.google.com/billing/docs/how-to/budgets): クラウド費用の早期警告設計
 
 #### シナリオ 2: リソース階層を用いた開発環境と本番環境の厳格な分離統制
 - **状況**: 金融システムにおいて、開発者がテスト目的で本番用データベースや個人情報を含むリソースを誤って操作・削除することを物理的・論理的に完全に防ぎたい場合
@@ -850,7 +855,7 @@ Google の SRE 哲学において最も象徴的な概念が「100% の可用性
 - **結果**: 開発者がどれだけ自由な権限でテストを行っても本番環境のリソースには一切アクセスできない堅牢な分離構造が実現される。
 - **解説**: 単一のプロジェクト内でリソース名やラベルだけで権限を分けようとすると設定ミスや漏れが生じやすいのに対し、リソース階層におけるプロジェクトおよびフォルダによる分離は、IAM権限および課金境界を完全に独立させるための最も強固なベストプラクティスであるためです。
 - **参考ドキュメント**:
-  - [リソース階層の管理](https://cloud.google.com/resource-manager/docs/cloud-platform-resource-hierarchy): 組織、フォルダ、プロジェクトのベストプラクティス
+  - [リソース階層の管理](https://docs.cloud.google.com/resource-manager/docs/cloud-platform-resource-hierarchy): 組織、フォルダ、プロジェクトのベストプラクティス
 
 #### シナリオ 3: 安定したベースライン負荷に対する確約利用割引の適用
 - **状況**: Webサービス企業において、過去1年間の実績から Compute Engine および Cloud SQL の特定台数のインスタンスが常時24時間365日安定して稼働し続けていることが分かっている場合
@@ -858,7 +863,7 @@ Google の SRE 哲学において最も象徴的な概念が「100% の可用性
 - **結果**: 稼働させる仮想マシンや構成を変更することなく、オンデマンド定価と比較して最大数十パーセントの大幅な月額コスト削減が達成される。
 - **解説**: 変動が激しいワークロードにはオンデマンドやSpot VMが適していますが、今後数年間にわたり継続利用が確実なベースラインインフラに対しては、利用コミットメントを行うことでGoogleから最大の割引率を引き出すことができるためです。
 - **参考ドキュメント**:
-  - [確約利用割引 (CUD) の概要](https://cloud.google.com/docs/cuds): 継続利用コミットメントによるコスト最適化
+  - [確約利用割引 (CUD) の概要](https://docs.cloud.google.com/docs/cuds): 継続利用コミットメントによるコスト最適化
 
 #### シナリオ 4: マイクロサービス群におけるボトルネックAPIの分散追跡
 - **状況**: Eコマースアプリにおいて、ユーザーの購入ボタン押下から完了画面表示までに時折数秒以上の重い遅延が発生しているが、10以上のマイクロサービスが連携しているためどのサービスが原因か特定できない場合
@@ -866,7 +871,7 @@ Google の SRE 哲学において最も象徴的な概念が「100% の可用性
 - **結果**: 各サービスの処理所要時間がウォーターフォールチャートで一目で把握でき、特定の在庫確認APIの外部通信で遅延が発生していることが即座に特定される。
 - **解説**: 単一サーバーのログやCPU監視（Cloud Monitoring）だけでは複数の分散サービスを跨ぐリクエストの因果関係や滞留箇所を特定できませんが、Cloud Trace はリクエスト単位で各サービスの呼び出し時間をエンドツーエンドで追跡・可視化できるためです。
 - **参考ドキュメント**:
-  - [Cloud Trace の概要](https://cloud.google.com/trace/docs/overview): 分散システムのパフォーマンスボトルネック解析
+  - [Cloud Trace の概要](https://docs.cloud.google.com/trace/docs/overview): 分散システムのパフォーマンスボトルネック解析
 
 #### シナリオ 5: SRE におけるエラーバジェットを活用したリリース速度と安定性の両立
 - **状況**: 開発チームは新機能を素早く頻繁にリリースしたいと考えているが、運用チームは障害を恐れてリリースを抑制しようとし、組織内で対立が生じている場合
@@ -882,21 +887,22 @@ Google の SRE 哲学において最も象徴的な概念が「100% の可用性
 - **結果**: ユーザー体験が悪化し始めた段階で早期に問題が検知され、大規模なサービスダウンに至る前に自動修復やキャパシティ増強が実施される。
 - **解説**: 単に「サーバーが生きているか（Ping死活監視）」や「CPU使用率」を見るだけでは、アプリケーション層でのスローダウンやロジックエラー（HTTP 500等）を見逃す危険がありますが、ゴールデンシグナルを監視することでエンドユーザーから見た実際のサービス健全性をダイレクトに評価できるためです。
 - **参考ドキュメント**:
-  - [Cloud Monitoring の概要](https://cloud.google.com/monitoring/docs): メトリクス収集とプロアクティブアラート
+  - [Cloud Monitoring の概要](https://docs.cloud.google.com/monitoring/docs): メトリクス収集とプロアクティブアラート
 
 ---
 
-### 4. 参考ドキュメント＆推奨ハンズオン
+### 4. 参考ドキュメント & 推奨ハンズオン
 
-- **公式ドキュメント**:
-  - [Google Cloud の請求と費用管理](https://cloud.google.com/billing/docs)
-  - [Google Cloud オペレーション スイート (旧 Stackdriver)](https://cloud.google.com/products/operations)
-  - [Google の SRE プラクティス](https://sre.google)
-- **推奨ハンズオン（Google Skills）**:
-  - [Google Skills 公式学習ポータル](https://www.skills.google/?locale=ja)
-  - [Cloud Monitoring によるダッシュボードとアラートの作成](https://www.cloudskillsboost.google/focuses/1057?parent=catalog)
-  - [Cloud Logging によるログ分析とエクスポート](https://www.cloudskillsboost.google/focuses/967?parent=catalog)
-  - [Google Cloud の課金レポートと予算の設定体験](https://www.cloudskillsboost.google/focuses/2794?parent=catalog)
+#### 公式一次ドキュメント
+- [Google Cloud の請求と費用管理](https://docs.cloud.google.com/billing/docs)
+- [Google Cloud オペレーション スイート (旧 Stackdriver)](https://cloud.google.com/products/observability)
+- [Google の SRE プラクティス](https://sre.google)
+
+#### 推奨ハンズオン・ラボ（実機検証）
+- [Google Skills 公式学習ポータル](https://www.skills.google/?locale=ja)
+- [Cloud Monitoring によるダッシュボードとアラートの作成](https://www.skills.google/)
+- [Cloud Logging によるログ分析とエクスポート](https://www.skills.google/focuses/967?parent=catalog)
+- [Google Cloud の課金レポートと予算の設定体験](https://www.skills.google/focuses/2794?parent=catalog)
 
 ---
 

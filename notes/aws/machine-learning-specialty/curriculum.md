@@ -25,12 +25,12 @@ AWS Certified Machine Learning - Specialty (MLS-C01) は、AWS クラウドに�
 
 ## 2. 出題分野（Domain）と出題比率一覧
 
-| ドメイン番号 | 出題分野（Domain） | 出題比率 | 主要対象サービス・技術要素 | ステータス |
-| :--- | :--- | :--- | :--- | :--- |
-| **Domain 1** | データエンジニアリング | 20% | Amazon S3, AWS Glue, Amazon EMR (Hadoop/Spark), Amazon Kinesis Data Streams, Amazon Data Firehose, Amazon Managed Service for Apache Flink, AWS Batch | 完了 |
-| **Domain 2** | 探索的データ分析 | 24% | データサニタイズ（欠損値・外れ値処理）, 特徴量エンジニアリング（One-Hot, ビニング, TF-IDF, PCA）, Amazon SageMaker Ground Truth, 統計分析・可視化（相関, 箱ひげ図, エルボー図） | 完了 |
-| **Domain 3** | モデリング | 36% | SageMaker 組み込みアルゴリズム（XGBoost, Linear Learner, DeepAR, RCF, BlazingText 等）, ハイパーパラメータ最適化 (AMT), 分散学習, モデル評価メトリクス (ROC-AUC, 混同行列, F1, RMSE) | 完了 |
-| **Domain 4** | 機械学習の実装とその運用 | 20% | SageMaker 推論エンドポイント（リアルタイム, バッチ変換, MME, A/Bテスト）, AWS マネージド AI サービス（Rekognition, Comprehend, Transcribe, Polly, Textract, Lex）, CloudWatch, SageMaker Model Monitor, VPC, KMS, IAM | 完了 |
+| ドメイン番号 | 出題分野（Domain） | 出題比率 | 主要対象サービス・技術要素 |
+| :--- | :--- | :--- | :--- |
+| **Domain 1** | データエンジニアリング | 20% | Amazon S3, AWS Glue, Amazon EMR (Hadoop/Spark), Amazon Kinesis Data Streams, Amazon Data Firehose, Amazon Managed Service for Apache Flink, AWS Batch |
+| **Domain 2** | 探索的データ分析 | 24% | データサニタイズ（欠損値・外れ値処理）, 特徴量エンジニアリング（One-Hot, ビニング, TF-IDF, PCA）, Amazon SageMaker Ground Truth, 統計分析・可視化（相関, 箱ひげ図, エルボー図） |
+| **Domain 3** | モデリング | 36% | SageMaker 組み込みアルゴリズム（XGBoost, Linear Learner, DeepAR, RCF, BlazingText 等）, ハイパーパラメータ最適化 (AMT), 分散学習, モデル評価メトリクス (ROC-AUC, 混同行列, F1, RMSE) |
+| **Domain 4** | 機械学習の実装とその運用 | 20% | SageMaker 推論エンドポイント（リアルタイム, バッチ変換, MME, A/Bテスト）, AWS マネージド AI サービス（Rekognition, Comprehend, Transcribe, Polly, Textract, Lex）, CloudWatch, SageMaker Model Monitor, VPC, KMS, IAM |
 
 ---
 

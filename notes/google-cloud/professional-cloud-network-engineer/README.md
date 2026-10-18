@@ -40,7 +40,7 @@ Professional Cloud Network Engineer は、Google Cloud におけるネットワ�
 ### 推奨の勉強法
 
 1. **Google Cloud ネットワークの設計思想（SDN・グローバル VPC）の理解**:
-   Google Cloud のネットワークは、物理ルーターのホップではなくソフトウェアによって制御されています。グローバル VPC、BGP ベースの動的ルーティング（Cloud Router）、アンデレラ（Andromeda）によるフロー制御など、独自の基本原理を体系的に整理します。
+   Google Cloud のネットワークは、物理ルーターのホップではなくソフトウェアによって制御されています。グローバル VPC、BGP ベースの動的ルーティング（Cloud Router）、アンドロメダ（Andromeda）によるフロー制御など、独自の基本原理を体系的に整理します。
 2. **実践シナリオ（状況 / 対応 / 結果 / 解説）による思考プロセスの追体験**:
    各出題セクションに収録された実践シナリオを精読し、「なぜ特定の技術構成が最適解となるのか」「なぜ他の代替案では要件を満たせないのか（全代替案の棄却理由）」を論理的に言語化できるトレーニングを積みます。
 3. **実機コンソール・gcloud CLI によるハンズオン検証**:
@@ -201,60 +201,60 @@ VPC ネイティブクラスタでは、サブネットのプライマリ IP 範
 #### シナリオ 1-1: マルチプロジェクト組織における共有 VPC と IAM 職掌分散の設計
 
 - **状況**: 大規模エンタープライズにおいて、複数の開発チームが個別のプロジェクトでアプリケーションを開発・運用しているが、各プロジェクトで個別に VPC やインターネットゲートウェイを構築した結果、IP アドレス体系の断片化とファイアウォール管理の形骸化が発生している場合
-- **対応**: ネットワーク管理専用のホストプロジェクトを作成して共有 VPC を構築し、各開発チームのプロジェクトをサービスプロジェクトとしてアタッチした上で、中央のネットワーク管理者のみに `roles/compute.networkAdmin` を付与し、各開発チームには自チーム専用サブネットに対する `roles/compute.networkUser` のみを付与する
-- **結果**: ネットワークインフラの集中管理とセキュリティポリシーの一元適用を実現しつつ、開発チームは自律的にインスタンスをデプロイできるようになり、職掌分散（Separation of Duties）が確立される
+- **対応**: ネットワーク管理専用のホストプロジェクトを作成して共有 VPC を構築し、各開発チームのプロジェクトをサービスプロジェクトとしてアタッチした上で、中央のネットワーク管理者のみに `roles/compute.networkAdmin` を付与し、各開発チームには自チーム専用サブネットに対する `roles/compute.networkUser` のみを付与する。
+- **結果**: ネットワークインフラの集中管理とセキュリティポリシーの一元適用を実現しつつ、開発チームは自律的にインスタンスをデプロイできるようになり、職掌分散（Separation of Duties）が確立される。
 - **解説**: 共有 VPC を採用することで、IP アドレスの割り当て、ルーティング、ファイアウォールルール、ハイブリッド接続を一元化できるためです。サービスプロジェクトのチームにプロジェクトレベルのネットワーク管理権限を渡さず、サブネット単位で `roles/compute.networkUser` を付与することにより、他チームのサブネットやネットワーク基盤全体への不正な改変を確実に防止できるためです。各プロジェクトで VPC ピアリングを構築する代替案は、プロジェクト数の増加に伴いメッシュ接続の管理負荷が指数関数的に増大し、推移的ルーティングができない制約からエンタープライズの統合基盤としては不適格です。
 - **参考ドキュメント**:
-  - [共有 VPC の概要](https://cloud.google.com/vpc/docs/shared-vpc?hl=ja): ホストプロジェクトとサービスプロジェクトの概念および IAM 設計ベストプラクティス。
+  - [共有 VPC の概要](https://docs.cloud.google.com/vpc/docs/shared-vpc?hl=ja): ホストプロジェクトとサービスプロジェクトの概念および IAM 設計ベストプラクティス。
 
 #### シナリオ 1-2: IP アドレス枯渇対策としての非 RFC 1918 空間と Private NAT の適用
 
 - **状況**: 社内のオンプレミスデータセンターと Google Cloud を大規模に接続しているが、社内ですでに RFC 1918 プライベート IP アドレス（10.0.0.0/8、172.16.0.0/12、192.168.0.0/16）が完全に枯渇しており、Google Cloud 上に新規展開する大規模な GKE クラスタ用の IP アドレスを確保できない場合
-- **対応**: VPC 内のサブネットおよび GKE の Pod 用セカンダリ範囲として非 RFC 1918 空間（例: 240.0.0.0/4 の Class E や 100.64.0.0/10 の CGNAT 空間）を割り当て、オンプレミスと通信を行う境界に Private NAT（非公開 NAT）を構成して、承認された少数のプライベート IP にアドレス変換して通信を行う
-- **結果**: 既存のオンプレミス IP アドレス空間と一切衝突することなく、数千台規模のコンテナワークロードを Google Cloud 上に展開し、オンプレミスとの双方向通信を確立できる
+- **対応**: VPC 内のサブネットおよび GKE の Pod 用セカンダリ範囲として非 RFC 1918 空間（例: 240.0.0.0/4 の Class E や 100.64.0.0/10 の CGNAT 空間）を割り当て、オンプレミスと通信を行う境界に Private NAT（非公開 NAT）を構成して、承認された少数のプライベート IP にアドレス変換して通信を行う。
+- **結果**: 既存のオンプレミス IP アドレス空間と一切衝突することなく、数千台規模のコンテナワークロードを Google Cloud 上に展開し、オンプレミスとの双方向通信を確立できる。
 - **解説**: Google Cloud の VPC は RFC 1918 以外の IP アドレス範囲をプライベートサブネットとして柔軟に定義できるためです。オンプレミス側のルーティングテーブルやファイアウォールが非 RFC 1918 空間との直接通信を許可しない場合でも、Private NAT（プライベート NAT）を介してオンプレミスが認識可能な正規プライベート IP 範囲に送信元変換（SNAT）することで、既存インフラに影響を与えずに通信を成立させることができるためです。パブリック IP を各コンテナに付与する代替案は、IP 調達コストの肥大化およびセキュリティリスクの観点から要件を満たせません。
 - **参考ドキュメント**:
-  - [サブネットの概要と IPv4 範囲](https://cloud.google.com/vpc/docs/subnets?hl=ja): 非 RFC 1918 空間および使用可能なサブネット範囲の仕様。
-  - [Private NAT の概要](https://cloud.google.com/nat/docs/overview?hl=ja): VPC 間やハイブリッド接続におけるプライベート IP 変換の構成。
+  - [サブネットの概要と IPv4 範囲](https://docs.cloud.google.com/vpc/docs/subnets?hl=ja): 非 RFC 1918 空間および使用可能なサブネット範囲の仕様。
+  - [Private NAT の概要](https://docs.cloud.google.com/nat/docs/overview?hl=ja): VPC 間やハイブリッド接続におけるプライベート IP 変換の構成。
 
 #### シナリオ 1-3: グローバルエンタープライズにおけるプレミアムティアとスタンダードティアのトラフィック最適化設計
 
 - **状況**: グローバル規模で展開する動画配信および Web アプリケーションにおいて、動的な API トラフィックには極限の低遅延と耐障害性が求められる一方、大容量の静的メディアファイルのダウンロード配信ではネットワーク転送コストを大幅に削減したい場合
-- **対応**: API サーバーをホストする外部ロードバランサには「プレミアムティア（Premium Tier）」を適用し、大容量静的コンテンツを配信するストレージ配信エンドポイントには「スタンダードティア（Standard Tier）」を選択してネットワーク階層を分離設計する
-- **結果**: API トラフィックはユーザーの最寄りエッジ PoP から Google の高速グローバルバックボーンを通って低遅延・高品質で処理され、静的ファイル配信はインターネット経由で配信されて大幅なエグレスコスト削減が達成される
+- **対応**: API サーバーをホストする外部ロードバランサには「プレミアムティア（Premium Tier）」を適用し、大容量静的コンテンツを配信するストレージ配信エンドポイントには「スタンダードティア（Standard Tier）」を選択してネットワーク階層を分離設計する。
+- **結果**: API トラフィックはユーザーの最寄りエッジ PoP から Google の高速グローバルバックボーンを通って低遅延・高品質で処理され、静的ファイル配信はインターネット経由で配信されて大幅なエグレスコスト削減が達成される。
 - **解説**: プレミアムティアはユーザーに最も近い Google エッジ PoP でトラフィックを Google の専用光ファイバー網に取り込み、宛先リージョンまで混雑のないプライベートバックボーンを経由させることでジッターとパケットロスを最小化するためです。これに対しスタンダードティアは、宛先リージョン近傍のエッジからパブリックインターネットを経由してトラフィックをルーティングするため、低コストで大容量の送信を行う用途に最適であるためです。すべてをプレミアムティアにする構成はコスト要件を満たせず、すべてをスタンダードティアにする構成は動的 API の SLA 要件を満たせないため不適格です。
 - **参考ドキュメント**:
-  - [ネットワーク サービス層（Network Service Tiers）の概要](https://cloud.google.com/network-tiers/docs/overview?hl=ja): プレミアムティアとスタンダードティアのルーティング差異とコスト比較。
+  - [ネットワーク サービス層（Network Service Tiers）の概要](https://docs.cloud.google.com/network-tiers/docs/overview?hl=ja): プレミアムティアとスタンダードティアのルーティング差異とコスト比較。
 
 #### シナリオ 1-4: 大規模ハイブリッド接続における IP 重複回避と Private Service Connect (PSC) 移行
 
 - **状況**: M&A（企業買収）により統合された子会社の VPC ネットワークにおいて、親会社の VPC と全く同一のサブネット CIDR（10.100.0.0/16）が使用されており、子会社が提供する勘定系 API サービスに親会社から安全にプライベート接続する必要がある場合
-- **対応**: 子会社の VPC 側で勘定系 API の内部ロードバランサの前面に「サービスアタッチメント（Service Attachment）」を構成し、親会社の VPC 側で重複しない IP アドレスを指定して「Private Service Connect (PSC) エンドポイント」をプロビジョニングして接続する
-- **結果**: 両社の VPC 間で IP アドレスの再割り当て（リナンバリング）を行うことなく、親会社側からは単一のプライベート IP エンドポイントとして子会社の API をセキュアに呼び出すことができる
+- **対応**: 子会社の VPC 側で勘定系 API の内部ロードバランサの前面に「サービスアタッチメント（Service Attachment）」を構成し、親会社の VPC 側で重複しない IP アドレスを指定して「Private Service Connect (PSC) エンドポイント」をプロビジョニングして接続する。
+- **結果**: 両社の VPC 間で IP アドレスの再割り当て（リナンバリング）を行うことなく、親会社側からは単一のプライベート IP エンドポイントとして子会社の API をセキュアに呼び出すことができる。
 - **解説**: Private Service Connect はプロデューサーとコンシューマーの VPC 間を独立したカプセル化レイヤ（L4 プロキシ）で中継するため、両者の VPC 内でサブネット CIDR が完全に重複していても一切ルーティングの衝突が発生しないためです。コンシューマー側は自 VPC の空き IP を 1 つ割り当てるだけでエンドポイントを作成でき、プロデューサー側も NAT サブネット経由で安全に通信を受け取れるためです。VPC ネットワークピアリングを利用する代替案は、CIDR 重複時にピアリングの確立自体が Google Cloud の仕様上拒否されるため不適格です。
 - **参考ドキュメント**:
-  - [Private Service Connect の概要](https://cloud.google.com/vpc/docs/private-service-connect?hl=ja): サービスアタッチメントとエンドポイントの動作仕様および IP 重複解決メカニズム。
+  - [Private Service Connect の概要](https://docs.cloud.google.com/vpc/docs/private-service-connect?hl=ja): サービスアタッチメントとエンドポイントの動作仕様および IP 重複解決メカニズム。
 
 #### シナリオ 1-5: GKE プライベートクラスタにおけるセカンダリ CIDR 計画とコントロールプレーン保護
 
 - **状況**: 金融コンプライアンス要件に基づき、GKE クラスタのノードおよび Pod にパブリック IP を一切付与せず、かつ Kubernetes コントロールプレーン（API サーバー）への外部インターネットからのアクセスを遮断する必要がある場合
-- **対応**: VPC ネイティブクラスタを作成し、ノード用のプライマリサブネット範囲と Pod 用および Service 用のセカンダリサブネット範囲を割り当てた上で、「プライベートクラスタ（Private Cluster）」および「プライベートエンドポイント（Private Endpoint）」を有効化し、社内管理ネットワークの CIDR を「承認済みネットワーク（Authorized Networks）」に登録する
-- **結果**: クラスタの全コンポーネントがプライベート IP のみで構成され、インターネットからの攻撃面が完全に排除されるとともに、承認された社内ネットワークからのみ kubectl 操作が可能になる
+- **対応**: VPC ネイティブクラスタを作成し、ノード用のプライマリサブネット範囲と Pod 用および Service 用のセカンダリサブネット範囲を割り当てた上で、「プライベートクラスタ（Private Cluster）」および「プライベートエンドポイント（Private Endpoint）」を有効化し、社内管理ネットワークの CIDR を「承認済みネットワーク（Authorized Networks）」に登録する。
+- **結果**: クラスタの全コンポーネントがプライベート IP のみで構成され、インターネットからの攻撃面が完全に排除されるとともに、承認された社内ネットワークからのみ kubectl 操作が可能になる。
 - **解説**: GKE プライベートクラスタでプライベートエンドポイントを有効にすると、Google が管理する VPC 内のコントロールプレーン VM に対しても外部パブリック IP が割り当てられず、クラスタと Google 管理 VPC 間を結ぶピアリング接続経由の内部 IP のみが提供されるためです。承認済みネットワークを併用することで、社内の踏み台サーバーや社内 LAN の CIDR からのアクセスのみをきめ細かく制限できるためです。パブリックエンドポイントを維持したままファイアウォールルールのみで制御しようとする代替案は、コントロールプレーンが Google 管理 VPC に配置されているため顧客側 VPC のファイアウォールルールが適用されず、セキュリティ要件を満たせません。
 - **参考ドキュメント**:
-  - [プライベート クラスタの作成](https://cloud.google.com/kubernetes-engine/docs/how-to/private-clusters?hl=ja): プライベートエンドポイントおよび承認済みネットワークの構成ガイド。
+  - [プライベート クラスタの作成](https://docs.cloud.google.com/kubernetes-engine/docs/how-to/latest/network-isolation?hl=ja): プライベートエンドポイントおよび承認済みネットワークの構成ガイド。
 
 ---
 
 ### 4. 参考ドキュメント & 推奨ハンズオン
 
 #### 公式一次ドキュメント
-- [Google Cloud Architecture Framework: ネットワーキング](https://cloud.google.com/architecture/framework/system-design/networking?hl=ja): システム設計におけるネットワーク原則とベストプラクティス。
-- [VPC ネットワークの仕様とクォータ](https://cloud.google.com/vpc/docs/vpc?hl=ja): グローバル VPC、サブネット、ルートの制約事項。
-- [GKE ネットワーキングの概要](https://cloud.google.com/kubernetes-engine/docs/concepts/network-overview?hl=ja): VPC ネイティブ、エイリアス IP、IPAM の設計ガイド。
+- [Google Cloud Architecture Framework: ネットワーキング](https://docs.cloud.google.com/architecture/landing-zones/decide-network-design?hl=ja): システム設計におけるネットワーク原則とベストプラクティス。
+- [VPC ネットワークの仕様とクォータ](https://docs.cloud.google.com/vpc/docs/vpc?hl=ja): グローバル VPC、サブネット、ルートの制約事項。
+- [GKE ネットワーキングの概要](https://docs.cloud.google.com/kubernetes-engine/docs/concepts/network-overview?hl=ja): VPC ネイティブ、エイリアス IP、IPAM の設計ガイド。
 
 #### 推奨ハンズオン・ラボ（実機検証）
-- [Build and Secure Networks in Google Cloud (Skill Badge)](https://www.cloudskillsboost.google/quests/128):
+- [Build and Secure Networks in Google Cloud (Skill Badge)](https://www.skills.google/course_templates/641):
   - **学習目標**: 共有 VPC のプロビジョニング、サブネットの構成、IAM 権限の委託、および内部 DNS による名前解決をコンソールと CLI で実機検証。
 
 ---
@@ -320,59 +320,59 @@ VPC ネイティブクラスタでは、サブネットのプライマリ IP 範
 #### シナリオ 2-1: 稼働中サブネットの無停止 CIDR 拡張とサービスプロジェクト共有
 
 - **状況**: 本番環境の共有 VPC において、サービスプロジェクト内の GKE ノード数急増に伴いサブネット（10.10.0.0/24）の利用可能プライベート IP アドレスが残り 3 個となり、早急にアドレス空間を 4 倍（/22）に拡張する必要がある場合
-- **対応**: 既存のサブネットと連続する空きアドレス空間を確認した上で、Google Cloud コンソールまたは gcloud CLI から当該サブネットのプライマリ IP 範囲を `10.10.0.0/22` に直接更新し、サービスプロジェクト側の設定変更なしで稼働を継続させる
-- **結果**: 稼働中の仮想マシンや GKE ノードを一切再起動・停止させることなく、サブネットの収容可能ホスト数を即座に 250 台から 1,020 台へと拡張できる
+- **対応**: 既存のサブネットと連続する空きアドレス空間を確認した上で、Google Cloud コンソールまたは gcloud CLI から当該サブネットのプライマリ IP 範囲を `10.10.0.0/22` に直接更新し、サービスプロジェクト側の設定変更なしで稼働を継続させる。
+- **結果**: 稼働中の仮想マシンや GKE ノードを一切再起動・停止させることなく、サブネットの収容可能ホスト数を即座に 250 台から 1,020 台へと拡張できる。
 - **解説**: Google Cloud VPC のサブネットは、プレフィックス長を短くする（マスクを広げる）方向の拡張であれば、既存リソースの通信を中断することなくオンラインで即座に実行できる仕様となっているためです。新規サブネットを作成して VM を移行する代替案は、IP アドレスの変更に伴うダウンタイムやサービスプロジェクト側の再設定が発生するため不適格です。また、サブネットを一旦削除して再作成するアプローチは既存リソースが存在する限り削除が拒否されるため実行不可能です。
 - **参考ドキュメント**:
-  - [サブネットの変更と拡張](https://cloud.google.com/vpc/docs/subnets?hl=ja): サブネット IP 範囲のオンライン拡張手順と制約事項。
+  - [サブネットの変更と拡張](https://docs.cloud.google.com/vpc/docs/subnets?hl=ja): サブネット IP 範囲のオンライン拡張手順と制約事項。
 
 #### シナリオ 2-2: マルチ NIC NVA クラスタへのトラフィック誘導とポリシーベースルート（PBR）の実装
 
 - **状況**: エンタープライズの VPC 内において、一般的なデータベース通信や内部 API 通信は直接ルーティングさせつつ、インターネット向けのアウトバウンド HTTP/HTTPS トラフィック（TCP 80/443）のみをサードパーティ製プロキシ検査 NVA クラスタへ強制転送したい場合
-- **対応**: 検査対象のサブネットをスコープとして、プロトコルを `TCP`、宛先ポートを `80, 443`、宛先 IP を `0.0.0.0/0` と指定したポリシーベースルート（PBR）を作成し、ネクストホップとして NVA の前面に配置した内部パススルーロードバランサ（ILB）を指定する
-- **結果**: 通常のデフォルトルート（0.0.0.0/0 -> デフォルトインターネットゲートウェイ）を維持したまま、Web トラフィックのみが確実に NVA へ迂回・検査され、不要な通信の NVA 負荷集中を防止できる
+- **対応**: 検査対象のサブネットをスコープとして、プロトコルを `TCP`、宛先ポートを `80, 443`、宛先 IP を `0.0.0.0/0` と指定したポリシーベースルート（PBR）を作成し、ネクストホップとして NVA の前面に配置した内部パススルーロードバランサ（ILB）を指定する。
+- **結果**: 通常のデフォルトルート（0.0.0.0/0 -> デフォルトインターネットゲートウェイ）を維持したまま、Web トラフィックのみが確実に NVA へ迂回・検査され、不要な通信の NVA 負荷集中を防止できる。
 - **解説**: ポリシーベースルート（PBR）は、通常の宛先 IP に基づくルーティングテーブルの評価よりも優先され、L4 属性（送信元 IP、プロトコル、宛先ポート）に基づいてネクストホップをオーバーライドできるためです。ネクストホップに ILB を指定することで、複数台の NVA 間での負荷分散とヘルスチェックによる自動フェイルオーバーが両立できるためです。通常の静的ルートで 0.0.0.0/0 を NVA に向ける代替案では、SSH や内部通信など検査不要な全トラフィックまで NVA に吸い込まれてしまい、アプライアンスの帯域枯渇や不要な障害リスクを招くため不適格です。
 - **参考ドキュメント**:
-  - [ポリシーベース ルートの概要](https://cloud.google.com/vpc/docs/policy-based-routes?hl=ja): PBR のマッチング条件とネクストホップ ILB の構成。
+  - [ポリシーベース ルートの概要](https://docs.cloud.google.com/vpc/docs/policy-based-routes?hl=ja): PBR のマッチング条件とネクストホップ ILB の構成。
 
 #### シナリオ 2-3: ネクストホップ内部ロードバランサ（ILB）を用いた高可用性アウトバウンドトラフィック検査
 
 - **状況**: 複数のゾーンにまたがる複数台の Palo Alto や Fortinet などのファイアウォール NVA インスタンスを冗長配置しているが、アクティブ機が障害を起こした際にセッションの中断を最小限に抑え、ダウンタイムなしでトラフィックをスタンバイ機に切り替えたい場合
-- **対応**: NVA インスタンスのグループをバックエンドとする内部パススルーネットワークロードバランサを作成し、VPC のカスタム静的ルートのネクストホップとしてこの内部ロードバランサ（`--next-hop-ilb`）を指定する
-- **結果**: ロードバランサが各 NVA の健全性を常時ヘルスチェックし、障害発生時には異常なインスタンスへのパケット転送をミリ秒単位で停止して正常な NVA に自動フェイルオーバーできる
+- **対応**: NVA インスタンスのグループをバックエンドとする内部パススルーネットワークロードバランサを作成し、VPC のカスタム静的ルートのネクストホップとしてこの内部ロードバランサ（`--next-hop-ilb`）を指定する。
+- **結果**: ロードバランサが各 NVA の健全性を常時ヘルスチェックし、障害発生時には異常なインスタンスへのパケット転送をミリ秒単位で停止して正常な NVA に自動フェイルオーバーできる。
 - **解説**: Google Cloud の内部ロードバランサは SDN コントロールプレーンによって完全に仮想化されており、ロードバランサ自身が単一障害点（SPOF）にならないためです。ルートのネクストホップに ILB を指定する機能（Next-Hop ILB）により、従来のオンプレミスのような VRRP や Keepalived、ルーティングテーブル書き換えスクリプトが一切不要となり、完全なアクティブ/アクティブまたはアクティブ/スタンバイの高可用性ルーティングが実現できるためです。個別 VM インスタンスを直接ネクストホップに指定する代替案は、その VM がダウンした際にルートが無効化されず通信がブラックホール化するため不適格です。
 - **参考ドキュメント**:
-  - [内部パススルー ロードバランサをネクストホップとして使用する](https://cloud.google.com/load-balancing/docs/internal/ilb-next-hop-overview?hl=ja): 高可用性 NVA デプロイメントの標準アーキテクチャ。
+  - [内部パススルー ロードバランサをネクストホップとして使用する](https://docs.cloud.google.com/load-balancing/docs/internal/ilb-next-hop-overview?hl=ja): 高可用性 NVA デプロイメントの標準アーキテクチャ。
 
 #### シナリオ 2-4: Network Connectivity Center (NCC) VPC スポークによるフルメッシュ VPC 接続
 
 - **状況**: 社内で事業部ごとに分離された 15 個の VPC ネットワークが存在し、すべての VPC 間で相互にプライベート通信を行う必要があるが、VPC ピアリングではピアリング上限数や推移的ルーティング不可の制約によりメッシュ構成の維持が限界に達している場合
-- **対応**: Network Connectivity Center（NCC）ハブを作成し、各 VPC を「VPC スポーク（VPC Spoke）」としてハブにアタッチし、必要に応じて CIDR 範囲フィルタを構成してルート交換を確立する
-- **結果**: 各 VPC 間で 1 対 1 のピアリングを個別に結ぶことなく、NCC ハブを介してすべての VPC 間で透過的なフルメッシュのルーティングと推移的通信が確立される
+- **対応**: Network Connectivity Center（NCC）ハブを作成し、各 VPC を「VPC スポーク（VPC Spoke）」としてハブにアタッチし、必要に応じて CIDR 範囲フィルタを構成してルート交換を確立する。
+- **結果**: 各 VPC 間で 1 対 1 のピアリングを個別に結ぶことなく、NCC ハブを介してすべての VPC 間で透過的なフルメッシュのルーティングと推移的通信が確立される。
 - **解説**: NCC VPC スポーク機能により、ハブに登録された VPC 同士の間で自動的にサブネットルートが伝播され、従来の VPC ピアリングの最大の制約であった「推移的ルーティングの不可」を解消して大規模なメッシュネットワークを一元管理できるためです。スポークごとに CIDR フィルタを適用することで、意図しないサブネットの公開も防ぐことができます。VPC ピアリングを総当たりで作成する代替案は、接続数が N*(N-1)/2 で爆発的に増加し、管理負荷とクォータ制限の観点から破綻するため不適格です。
 - **参考ドキュメント**:
-  - [Network Connectivity Center の VPC スポークの概要](https://cloud.google.com/network-connectivity/docs/network-connectivity-center/concepts/vpc-spokes-overview?hl=ja): NCC によるマルチ VPC 相互接続のアーキテクチャ。
+  - [Network Connectivity Center の VPC スポークの概要](https://docs.cloud.google.com/network-connectivity/docs/network-connectivity-center/concepts/vpc-spokes-overview?hl=ja): NCC によるマルチ VPC 相互接続のアーキテクチャ。
 
 #### シナリオ 2-5: GKE Dataplane V2 と IP マスカレードエージェントによるオンプレミス通信の最適化
 
 - **状況**: オンプレミスデータセンターと接続された VPC 上で GKE クラスタを運用しているが、オンプレミスのファイアウォールは Pod のセカンダリ IP 範囲を認識できず、パケットが拒否されてしまうため、オンプレミス宛ての通信のみ送信元を GKE ノードのプライマリ IP に変換（SNAT）したい場合
-- **対応**: GKE クラスタで Dataplane V2 を有効化した上で、IP マスカレードエージェント（`ip-masq-agent`）の ConfigMap を編集し、オンプレミス宛てのサブネット CIDR をマスカレード除外リスト（`nonMasqueradeCIDRs`）から削除（＝マスカレード対象に設定）する
-- **結果**: 同一 VPC 内の通信では Pod の固有 IP が維持されてエンドツーエンドの可視性が保たれ、オンプレミス宛ての通信のみノードの IP アドレスに自動マスカレード（SNAT）されてファイアウォールを正常に通過する
+- **対応**: GKE クラスタで Dataplane V2 を有効化した上で、IP マスカレードエージェント（`ip-masq-agent`）の ConfigMap を編集し、オンプレミス宛てのサブネット CIDR をマスカレード除外リスト（`nonMasqueradeCIDRs`）から削除（＝マスカレード対象に設定）する。
+- **結果**: 同一 VPC 内の通信では Pod の固有 IP が維持されてエンドツーエンドの可視性が保たれ、オンプレミス宛ての通信のみノードの IP アドレスに自動マスカレード（SNAT）されてファイアウォールを正常に通過する。
 - **解説**: デフォルトの GKE では RFC 1918 空間宛てのトラフィックはマスカレード（SNAT）されず Pod IP のまま送信されますが、IP マスカレードエージェントの `nonMasqueradeCIDRs` をカスタマイズすることで、特定の宛先 CIDR に対してのみ SNAT を強制できるためです。Dataplane V2 の環境では eBPF によってカーネルレベルで高速に NAT 処理が行われるため、高スループットを維持できます。クラスタ全体に NAT ゲートウェイを設置する代替案は、不要なホップとコストが発生し、同一 VPC 内の Pod 単位ロギングまで損なわれるため不適格です。
 - **参考ドキュメント**:
-  - [IP マスカレード エージェントの構成](https://cloud.google.com/kubernetes-engine/docs/how-to/ip-masquerade-agent?hl=ja): GKE における SNAT 動作の制御と ConfigMap 設定。
+  - [IP マスカレード エージェントの構成](https://docs.cloud.google.com/kubernetes-engine/docs/how-to/ip-masquerade-agent?hl=ja): GKE における SNAT 動作の制御と ConfigMap 設定。
 
 ---
 
 ### 4. 参考ドキュメント & 推奨ハンズオン
 
 #### 公式一次ドキュメント
-- [VPC ルーティングのドキュメント](https://cloud.google.com/vpc/docs/routes?hl=ja): 静的ルート、動的ルート、ルーティング優先度の計算ロジック。
-- [Cloud Router の概要](https://cloud.google.com/network-connectivity/docs/router?hl=ja): BGP 動作、ルートアドバタイズ、ルーティングモード。
-- [GKE Dataplane V2 の概要](https://cloud.google.com/kubernetes-engine/docs/concepts/dataplane-v2?hl=ja): eBPF によるネットワーク仮想化とセキュリティ。
+- [VPC ルーティングのドキュメント](https://docs.cloud.google.com/vpc/docs/routes?hl=ja): 静的ルート、動的ルート、ルーティング優先度の計算ロジック。
+- [Cloud Router の概要](https://docs.cloud.google.com/network-connectivity/docs/router?hl=ja): BGP 動作、ルートアドバタイズ、ルーティングモード。
+- [GKE Dataplane V2 の概要](https://docs.cloud.google.com/kubernetes-engine/docs/concepts/dataplane-v2?hl=ja): eBPF によるネットワーク仮想化とセキュリティ。
 
 #### 推奨ハンズオン・ラボ（実機検証）
-- [Network Performance and Optimization (Skill Badge)](https://www.cloudskillsboost.google/quests/156):
+- [Network Performance and Optimization (Skill Badge)](https://www.skills.google/paths/13):
   - **学習目標**: 内部ロードバランサをネクストホップとする静的ルーティング、マルチ VPC 環境でのルーティング制御、およびスループット最適化の実機検証。
 
 ---
@@ -444,60 +444,60 @@ Google Cloud のロードバランサは、Maglev（分散パケットディス�
 #### シナリオ 3-1: グローバル外部 ALB とクロスリージョンバックエンドフェイルオーバー・重み付けカナリアリリース
 
 - **状況**: グローバル規模で稼働する E コマース Web アプリケーションにおいて、新バージョンのバックエンドサービスを本番投入する際、東京リージョンの全ユーザーのうち 5% のみに新バージョンをルーティングし、重大なエラーが発生した場合は即座にアイオワリージョンの旧バージョンへ自動フェイルオーバーさせたい場合
-- **対応**: グローバル外部アプリケーションロードバランサの URL マップにおいて、トラフィック分割（Traffic Splitting）ルールを設定して新旧サービスに 5:95 の重み付け（Weight）を指定し、バックエンドサービスの容量設定（Capacity Scaler）とヘルスチェックを組み合わせてリージョン障害時の自動フェイルオーバーを構成する
-- **結果**: DNS の切り替えを伴うことなく、ロードバランサ層で安全なカナリアリリースが実行され、リージョン規模の過負荷や障害時には別リージョンへミリ秒単位でトラフィックが自動迂回される
+- **対応**: グローバル外部アプリケーションロードバランサの URL マップにおいて、トラフィック分割（Traffic Splitting）ルールを設定して新旧サービスに 5:95 の重み付け（Weight）を指定し、バックエンドサービスの容量設定（Capacity Scaler）とヘルスチェックを組み合わせてリージョン障害時の自動フェイルオーバーを構成する。
+- **結果**: DNS の切り替えを伴うことなく、ロードバランサ層で安全なカナリアリリースが実行され、リージョン規模の過負荷や障害時には別リージョンへミリ秒単位でトラフィックが自動迂回される。
 - **解説**: グローバル外部アプリケーションロードバランサの URL マップは、高度なトラフィック管理機能（加重ルーティング、URL リライト、リダイレクト、耐障害性フェイルオーバー）を Envoy プロキシ層で直接実行できるためです。クライアントの最寄りの PoP でトラフィックをハンドリングするため、DNS キャッシュの有効期限（TTL）に依存することなく、設定変更が世界中のエッジで即時に反映されるためです。DNS レコードの重み付けでカナリアリリースを行う代替案は、クライアント側の DNS キャッシュによって切り替えに数分〜数時間の遅延が生じ、障害時の即時ロールバックが不可能なため不適格です。
 - **参考ドキュメント**:
-  - [高度なトラフィック管理の概要](https://cloud.google.com/load-balancing/docs/features?hl=ja): URL マップによるトラフィック分割とカナリアリリースの設定。
+  - [高度なトラフィック管理の概要](https://docs.cloud.google.com/load-balancing/docs/features?hl=ja): URL マップによるトラフィック分割とカナリアリリースの設定。
 
 #### シナリオ 3-2: GKE Gateway API を用いたマルチクラスタロードバランシングとパスベースルーティング
 
 - **状況**: 複数の GKE クラスタ（東京リージョンと大阪リージョン）にまたがってマイクロサービスがデプロイされており、インフラ管理者が一元的にロードバランサのグローバル IP と SSL 証明書を管理しつつ、各アプリ開発チームが自律的に URL パス（`/cart/*`, `/payment/*`）のルーティングルールを更新できるようにしたい場合
-- **対応**: GKE Gateway Controller を有効化し、インフラ管理者が単一の `Gateway` リソース（クラス: `gke-l7-gxlb-mc`）を作成して共有 IP と証明書を定義し、各開発チームにはそれぞれのネームスペース内で `HTTPRoute` リソースを作成させてパスベースのルーティングを定義させる
-- **結果**: クラスタを横断したマルチクラスタロードバランシングが実現し、インフラ管理者とアプリ開発者の関心の分離（Separation of Concerns）が Kubernetes ネイティブなマニフェストで完全に確立される
+- **対応**: GKE Gateway Controller を有効化し、インフラ管理者が単一の `Gateway` リソース（クラス: `gke-l7-gxlb-mc`）を作成して共有 IP と証明書を定義し、各開発チームにはそれぞれのネームスペース内で `HTTPRoute` リソースを作成させてパスベースのルーティングを定義させる。
+- **結果**: クラスタを横断したマルチクラスタロードバランシングが実現し、インフラ管理者とアプリ開発者の関心の分離（Separation of Concerns）が Kubernetes ネイティブなマニフェストで完全に確立される。
 - **解説**: GKE Gateway API は従来の Ingress の単一管理モデルの制約を克服し、Gateway（インフラ所有者）と HTTPRoute（アプリケーション所有者）を分離して異なる RBAC 権限で管理できるように設計された Kubernetes の次世代標準であるためです。マルチクラスタ Gateway コントローラ（`gke-l7-gxlb-mc`）を使用することで、複数クラスタの Pod に対してコンテナネイティブな負荷分散が自動構成されるためです。従来の Ingress を各クラスタで個別にデプロイする代替案は、クラスタごとに個別の外部 IP が払い出され、外部での統合 DNS 制御が必要となり管理が著しく複雑化するため不適格です。
 - **参考ドキュメント**:
-  - [GKE Gateway コントローラの概要](https://cloud.google.com/kubernetes-engine/docs/concepts/gateway-api?hl=ja): Gateway API リソースモデルとマルチクラスタ構成。
+  - [GKE Gateway コントローラの概要](https://docs.cloud.google.com/kubernetes-engine/docs/concepts/gateway-api?hl=ja): Gateway API リソースモデルとマルチクラスタ構成。
 
 #### シナリオ 3-3: 外部インターネット NEG をバックエンドとする Cloud CDN キャッシュ高速化と署名付き URL 認可配信
 
 - **状況**: オンプレミスデータセンターで稼働するオブジェクトストレージ上に有料会員向けの動画コンテンツが保存されており、オンプレミスの回線帯域を圧迫することなく世界中の会員へ高速配信しつつ、非会員による不正アクセスを防止したい場合
-- **対応**: グローバル外部アプリケーションロードバランサのバックエンドとして「インターネット NEG（Internet NEG）」を構成してオンプレミスの FQDN を登録し、Cloud CDN を有効化した上で、バックエンドサービスに署名キー（Cache Key）を登録して「署名付き URL（Signed URLs）」によるアクセス制限を適用する
-- **結果**: 動画データは Google のグローバルエッジキャッシュから高速配信されてオンプレミス回線の負荷が 90% 以上削減され、有効な暗号署名を持つリクエストのみがキャッシュヒットまたはオリジンへ転送される
+- **対応**: グローバル外部アプリケーションロードバランサのバックエンドとして「インターネット NEG（Internet NEG）」を構成してオンプレミスの FQDN を登録し、Cloud CDN を有効化した上で、バックエンドサービスに署名キー（Cache Key）を登録して「署名付き URL（Signed URLs）」によるアクセス制限を適用する。
+- **結果**: 動画データは Google のグローバルエッジキャッシュから高速配信されてオンプレミス回線の負荷が 90% 以上削減され、有効な暗号署名を持つリクエストのみがキャッシュヒットまたはオリジンへ転送される。
 - **解説**: インターネット NEG を使用することで、Google Cloud 外部のオンプレミスや他社クラウドのエンドポイントをロードバランサおよび Cloud CDN のバックエンドとして透過的に統合できるためです。Cloud CDN の署名付き URL 機能を有効にすることで、アプリケーションサーバーが生成した期限付き署名トークンをエッジ PoP が直接検証し、未認可リクエストをオリジンに到達させることなくエッジで即座に遮断（403 Forbidden）できるためです。オンプレミスの Web サーバーで全リクエストの認証と配信を行う代替案は、回線帯域の枯渇とサーバー負荷の増大を招くため要件を満たせません。
 - **参考ドキュメント**:
-  - [インターネット ネットワーク エンドポイント グループの概要](https://cloud.google.com/load-balancing/docs/negs/internet-neg-concepts?hl=ja): 外部オリジンの Cloud CDN 統合。
-  - [署名付き URL の使用](https://cloud.google.com/cdn/docs/using-signed-urls?hl=ja): Cloud CDN での署名付き URL 生成と検証。
+  - [インターネット ネットワーク エンドポイント グループの概要](https://docs.cloud.google.com/load-balancing/docs/negs/internet-neg-concepts?hl=ja): 外部オリジンの Cloud CDN 統合。
+  - [署名付き URL の使用](https://docs.cloud.google.com/cdn/docs/using-signed-urls?hl=ja): Cloud CDN での署名付き URL 生成と検証。
 
 #### シナリオ 3-4: ハイブリッド DNS 解決のためのスプリットホライズン DNS とインバウンド/アウトバウンド転送ポリシー
 
 - **状況**: 企業が自社のプライベートドメイン（`corp.example.com`）をオンプレミスの Active Directory / BIND サーバーで運用しており、Google Cloud 上の VPC 内インスタンスからオンプレミスの社内ホストを名前解決できるようにし、同時にオンプレミス側からも Google Cloud の内部プライベート DNS ゾーン（`gcp.example.com`）を相互に名前解決できるようにしたい場合
-- **対応**: Cloud DNS で受信サーバーポリシー（Inbound Server Policy）を作成して VPC のサブネットから受信用 IP アドレスを確保し、オンプレミス DNS 側に `gcp.example.com` の条件付きフォワーダーを設定する。さらに Cloud DNS 側で `corp.example.com` に対する「転送ゾーン（Forwarding Zone）」を作成し、ネクストホップにオンプレミス DNS サーバーのプライベート IP を指定する
-- **結果**: オンプレミスと Google Cloud の双方向でプライベートな名前解決が完全に透過的に機能し、社内システム間のシームレスな通信が確立される
+- **対応**: Cloud DNS で受信サーバーポリシー（Inbound Server Policy）を作成して VPC のサブネットから受信用 IP アドレスを確保し、オンプレミス DNS 側に `gcp.example.com` の条件付きフォワーダーを設定する。さらに Cloud DNS 側で `corp.example.com` に対する「転送ゾーン（Forwarding Zone）」を作成し、ネクストホップにオンプレミス DNS サーバーのプライベート IP を指定する。
+- **結果**: オンプレミスと Google Cloud の双方向でプライベートな名前解決が完全に透過的に機能し、社内システム間のシームレスな通信が確立される。
 - **解説**: Cloud DNS のインバウンドサーバーポリシーにより、VPC 内に専用のフォワーダー IP アドレスが払い出され、オンプレミスからの DNS クエリをプライベート接続（VPN / Interconnect）経由で直接受け取ることができるためです。また、転送ゾーンを使用することで、特定ドメイン宛てのクエリのみをオンプレミス DNS サーバーへ条件付き転送できるためです。Compute Engine 上に BIND や Dnsmasq の DNS プロキシ VM を自前で冗長構築する代替案は、運用のオーバーヘッドが大きく、パッチ適用や高可用性管理の負担が増大するため不適格です。
 - **参考ドキュメント**:
-  - [DNS サーバー ポリシーの適用](https://cloud.google.com/dns/docs/server-policies-overview?hl=ja): インバウンドおよびアウトバウンド転送ポリシーの構成。
+  - [DNS サーバー ポリシーの適用](https://docs.cloud.google.com/dns/docs/server-policies-overview?hl=ja): インバウンドおよびアウトバウンド転送ポリシーの構成。
 
 #### シナリオ 3-5: Cloud DNS 地理位置情報（Geolocation）ルーティングとヘルスチェック連動フェイルオーバー
 
 - **状況**: グローバルに展開するマルチリージョン Web サービスにおいて、アジアのユーザーには東京リージョンのエンドポイントを、欧州のユーザーにはフランクフルトリージョンのエンドポイントを DNS レベルで返却し、かつ特定リージョンの全エンドポイントがダウンした際には他方の健全なリージョンへ自動で DNS フェイルオーバーさせたい場合
-- **対応**: Cloud DNS のパブリックゾーンにおいて、ルーティングポリシーとして「地理位置情報ルーティングポリシー（Geolocation Policy）」を構成し、各大陸・国コードに対してターゲット IP を紐付けるとともに、各エンドポイントに Cloud Monitoring ヘルスチェックをバインドしてヘルスチェック連動フェイルオーバーを有効化する
-- **結果**: ユーザーは常に地理的に最も近いリージョンに誘導されてレイテンシが最小化され、特定リージョンで障害が発生した場合はヘルスチェックが異常を検知して健全なリージョンの IP のみが動的に DNS 応答される
+- **対応**: Cloud DNS のパブリックゾーンにおいて、ルーティングポリシーとして「地理位置情報ルーティングポリシー（Geolocation Policy）」を構成し、各大陸・国コードに対してターゲット IP を紐付けるとともに、各エンドポイントに Cloud Monitoring ヘルスチェックをバインドしてヘルスチェック連動フェイルオーバーを有効化する。
+- **結果**: ユーザーは常に地理的に最も近いリージョンに誘導されてレイテンシが最小化され、特定リージョンで障害が発生した場合はヘルスチェックが異常を検知して健全なリージョンの IP のみが動的に DNS 応答される。
 - **解説**: Cloud DNS のルーティングポリシー機能は、従来の静的 A レコードとは異なり、クエリの送信元 IP の GeoIP 情報に基づいて最適な IP を動的に返却できるためです。さらにヘルスチェックと統合することで、エンドポイントの死活監視結果を DNS 応答にリアルタイムに反映し、トラフィックを自動的に健全なバックエンドへ誘導できるためです。外部のサードパーティ DNS サービスを併用する代替案は、Google Cloud 内のリソースヘルスチェックとのネイティブ統合ができず、管理の一元性を損なうため不適格です。
 - **参考ドキュメント**:
-  - [DNS ルーティング ポリシーの管理](https://cloud.google.com/dns/docs/routing-policies-overview?hl=ja): 位置情報ポリシーとヘルスチェック連動フェイルオーバーの構成。
+  - [DNS ルーティング ポリシーの管理](https://docs.cloud.google.com/dns/docs/routing-policies-overview?hl=ja): 位置情報ポリシーとヘルスチェック連動フェイルオーバーの構成。
 
 ---
 
 ### 4. 参考ドキュメント & 推奨ハンズオン
 
 #### 公式一次ドキュメント
-- [Cloud Load Balancing の概要](https://cloud.google.com/load-balancing/docs?hl=ja): 各種ロードバランサの機能比較とアーキテクチャ。
-- [Cloud CDN の概要](https://cloud.google.com/cdn/docs/overview?hl=ja): キャッシュ動作、オリジン設定、セキュリティ機能。
-- [Cloud DNS の概要](https://cloud.google.com/dns/docs/overview?hl=ja): プライベート/パブリックゾーン、ルーティングポリシー、DNSSEC。
+- [Cloud Load Balancing の概要](https://docs.cloud.google.com/load-balancing/docs?hl=ja): 各種ロードバランサの機能比較とアーキテクチャ。
+- [Cloud CDN の概要](https://docs.cloud.google.com/cdn/docs/overview?hl=ja): キャッシュ動作、オリジン設定、セキュリティ機能。
+- [Cloud DNS の概要](https://docs.cloud.google.com/dns/docs/overview?hl=ja): プライベート/パブリックゾーン、ルーティングポリシー、DNSSEC。
 
 #### 推奨ハンズオン・ラボ（実機検証）
-- [Network Performance and Optimization (Skill Badge)](https://www.cloudskillsboost.google/quests/156):
+- [Network Performance and Optimization (Skill Badge)](https://www.skills.google/paths/13):
   - **学習目標**: グローバル外部アプリケーションロードバランサの作成、URL マップによるパスベースルーティング、および Cloud CDN の有効化とキャッシュ動作検証。
 
 ---
@@ -572,60 +572,60 @@ Cloud Interconnect（Dedicated、Partner、Cross-Cloud）、HA-VPN（高可用�
 #### シナリオ 4-1: 金融機関向け 99.99% 高可用性 Dedicated Interconnect の設計と BGP 優先度制御
 
 - **状況**: 大手金融機関において、オンプレミスのプライマリデータセンター（東京）およびディザスタリカバリデータセンター（大阪）と Google Cloud 間を Dedicated Interconnect で接続し、いかなる単一障害や計画メンテナンスでも通信が途絶しない 99.99% SLA を達成するアーキテクチャを構築したい場合
-- **対応**: 東京と大阪の 2 つの異なるメトロ（都市）のコロケーション施設において、それぞれ 2 つのエッジルーター（ゾーン）から合計 4 つの Dedicated Interconnect 接続と VLAN アタッチメントをプロビジョニングし、2 つの Cloud Router との間で BGP ピアリングを構成した上で、BGP MED とルート優先度を用いて東京側をアクティブ、大阪側をスタンバイとする経路優先度を設定する
-- **結果**: Google Cloud の 99.99% 可用性 SLA 基準を完全に満たすインフラが構築され、東京メトロ全体が被災した場合でも大阪側の回線へ無停止で自動フェイルオーバーされる
+- **対応**: 東京と大阪の 2 つの異なるメトロ（都市）のコロケーション施設において、それぞれ 2 つのエッジルーター（ゾーン）から合計 4 つの Dedicated Interconnect 接続と VLAN アタッチメントをプロビジョニングし、2 つの Cloud Router との間で BGP ピアリングを構成した上で、BGP MED とルート優先度を用いて東京側をアクティブ、大阪側をスタンバイとする経路優先度を設定する。
+- **結果**: Google Cloud の 99.99% 可用性 SLA 基準を完全に満たすインフラが構築され、東京メトロ全体が被災した場合でも大阪側の回線へ無停止で自動フェイルオーバーされる。
 - **解説**: Google Cloud が 99.99% の SLA を保証するためには、**2 つの異なるメトロ（都市）**に配置された機器を利用し、各メトロ内で 2 つの独立したドメイン（計 4 本の接続）を冗長化することが必須要件として定められているためです。単一メトロ内で 4 本の接続を引いても 99.9% SLA しか得られません。また、BGP MED を適切に設定することで、通常時は低遅延な東京回線にトラフィックを集中させ、障害時のみ大阪回線へ自動迂回させることができるためです。
 - **参考ドキュメント**:
-  - [Dedicated Interconnect の 99.99% 可用性の確立](https://cloud.google.com/network-connectivity/docs/interconnect/concepts/overview?hl=ja): 4 本構成のトポロジ要件と Cloud Router 設計。
+  - [Dedicated Interconnect の 99.99% 可用性の確立](https://docs.cloud.google.com/network-connectivity/docs/interconnect/concepts/overview?hl=ja): 4 本構成のトポロジ要件と Cloud Router 設計。
 
 #### シナリオ 4-2: Interconnect 上の IPsec 暗号化要件を満たす HA-VPN over Cloud Interconnect の構築
 
 - **状況**: 医療関連の規制（HIPAA 等）により、クラウドとオンプレミス間のすべての通信データに対してネットワーク層での IPsec 暗号化が義務付けられているが、同時に 5 Gbps 以上のスループットが必要であり、パブリックインターネット経由の VPN では帯域幅と品質が不足する場合
-- **対応**: 専用線である Dedicated Interconnect（または Partner Interconnect）回線をプロビジョニングし、その回線上に暗号化されていない通常のトラフィックを流すのではなく、Interconnect のプライベート接続をアンダーレイとして「HA-VPN over Cloud Interconnect」を構成して IPsec 暗号化トンネルを確立する
-- **結果**: パブリックインターネットの輻輳や遅延の影響を一切受けない安定した Interconnect 上で、規制要件に完全に合致するエンドツーエンドの IPsec 暗号化通信が実現される
+- **対応**: 専用線である Dedicated Interconnect（または Partner Interconnect）回線をプロビジョニングし、その回線上に暗号化されていない通常のトラフィックを流すのではなく、Interconnect のプライベート接続をアンダーレイとして「HA-VPN over Cloud Interconnect」を構成して IPsec 暗号化トンネルを確立する。
+- **結果**: パブリックインターネットの輻輳や遅延の影響を一切受けない安定した Interconnect 上で、規制要件に完全に合致するエンドツーエンドの IPsec 暗号化通信が実現される。
 - **解説**: 通常の Dedicated Interconnect は専用線であるものの、ワイヤ上でパケットが平文（暗号化なし）で流れるため、暗号化が必須の規制業界ではそのままでは利用できないためです。HA-VPN over Cloud Interconnect を採用することで、Interconnect の安定した高帯域・低遅延というメリットを享受しながら、パケットを IPsec で完全にカプセル化して伝送できるためです。MACsec（L2 暗号化）を利用する代替案もありますが、ルーター機器のハードウェア対応要件が厳しく、オンプレミス側の終端装置が対応していない場合は HA-VPN over Interconnect が唯一の適合解となります。
 - **参考ドキュメント**:
-  - [Cloud Interconnect での HA VPN のデプロイ](https://cloud.google.com/network-connectivity/docs/vpn/concepts/overview?hl=ja): プライベート IP を使用した HA-VPN トンネルの構成。
+  - [Cloud Interconnect での HA VPN のデプロイ](https://docs.cloud.google.com/network-connectivity/docs/vpn/concepts/overview?hl=ja): プライベート IP を使用した HA-VPN トンネルの構成。
 
 #### シナリオ 4-3: AWS と Google Cloud を接続する Cross-Cloud Interconnect と BFD による高速障害検知
 
 - **状況**: AWS 上のビッグデータ基盤と Google Cloud 上の AI/ML ワークロードをマルチクラウド連携しているが、両クラウド間の VPN 接続では帯域が不足し、かつ障害発生時の BGP 切り替えに数十秒を要してデータパイプラインがタイムアウトエラーを起こしている場合
-- **対応**: Google Cloud コンソールから AWS の Direct Connect ロケーションへ直接接続する「Cross-Cloud Interconnect」をプロビジョニングし、Cloud Router と AWS 仮想プライベートゲートウェイ間の BGP ピアリングにおいて「BFD（Bidirectional Forwarding Detection）」を有効化する
-- **結果**: サードパーティのコロケーション事業者と個別に回線契約を結ぶことなく 10 Gbps 以上の広帯域直結回線が開通し、回線障害時には BFD によって 1 秒未満（ミリ秒単位）で障害が検出されてバックアップパスへ即時切り替わる
+- **対応**: Google Cloud コンソールから AWS の Direct Connect ロケーションへ直接接続する「Cross-Cloud Interconnect」をプロビジョニングし、Cloud Router と AWS 仮想プライベートゲートウェイ間の BGP ピアリングにおいて「BFD（Bidirectional Forwarding Detection）」を有効化する。
+- **結果**: サードパーティのコロケーション事業者と個別に回線契約を結ぶことなく 10 Gbps 以上の広帯域直結回線が開通し、回線障害時には BFD によって 1 秒未満（ミリ秒単位）で障害が検出されてバックアップパスへ即時切り替わる。
 - **解説**: Cross-Cloud Interconnect は Google が他社クラウドのデータセンター間と物理的に事前配線している専用回線であり、迅速かつ安価にマルチクラウド直結環境を構築できるためです。また、標準の BGP キープアライブではリンク障害の検知に通常 30〜90 秒を要しますが、BFD を有効化することでミリ秒単位のパケット送信間隔でリンク健全性を監視し、障害発生時に即座に BGP セッションを切断して代替ルートへトラフィックを転送できるためです。標準 BGP のままキープアライブタイマーを短縮する代替案は、CPU 負荷が高まる割にミリ秒単位の検知はできず要件を満たせません。
 - **参考ドキュメント**:
-  - [Cross-Cloud Interconnect の概要](https://cloud.google.com/network-connectivity/docs/interconnect/concepts/cci-overview?hl=ja): AWS / Azure との直接相互接続。
-  - [BFD の構成](https://cloud.google.com/network-connectivity/docs/router/how-to/configuring-bfd?hl=ja): Cloud Router での BFD パラメータ設定。
+  - [Cross-Cloud Interconnect の概要](https://docs.cloud.google.com/network-connectivity/docs/interconnect/concepts/cci-overview?hl=ja): AWS / Azure との直接相互接続。
+  - [BFD の構成](https://docs.cloud.google.com/network-connectivity/docs/router/how-to/configuring-bfd?hl=ja): Cloud Router での BFD パラメータ設定。
 
 #### シナリオ 4-4: Cloud Router BGP MED とカスタムルートアドバタイズによるアクティブ/スタンバイ非対称ルーティングの解消
 
 - **状況**: オンプレミスと Google Cloud 間を 2 本の VPN 回線で接続しているが、Google Cloud からオンプレミスへの送信は回線 A を通るのに対し、オンプレミスから Google Cloud への戻りパケットが回線 B を通る「非対称ルーティング（Asymmetric Routing）」が発生し、オンプレミス側のステートフルファイアウォールでパケットが不正通信として破棄されている場合
-- **対応**: Cloud Router のカスタムルートアドバタイズ設定において、回線 A の BGP ピアには MED 値 `100` を、回線 B の BGP ピアには MED 値 `200` を設定してルートをアドバタイズし、同時にオンプレミス側ルーターからも回線 A の BGP パスに高い優先度（Local Preference / AS Path Prepends）を設定する
-- **結果**: 往復のパケットが常に回線 A（アクティブ）を通過する対称ルーティングが確立され、ファイアウォールによるパケットドロップが解消されるとともに、回線 A 障害時のみ回線 B へ安全に切り替わる
+- **対応**: Cloud Router のカスタムルートアドバタイズ設定において、回線 A の BGP ピアには MED 値 `100` を、回線 B の BGP ピアには MED 値 `200` を設定してルートをアドバタイズし、同時にオンプレミス側ルーターからも回線 A の BGP パスに高い優先度（Local Preference / AS Path Prepends）を設定する。
+- **結果**: 往復のパケットが常に回線 A（アクティブ）を通過する対称ルーティングが確立され、ファイアウォールによるパケットドロップが解消されるとともに、回線 A 障害時のみ回線 B へ安全に切り替わる。
 - **解説**: BGP MED（Multi-Exit Discriminator）は、対向ルーターに対して「自ネットワークへ入ってくる際の優先出口」を指示する属性であり、MED 値が小さいパスが優先されるためです。Cloud Router 側で回線 A に低い MED 値をアドバタイズすることで、オンプレミスルーターは Google Cloud 宛てのパケットを必ず回線 A 経由で送信するようになり、往復のパスが完全に一致するためです。静的ルートで固定化する代替案は、回線 A がダウンした際の自動フェイルオーバーが不可能になるため不適格です。
 - **参考ドキュメント**:
-  - [BGP ルートの優先度と MED の構成](https://cloud.google.com/network-connectivity/docs/router/concepts/overview?hl=ja): Cloud Router による BGP 属性制御。
+  - [BGP ルートの優先度と MED の構成](https://docs.cloud.google.com/network-connectivity/docs/router/concepts/overview?hl=ja): Cloud Router による BGP 属性制御。
 
 #### シナリオ 4-5: Network Connectivity Center (NCC) と Router Appliance による支店間およびマルチクラウドのサイト間データ転送
 
 - **状況**: 世界各地に 20 以上の拠点（工場・支店）と複数のクラウド環境を持つグローバル企業において、高額な国際専用線（MPLS）のコストを削減しつつ、各拠点間およびクラウド間の通信を Google の高品質なグローバル光ファイバー網を経由させて相互通信させたい場合
-- **対応**: Network Connectivity Center（NCC）ハブを作成し、各拠点と接続する HA-VPN や Interconnect を「ハイブリッドスポーク」として登録した上で、「サイト間データ転送（Site-to-Site Data Transfer）」機能を有効化し、サードパーティ SD-WAN ルーターとは Router Appliance を介して BGP ピアリングを確立する
-- **結果**: 既存の MPLS 網を解約して Google のバックボーンをプライベートトランジット WAN として活用できるようになり、通信コストを大幅に削減しながら拠点間のセキュアなフルメッシュ通信が確立される
+- **対応**: Network Connectivity Center（NCC）ハブを作成し、各拠点と接続する HA-VPN や Interconnect を「ハイブリッドスポーク」として登録した上で、「サイト間データ転送（Site-to-Site Data Transfer）」機能を有効化し、サードパーティ SD-WAN ルーターとは Router Appliance を介して BGP ピアリングを確立する。
+- **結果**: 既存の MPLS 網を解約して Google のバックボーンをプライベートトランジット WAN として活用できるようになり、通信コストを大幅に削減しながら拠点間のセキュアなフルメッシュ通信が確立される。
 - **解説**: NCC のサイト間データ転送機能により、Google Cloud を単なるワークロードの実行場所としてだけでなく、オンプレミス拠点同士の通信を中継するグローバルトランジットネットワークとして公式に利用できるためです。さらに Router Appliance を利用することで、自前の Cisco や Fortinet 等の仮想ルーターと Cloud Router が動的に経路情報を同期できるためです。各拠点間に個別のメッシュ VPN を構築する代替案は、拠点数の増加に伴い運用管理が破綻するため不適格です。
 - **参考ドキュメント**:
-  - [Network Connectivity Center によるサイト間データ転送の概要](https://cloud.google.com/network-connectivity/docs/network-connectivity-center/concepts/overview?hl=ja): グローバルトランジットネットワークの構築。
+  - [Network Connectivity Center によるサイト間データ転送の概要](https://docs.cloud.google.com/network-connectivity/docs/network-connectivity-center/concepts/overview?hl=ja): グローバルトランジットネットワークの構築。
 
 ---
 
 ### 4. 参考ドキュメント & 推奨ハンズオン
 
 #### 公式一次ドキュメント
-- [Cloud Interconnect の概要](https://cloud.google.com/network-connectivity/docs/interconnect/concepts/overview?hl=ja): Dedicated、Partner、Cross-Cloud の技術詳細。
-- [Cloud HA-VPN の概要](https://cloud.google.com/network-connectivity/docs/vpn/concepts/overview?hl=ja): 高可用性 VPN の設計原則とトポロジ。
-- [Network Connectivity Center の概要](https://cloud.google.com/network-connectivity/docs/network-connectivity-center/concepts/overview?hl=ja): ハブ＆スポークアーキテクチャ。
+- [Cloud Interconnect の概要](https://docs.cloud.google.com/network-connectivity/docs/interconnect/concepts/overview?hl=ja): Dedicated、Partner、Cross-Cloud の技術詳細。
+- [Cloud HA-VPN の概要](https://docs.cloud.google.com/network-connectivity/docs/vpn/concepts/overview?hl=ja): 高可用性 VPN の設計原則とトポロジ。
+- [Network Connectivity Center の概要](https://docs.cloud.google.com/network-connectivity/docs/network-connectivity-center/concepts/overview?hl=ja): ハブ＆スポークアーキテクチャ。
 
 #### 推奨ハンズオン・ラボ（実機検証）
-- [Networking Fundamentals in Google Cloud (Course / Lab)](https://www.cloudskillsboost.google/quests/118):
+- [Networking Fundamentals in Google Cloud (Course / Lab)](https://www.skills.google/paths/13):
   - **学習目標**: Cloud Router の構成、HA-VPN ゲートウェイの作成、BGP ピアリングの確立、およびフェイルオーバー動作の検証。
 
 ---
@@ -693,59 +693,59 @@ Google Cloud Observability（Cloud Monitoring、Cloud Logging）による指標�
 #### シナリオ 5-1: Network Intelligence Center Connectivity Tests によるファイアウォール誤設定・ルーティング不整合の即時診断
 
 - **状況**: マイクロサービスアーキテクチャにおいて、サービスプロジェクト A の VM から共有 VPC 内のサービスプロジェクト B のデータベース VM への通信が突然タイムアウトするようになったが、数千件のファイアウォールルールと複雑なルートが存在するため、どこで通信が遮断されているか原因が特定できない場合
-- **対応**: Network Intelligence Center の「Connectivity Tests（接続テスト）」を開き、送信元 VM と宛先 VM のプライベート IP およびポート番号（TCP 5432）を指定してテストを実行する
-- **結果**: わずか数秒でネットワークホップの解析結果が出力され、途中の階層型ファイアウォールポリシーによって送信トラフィックがブロックされていること、およびその該当ルール番号がピンポイントで特定され、迅速に修正が完了する
+- **対応**: Network Intelligence Center の「Connectivity Tests（接続テスト）」を開き、送信元 VM と宛先 VM のプライベート IP およびポート番号（TCP 5432）を指定してテストを実行する。
+- **結果**: わずか数秒でネットワークホップの解析結果が出力され、途中の階層型ファイアウォールポリシーによって送信トラフィックがブロックされていること、およびその該当ルール番号がピンポイントで特定され、迅速に修正が完了する。
 - **解説**: Connectivity Tests は、パケット転送の静的構成モデルを瞬時にシミュレーションし、VPC ルーティング、ファイアウォールルール、階層型ポリシー、Cloud NAT、VPC Service Controls のすべての評価順序をトレースして「どのルールによってパケットが破棄されたか」を明確に可視化できるためです。実機で traceroute や tcpdump を実行する従来の手法は、ファイアウォールで ICMP が拒否されていると途中で止まり、根本原因の特定に多大な時間を要するため不適格です。
 - **参考ドキュメント**:
-  - [Connectivity Tests の概要](https://cloud.google.com/network-intelligence-center/docs/connectivity-tests/concepts/overview?hl=ja): 構成解析の仕組みとトラブルシューティング手順。
+  - [Connectivity Tests の概要](https://docs.cloud.google.com/network-intelligence-center/docs/connectivity-tests/concepts/overview?hl=ja): 構成解析の仕組みとトラブルシューティング手順。
 
 #### シナリオ 5-2: VPC フローログと Flow Analyzer を用いた特定サブネット間の高レイテンシおよび帯域逼迫の根本原因特定
 
 - **状況**: 月末のバッチ処理中に特定のサブネットにおいてネットワーク遅延が急増し、データベースクエリがタイムアウトしているが、どのインスタンスが帯域を過剰に占有しているのかが分からない場合
-- **対応**: 該当サブネットで「VPC フローログ」のサンプリングレートを一時的に引き上げ、Network Intelligence Center の「Flow Analyzer」を使用して、該当時間帯のトラフィックを「送信元 IP」「宛先 IP」「送信バイト数」でグループ化してトップトーカー（Top Talkers）を特定する
-- **結果**: 開発者が誤って本番サブネット内で大容量バックアップファイルを別リージョンへ同時転送していた VM インスタンスが即座に特定され、そのプロセスの帯域制限を実施して遅延が正常値に復帰する
+- **対応**: 該当サブネットで「VPC フローログ」のサンプリングレートを一時的に引き上げ、Network Intelligence Center の「Flow Analyzer」を使用して、該当時間帯のトラフィックを「送信元 IP」「宛先 IP」「送信バイト数」でグループ化してトップトーカー（Top Talkers）を特定する。
+- **結果**: 開発者が誤って本番サブネット内で大容量バックアップファイルを別リージョンへ同時転送していた VM インスタンスが即座に特定され、そのプロセスの帯域制限を実施して遅延が正常値に復帰する。
 - **解説**: VPC フローログは仮想マシンのネットワークインターフェースを通過する全パケットのフローメタデータを高精度に記録しており、Flow Analyzer を用いることで SQL ライクな集計や視覚的グラフによって大量のログから帯域消費トップの通信を瞬時に抽出できるためです。Cloud Monitoring のインスタンス単位のネットワークスループットグラフを見るだけでは、「どの宛先に対して」「どのポートで」トラフィックが流れているかという通信の内訳を特定できないため不適格です。
 - **参考ドキュメント**:
-  - [Flow Analyzer の概要](https://cloud.google.com/network-intelligence-center/docs/flow-analyzer?hl=ja): VPC フローログの可視化と帯域分析。
+  - [Flow Analyzer の概要](https://docs.cloud.google.com/network-intelligence-center/docs/flow-analyzer/overview?hl=ja): VPC フローログの可視化と帯域分析。
 
 #### シナリオ 5-3: Cloud Interconnect / BGP セッションフラッピング時の Cloud Monitoring アラート検知と自動切り替え検証
 
 - **状況**: オンプレミスと接続された Dedicated Interconnect において、物理回線の微小な光減衰により BGP ピアリングが数分おきに切断・再接続を繰り返す「フラッピング（Flapping）」が発生し、VPC 全体のルーティングテーブルが不安定になっている場合
-- **対応**: Cloud Monitoring において `interconnect.googleapis.com/network/router/bgp/session_state` メトリクスを監視するアラートルールを作成し、BGP セッションのステータス変化を即時検知するとともに、Cloud Router のログを解析してエラー要因を特定し、保守作業中は該当ピアのルート優先度（MED）を引き上げてバックアップ回線へ手動ドレインさせる
-- **結果**: ルーティングフラッピングの発生が運用チームに即座に通知され、障害回線が速やかに切り離されてネットワーク全体の安定性が維持される
+- **対応**: Cloud Monitoring において `interconnect.googleapis.com/network/router/bgp/session_state` メトリクスを監視するアラートルールを作成し、BGP セッションのステータス変化を即時検知するとともに、Cloud Router のログを解析してエラー要因を特定し、保守作業中は該当ピアのルート優先度（MED）を引き上げてバックアップ回線へ手動ドレインさせる。
+- **結果**: ルーティングフラッピングの発生が運用チームに即座に通知され、障害回線が速やかに切り離されてネットワーク全体の安定性が維持される。
 - **解説**: BGP セッションフラッピングは、ルートの再計算が頻発してパケットロスや CPU 高負荷を引き起こす最も深刻な障害の 1 つであり、セッション状態メトリクス（BGP state != 1 / Established）をリアルタイムに監視してアラートを発報することが運用上のベストプラクティスであるためです。障害回線を完全に切り離すために Cloud Router のアドバタイズを調整することで、オンプレミス側のトラフィックを安全に健全なセカンダリ回線へ誘導できるためです。
 - **参考ドキュメント**:
-  - [Cloud Router のロギングとモニタリング](https://cloud.google.com/network-connectivity/docs/router/how-to/viewing-logs-metrics?hl=ja): BGP セッション状態の監視とトラブルシューティング。
+  - [Cloud Router のロギングとモニタリング](https://docs.cloud.google.com/network-connectivity/docs/router/how-to/viewing-logs-metrics?hl=ja): BGP セッション状態の監視とトラブルシューティング。
 
 #### シナリオ 5-4: Firewall Insights を用いた過剰許可ルールおよびシャドウルールの特定と安全なルール整理
 
 - **状況**: 数年間にわたるシステムの改修により、VPC 内に 500 件以上のファイアウォールルールが蓄積しており、新しいルールを追加しても上位のルールに遮られて機能しない「シャドウルール」や、過去 1 年間一度もヒットしていない放置ルールが多数存在し、セキュリティ監査で是正を求められた場合
-- **対応**: Network Intelligence Center の「Firewall Insights」ダッシュボードを有効化し、機械学習によって自動抽出された「シャドウルール（Shadowed Rules）」「ヒット数ゼロのルール（Unused Rules）」「過剰に広い許可範囲を持つルール」の一覧をエクスポートして段階的に無効化・削除する
-- **結果**: 本番の業務通信に一切影響を与えることなく、150 件の不要なルールを安全に削除してファイアウォール構成をスリム化し、セキュリティ監査基準をクリアする
+- **対応**: Network Intelligence Center の「Firewall Insights」ダッシュボードを有効化し、機械学習によって自動抽出された「シャドウルール（Shadowed Rules）」「ヒット数ゼロのルール（Unused Rules）」「過剰に広い許可範囲を持つルール」の一覧をエクスポートして段階的に無効化・削除する。
+- **結果**: 本番の業務通信に一切影響を与えることなく、150 件の不要なルールを安全に削除してファイアウォール構成をスリム化し、セキュリティ監査基準をクリアする。
 - **解説**: Firewall Insights は、VPC フローログおよびファイアウォールログの実際のトラフィック履歴と、ファイアウォールルールの優先度・条件モデルを突き合わせ、数学的・論理的に「絶対にヒットしないルール（上位ルールと重複または包含関係にあるルール）」を自動判定できるためです。人間が手作業で 500 件のルールマトリクスを精査してシャドウルールを特定することは極めて困難であり、誤って必要なルールを削除するヒューマンエラーのリスクが極めて高いため、Firewall Insights の活用が唯一の安全な解決策となります。
 - **参考ドキュメント**:
-  - [Firewall Insights の概要](https://cloud.google.com/network-intelligence-center/docs/firewall-insights/concepts/overview?hl=ja): シャドウルールと未使用ルールの検出。
+  - [Firewall Insights の概要](https://docs.cloud.google.com/network-intelligence-center/docs/firewall-insights/concepts/overview?hl=ja): シャドウルールと未使用ルールの検出。
 
 #### シナリオ 5-5: Packet Mirroring と IDS コレクタを用いた特定 VM インスタンスの不審な送信トラフィック詳細パケット解析
 
 - **状況**: セキュリティ監視チームから、特定の Web サーバー VM が外部の未知の IP アドレスに対して不審な暗号化通信を行っているというアラートが上がったが、VPC フローログのメタデータだけでは通信の具体的な内容（マルウェアの C2 通信か正規通信か）を判断できない場合
-- **対応**: VPC 内で「Packet Mirroring（パケットミラーリング）」ポリシーを作成し、対象 VM のネットワークインターフェースをミラーリングソースに指定し、コレクタとして内部パススルーロードバランサ配下の Zeek / Suricata などのオープンソース IDS アプライアンスを指定してトラフィックを複製転送する
-- **結果**: 対象 VM の本番通信パフォーマンスやレイテンシに一切影響を与えることなく、生パケットの完全なコピーをキャプチャし、IDS による詳細なシグネチャ照合とペイロード解析を実行して脅威の有無を判定できる
+- **対応**: VPC 内で「Packet Mirroring（パケットミラーリング）」ポリシーを作成し、対象 VM のネットワークインターフェースをミラーリングソースに指定し、コレクタとして内部パススルーロードバランサ配下の Zeek / Suricata などのオープンソース IDS アプライアンスを指定してトラフィックを複製転送する。
+- **結果**: 対象 VM の本番通信パフォーマンスやレイテンシに一切影響を与えることなく、生パケットの完全なコピーをキャプチャし、IDS による詳細なシグネチャ照合とペイロード解析を実行して脅威の有無を判定できる。
 - **解説**: Packet Mirroring は仮想化レイヤ（Andromeda SDN）でパケットを複製するため、対象の VM インスタンスにエージェントをインストールする必要がなく、インスタンスの CPU やネットワーク帯域を消費しないためです。また、TCP ダンプのような生パケット（L2〜L7）をそのまま収集できるため、フローログでは不可能なペイロードの詳細検査が可能となるためです。対象 VM に SSH でログインして tcpdump を直接実行する代替案は、侵入者によって改ざんされるリスクがあり、本番環境の負荷を高めるためセキュリティ調査としては不適格です。
 - **参考ドキュメント**:
-  - [Packet Mirroring の概要](https://cloud.google.com/vpc/docs/packet-mirroring?hl=ja): 生パケットキャプチャのアーキテクチャとコレクタ設定。
+  - [Packet Mirroring の概要](https://docs.cloud.google.com/vpc/docs/packet-mirroring?hl=ja): 生パケットキャプチャのアーキテクチャとコレクタ設定。
 
 ---
 
 ### 4. 参考ドキュメント & 推奨ハンズオン
 
 #### 公式一次ドキュメント
-- [Network Intelligence Center のドキュメント](https://cloud.google.com/network-intelligence-center/docs?hl=ja): NIC の各モジュールの詳細ガイド。
-- [VPC フローログの使用](https://cloud.google.com/vpc/docs/using-flow-logs?hl=ja): ログの有効化、集約、サンプリング設定。
-- [Packet Mirroring の構成](https://cloud.google.com/vpc/docs/using-packet-mirroring?hl=ja): ミラーリングポリシーと内部ロードバランサ構成。
+- [Network Intelligence Center のドキュメント](https://docs.cloud.google.com/network-intelligence-center/docs?hl=ja): NIC の各モジュールの詳細ガイド。
+- [VPC フローログの使用](https://docs.cloud.google.com/vpc/docs/using-flow-logs?hl=ja): ログの有効化、集約、サンプリング設定。
+- [Packet Mirroring の構成](https://docs.cloud.google.com/vpc/docs/using-packet-mirroring?hl=ja): ミラーリングポリシーと内部ロードバランサ構成。
 
 #### 推奨ハンズオン・ラボ（実機検証）
-- [Network Performance and Optimization (Skill Badge)](https://www.cloudskillsboost.google/quests/156):
+- [Network Performance and Optimization (Skill Badge)](https://www.skills.google/paths/13):
   - **学習目標**: Network Intelligence Center の Connectivity Tests によるルーティング診断、および VPC フローログを用いたトラフィック分析の実機演習。
 
 ---
@@ -819,60 +819,60 @@ Google のエッジで DDoS 攻撃や Web アプリケーションの脅威を�
 #### シナリオ 6-1: Google Cloud Armor WAF ルールと Adaptive Protection によるレイヤ 7 DDoS 攻撃および SQLi 遮断
 
 - **状況**: 一般公開されている Web アプリケーションに対して、海外のボットネットから毎秒数十万件の巧妙な HTTP GET リクエスト（L7 DDoS）が集中し、バックエンドのデータベースが枯渇して全面ダウンする危機に直面しており、同時に SQL インジェクション攻撃の兆候も検知された場合
-- **対応**: 当該アプリケーションをホストする外部ロードバランサに Google Cloud Armor セキュリティポリシーをアタッチし、OWASP Top 10 の事前構成済みルール（`sqli-v33-stable`）を拒否アクションで有効化するとともに、「Adaptive Protection」を有効化して検知された DDoS 攻撃シグネチャの推奨ルールを適用する
-- **結果**: SQL インジェクションを試みる攻撃パケットが Google のエッジ PoP で即座に遮断（403 Forbidden）され、巧妙な L7 DDoS トラフィックも Adaptive Protection が特定した属性に基づきバックエンドに到達することなくエッジで確実にドロップされる
+- **対応**: 当該アプリケーションをホストする外部ロードバランサに Google Cloud Armor セキュリティポリシーをアタッチし、OWASP Top 10 の事前構成済みルール（`sqli-v33-stable`）を拒否アクションで有効化するとともに、「Adaptive Protection」を有効化して検知された DDoS 攻撃シグネチャの推奨ルールを適用する。
+- **結果**: SQL インジェクションを試みる攻撃パケットが Google のエッジ PoP で即座に遮断（403 Forbidden）され、巧妙な L7 DDoS トラフィックも Adaptive Protection が特定した属性に基づきバックエンドに到達することなくエッジで確実にドロップされる。
 - **解説**: Google Cloud Armor は、Google のエッジインフラストラクチャ上で動作するため、大量の攻撃トラフィックが Google の内部ネットワークやバックエンド VM に到達する前にエッジで分散処理・破棄できるためです。Adaptive Protection は、機械学習モデルによって攻撃トラフィックと正規トラフィックの微妙な違いをリアルタイムにプロファイリングし、正規ユーザーを巻き込まずに攻撃者のみをピンポイントで遮断する防御ルールを提示できるためです。Compute Engine 上の Web サーバー（Apache/Nginx）のモジュールで対処する代替案は、サーバーの CPU とネットワーク帯域が攻撃トラフィックによって圧迫され、正規トラフィックが巻き添えでダウンするため不適格です。
 - **参考ドキュメント**:
-  - [Google Cloud Armor の概要](https://cloud.google.com/armor/docs/cloud-armor-overview?hl=ja): エッジ WAF および Adaptive Protection の機能詳細。
+  - [Google Cloud Armor の概要](https://docs.cloud.google.com/armor/docs/cloud-armor-overview?hl=ja): エッジ WAF および Adaptive Protection の機能詳細。
 
 #### シナリオ 6-2: Cloud NGFW Enterprise を用いた TLS 復号とレイヤ 7 侵入防止システム（IPS）のインライン適用
 
 - **状況**: 金融決済システムにおいて、暗号化された通信（HTTPS）の中に隠蔽された未知のマルウェアやゼロデイ脆弱性攻撃（Log4j 等）をリアルタイムに検知・遮断することが監査要件として義務付けられているが、サードパーティ NVA アプライアンスの運用・パッチ管理コストを削減したい場合
-- **対応**: 該当の VPC ネットワークにおいて「Cloud NGFW Enterprise」を有効化し、エンドポイントセキュリティポリシーを作成して Palo Alto Networks の脅威防御シグネチャを組み込んだレイヤ 7 検査（IPS）ルールを適用するとともに、プライベート認証局（CAS）と連携して TLS インスペクションを構成する
-- **結果**: サードパーティ製のファイアウォール VM やネクストホップ ILB などの複雑なルーティングインフラを一切プロビジョニングすることなく、VPC 全体の暗号化トラフィックに対してインラインでの L7 脅威検知・自動遮断が完全マネージドで実現される
+- **対応**: 該当の VPC ネットワークにおいて「Cloud NGFW Enterprise」を有効化し、エンドポイントセキュリティポリシーを作成して Palo Alto Networks の脅威防御シグネチャを組み込んだレイヤ 7 検査（IPS）ルールを適用するとともに、プライベート認証局（CAS）と連携して TLS インスペクションを構成する。
+- **結果**: サードパーティ製のファイアウォール VM やネクストホップ ILB などの複雑なルーティングインフラを一切プロビジョニングすることなく、VPC 全体の暗号化トラフィックに対してインラインでの L7 脅威検知・自動遮断が完全マネージドで実現される。
 - **解説**: Cloud NGFW Enterprise は、業界標準である Palo Alto Networks の高度な脅威インスペクションエンジンを Google Cloud のインフラにネイティブ統合しており、仮想マシンのデプロイや手動スケールを一切行うことなく、ペタバイト規模のトラフィックを L7 レベルでインライン検査できるためです。TLS 復号を有効化することで、暗号化セッション内部に潜むエクスプロイトコードを確実に検知・ドロップできます。サードパーティ NVA を並列配置する代替案は、VM のライセンス費用、ヘルスチェックやルーティングの複雑化、および帯域ボトルネックの課題が常につきまとうため不適格です。
 - **参考ドキュメント**:
-  - [Cloud NGFW Enterprise の概要](https://cloud.google.com/firewall/docs/firewall-policies-overview?hl=ja): マネージド L7 IPS と TLS インスペクションの構成。
+  - [Cloud NGFW Enterprise の概要](https://docs.cloud.google.com/firewall/docs/firewall-policies-overview?hl=ja): マネージド L7 IPS と TLS インスペクションの構成。
 
 #### シナリオ 6-3: Secure Web Proxy を用いた特定ドメインへのアウトバウンド通信制御と URL フィルタリング
 
 - **状況**: 社内の開発環境 VM から外部のオープンソースリポジトリ（GitHub や PyPI 等）への接続は許可したいが、未承認の Web サイトへのアクセスや、悪意ある外部 C2（Command & Control）サーバーへのデータ持ち出しを厳格に遮断したい場合
-- **対応**: 対象の VPC リージョン内に「Secure Web Proxy」インスタンスをデプロイし、アウトバウンドセキュリティポリシーを作成して、許可する宛先 FQDN（例: `*.github.com`, `pypi.org`）と HTTP メソッド（GET/POST）を明示的にホワイトリスト登録し、その他のアウトバウンド通信を暗黙的に拒否する
-- **結果**: 内部 VM からのインターネットアクセスがプロキシ経由で厳格に監査・制限され、許可された正規リポジトリ以外の外部通信やデータ持ち出しが確実に遮断される
+- **対応**: 対象の VPC リージョン内に「Secure Web Proxy」インスタンスをデプロイし、アウトバウンドセキュリティポリシーを作成して、許可する宛先 FQDN（例: `*.github.com`, `pypi.org`）と HTTP メソッド（GET/POST）を明示的にホワイトリスト登録し、その他のアウトバウンド通信を暗黙的に拒否する。
+- **結果**: 内部 VM からのインターネットアクセスがプロキシ経由で厳格に監査・制限され、許可された正規リポジトリ以外の外部通信やデータ持ち出しが確実に遮断される。
 - **解説**: 従来の Cloud NAT やファイアウォールルールは L3/L4 レベル（IP アドレスとポート番号）でしか制御できず、動的に IP が変動するクラウドサービス（GitHub 等）に対して IP ベースで許可を与えると不要な広範囲の通信まで許可してしまう欠点がありました。Secure Web Proxy を使用することで、TLS ハンドシェイクの SNI（Server Name Indication）や HTTP ヘッダーを評価し、FQDN や URL パス単位でのきめ細かなアウトバウンド通信制御が可能になるためです。Squid プロキシ VM を自前で運用する代替案は、可用性の維持やパッチ適用、オートスケーリングの運用負荷が過大となるため不適格です。
 - **参考ドキュメント**:
-  - [Secure Web Proxy の概要](https://cloud.google.com/secure-web-proxy/docs/overview?hl=ja): クラウドネイティブな送信プロキシのアーキテクチャ。
+  - [Secure Web Proxy の概要](https://docs.cloud.google.com/secure-web-proxy/docs/overview?hl=ja): クラウドネイティブな送信プロキシのアーキテクチャ。
 
 #### シナリオ 6-4: Cloud NAT のポート枯渇（Port Exhaustion）防止に向けた動的ポート割り当てと複数 IP 設定
 
 - **状況**: マイクロサービス群が外部のサードパーティ REST API に対して毎秒数万件の短命な外向き HTTP リクエストを送信しているが、ピーク時に「接続タイムアウト」が頻発し、Cloud NAT のログに `DROPPED`（理由: `OUT_OF_RESOURCES`）が記録されている場合
-- **対応**: Cloud NAT ゲートウェイの設定において、IP アドレスの割り当てを手動にして複数の静的外部 IP アドレスを追加登録し、ポート割り当て方式を「静的ポート割り当て」から「動的ポート割り当て（Dynamic Port Allocation）」に変更して最小ポート数と最大ポート数を設定する
-- **結果**: トラフィックが急増した VM に対して動的に追加の送信元ポートが割り当てられ、NAT IP のポート枯渇が完全に解消されて接続エラーがゼロになる
+- **対応**: Cloud NAT ゲートウェイの設定において、IP アドレスの割り当てを手動にして複数の静的外部 IP アドレスを追加登録し、ポート割り当て方式を「静的ポート割り当て」から「動的ポート割り当て（Dynamic Port Allocation）」に変更して最小ポート数と最大ポート数を設定する。
+- **結果**: トラフィックが急増した VM に対して動的に追加の送信元ポートが割り当てられ、NAT IP のポート枯渇が完全に解消されて接続エラーがゼロになる。
 - **解説**: Cloud NAT の静的ポート割り当てでは、各 VM に固定数のポート（デフォルト 64 ポート等）が均等に割り当てられるため、一部の通信量の多い VM がポートを使い果たすと、他の VM に空きポートがあっても `OUT_OF_RESOURCES` でパケットがドロップされるためです。動的ポート割り当てを有効にすることで、トラフィックの多い VM に対して必要な分だけポートを動的に追加配分できるためです。また、外部 IP アドレスを複数登録することで、利用可能な送信元ポートプール全体（IP あたり約 64,000 ポート）をスケールアウトできるためです。
 - **参考ドキュメント**:
-  - [Cloud NAT のポート割り当て](https://cloud.google.com/nat/docs/ports-and-addresses?hl=ja): 静的 vs 動的ポート割り当てとポート枯渇の解消。
+  - [Cloud NAT のポート割り当て](https://docs.cloud.google.com/nat/docs/ports-and-addresses?hl=ja): 静的 vs 動的ポート割り当てとポート枯渇の解消。
 
 #### シナリオ 6-5: Cloud IDS と Packet Mirroring を組み合わせた内部 VPC トラフィックの脅威検出と Event Threat Detection 連携
 
 - **状況**: 境界セキュリティ（ファイアウォール）を突破して内部 VPC に侵入した攻撃者が、ネットワーク内部で横展開（ラテラルムーブメント）や内部スキャンを試みる挙動を早期に検知し、Security Command Center（SCC）に通知したい場合
-- **対応**: 該当 VPC ネットワーク内に「Cloud IDS」エンドポイントをプロビジョニングし、検査対象サブネットの全トラフィックを Cloud IDS にミラーリングするパケットミラーリングポリシーを構成した上で、Cloud IDS のアラートを Security Command Center（SCC）の Event Threat Detection と連携させる
-- **結果**: 内部ネットワークを流れる East-West トラフィックのパケットが透過的に検査され、ポートスキャン、不審な RPC 呼び出し、ラテラルムーブメントの試行がリアルタイムに検知されて SCC ダッシュボードに重大インシデントとして通知される
+- **対応**: 該当 VPC ネットワーク内に「Cloud IDS」エンドポイントをプロビジョニングし、検査対象サブネットの全トラフィックを Cloud IDS にミラーリングするパケットミラーリングポリシーを構成した上で、Cloud IDS のアラートを Security Command Center（SCC）の Event Threat Detection と連携させる。
+- **結果**: 内部ネットワークを流れる East-West トラフィックのパケットが透過的に検査され、ポートスキャン、不審な RPC 呼び出し、ラテラルムーブメントの試行がリアルタイムに検知されて SCC ダッシュボードに重大インシデントとして通知される。
 - **解説**: Cloud IDS は、Google Cloud のマネージドサービスとして Palo Alto Networks の高度な脅威エンジンを実行し、パケットミラーリング経由で内部通信を複製・検査するため、本番のワークロードに一切の遅延や障害影響を与えることなく脅威を検知できるためです。検知結果を Security Command Center に自動集約することで、SOC チームがインシデントに即座に対応できるようになります。各 VM に IDS エージェントをインストールする代替案は、管理対象インスタンスの増加に伴い運用コストが跳ね上がり、コンテナ等のエージェントレス環境には適用できないため不適格です。
 - **参考ドキュメント**:
-  - [Cloud IDS の概要](https://cloud.google.com/intrusion-detection-system/docs/overview?hl=ja): マネージド侵入検知システムの構成と脅威検出。
+  - [Cloud IDS の概要](https://docs.cloud.google.com/intrusion-detection-system/docs/overview?hl=ja): マネージド侵入検知システムの構成と脅威検出。
 
 ---
 
 ### 4. 参考ドキュメント & 推奨ハンズオン
 
 #### 公式一次ドキュメント
-- [Google Cloud Armor のドキュメント](https://cloud.google.com/armor/docs?hl=ja): WAF ルール、DDoS 対策、Adaptive Protection。
-- [Cloud NGFW のドキュメント](https://cloud.google.com/firewall/docs?hl=ja): 階層型ポリシー、NGFW ティア、L7 検査。
-- [Secure Web Proxy のドキュメント](https://cloud.google.com/secure-web-proxy/docs?hl=ja): 送信プロキシポリシーと URL フィルタリング。
-- [Cloud NAT の概要](https://cloud.google.com/nat/docs/overview?hl=ja): NAT IP 割り当てと動的ポート割り当て。
+- [Google Cloud Armor のドキュメント](https://docs.cloud.google.com/armor/docs?hl=ja): WAF ルール、DDoS 対策、Adaptive Protection。
+- [Cloud NGFW のドキュメント](https://docs.cloud.google.com/firewall/docs?hl=ja): 階層型ポリシー、NGFW ティア、L7 検査。
+- [Secure Web Proxy のドキュメント](https://docs.cloud.google.com/secure-web-proxy/docs?hl=ja): 送信プロキシポリシーと URL フィルタリング。
+- [Cloud NAT の概要](https://docs.cloud.google.com/nat/docs/overview?hl=ja): NAT IP 割り当てと動的ポート割り当て。
 
 #### 推奨ハンズオン・ラボ（実機検証）
-- [Build and Secure Networks in Google Cloud (Skill Badge)](https://www.cloudskillsboost.google/quests/128):
+- [Build and Secure Networks in Google Cloud (Skill Badge)](https://www.skills.google/course_templates/641):
   - **学習目標**: Google Cloud Armor セキュリティポリシーの作成、IP 拒否ルールおよび WAF ルールの適用、Cloud NAT の構成検証。
 
 ---

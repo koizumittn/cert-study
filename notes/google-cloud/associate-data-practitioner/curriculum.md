@@ -27,12 +27,12 @@ Associate Data Practitioner は、Google Cloud 上でデータを安全に保護
 
 本試験は全 4 セクションで構成されています。データの準備と取り込み（最大 30%）とデータ分析・プレゼンテーション（最大 27%）で全体の半数以上を占め、さらにデータマネジメント（最大 25%）、データパイプラインのオーケストレーション（最大 18%）が問われます。データライフサイクル全体にわたるマネージドサービスの選定・活用基準が網羅されています。
 
-| セクション番号 | セクション名 / 出題分野 | 出題比率 | 主要対象サービス・コンセプト | ステータス |
-| :--- | :--- | :--- | :--- | :--- |
-| **Section 1** | データの準備と取り込み | 30% 以下 | ETL / ELT / ETLT、データ品質評価、データクリーニング、Cloud Data Fusion、BigQuery SQL、Dataflow、Storage Transfer Service、Transfer Appliance、Database Migration Service、BigQuery Data Transfer Service、データ形式（CSV, JSON, Parquet, Avro）、ストレージ選定（Cloud Storage, BigQuery, Cloud SQL, Spanner, Bigtable, Firestore）、ロケーション設計（リージョン/デュアル/マルチ/ゾーン） | 完了 |
-| **Section 2** | データ分析とプレゼンテーション | 27% 以下 | BigQuery SQL（集計・分析関数）、Jupyter ノートブック（Colab Enterprise）、ビジネス課題の解決、Looker vs Looker Studio、LookML パラメータ・データモデル、BigQuery ML（CREATE MODEL, EVALUATE, PREDICT）、AutoML、Vertex AI リモート接続（事前トレーニング済み LLM / Gemini）、ML プロジェクトライフサイクル、Model Registry | 完了 |
-| **Section 3** | データ パイプラインのオーケストレーション | 18% 以下 | データ変換ツール選定（Dataproc / Managed Service for Apache Spark, Dataflow, Cloud Data Fusion, Cloud Composer / Managed Service for Apache Airflow, Dataform）、ELT vs ETL 評価、BigQuery スケジュールされたクエリ、Cloud Scheduler、Workflows、Eventarc、Dataflow ジョブ UI 監視、Cloud Logging / Cloud Monitoring、Pub/Sub イベントドリブン取り込み | 完了 |
-| **Section 4** | データ マネジメント | 25% 以下 | IAM 最小権限（基本ロール vs 事前定義ロール vs 権限）、Cloud Storage アクセス制御（公開 vs プライベート vs 均一なバケットレベルのアクセス）、BigQuery データ共有（データセット共有, 承認済みビュー, Analytics Hub）、Cloud Storage ストレージクラス（Standard, Nearline, Coldline, Archive）、オブジェクト ライフサイクル管理、BigQuery テーブル/パーティション有効期限、Cloud SQL / Cloud Storage バックアップ・復元・HA、暗号化（GMEK vs CMEK vs CSEK）、Cloud KMS、保存時/転送時暗号化 | 完了 |
+| セクション番号 | セクション名 / 出題分野 | 出題比率 | 主要対象サービス・コンセプト |
+| :--- | :--- | :--- | :--- |
+| **Section 1** | データの準備と取り込み | 30% 以下 | ETL / ELT / ETLT、データ品質評価、データクリーニング、Cloud Data Fusion、BigQuery SQL、Dataflow、Storage Transfer Service、Transfer Appliance、Database Migration Service、BigQuery Data Transfer Service、データ形式（CSV, JSON, Parquet, Avro）、ストレージ選定（Cloud Storage, BigQuery, Cloud SQL, Spanner, Bigtable, Firestore）、ロケーション設計（リージョン/デュアル/マルチ/ゾーン） |
+| **Section 2** | データ分析とプレゼンテーション | 27% 以下 | BigQuery SQL（集計・分析関数）、Jupyter ノートブック（Colab Enterprise）、ビジネス課題の解決、Looker vs Looker Studio、LookML パラメータ・データモデル、BigQuery ML（CREATE MODEL, EVALUATE, PREDICT）、AutoML、Vertex AI リモート接続（事前トレーニング済み LLM / Gemini）、ML プロジェクトライフサイクル、Model Registry |
+| **Section 3** | データ パイプラインのオーケストレーション | 18% 以下 | データ変換ツール選定（Dataproc / Managed Service for Apache Spark, Dataflow, Cloud Data Fusion, Cloud Composer / Managed Service for Apache Airflow, Dataform）、ELT vs ETL 評価、BigQuery スケジュールされたクエリ、Cloud Scheduler、Workflows、Eventarc、Dataflow ジョブ UI 監視、Cloud Logging / Cloud Monitoring、Pub/Sub イベントドリブン取り込み |
+| **Section 4** | データ マネジメント | 25% 以下 | IAM 最小権限（基本ロール vs 事前定義ロール vs 権限）、Cloud Storage アクセス制御（公開 vs プライベート vs 均一なバケットレベルのアクセス）、BigQuery データ共有（データセット共有, 承認済みビュー, Analytics Hub）、Cloud Storage ストレージクラス（Standard, Nearline, Coldline, Archive）、オブジェクト ライフサイクル管理、BigQuery テーブル/パーティション有効期限、Cloud SQL / Cloud Storage バックアップ・復元・HA、暗号化（GMEK vs CMEK vs CSEK）、Cloud KMS、保存時/転送時暗号化 |
 
 ---
 

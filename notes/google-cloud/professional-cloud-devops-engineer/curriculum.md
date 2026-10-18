@@ -27,13 +27,13 @@ Professional Cloud DevOps Engineer は、Google 推奨の手法とツール群�
 
 本試験は全 5 セクションで構成されています。CI / CD パイプラインの構築と実装（27%）、SRE 手法のアプリケーションへの適用（23%）、オブザーバビリティの実装（20%）が試験の約 70% を占める中核領域であり、これらを支える組織リソース階層・IaC のブートストラップ（15%）と、パフォーマンス最適化・トラブルシューティング（15%）が網羅的に評価されます。
 
-| セクション番号 | セクション名 / 出題分野 | 出題比率 | 主要対象サービス・コンセプト | ステータス |
-| :--- | :--- | :--- | :--- | :--- |
-| **Section 1** | Google Cloud 組織のブートストラップと保守 | 約 15.0% | リソース階層（組織・フォルダ・プロジェクト）、共有 VPC（Shared VPC）、集中ログ・モニタリング、Cloud IAM、組織ポリシー（Organization Policies）、サービスアカウント管理、App Hub、Infrastructure as Code（Cloud Foundation Toolkit, Config Connector, Terraform, Helm）、ブループリント、スクリプト自動化、Cloud Build CI / Cloud Deploy CD スタック、サードパーティ（Jenkins, Argo CD, Packer）、CI/CD セキュリティ、マルチ環境管理、一時的環境、GKE フリート管理、Cloud Workstations、Gemini Code Assist | 未着手 |
-| **Section 2** | アプリケーションとインフラストラクチャの CI / CD パイプラインの構築および実装 | 約 27.0% | Artifact Registry、GKE Enterprise、CI/CD トリガー、自動テスト、承認ゲート、Cloud Run / Cloud Functions の CI/CD、インフラストラクチャ CI/CD（GKE, MIG, Cloud Service Mesh）、監査トラッキング（Cloud Audit Logs, Cloud Build, Cloud Deploy）、デプロイ戦略（カナリア、Blue/Green、ローリング、トラフィック分割）、デプロイ障害軽減、Cloud KMS、Secret Manager、Certificate Manager、ビルド時 vs ランタイム時のシークレット注入、脆弱性スキャン、Binary Authorization、SLSA フレームワーク | 未着手 |
-| **Section 3** | サイト信頼性エンジニアリング手法のアプリケーションへの適用 | 約 23.0% | SRE 原則、SLI（Service Level Indicator）、SLO（Service Level Objective）、SLA（Service Level Agreement）、エラーバジェット（Error Budget）、バーンレート（Burn Rate）、可用性の「9」の桁数と機会費用、サービス前オンボーディングチェックリスト、リリース計画・デプロイ計画・サービス提供終了（Deprecation）、キャパシティプランニング（クォータ・上限）、自動スケーリング（MIG, Cloud Run, GKE HPA/VPA/Cluster Autoscaler）、トラフィックドレイン / リダイレクト、容量追加、ロールバック戦略 | 未着手 |
-| **Section 4** | オブザーバビリティ手法の実装 | 約 20.0% | Cloud Logging、Ops Agent、Cloud Audit Logs、VPC フローログ、Cloud Service Mesh ログ、ログルーター（Log Router）、ログバケット、除外フィルタ、サンプリング、BigQuery / Pub/Sub / Cloud Storage へのログエクスポート、ログ保持期間、ログベース指標（カウンター・ディストリビューション）、センシティブデータマスキング（Sensitive Data Protection / DLP）、Cloud Monitoring、Managed Service for Prometheus、Metrics Explorer、合成モニター（Synthetic Monitors）、ダッシュボード管理、アラートポリシー・Runbook、サードパーティ連携（PagerDuty, Slack） | 未着手 |
-| **Section 5** | パフォーマンスの最適化とトラブルシューティング | 約 15.0% | インフラ・アプリ・CI/CD・オブザーバビリティのトラブルシューティング、Cloud Trace、Error Reporting、Cloud Profiler、OpenTelemetry 計測、オブザーバビリティ費用最適化、Spot VM、確約利用割引（CUD: リソースベース / 費用ベース）、継続利用割引（SUD）、ネットワークサービスティア（Premium vs Standard）、Active Assist / Cloud Recommender（費用、セキュリティ、パフォーマンス、信頼性） | 未着手 |
+| セクション番号 | セクション名 / 出題分野 | 出題比率 | 主要対象サービス・コンセプト |
+| :--- | :--- | :--- | :--- |
+| **Section 1** | Google Cloud 組織のブートストラップと保守 | 約 15.0% | リソース階層（組織・フォルダ・プロジェクト）、共有 VPC（Shared VPC）、集中ログ・モニタリング、Cloud IAM、組織ポリシー（Organization Policies）、サービスアカウント管理、App Hub、Infrastructure as Code（Cloud Foundation Toolkit, Config Connector, Terraform, Helm）、ブループリント、スクリプト自動化、Cloud Build CI / Cloud Deploy CD スタック、サードパーティ（Jenkins, Argo CD, Packer）、CI/CD セキュリティ、マルチ環境管理、一時的環境、GKE フリート管理、Cloud Workstations、Gemini Code Assist |
+| **Section 2** | アプリケーションとインフラストラクチャの CI / CD パイプラインの構築および実装 | 約 27.0% | Artifact Registry、GKE Enterprise、CI/CD トリガー、自動テスト、承認ゲート、Cloud Run / Cloud Functions の CI/CD、インフラストラクチャ CI/CD（GKE, MIG, Cloud Service Mesh）、監査トラッキング（Cloud Audit Logs, Cloud Build, Cloud Deploy）、デプロイ戦略（カナリア、Blue/Green、ローリング、トラフィック分割）、デプロイ障害軽減、Cloud KMS、Secret Manager、Certificate Manager、ビルド時 vs ランタイム時のシークレット注入、脆弱性スキャン、Binary Authorization、SLSA フレームワーク |
+| **Section 3** | サイト信頼性エンジニアリング手法のアプリケーションへの適用 | 約 23.0% | SRE 原則、SLI（Service Level Indicator）、SLO（Service Level Objective）、SLA（Service Level Agreement）、エラーバジェット（Error Budget）、バーンレート（Burn Rate）、可用性の「9」の桁数と機会費用、サービス前オンボーディングチェックリスト、リリース計画・デプロイ計画・サービス提供終了（Deprecation）、キャパシティプランニング（クォータ・上限）、自動スケーリング（MIG, Cloud Run, GKE HPA/VPA/Cluster Autoscaler）、トラフィックドレイン / リダイレクト、容量追加、ロールバック戦略 |
+| **Section 4** | オブザーバビリティ手法の実装 | 約 20.0% | Cloud Logging、Ops Agent、Cloud Audit Logs、VPC フローログ、Cloud Service Mesh ログ、ログルーター（Log Router）、ログバケット、除外フィルタ、サンプリング、BigQuery / Pub/Sub / Cloud Storage へのログエクスポート、ログ保持期間、ログベース指標（カウンター・ディストリビューション）、センシティブデータマスキング（Sensitive Data Protection / DLP）、Cloud Monitoring、Managed Service for Prometheus、Metrics Explorer、合成モニター（Synthetic Monitors）、ダッシュボード管理、アラートポリシー・Runbook、サードパーティ連携（PagerDuty, Slack） |
+| **Section 5** | パフォーマンスの最適化とトラブルシューティング | 約 15.0% | インフラ・アプリ・CI/CD・オブザーバビリティのトラブルシューティング、Cloud Trace、Error Reporting、Cloud Profiler、OpenTelemetry 計測、オブザーバビリティ費用最適化、Spot VM、確約利用割引（CUD: リソースベース / 費用ベース）、継続利用割引（SUD）、ネットワークサービスティア（Premium vs Standard）、Active Assist / Cloud Recommender（費用、セキュリティ、パフォーマンス、信頼性） |
 
 ---
 
@@ -87,14 +87,14 @@ Professional Cloud DevOps Engineer は、Google 推奨の手法とツール群�
 ## 4. 推奨学習リソース＆公式ハンズオン・ラボ一覧
 
 ### 公式ドキュメント＆アーキテクチャフレームワーク
-- [Google Cloud Architecture Framework: オペレーショナル エクセレンス](https://cloud.google.com/architecture/framework/operational-excellence?hl=ja)
-- [Google Cloud Architecture Framework: 信頼性](https://cloud.google.com/architecture/framework/reliability?hl=ja)
+- [Google Cloud Architecture Framework: オペレーショナル エクセレンス](https://docs.cloud.google.com/architecture/framework/operational-excellence?hl=ja)
+- [Google Cloud Architecture Framework: 信頼性](https://docs.cloud.google.com/architecture/framework/reliability?hl=ja)
 - [Site Reliability Engineering (SRE) 公式書籍・資料 (Google SRE Book)](https://sre.google/books/)
-- [Google Cloud Deploy 公式ドキュメント](https://cloud.google.com/deploy/docs?hl=ja)
-- [Binary Authorization 公式ドキュメント](https://cloud.google.com/binary-authorization/docs?hl=ja)
-- [Google Cloud Managed Service for Prometheus 公式ドキュメント](https://cloud.google.com/stackdriver/docs/managed-prometheus?hl=ja)
+- [Google Cloud Deploy 公式ドキュメント](https://docs.cloud.google.com/deploy/docs?hl=ja)
+- [Binary Authorization 公式ドキュメント](https://docs.cloud.google.com/binary-authorization/docs?hl=ja)
+- [Google Cloud Managed Service for Prometheus 公式ドキュメント](https://docs.cloud.google.com/stackdriver/docs/managed-prometheus?hl=ja)
 
-### 公式ハンズオンラボ（Google Skills / Cloud Skills Boost）
+### 公式ハンズオンラボ（Google Skills）
 1. **Implement DevOps Workflows in Google Cloud (Skill Badge)**
    - Cloud Build を用いた自動コンテナイメージビルド、Artifact Registry への格納、GKE へのデプロイワークフローを実機演習。
 2. **Deploy to Kubernetes in Google Cloud (Skill Badge)**

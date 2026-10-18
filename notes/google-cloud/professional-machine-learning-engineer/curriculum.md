@@ -3,7 +3,7 @@
 - **対象資格**: Google Cloud Certified - Professional Machine Learning Engineer
 - **公式試験ガイド**: [Professional Machine Learning Engineer 認定試験ガイド (日本語版)](https://services.google.com/fh/files/misc/professional_machine_learning_engineer_exam_guide_japanese.pdf?hl=ja)
 - **公式試験ページ**: [Professional Machine Learning Engineer | Google Cloud Certification](https://cloud.google.com/learn/certification/machine-learning-engineer?hl=ja)
-- **公式学習パス**: [Google Skills - Machine Learning Engineer Learning Path](https://www.cloudskillsboost.google/paths/17)
+- **公式学習パス**: [Google Skills - Machine Learning Engineer Learning Path](https://www.skills.google/paths/17)
 - **最終更新日**: 2026-10-15
 
 ---
@@ -27,14 +27,14 @@ Professional Machine Learning Engineer は、Google Cloud のマネージドサ�
 
 本試験は全 6 セクションで構成されています。プロトタイプのスケーリング（21%）、サービングとスケーリング（20%）、パイプライン自動化（18%）、プロトタイピング（16%）の 4 分野で全体の約 75% を占めており、これらにローコード AI 開発（13%）と運用モニタリング・セキュリティ（13%）が加わる極めて実践的な構成となっています。
 
-| セクション番号 | セクション名 / 出題分野 | 出題比率 | 主要対象サービス・コンセプト | ステータス |
-| :--- | :--- | :--- | :--- | :--- |
-| **Section 1** | ローコード AI ソリューションの構築 | 約 13.0% | BigQuery ML、AutoML、事前トレーニング済み AI API（Vision、Document AI、Translate）、Model Garden、Gemini 基盤モデル、コンテキストキャッシング、プロンプト最適化 | 完了 |
-| **Section 2** | モデルのプロトタイピングとテスト | 約 16.0% | BigQuery、Dataflow、Dataproc、Vertex AI Feature Store、Sensitive Data Protection (DLP)、Vertex AI Workbench、Colab Enterprise、Vertex AI Experiments、Vertex AI ML Metadata、モデル評価指標、LLM-as-a-Judge、AutoSxS | 完了 |
-| **Section 3** | プロトタイプの ML モデルへのスケーリング | 約 21.0% | Vertex AI Custom Training、Tabular Workflows、Kubeflow on GKE、分散トレーニング（データ並列、モデル並列）、GPU（L4 / A100 / H100）、TPU（v4 / v5e / v5p）、Vertex AI Vizier、PEFT / LoRA ファインチューニング | 完了 |
-| **Section 4** | モデルのサービングとスケーリング | 約 20.0% | Vertex AI Endpoints、Vertex AI Batch Prediction、Cloud Run、GKE、ビルド済みコンテナ / カスタム予測ルーチン（CPR）、Model Registry、A/B テスト / カナリア展開、プライベートエンドポイント（PSC）、推論最適化（量子化、TensorRT） | 完了 |
-| **Section 5** | ML パイプラインの自動化とオーケストレーション | 約 18.0% | Vertex AI Pipelines (Kubeflow Pipelines SDK)、TFDV / TFT / TFMA、Cloud Composer (Apache Airflow)、Ray on Vertex AI、再トレーニングポリシー、CI/CD/CT 自動化（Cloud Build、Artifact Registry） | 完了 |
-| **Section 6** | AI ソリューションのモニタリング | 約 13.0% | Vertex AI Model Monitoring、データドリフト、コンセプトドリフト、トレーニングサービングスキュー、Explainable AI（SHAP、Integrated Gradients）、Model Armor、Prompt Injection 対策、責任ある AI（Fairness） | 完了 |
+| セクション番号 | セクション名 / 出題分野 | 出題比率 | 主要対象サービス・コンセプト |
+| :--- | :--- | :--- | :--- |
+| **Section 1** | ローコード AI ソリューションの構築 | 約 13.0% | BigQuery ML、AutoML、事前トレーニング済み AI API（Vision、Document AI、Translate）、Model Garden、Gemini 基盤モデル、コンテキストキャッシング、プロンプト最適化 |
+| **Section 2** | モデルのプロトタイピングとテスト | 約 16.0% | BigQuery、Dataflow、Dataproc、Vertex AI Feature Store、Sensitive Data Protection (DLP)、Vertex AI Workbench、Colab Enterprise、Vertex AI Experiments、Vertex AI ML Metadata、モデル評価指標、LLM-as-a-Judge、AutoSxS |
+| **Section 3** | プロトタイプの ML モデルへのスケーリング | 約 21.0% | Vertex AI Custom Training、Tabular Workflows、Kubeflow on GKE、分散トレーニング（データ並列、モデル並列）、GPU（L4 / A100 / H100）、TPU（v4 / v5e / v5p）、Vertex AI Vizier、PEFT / LoRA ファインチューニング |
+| **Section 4** | モデルのサービングとスケーリング | 約 20.0% | Vertex AI Endpoints、Vertex AI Batch Prediction、Cloud Run、GKE、ビルド済みコンテナ / カスタム予測ルーチン（CPR）、Model Registry、A/B テスト / カナリア展開、プライベートエンドポイント（PSC）、推論最適化（量子化、TensorRT） |
+| **Section 5** | ML パイプラインの自動化とオーケストレーション | 約 18.0% | Vertex AI Pipelines (Kubeflow Pipelines SDK)、TFDV / TFT / TFMA、Cloud Composer (Apache Airflow)、Ray on Vertex AI、再トレーニングポリシー、CI/CD/CT 自動化（Cloud Build、Artifact Registry） |
+| **Section 6** | AI ソリューションのモニタリング | 約 13.0% | Vertex AI Model Monitoring、データドリフト、コンセプトドリフト、トレーニングサービングスキュー、Explainable AI（SHAP、Integrated Gradients）、Model Armor、Prompt Injection 対策、責任ある AI（Fairness） |
 
 ---
 
@@ -89,15 +89,15 @@ Professional Machine Learning Engineer は、Google Cloud のマネージドサ�
 ## 4. 推奨学習リソース＆公式ハンズオン・ラボ一覧
 
 ### 公式ドキュメント＆アーキテクチャフレームワーク
-- [Google Cloud Architecture Framework: AI と機械学習](https://cloud.google.com/architecture/framework/system-design/ai-ml?hl=ja)
-- [Vertex AI の概要ドキュメント](https://cloud.google.com/vertex-ai/docs/start/introduction-unified-platform?hl=ja)
-- [BigQuery ML の概要](https://cloud.google.com/bigquery/docs/bqml-introduction?hl=ja)
-- [Vertex AI Pipelines の概要](https://cloud.google.com/vertex-ai/docs/pipelines/introduction?hl=ja)
-- [Vertex AI Model Monitoring の概要](https://cloud.google.com/vertex-ai/docs/model-monitoring/overview?hl=ja)
-- [Generative AI on Vertex AI ドキュメント](https://cloud.google.com/vertex-ai/generative-ai/docs/overview?hl=ja)
-- [Vertex AI Model Armor の概要](https://cloud.google.com/vertex-ai/docs/model-armor/overview?hl=ja)
+- [Google Cloud Architecture Framework: AI と機械学習](https://docs.cloud.google.com/docs/ai-ml?hl=ja#ai,-generative-ai,-and-ml-products-by-use-case)
+- [Vertex AI の概要ドキュメント](https://docs.cloud.google.com/gemini-enterprise-agent-platform/machine-learning?hl=ja)
+- [BigQuery ML の概要](https://docs.cloud.google.com/bigquery/docs/bqml-introduction?hl=ja)
+- [Vertex AI Pipelines の概要](https://docs.cloud.google.com/gemini-enterprise-agent-platform/machine-learning/pipelines/introduction?hl=ja)
+- [Vertex AI Model Monitoring の概要](https://docs.cloud.google.com/gemini-enterprise-agent-platform/machine-learning/model-monitoring/overview?hl=ja)
+- [Generative AI on Vertex AI ドキュメント](https://docs.cloud.google.com/gemini-enterprise-agent-platform/models?hl=ja)
+- [Vertex AI Model Armor の概要](https://docs.cloud.google.com/model-armor/overview?hl=ja)
 
-### 公式ハンズオンラボ（Google Skills / Cloud Skills Boost）
+### 公式ハンズオンラボ（Google Skills）
 1. **Machine Learning Engineer Learning Path (Skill Boost Path)**
    - BigQuery ML、Vertex AI AutoML、Custom Training、Pipelines、Model Monitoring を網羅する公式学習パス。
 2. **Build and Deploy Machine Learning Solutions on Vertex AI (Skill Badge)**

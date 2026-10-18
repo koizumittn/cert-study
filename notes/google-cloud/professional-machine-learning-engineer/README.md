@@ -199,8 +199,8 @@ BigQuery ML は、データの移動に伴うレイテンシ、ネットワー�
 - **結果**: 外部環境へのペタバイト級データの転送オーバーヘッドとネットワーク課金を完全にゼロにし、わずか数クエリで高精度な解約予測スコアを生成することに成功する。
 - **解説**: BigQuery ML を採用することで、データエクスポートや別クラスタの管理に伴う運用負荷とリードタイムを大幅に削減できるためです。また、`TRANSFORM` 句を用いることで前処理ロジックがモデルに固定され、推論時（`ML.PREDICT`）に同一の前処理が自動実行されるため、学習時と推論時のデータ処理の不整合（Training-Serving Skew）を確実に防止できます。Compute Engine 上にカスタム Python 環境を構築してデータをエクスポートする代替案は、データ移動に膨大な時間とコストを要し、2 週間という期限を満たせないため不適格です。また、AutoML 表形式モデルへのエクスポートもデータ抽出・ロードのオーバーヘッドが発生するため、データウェアハウス内で完結する BigQuery ML が最適です。
 - **参考ドキュメント**:
-  - [BigQuery ML の概要](https://cloud.google.com/bigquery/docs/bqml-introduction?hl=ja): BigQuery ML のサポートモデルとアーキテクチャ。
-  - [CREATE MODEL ステートメント (BigQuery ML)](https://cloud.google.com/bigquery/docs/reference/standard-sql/bigqueryml-syntax-create?hl=ja): モデル構築と TRANSFORM 句の仕様。
+  - [BigQuery ML の概要](https://docs.cloud.google.com/bigquery/docs/bqml-introduction?hl=ja): BigQuery ML のサポートモデルとアーキテクチャ。
+  - [CREATE MODEL ステートメント (BigQuery ML)](https://docs.cloud.google.com/bigquery/docs/reference/standard-sql/bigqueryml-syntax-create): モデル構築と TRANSFORM 句の仕様。
 
 #### シナリオ 1-2: 多店舗・数万品目の日次売上需要予測の自動化
 
@@ -209,16 +209,16 @@ BigQuery ML は、データの移動に伴うレイテンシ、ネットワー�
 - **結果**: 祝日、曜日ごとの季節性、欠損値補正、トレンド変化点が自動処理され、人手を介さずに全品目の高精度な需要予測が完了する。
 - **解説**: BigQuery ML の `ARIMA_PLUS` は、単一の SQL クエリで数万個の時系列を自動分割して並列フィッティングする能力を備えているためです。さらに、休日カレンダーの考慮や外れ値検出、季節性分解がパイプライン内で自動実行されます。自社で Facebook Prophet や statsmodels を用いた Python スクリプトを書き、マルチスレッド並列処理を自作する代替案は、インフラの運用保守が極めて煩雑になり、ノード障害時の耐障害性設計やメモリ管理のオーバーヘッドが過大となるため不適格です。
 - **参考ドキュメント**:
-  - [時系列モデルの概要 (BigQuery ML)](https://cloud.google.com/bigquery/docs/reference/standard-sql/bigqueryml-syntax-create-time-series?hl=ja): ARIMA+ の複数系列自動学習仕様。
+  - [時系列モデルの概要 (BigQuery ML)](https://docs.cloud.google.com/bigquery/docs/reference/standard-sql/bigqueryml-syntax-create-time-series): ARIMA+ の複数系列自動学習仕様。
 
 #### シナリオ 1-3: 大規模な技術マニュアル群に対する低遅延・低コストな社内 QA チャットボット
 
 - **状況**: 製造業において、約 50 万トークンに及ぶ社内保守技術マニュアルと安全基準書をプロンプトに含め、技術者からの問い合わせに対して Gemini を用いて即座に正確な回答を返す社内ボットを構築するにあたり、リクエストごとの応答レイテンシが 10 秒を超え、かつトークン課金が高騰している場合
 - **対応**: Vertex AI の Gemini API において「コンテキストキャッシング（Context Caching）」を有効化し、50 万トークンの共通マニュアル文書をキャッシュストレージに登録した上で、個別のユーザー質問のみを入力プロンプトとして送信する。
 - **結果**: 初回リクエスト以降の入力トークンコストが大幅に削減され、TTFT（Time to First Token）を含む応答レイテンシが大幅に短縮される。
-- **解説**: コンテキストキャッシングは、同一の膨大なコンテキストを複数回参照するワークロードにおいて、事前にエンコードされた KV キャッシュをメモリから高速にロードできるためです。これにより、毎回 50 万トークンを全量スキャンして課金される無駄を排除できます。マニュアル全体を毎回フルテキストでプロンプトに埋め込む代替案は、トークン課金がリクエストごとに最大化され、API クォータ枯渇や許容できない遅延を引き起こすため不適格です。また、すべてのテキストを単純な RAG（検索拡張生成）に移行する代替案は、マニュアル全体の文脈横断的な推論精度が低下するトレードオフがあり、長大コンテキストをそのまま高精度かつ低遅延に扱えるコンテキストキャッシングが最適解となります。
+- **解説**: コンテキストキャッシングは、同一の膨大なコンテキストを複数回参照するワークロードにおいて、事前にエンコードされた KV キャッシュをメモリから高速にロードできるためです。これにより、毎回 50 万トークンを全量スキャンして課金される無駄を排除できます。マニュアル全体を毎回フルテキストでプロンプトに埋め込む代替案は、トークン課金がリクエストごとに最大化され、API クォータ枯渇や許容できない遅延を引き起こすため不適格です。また、すべてのテキストを単純な RAG（検索拡張生成）に移行する代替案は、マニュアル全体の文脈横断的な推論精度が低下するトレードオフがあり、長大コンテキストをそのまま高精度かつ低遅延に扱えるコンテキストキャッシングが最適解となるためです。
 - **参考ドキュメント**:
-  - [Vertex AI コンテキスト キャッシュの概要](https://cloud.google.com/vertex-ai/generative-ai/docs/context-cache/context-cache-overview?hl=ja): キャッシュの有効期限、コスト構造、レイテンシ改善メカニズム。
+  - [Vertex AI コンテキスト キャッシュの概要](https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/context-cache/context-cache-overview?hl=ja): キャッシュの有効期限、コスト構造、レイテンシ改善メカニズム。
 
 #### シナリオ 1-4: 非定型な多言語請求書・領収書からの構造化データ自動抽出
 
@@ -227,23 +227,23 @@ BigQuery ML は、データの移動に伴うレイテンシ、ネットワー�
 - **結果**: 多言語・非定型レイアウトの文書であっても、事前学習済みの請求書スキーマに基づき 95% 以上の精度で自動抽出され、経理担当者の入力作業工数が 80% 削減される。
 - **解説**: Document AI の Invoice Parser は、あらかじめ数百万枚規模の請求書・領収書でファインチューニングされた特化型ディープラーニングモデルであり、レイアウト解析と自然言語理解が統合されているためです。Cloud Vision API のプレーンテキスト OCR を使用して正規表現（Regex）で金額や品目を抽出する代替案は、サプライヤーごとに異なるレイアウトや表組みに対応できず、ルールベース保守が破綻するため不適格です。また、スクラッチで OCR と固有表現抽出（NER）モデルをカスタムトレーニングする代替案は、アノテーションとモデル開発に数ヶ月以上の工数を要するため要件を満たせません。
 - **参考ドキュメント**:
-  - [Document AI の概要](https://cloud.google.com/document-ai/docs/overview?hl=ja): 事前トレーニング済みプロセッサの種類と活用法。
-  - [Invoice Parser の使用](https://cloud.google.com/document-ai/docs/processors-list#processor_INVOICE_PROCESSOR?hl=ja): 請求書抽出仕様。
+  - [Document AI の概要](https://docs.cloud.google.com/document-ai/docs/overview?hl=ja): 事前トレーニング済みプロセッサの種類と活用法。
+  - [Invoice Parser の使用](https://docs.cloud.google.com/document-ai/docs/processors-list): 請求書抽出仕様。
 
 ---
 
 ### 4. 参考ドキュメント & 推奨ハンズオン
 
 #### 公式一次ドキュメント
-- [BigQuery ML ドキュメント](https://cloud.google.com/bigquery/docs/bqml-introduction?hl=ja): サポートされるモデルタイプ、構文リファレンス、ベストプラクティス。
-- [Vertex AI Model Garden](https://cloud.google.com/vertex-ai/docs/model-garden/explore-models?hl=ja): 利用可能なファウンデーションモデル一覧とデプロイ手順。
-- [Gemini API on Vertex AI](https://cloud.google.com/vertex-ai/generative-ai/docs/overview?hl=ja): Gemini モデルのプロンプト設計、マルチモーダル推論、チューニング。
-- [Document AI ソリューションガイド](https://cloud.google.com/document-ai/docs/overview?hl=ja): ドキュメント処理パイプラインのアーキテクチャ設計。
+- [BigQuery ML ドキュメント](https://docs.cloud.google.com/bigquery/docs/bqml-introduction?hl=ja): サポートされるモデルタイプ、構文リファレンス、ベストプラクティス。
+- [Vertex AI Model Garden](https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/model-garden/explore-models?hl=ja): 利用可能なファウンデーションモデル一覧とデプロイ手順。
+- [Gemini API on Vertex AI](https://docs.cloud.google.com/gemini-enterprise-agent-platform/models?hl=ja): Gemini モデルのプロンプト設計、マルチモーダル推論、チューニング。
+- [Document AI ソリューションガイド](https://docs.cloud.google.com/document-ai/docs/overview?hl=ja): ドキュメント処理パイプラインのアーキテクチャ設計。
 
 #### 推奨ハンズオン・ラボ（実機検証）
-- **Build Real World Machine Learning Workflows with Dataprep and BigQuery ML (Google Skills Boost)**:
+- [Build Real World Machine Learning Workflows with Dataprep and BigQuery ML (Google Skills)](https://www.skills.google/paths/17):
   - **学習目標**: BigQuery 内で `CREATE MODEL` 文を実行し、`TRANSFORM` 句によるデータ前処理、モデル評価（`ML.EVALUATE`）、およびバッチ予測（`ML.PREDICT`）の全フローを実機で体感する。
-- **Inspect Rich Documents with Gemini Multimodal and Document AI (Google Skills Boost)**:
+- [Inspect Rich Documents with Gemini Multimodal and Document AI (Google Skills)](https://www.skills.google/paths/17):
   - **学習目標**: Document AI の特化型プロセッサと Gemini マルチモーダルモデルを連携させ、複雑な PDF ドキュメントから構造化 JSON を抽出するワークフローを構築する。
 
 ---
@@ -267,7 +267,7 @@ BigQuery ML は、データの移動に伴うレイテンシ、ネットワー�
 - **Vertex AI Feature Store**: 特徴量（Features）を組織横断で一元管理し、バッチ学習用のオフラインサービングと低レイテンシ推論用のオンラインサービング（Bigtable バックエンド）を提供するマネージドレジストリ。
 - **Colab Enterprise**: Google Cloud のセキュリティ統制（IAM、VPC Service Controls、顧客管理暗号鍵 CMEK）をエンタープライズ規模で適用したマネージド Jupyter ノートブック環境。BigQuery や Vertex AI サービスとシームレスに統合されています。
 - **Vertex AI Experiments**: 異なるハイパーパラメータ、アルゴリズム、データセット、モデルアーティファクトで実行された複数のトレーニング試行（Runs）を横断比較・可視化する実験管理ツール。
-- **AutoSxS (Side-by-Side Evaluation)**: Vertex AI が提供する LLM 評価自動化ツール。2 つの生成 AI モデルの出力を、Autocater（評価用 LLM）が「LLM-as-a-Judge」として自動比較し、根拠説明（Rationale）とともに勝敗を判定します。
+- **AutoSxS (Side-by-Side Evaluation)**: Vertex AI が提供する LLM 評価自動化ツール。2 つの生成 AI モデルの出力を、Autorater（評価用 LLM）が「LLM-as-a-Judge」として自動比較し、根拠説明（Rationale）とともに勝敗を判定します。
 
 ---
 
@@ -322,7 +322,7 @@ BigQuery ML は、データの移動に伴うレイテンシ、ネットワー�
 - **結果**: 誤検知率が劇的に抑制され、真の不正取引を高精度に捕捉しつつ業務部門の負荷を許容範囲内に収めることができる。
 - **解説**: 極端なクラス不均衡データにおいては、大多数を占める負例（正常取引）の数が圧倒的であるため、大量の偽陽性が発生していても偽陽性率（FPR = FP / (FP + TN)）が極めて小さくなり、ROC-AUC が見かけ上高くなってしまうためです。一方、PR-AUC は正例の予測結果（TP と FP）に焦点を当てて評価するため、誤検知の影響を直接反映できます。正解率（Accuracy）を指標に採用する代替案は、全件「正常」と予測するだけで 99.9% のスコアを達成してしまうため完全に無意味であり不適格です。また、単に学習データをアンダーサンプリングする代替案は、評価指標自体が不適切であればモデルの真の性能を見誤るため不適格です。
 - **参考ドキュメント**:
-  - [AutoML のモデル評価指標](https://cloud.google.com/vertex-ai/docs/tabular-data/evaluate-model?hl=ja): PR 曲線と混同行列の解釈。
+  - [AutoML のモデル評価指標](https://docs.cloud.google.com/gemini-enterprise-agent-platform/machine-learning/tabular-data/classification-regression/evaluate-model?hl=ja): PR 曲線と混同行列の解釈。
 
 #### シナリオ 2-2: 個人情報（PII）を含む医療カルテテキストの安全な ML 前処理
 
@@ -331,17 +331,17 @@ BigQuery ML は、データの移動に伴うレイテンシ、ネットワー�
 - **結果**: 患者の個人識別性を完全に排除しつつ、カルテテキスト内の語彙関係や文脈的特徴量を維持した状態でコンプライアンスに準拠したモデル開発が可能になる。
 - **解説**: Sensitive Data Protection は、高精度な機械学習モデルと正規表現ルールを組み合わせてテキストから多様な PII を自動検知し、安全に不可逆マスキングまたは仮名化できるマネージドサービスであるためです。手動で Python の正規表現を用いて氏名や住所を削除する代替案は、表記揺れや非定型な住所表記の漏れ（検知漏れ）が不可避であり、規制違反の重大なセキュリティインシデントを引き起こすため不適格です。また、データをローカル端末にダウンロードして個別に前処理する代替案は、データガバナンスとアクセス統制の観点から厳格に禁止されているため不適格です。
 - **参考ドキュメント**:
-  - [Sensitive Data Protection の概要](https://cloud.google.com/sensitive-data-protection/docs/overview?hl=ja): 機密データの自動検出と匿名化手法。
-  - [Dataflow と DLP によるデータ匿名化パイプライン](https://cloud.google.com/architecture/de-identifying-and-re-identifying-pii-using-cloud-dlp?hl=ja): ストリーミングおよびバッチでの PII マスキング。
+  - [Sensitive Data Protection の概要](https://docs.cloud.google.com/sensitive-data-protection/docs?hl=ja): 機密データの自動検出と匿名化手法。
+  - [Dataflow と DLP によるデータ匿名化パイプライン](https://docs.cloud.google.com/sensitive-data-protection/docs/deidentify-sensitive-data?hl=ja): ストリーミングおよびバッチでの PII マスキング。
 
 #### シナリオ 2-3: 複数データサイエンティストによる生成 AI モデルの客観的比較検証
 
 - **状況**: E コマース企業において、製品レビューの自動要約ボットを構築するにあたり、チューニングされたオープンソースモデルと Gemini 1.5 Flash の出力品質を比較したいが、人手による数千件のレビュー出力評価には数週間の時間と膨大なコストがかかる場合
-- **対応**: Vertex AI の「AutoSxS（Side-by-Side Evaluation）」を採用し、共通のテストプロンプトデータセットに対して両モデルの推論結果を生成させ、Autocater（評価用 LLM）に客観的な品質基準（流暢さ、網羅性、幻覚の有無）に基づき勝敗判定と根拠を出力させる。
+- **対応**: Vertex AI の「AutoSxS（Side-by-Side Evaluation）」を採用し、共通のテストプロンプトデータセットに対して両モデルの推論結果を生成させ、Autorater（評価用 LLM）に客観的な品質基準（流暢さ、網羅性、幻覚の有無）に基づき勝敗判定と根拠を出力させる。
 - **結果**: 人手評価に匹敵する整合性を持つ比較レポートがわずか数時間で自動生成され、最適なモデルを迅速に意思決定できる。
 - **解説**: AutoSxS は、LLM-as-a-Judge の手法をマネージドかつスケーラブルに実装したサービスであり、位置バイアス（Position Bias: 提示順による偏り）の補正や詳細な判定根拠（Rationale）の提供が組み込まれているためです。ROUGE や BLEU などの n-gram 一致度指標のみで評価する代替案は、生成テキストの表現の豊かさや文脈的妥当性、意味的整合性を評価できず、的外れなモデル選定に至るリスクがあるため不適格です。また、自社で社内テスターを集めて手動スプレッドシート集計を行う代替案は、開発のアジリティを著しく損ない、評価者の主観的ブレを排除できないため不適格です。
 - **参考ドキュメント**:
-  - [AutoSxS による生成 AI モデルの評価](https://cloud.google.com/vertex-ai/generative-ai/docs/models/side-by-side-eval?hl=ja): 自動評価のアーキテクチャと設定手順。
+  - [AutoSxS による生成 AI モデルの評価](https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/side-by-side-eval?hl=ja): 自動評価のアーキテクチャと設定手順。
 
 #### シナリオ 2-4: エンタープライズ金融機関におけるセキュアなノートブック開発環境の構築
 
@@ -350,22 +350,22 @@ BigQuery ML は、データの移動に伴うレイテンシ、ネットワー�
 - **結果**: ノートブック環境からのインターネットへの直接データ送信および未承認ストレージへのコピーが完全にブロックされ、社内コンプライアンス要件を完全に満たした安全な実験環境が提供される。
 - **解説**: VPC Service Controls は、Google Cloud サービス（Cloud Storage、BigQuery、Vertex AI）の API エンドポイントをプライベート境界内に閉じ込め、認証されたユーザーであっても境界外のリソースへの不正なデータ持ち出し（Data Exfiltration）をネットワークレベルで遮断できるためです。ローカル PC 上に Anaconda 環境を構築してデータをダウンロードさせる代替案は、端末からのデータ漏洩リスクを制御できないため不適格です。また、単に GCE ファイアウォールルールで外向き通信を拒否するだけの代替案は、Google API（ストレージ等）への正規アクセス経由での意図しない別プロジェクトへのデータ転送を防止できないため要件を満たせません。
 - **参考ドキュメント**:
-  - [Vertex AI Workbench と VPC Service Controls の統合](https://cloud.google.com/vertex-ai/docs/workbench/user-managed/vpc-service-controls?hl=ja): 境界内ノートブックの設計。
+  - [Vertex AI Workbench と VPC Service Controls の統合](https://docs.cloud.google.com/vertex-ai/docs/deprecations?hl=ja#user-managed-notebooks): 境界内ノートブックの設計。
 
 ---
 
 ### 4. 参考ドキュメント & 推奨ハンズオン
 
 #### 公式一次ドキュメント
-- [Vertex AI Feature Store の概要](https://cloud.google.com/vertex-ai/docs/featurestore/overview?hl=ja): 特徴量の一元管理とサービングアーキテクチャ。
-- [Vertex AI Experiments の概要](https://cloud.google.com/vertex-ai/docs/experiments/intro-to-vertex-ai-experiments?hl=ja): 実験のトラッキングと可視化。
-- [Vertex AI Evaluation Service](https://cloud.google.com/vertex-ai/generative-ai/docs/models/evaluation-overview?hl=ja): 基盤モデルとカスタムモデルの自動評価体系。
-- [Cloud Dataflow ドキュメント](https://cloud.google.com/dataflow/docs?hl=ja): 大規模前処理パイプラインの構築。
+- [Vertex AI Feature Store の概要](https://docs.cloud.google.com/vertex-ai/docs/featurestore/overview?hl=ja): 特徴量の一元管理とサービングアーキテクチャ。
+- [Vertex AI Experiments の概要](https://docs.cloud.google.com/gemini-enterprise-agent-platform/machine-learning/experiments/intro-vertex-ai-experiments?hl=ja): 実験のトラッキングと可視化。
+- [Vertex AI Evaluation Service](https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/evaluation-overview?hl=ja): 基盤モデルとカスタムモデルの自動評価体系。
+- [Cloud Dataflow ドキュメント](https://docs.cloud.google.com/dataflow/docs?hl=ja): 大規模前処理パイプラインの構築。
 
 #### 推奨ハンズオン・ラボ（実機検証）
-- **Build and Deploy Machine Learning Solutions on Vertex AI (Google Skills Boost)**:
+- [Build and Deploy Machine Learning Solutions on Vertex AI (Google Skills)](https://www.skills.google/paths/17):
   - **学習目標**: Vertex AI Workbench でノートブック環境を起動し、scikit-learn / PyTorch によるモデル開発と Vertex AI Experiments によるハイパーパラメータ記録を実践する。
-- **Engineer Data for Predictive Modeling with BigQuery ML and Dataflow (Google Skills Boost)**:
+- [Engineer Data for Predictive Modeling with BigQuery ML and Dataflow (Google Skills)](https://www.skills.google/paths/17):
   - **学習目標**: Cloud Dataflow を用いた大規模データの前処理・特徴量エンジニアリングパイプラインを構築し、BigQuery ML と連携させる。
 
 ---
@@ -402,7 +402,7 @@ BigQuery ML は、データの移動に伴うレイテンシ、ネットワー�
 | :--- | :--- | :--- | :--- | :--- |
 | **主要用途** | 迅速なベースライン構築、コード不要の表形式・画像・テキスト分類 | 数百 GB 以上の超大規模表形式データに対する高度な自動特徴量探索 | 自由なモデル定義（PyTorch, JAX, TF）、分散ディープラーニング | 既存 GKE クラスタ資産の活用、ハイブリッド/マルチクラウド展開 |
 | **モデルの柔軟性** | 低（あらかじめ定義されたアルゴリズム群） | 中〜高（パイプライン各ステップの調整が可能） | 最大（コンテナ内であらゆるライブラリ・コードを実行可能） | 最大（Kubernetes 上であらゆるワークロードを制御可能） |
-| **分散トレーニング制御** | 自動 | 自動（Pipelines 経由） | ジョブ設定でワーカー数・アクセラレータ数を指定 | KubeFlow Training Operator (TFJob, PyTorchJob) で明示制御 |
+| **分散トレーニング制御** | 自動 | 自動（Pipelines 経由） | ジョブ設定でワーカー数・アクセラレータ数を指定 | Kubeflow Training Operator (TFJob, PyTorchJob) で明示制御 |
 | **インフラ運用負荷** | ゼロ | ゼロ | 極小（ジョブ実行時のみクラスタが自動起動・終了） | 中〜大（GKE クラスタ、ノードプール、オートスケーラーの運用が必要） |
 
 - **アーキテクトの選定基準**:
@@ -440,7 +440,7 @@ BigQuery ML は、データの移動に伴うレイテンシ、ネットワー�
 - **結果**: 学習対象パラメータ数が全体の 0.5% 未満に削減され、GPU VRAM 消費量が 80% 以上削減されて A100 4 基のクラスタ上で安定してトレーニングが完走する。
 - **解説**: 70B モデルの完全ファインチューニングでは、モデル重みだけで FP16 で約 140GB、さらに勾配（140GB）と Adam オプティマイザ状態（約 280GB）が必要となり、合計 500GB 以上の VRAM を消費するため単一インスタンスでは確実に OOM が発生するためです。PEFT / LoRA はベースモデルの重みを更新せず凍結し、少数の追加アダプタのみを学習するため、オプティマイザのメモリフットプリントを劇的に圧縮できます。単にバッチサイズを小さくする代替案は、すでにバッチサイズ 1 で OOM が出ているため何ら解決策にならず不適格です。また、データ並列（DDP）のノード数を増やす代替案は、データ並列では各 GPU にモデル全体のコピーが乗る前提であるため、モデルが単一 GPU に乗らない本課題に対しては解決策にならず不適格です。
 - **参考ドキュメント**:
-  - [Vertex AI での基盤モデルのチューニング](https://cloud.google.com/vertex-ai/generative-ai/docs/models/tune-models?hl=ja): PEFT/LoRA による効率的チューニング手順。
+  - [Vertex AI での基盤モデルのチューニング](https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/tuning?hl=ja): PEFT/LoRA による効率的チューニング手順。
 
 #### シナリオ 3-2: コンピューティングリソースの過剰消費を防ぐ効率的なハイパーパラメータ探索
 
@@ -449,7 +449,7 @@ BigQuery ML は、データの移動に伴うレイテンシ、ネットワー�
 - **結果**: 探索空間全体を総当たりすることなく、わずか 30 回程度の試行で最高精度のハイパーパラメータ構成を特定し、トレーニング費用を 80% 削減する。
 - **解説**: Vertex AI Vizier のベイジアン最適化は、過去の試行結果から目的関数の事後分布（ガウス過程等）を推定し、次に最も有望なパラメータ領域を集中的に探索するアクティブラーニングを行うためです。さらに早期停止ルールにより、序盤で損失（Loss）の収束が悪い試行を自動キルして計算リソースを解放できます。グリッドサーチ（全組み合わせ探索）を行う代替案は、パラメータ数が増えると組み合わせが指数関数的に爆発（次元の呪い）するため完全に非現実的であり不適格です。また、ランダムサーチ（Random Search）はグリッドサーチより優れるものの、過去の試行からのフィードバック学習を行わないため、ベイジアン最適化に比べて探索効率が著しく劣り不適格です。
 - **参考ドキュメント**:
-  - [Vertex AI Vizier の概要](https://cloud.google.com/vertex-ai/docs/vizier/overview?hl=ja): ベイズ最適化と早期停止のメカニズム。
+  - [Vertex AI Vizier の概要](https://docs.cloud.google.com/gemini-enterprise-agent-platform/machine-learning/vizier/overview?hl=ja): ベイズ最適化と早期停止のメカニズム。
 
 #### シナリオ 3-3: 大規模な画像分類モデルにおける複数ノード GPU 分散学習の高速化
 
@@ -458,7 +458,7 @@ BigQuery ML は、データの移動に伴うレイテンシ、ネットワー�
 - **結果**: GPU のアイドル待ち時間が解消され、GPU 使用率が 90% 以上に向上し、全体の学習時間が 2 週間から 3 日間に短縮される。
 - **解説**: 分散ディープラーニングにおいて最も一般的なボトルネックは、多数の細かな画像ファイルを個別 HTTP GET で Cloud Storage から取得する際のディスク I/O およびネットワークレイテンシであるためです。データをシーケンシャルに読み出せる大きなコンテナフォーマット（TFRecord / WebDataset）にまとめ、GPU が計算中に次のバッチをメモリへ非同期プリフェッチ（`prefetch`）することで I/O 待ちを完全に隠蔽できます。単に GPU ノード数をさらに 8 ノードに倍増させる代替案は、I/O および通信ボトルネックが主因であるため費用が倍増するだけで速度は向上せず不適格です。また、すべてのデータをローカル VM ディスクにコピーする代替案は、ノード起動時のステージング時間が膨大になり、ローカル SSD の容量上限を超えるため不適格です。
 - **参考ドキュメント**:
-  - [Vertex AI での分散トレーニングの実行](https://cloud.google.com/vertex-ai/docs/training/distributed-training?hl=ja): マルチワーカー構成とベストプラクティス。
+  - [Vertex AI での分散トレーニングの実行](https://docs.cloud.google.com/gemini-enterprise-agent-platform/machine-learning/training/distributed-training?hl=ja): マルチワーカー構成とベストプラクティス。
 
 #### シナリオ 3-4: 医療機関の CT スキャン解析における解釈可能性（Explainability）担保
 
@@ -467,7 +467,7 @@ BigQuery ML は、データの移動に伴うレイテンシ、ネットワー�
 - **結果**: 診断支援の予測スコアとともに、病変部位と一致する根拠領域が医師の画面上にカラーヒートマップとして可視化され、規制要件をクリアする。
 - **解説**: ディープラーニングなどの連続的な勾配を持つ微分可能モデルにおいて、Integrated Gradients や画像特化型の XRAI は、ベースライン（無特徴画像）からの勾配を積分することで、ピクセルや領域ごとの予測への貢献度（Feature Attribution）を数学的公理（完全性と線形性）を満たして正確に算出できるためです。表形式データ向けの Sampled Shapley を画像に直接適用する代替案は、計算量がピクセル数に対して指数関数的に爆発し、実用的な時間内に計算できないため不適格です。また、モデルを単純なロジスティック回帰に置き換える代替案は、複雑な高解像度医療画像の特徴を捉えきれず、検出精度が著しく低下して医療安全を満たせないため不適格です。
 - **参考ドキュメント**:
-  - [Vertex Explainable AI の概要](https://cloud.google.com/vertex-ai/docs/explainable-ai/overview?hl=ja): Integrated Gradients、Sampled Shapley、XRAI の選定基準。
+  - [Vertex Explainable AI の概要](https://docs.cloud.google.com/vertex-ai/docs/explainable-ai/overview?hl=ja): Integrated Gradients、Sampled Shapley、XRAI の選定基準。
 
 #### シナリオ 3-5: TPU Pod を用いた超大規模言語モデルの事前学習における耐障害性設計
 
@@ -476,22 +476,22 @@ BigQuery ML は、データの移動に伴うレイテンシ、ネットワー�
 - **結果**: 数百チップ規模で稀に発生するハードウェアノード障害やプリエンプションの際も、最大 1 時間分の計算損失にとどめて即座にトレーニングが自動再開され、数千万円規模の計算資源の浪費を防止する。
 - **解説**: 大規模分散学習では、稼働するノード数が多くなるほど平均故障間隔（MTBF）が短くなり、長期間のジョブにおいてノード障害は「例外」ではなく「必ず起こる前提」として設計しなければならないためです。定期的な非同期チェックポイント保存と自動復帰パイプラインを確立することで、計算損失を最小限に抑えられます。チェックポイントをローカル SSD にのみ保存する代替案は、ノード障害やプリエンプション時にローカルストレージが破棄されるため復元できず不適格です。また、ジョブ終了時のみチェックポイントを保存する代替案は、途中でクラッシュした場合にすべての学習進捗が永久に失われるため不適格です。
 - **参考ドキュメント**:
-  - [Cloud TPU のベストプラクティス](https://cloud.google.com/tpu/docs/best-practices?hl=ja): チェックポイント戦略と高可用性設計。
+  - [Cloud TPU のベストプラクティス](https://docs.cloud.google.com/tpu/docs/intro-to-tpu?hl=ja): チェックポイント戦略と高可用性設計。
 
 ---
 
 ### 4. 参考ドキュメント & 推奨ハンズオン
 
 #### 公式一次ドキュメント
-- [Vertex AI Custom Training のドキュメント](https://cloud.google.com/vertex-ai/docs/training/overview?hl=ja): カスタムコンテナの仕様、分散トレーニングの構成。
-- [Vertex AI Vizier の使用](https://cloud.google.com/vertex-ai/docs/vizier/using-vizier?hl=ja): スタディとトライアルの設定方法。
-- [Cloud TPU の概要](https://cloud.google.com/tpu/docs/intro-to-tpu?hl=ja): TPU アーキテクチャと分散トレーニングの基礎。
-- [Vertex Explainable AI のドキュメント](https://cloud.google.com/vertex-ai/docs/explainable-ai/overview?hl=ja): 特徴量アトリビューションの理論と構成。
+- [Vertex AI Custom Training のドキュメント](https://docs.cloud.google.com/gemini-enterprise-agent-platform/machine-learning/training/overview?hl=ja): カスタムコンテナの仕様、分散トレーニングの構成。
+- [Vertex AI Vizier の使用](https://docs.cloud.google.com/gemini-enterprise-agent-platform/machine-learning/vizier/using-vizier?hl=ja): スタディとトライアルの設定方法。
+- [Cloud TPU の概要](https://docs.cloud.google.com/tpu/docs/intro-to-tpu?hl=ja): TPU アーキテクチャと分散トレーニングの基礎。
+- [Vertex Explainable AI のドキュメント](https://docs.cloud.google.com/vertex-ai/docs/explainable-ai/overview?hl=ja): 特徴量アトリビューションの理論と構成。
 
 #### 推奨ハンズオン・ラボ（実機検証）
-- **Scale Machine Learning Models with Vertex AI (Google Skills Boost)**:
+- [Scale Machine Learning Models with Vertex AI (Google Skills)](https://www.skills.google/paths/17):
   - **学習目標**: カスタムコンテナを作成し、Vertex AI SDK を用いて GPU をアタッチしたカスタムトレーニングジョブを実行、Cloud Storage との高速データ連携を検証する。
-- **Hyperparameter Tuning with Vertex AI Vizier (Google Skills Boost)**:
+- [Hyperparameter Tuning with Vertex AI Vizier (Google Skills)](https://www.skills.google/paths/17):
   - **学習目標**: Vizier を用いて複数のハイパーパラメータを定義し、ベイズ最適化による探索効率の向上と早期停止の挙動を実機で確認する。
 
 ---
@@ -566,7 +566,7 @@ BigQuery ML は、データの移動に伴うレイテンシ、ネットワー�
 - **結果**: 稼働中のエンドポイントの DNS や IP アドレスを一切変更することなく、本番トラフィックを用いた実環境テスト（カナリアリリース）が無停止で完了する。
 - **解説**: Vertex AI Endpoints は単一のエンドポイント上で複数のモデルバージョンを共存させ、HTTP リクエストのルーティング比率を動的に制御できるためです。問題が発生した際も、即座に v1 の比率を 100% に戻すロールバックが数秒で完了します。別名のエンドポイントを新規作成してクライアント側のアプリ設定を切り替える代替案は、アプリ側の反映タイムラグやキャッシュによる不整合が発生し、障害時の迅速な切り戻しが困難となるため不適格です。また、いきなり全トラフィック（100%）を新モデルに切り替える代替案は、潜在的なバグが全ユーザーに波及する重大な可用性リスクを招くため不適格です。
 - **参考ドキュメント**:
-  - [Vertex AI エンドポイントへのモデルのデプロイ](https://cloud.google.com/vertex-ai/docs/general/deployment?hl=ja): トラフィック分割と複数モデルデプロイ手順。
+  - [Vertex AI エンドポイントへのモデルのデプロイ](https://docs.cloud.google.com/gemini-enterprise-agent-platform/machine-learning/general/deployment?hl=ja): トラフィック分割と複数モデルデプロイ手順。
 
 #### シナリオ 4-2: 前処理・後処理ロジックを含む推論 API の最小工数パッケージング
 
@@ -575,7 +575,7 @@ BigQuery ML は、データの移動に伴うレイテンシ、ネットワー�
 - **結果**: わずか数十行の Python コードで本番水準の推論コンテナが自動ビルドされ、環境の不整合やサーバーの脆弱性管理工数を大幅に削減できる。
 - **解説**: カスタム予測ルーチン（CPR）は、推論の前処理・後処理のカスタムコードを、Google Cloud が保守する堅牢な Web サービング基盤上に簡単に統合できるマネージドなパッケージング機構であるためです。完全にスクラッチでカスタム Dockerfile を書いて Docker Hub や Artifact Registry にプッシュする代替案は、HTTP サーバーの最適化（マルチワーカー設定、ヘルスチェック実装）やセキュリティパッチ適用をすべて自前で保守しなければならず運用負荷が過大となるため不適格です。また、ビルド済みコンテナを採用する代替案は、ビルド済みコンテナは生の数値テンソル入力しか受け付けず、クライアント側で前処理を行わせる必要が生じるため API 設計として不適格です。
 - **参考ドキュメント**:
-  - [カスタム予測ルーチン (CPR) の使用](https://cloud.google.com/vertex-ai/docs/predictions/custom-prediction-routines?hl=ja): 前処理・後処理コードの実装仕様。
+  - [カスタム予測ルーチン (CPR) の使用](https://docs.cloud.google.com/gemini-enterprise-agent-platform/machine-learning/predictions/custom-prediction-routines?hl=ja): 前処理・後処理コードの実装仕様。
 
 #### シナリオ 4-3: 突発的なアクセススパイクに対応する自動スケーリングとコスト最適化
 
@@ -584,7 +584,7 @@ BigQuery ML は、データの移動に伴うレイテンシ、ネットワー�
 - **結果**: スパイク発生時に自動的にノードがスケールアウトしてリクエストの滞留を防ぎ、トラフィックが平常値に戻ると自動でスケールインしてコストを最小限に抑えることができる。
 - **解説**: Vertex AI Endpoints はマネージドな水平ポッドオートスケーラー（HPA）と同等の自動スケーリング機構を内包しており、リソース負荷に応じて数分以内に動的スケールするためです。最小レプリカ数を最大値に固定して常時稼働させる代替案は、夜間や閑散期にも膨大な GPU/CPU 費用が発生し続けるためコスト効率の観点から不適格です。また、Compute Engine 上で自作のシェルスクリプトを用いてインスタンスのスケールを自作する代替案は、トラフィック検出の遅延やロードバランサへの自動アタッチの信頼性が低く、スパイク時のリクエストドロップを回避できないため不適格です。
 - **参考ドキュメント**:
-  - [Vertex AI でのモデルの自動スケーリング](https://cloud.google.com/vertex-ai/docs/predictions/deploy-model-api#scale?hl=ja): レプリカ設定とメトリクス。
+  - [Vertex AI でのモデルの自動スケーリング](https://docs.cloud.google.com/gemini-enterprise-agent-platform/machine-learning/predictions): レプリカ設定とメトリクス。
 
 #### シナリオ 4-4: 大規模言語モデル（LLM）の推論スループット最大化とレイテンシ低減
 
@@ -593,7 +593,7 @@ BigQuery ML は、データの移動に伴うレイテンシ、ネットワー�
 - **結果**: GPU メモリの無駄な断片化がゼロになり、同時リクエスト処理時でもスループットが従来の 3〜4 倍に向上し、ユーザー体感レイテンシが大幅に改善される。
 - **解説**: vLLM の PagedAttention アルゴリズムは、OS の仮想メモリページングと同様の仕組みで KV キャッシュを物理メモリに断片化なく割り当てるため、メモリ利用効率を約 96% まで引き上げ、はるかに大きなバッチサイズを並列処理できるためです。標準的な Hugging Face Transformers の `generate()` メソッドを素朴に呼び出す代替案は、シーケンス長の上限に合わせて過剰にメモリを事前確保するためメモリ枯渇が早期に発生し、同時リクエストを処理できないため不適格です。また、単に GPU のハードウェアスペックを上げる（例: L4 から H100 に変更する）代替案は、根本的なメモリ断片化アルゴリズムを解決していないため費用対効果が極めて悪く不適格です。
 - **参考ドキュメント**:
-  - [Vertex AI Model Garden でのオープンモデルの最適化デプロイ](https://cloud.google.com/vertex-ai/docs/model-garden/explore-models?hl=ja): vLLM / TGI を用いたサービング。
+  - [Vertex AI Model Garden でのオープンモデルの最適化デプロイ](https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/model-garden/explore-models?hl=ja): vLLM / TGI を用いたサービング。
 
 #### シナリオ 4-5: 企業プライベートネットワーク内からのセキュアな推論アクセス
 
@@ -602,22 +602,22 @@ BigQuery ML は、データの移動に伴うレイテンシ、ネットワー�
 - **結果**: 通信が Google Cloud のプライベートバックボーン網およびオンプレミス接続（Cloud Interconnect）内に完全に閉じた状態で実行され、データのエグレスや外部傍受リスクを排除してセキュリティ監査に合格する。
 - **解説**: Private Service Connect は、Google Cloud のマネージドサービス（Vertex AI 推論エンドポイント等）を、ユーザーの VPC 内のプライベート IP として直接公開できる現代的なプライベート接続標準であるためです。従来の VPC ピアリング接続を用いる代替案は、IP アドレス帯の重複制限や推論エンドポイント側の VPC 管理オーバーヘッドが発生するため推奨されず、PSC が最適解です。また、Cloud NAT を介してパブリック IP の Vertex AI エンドポイントを呼び出す代替案は、通信がインターネットエッジを通過するため金融機関の閉域網ポリシーに抵触し不適格です。
 - **参考ドキュメント**:
-  - [Vertex AI での Private Service Connect の構成](https://cloud.google.com/vertex-ai/docs/general/private-service-connect?hl=ja): プライベート推論エンドポイントの設計。
+  - [Vertex AI での Private Service Connect の構成](https://docs.cloud.google.com/gemini-enterprise-agent-platform/machine-learning/general/netsec-overview?hl=ja): プライベート推論エンドポイントの設計。
 
 ---
 
 ### 4. 参考ドキュメント & 推奨ハンズオン
 
 #### 公式一次ドキュメント
-- [Vertex AI Endpoints の概要](https://cloud.google.com/vertex-ai/docs/general/deployment?hl=ja): オンライン推論エンドポイントの設計。
-- [Vertex AI Model Registry のドキュメント](https://cloud.google.com/vertex-ai/docs/model-registry/introduction?hl=ja): モデルバージョニングとガバナンス。
-- [Custom Prediction Routines ガイド](https://cloud.google.com/vertex-ai/docs/predictions/custom-prediction-routines?hl=ja): 前処理・後処理ロジックのカプセル化。
-- [Batch Prediction の使用](https://cloud.google.com/vertex-ai/docs/tabular-data/classification-regression/get-batch-predictions?hl=ja): 大規模バッチ推論の実行。
+- [Vertex AI Endpoints の概要](https://docs.cloud.google.com/gemini-enterprise-agent-platform/machine-learning/general/deployment?hl=ja): オンライン推論エンドポイントの設計。
+- [Vertex AI Model Registry のドキュメント](https://docs.cloud.google.com/gemini-enterprise-agent-platform/machine-learning/model-registry/introduction?hl=ja): モデルバージョニングとガバナンス。
+- [Custom Prediction Routines ガイド](https://docs.cloud.google.com/gemini-enterprise-agent-platform/machine-learning/predictions/custom-prediction-routines?hl=ja): 前処理・後処理ロジックのカプセル化。
+- [Batch Prediction の使用](https://docs.cloud.google.com/gemini-enterprise-agent-platform/machine-learning/tabular-data/classification-regression/get-batch-predictions?hl=ja): 大規模バッチ推論の実行。
 
 #### 推奨ハンズオン・ラボ（実機検証）
-- **Build and Deploy Machine Learning Solutions on Vertex AI (Google Skills Boost)**:
+- [Build and Deploy Machine Learning Solutions on Vertex AI (Google Skills)](https://www.skills.google/paths/17):
   - **学習目標**: トレーニング済みモデルを Vertex AI Model Registry に登録し、推論エンドポイントへデプロイしてリアルタイム予測を実行する。
-- **Serving Machine Learning Models with Vertex AI Endpoints and Cloud Run (Google Skills Boost)**:
+- [Serving Machine Learning Models with Vertex AI Endpoints and Cloud Run (Google Skills)](https://www.skills.google/paths/17):
   - **学習目標**: トラフィック分割によるカナリアリリースの設定と、カスタム予測ルーチンを用いた前処理ロジックの動作検証を行う。
 
 ---
@@ -689,7 +689,7 @@ BigQuery ML は、データの移動に伴うレイテンシ、ネットワー�
 - **結果**: 学習時と推論時で完全に同一の数学的変換ロジックが強制適用され、前処理ロジックの二重管理と不整合（Training-Serving Skew）が根本的に排除される。
 - **解説**: TensorFlow Transform（TFT）は、データセット全体の集計統計量（平均、分散、語彙リスト）を算出して定数化し、それを TensorFlow 計算グラフとしてモデル自身に組み込む能力を持つためです。これにより、推論サーバー側で前処理コードを別途メンテナンスする必要が完全になくなります。推論サーバー側の Java コードを修正して Python の挙動と手作業で合わせる代替案は、今後の特徴量追加や仕様変更のたびにバグが再発するリスクが極めて高く、根本解決にならないため不適格です。また、すべての前処理をデータベース側の SQL に移管する代替案は、リアルタイムオンライン推論時の低遅延要件（ミリ秒応答）を満たせないため不適格です。
 - **参考ドキュメント**:
-  - [TensorFlow Transform の概要](https://cloud.google.com/architecture/data-preprocessing-for-ml-with-tf-transform-pt1?hl=ja): 学習と推論の一貫性担保アーキテクチャ。
+  - [TensorFlow Transform の概要](https://docs.cloud.google.com/architecture/mlops-continuous-delivery-and-automation-pipelines-in-machine-learning?hl=ja): 学習と推論の一貫性担保アーキテクチャ。
 
 #### シナリオ 5-2: データ異常によるトレーニング失敗を未然に防ぐ自動スキーマ検証
 
@@ -698,16 +698,16 @@ BigQuery ML は、データの移動に伴うレイテンシ、ネットワー�
 - **結果**: 異常データによる無駄な GPU 計算リソースの消費がゼロになり、品質基準を満たさない壊れたモデルの本番環境への誤デプロイが完全に防止される。
 - **解説**: TFDV は取り込まれたデータセットの統計分布を自動算出し、想定されるデータ型、値の許容範囲、NULL 率の閾値逸脱を学習開始前にミリ秒単位で検知・判定できるためです。モデルの学習完了後の精度低下を検知してロールバックする代替案は、すでに数時間〜数日間の膨大な GPU コンピュート費用と時間を浪費してしまっているため不適格です。また、自作の Python `assert` 文でチェックする代替案は、大規模分散データに対する効率的な集計処理やスキーマ管理の体系化が困難であり、保守性が著しく低いため不適格です。
 - **参考ドキュメント**:
-  - [TensorFlow Data Validation を使用したデータ分析とスキーマ検証](https://www.tensorflow.org/tfx/data_validation/get_started?hl=ja): スキーマ生成と異常検出。
+  - [TensorFlow Data Validation を使用したデータ分析とスキーマ検証](https://github.com/tensorflow/data-validation): スキーマ生成と異常検出。
 
 #### シナリオ 5-3: Git リポジトリへのコードマージに連動した完全自動 MLOps パイプライン (CI/CD/CT)
 
 - **状況**: ML エンジニアチームにおいて、モデルコードやパイプライン定義（KFP DSL）を GitHub に push した後、手作業でコンテナをビルドし、手動でテストを実行してエンドポイントへデプロイしているため、ヒューマンエラーが発生し、どのバージョンのコードがどのモデルアーティファクトに対応しているかのリネージ管理が不透明になっている場合
-- **対応**: Cloud Build を中核とする CI/CD パイプラインを構築し、Git リポジトリへの PR マージをトリガーとして、①単体テスト・静的解析の実行、②推論コンテナの自動ビルドと Artifact Registry への登録、③Vertex AI Pipelines のコンパイルと自動起動、④モデルの自動評価（TFMA）による承認ゲート通過、⑤Vertex AI Model Registry への新バージョン登録とエンドポイント更新を一貫して自動実行させる。
+- **対応**: Cloud Build を中核とする CI/CD パイプラインを構築し、Git リポジトリへの PR マージをトリガーとして、(1) 単体テスト・静的解析の実行、(2) 推論コンテナの自動ビルドと Artifact Registry への登録、(3) Vertex AI Pipelines のコンパイルと自動起動、(4) モデルの自動評価（TFMA）による承認ゲート通過、(5) Vertex AI Model Registry への新バージョン登録とエンドポイント更新を一貫して自動実行させる。
 - **結果**: コードのコミットから本番デプロイまでのリードタイムが数日から数十分へ短縮され、コミット SHA、コンテナイメージ、パイプライン実行ログ、モデルアーティファクトの完全な監査証跡（リネージ）が自動確立される。
 - **解説**: Google Cloud が推奨する MLOps レベル 2 アーキテクチャに準拠し、Cloud Build と Vertex AI Pipelines、Artifact Registry を連携させることで、テストとデプロイの自動化と再現性を完全に担保できるためです。開発者のローカル PC から gcloud コマンドで直接エンドポイントを更新する代替案は、実行環境の差異による障害や認証情報の漏洩リスクがあり、変更履歴が残らないためエンタープライズ運用として不適格です。また、パイプラインの定期実行（cron）のみに頼る代替案は、コード変更に対する即時フィードバックと自動テストが得られないため不適格です。
 - **参考ドキュメント**:
-  - [Google Cloud における MLOps: 機械学習における継続的デリバリーと自動化のパイプライン](https://cloud.google.com/architecture/mlops-continuous-delivery-and-automation-pipelines-in-machine-learning?hl=ja): MLOps レベル 0、1、2 の設計原則。
+  - [Google Cloud における MLOps: 機械学習における継続的デリバリーと自動化のパイプライン](https://docs.cloud.google.com/architecture/mlops-continuous-delivery-and-automation-pipelines-in-machine-learning?hl=ja): MLOps レベル 0、1、2 の設計原則。
 
 #### シナリオ 5-4: モデルの特定属性グループに対する公平性・性能バイアスの自動検出
 
@@ -716,22 +716,22 @@ BigQuery ML は、データの移動に伴うレイテンシ、ネットワー�
 - **結果**: 総合的な集計値に隠蔽されていた特定少数グループに対する性能劣化やバイアスが自動的に可視化・遮断され、公平性基準を満たした安全なモデルのみが本番運用される。
 - **解説**: TFMA は、データセットを特定の特徴量値でスライスして信頼区間（Confidence Intervals）付きで指標を計算する能力を備えており、シンプソンのパラドックス（全体の傾向と部分の傾向の乖離）や公平性バイアスを厳密に検出できるためです。モデル全体の混同行列や F1 スコアのみを確認してデプロイする代替案は、マイノリティ層に対する重大な差別的結果を見落とし、社会的信頼の失墜や法的制裁を招くため不適格です。また、手動でテストデータを分割してスプレッドシートで分析する代替案は、再トレーニングのたびに人手作業が発生しパイプラインの自動化（CT）を阻害するため不適格です。
 - **参考ドキュメント**:
-  - [TensorFlow Model Analysis の使用](https://www.tensorflow.org/tfx/model_analysis/get_started?hl=ja): スライスベースのモデル評価。
+  - [TensorFlow Model Analysis の使用](https://github.com/tensorflow/model-analysis): スライスベースのモデル評価。
 
 ---
 
 ### 4. 参考ドキュメント & 推奨ハンズオン
 
 #### 公式一次ドキュメント
-- [Vertex AI Pipelines の概要](https://cloud.google.com/vertex-ai/docs/pipelines/introduction?hl=ja): KFP SDK とパイプライン実行の仕様。
-- [MLOps: 機械学習における継続的デリバリーと自動化](https://cloud.google.com/architecture/mlops-continuous-delivery-and-automation-pipelines-in-machine-learning?hl=ja): Google Cloud MLOps ガイド。
-- [TensorFlow Extended (TFX) のチュートリアル](https://www.tensorflow.org/tfx?hl=ja): TFDV、TFT、TFMA のパイプライン統合。
-- [Cloud Build による CI/CD](https://cloud.google.com/build/docs/overview?hl=ja): コンテナビルドとパイプライン実行の自動化。
+- [Vertex AI Pipelines の概要](https://docs.cloud.google.com/gemini-enterprise-agent-platform/machine-learning/pipelines/introduction?hl=ja): KFP SDK とパイプライン実行の仕様。
+- [MLOps: 機械学習における継続的デリバリーと自動化](https://docs.cloud.google.com/architecture/mlops-continuous-delivery-and-automation-pipelines-in-machine-learning?hl=ja): Google Cloud MLOps ガイド。
+- [TensorFlow Extended (TFX) のチュートリアル](https://github.com/tensorflow/tfx): TFDV、TFT、TFMA のパイプライン統合。
+- [Cloud Build による CI/CD](https://docs.cloud.google.com/build/docs/overview?hl=ja): コンテナビルドとパイプライン実行の自動化。
 
 #### 推奨ハンズオン・ラボ（実機検証）
-- **Automating Machine Learning Pipelines with Vertex AI Pipelines (Google Skills Boost)**:
+- [Automating Machine Learning Pipelines with Vertex AI Pipelines (Google Skills)](https://www.skills.google/paths/17):
   - **学習目標**: Kubeflow Pipelines SDK を用いて、データ取り込み、モデルトレーニング、評価、条件分岐デプロイを行う DAG を定義・実行し、パイプラインの追跡を実機で体感する。
-- **Build and Manage ML Workflows with Cloud Composer (Google Skills Boost)**:
+- [Build and Manage ML Workflows with Cloud Composer (Google Skills)](https://www.skills.google/paths/17):
   - **学習目標**: Apache Airflow DAG を用いて BigQuery と Vertex AI を連携させたエンタープライズデータワークフローを構築する。
 
 ---
@@ -791,7 +791,7 @@ BigQuery ML は、データの移動に伴うレイテンシ、ネットワー�
 - **結果**: 顧客の購買行動の変化（データドリフト）が数日以内に自動検出され、運用担当者が手動調査を行う前に最新トレンドを反映したモデルへ自動再学習・更新される。
 - **解説**: Vertex AI Model Monitoring は、推論リクエストのログを自動的に BigQuery にサンプリングして蓄積し、学習時のベースライン統計と定期的に比較して統計的乖離を自動検出できるためです。Eventarc や Cloud Run と連携させることで、人手を介さない継続的トレーニング（Continuous Training: CT）が実現します。顧客からの苦情や月末の売上集計を待って手動でモデルを作り直す代替案は、重大なビジネス損失が発生した後の事後対応となり、検知の遅延が致命的となるため不適格です。また、単に毎日無条件で全データを再学習させる代替案は、ドリフトが発生していない平常時にも高額な GPU 計算費用を浪費し続けるため不適格です。
 - **参考ドキュメント**:
-  - [Vertex AI Model Monitoring の概要](https://cloud.google.com/vertex-ai/docs/model-monitoring/overview?hl=ja): ドリフト検知アルゴリズムと設定手順。
+  - [Vertex AI Model Monitoring の概要](https://docs.cloud.google.com/gemini-enterprise-agent-platform/machine-learning/model-monitoring/overview?hl=ja): ドリフト検知アルゴリズムと設定手順。
 
 #### シナリオ 6-2: LLM チャットボットに対するプロンプトインジェクション攻撃と機密漏洩の遮断
 
@@ -800,7 +800,7 @@ BigQuery ML は、データの移動に伴うレイテンシ、ネットワー�
 - **結果**: 悪意ある指示プロンプトが LLM に到達する前にブロックされ、万一モデルがセンシティブな情報を生成した場合でも確実にマスキングされて安全な定型文のみが返却される。
 - **解説**: Vertex AI Model Armor は、最新の LLM 攻撃手法（Jailbreak、Indirect Prompt Injection）を特化型の機械学習モデルでリアルタイムに判定・無害化する専用の AI セキュリティ基盤であるためです。単純な Python のブラックリスト単語一致（Regex）で対策する代替案は、攻撃者が難読化や婉曲表現、Base64 エンコード等を用いることで容易にすり抜けるため完全に不十分であり不適格です。また、システムプロンプトに「機密情報を絶対に漏らさないでください」と追記するだけのプロンプト指示による対策は、悪意ある敵対的プロンプトによって容易に上書き・無効化されるため、セキュリティ統制として不適格です。
 - **参考ドキュメント**:
-  - [Vertex AI Model Armor のドキュメント](https://cloud.google.com/vertex-ai/docs/model-armor/overview?hl=ja): プロンプトインジェクション対策とデータ保護。
+  - [Vertex AI Model Armor のドキュメント](https://docs.cloud.google.com/model-armor/overview?hl=ja): プロンプトインジェクション対策とデータ保護。
 
 #### シナリオ 6-3: クレジットカード与信モデルにおける審査否認理由の法定開示
 
@@ -809,7 +809,7 @@ BigQuery ML は、データの移動に伴うレイテンシ、ネットワー�
 - **結果**: 審査否認となった顧客に対して、「過去 24 ヶ月の延滞履歴が -0.42、勤続年数が -0.18 の負の寄与を与えた」という客観的で法定基準を満たす開示情報を即座に提示できる。
 - **解説**: 表形式モデルにおいて Shapley 値（Shapley Values）は、協力ゲーム理論に基づき各特徴量の貢献度を一意かつ公平に配分する数学的保証（効率性、対称性、加法性）を持つ業界標準手法であるためです。決定木の単純な特徴量重要度（Feature Importance / Gini 不純度減少量）を開示する代替案は、モデル全体の傾向を示すだけであり、「その特定の個人に対する推論結果の理由」を説明できないため不適格です。また、審査モデルを単純な単一決定木や線形回帰に限定する代替案は、審査精度が大幅に低下して貸倒れリスクが急増するため不適格です。
 - **参考ドキュメント**:
-  - [Vertex Explainable AI の使用](https://cloud.google.com/vertex-ai/docs/explainable-ai/configuring-explanations-tabular?hl=ja): 表形式モデルの説明可能性設定。
+  - [Vertex Explainable AI の使用](https://docs.cloud.google.com/vertex-ai/docs/explainable-ai/overview?hl=ja): 表形式モデルの説明可能性設定。
 
 #### シナリオ 6-4: 社内 RAG システムにおけるハルシネーション（幻覚）の自動検出と評価
 
@@ -818,22 +818,22 @@ BigQuery ML は、データの移動に伴うレイテンシ、ネットワー�
 - **結果**: 根拠のない勝手な回答（ハルシネーション）が 99% 以上の確率で自動捕捉され、安全基準を遵守した信頼性の高い社内運用が確立される。
 - **解説**: グラウンディング評価は、生成テキストの各文（Claim）が提供された参照ソースによって論理的に支持されているかを自然言語推論（NLI）技術を用いて検証するためです。回答の文字数や生成時間だけで正常性を判定する代替案は、ハルシネーションの内容そのものを検証できないため不適格です。また、すべての回答を技術者が目視で全件チェックする代替案は、運用の即時性とスケール性を完全に損なうため不適格です。
 - **参考ドキュメント**:
-  - [グラウンディングによるハルシネーションの低減](https://cloud.google.com/vertex-ai/generative-ai/docs/multimodal-grounding/overview?hl=ja): Vertex AI Search との統合。
+  - [グラウンディングによるハルシネーションの低減](https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/grounding/overview?hl=ja): Vertex AI Search との統合。
 
 ---
 
 ### 4. 参考ドキュメント & 推奨ハンズオン
 
 #### 公式一次ドキュメント
-- [Vertex AI Model Monitoring のドキュメント](https://cloud.google.com/vertex-ai/docs/model-monitoring/overview?hl=ja): ドリフトとスキューの監視。
-- [Vertex AI Model Armor の概要](https://cloud.google.com/vertex-ai/docs/model-armor/overview?hl=ja): LLM セキュリティ防御。
-- [Vertex Explainable AI ドキュメント](https://cloud.google.com/vertex-ai/docs/explainable-ai/overview?hl=ja): 特徴アトリビューションの手法と解釈。
+- [Vertex AI Model Monitoring のドキュメント](https://docs.cloud.google.com/gemini-enterprise-agent-platform/machine-learning/model-monitoring/overview?hl=ja): ドリフトとスキューの監視。
+- [Vertex AI Model Armor の概要](https://docs.cloud.google.com/model-armor/overview?hl=ja): LLM セキュリティ防御。
+- [Vertex Explainable AI ドキュメント](https://docs.cloud.google.com/vertex-ai/docs/explainable-ai/overview?hl=ja): 特徴アトリビューションの手法と解釈。
 - [責任ある AI の実践](https://cloud.google.com/responsible-ai?hl=ja): Google Cloud が提唱する AI 原則と公平性指標。
 
 #### 推奨ハンズオン・ラボ（実機検証）
-- **Monitor and Manage Machine Learning Models with Vertex AI (Google Skills Boost)**:
+- [Monitor and Manage Machine Learning Models with Vertex AI (Google Skills)](https://www.skills.google/paths/17):
   - **学習目標**: エンドポイントに対して Model Monitoring を構成し、意図的にドリフトさせたデータを送信してアラート発火と Cloud Monitoring 連携を実機で体感する。
-- **Implement Responsible AI and Explainability on Vertex AI (Google Skills Boost)**:
+- [Implement Responsible AI and Explainability on Vertex AI (Google Skills)](https://www.skills.google/paths/17):
   - **学習目標**: Vertex Explainable AI を構成し、SHAP 値および Integrated Gradients によるアトリビューション出力の可視化を検証する。
 
 ---

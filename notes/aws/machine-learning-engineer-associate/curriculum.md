@@ -25,12 +25,12 @@ AWS Certified Machine Learning Engineer - Associate (MLA-C02) は、AWS クラ�
 
 ## 2. 出題分野（Domain）と出題比率一覧
 
-| ドメイン番号 | 出題分野（Domain） | 出題比率 | 主要対象サービス・技術要素 | ステータス |
-| :--- | :--- | :--- | :--- | :--- |
-| **Domain 1** | ML と AI のためのデータの準備 | 28% | S3, Glue, Glue DataBrew, Glue Data Quality, EMR Spark, SageMaker Data Wrangler, Feature Store, Kinesis, Flink, OpenSearch Service (Vector Search), pgvector, Ground Truth, Clarify (Bias) | 完了 |
-| **Domain 2** | ML モデルと基盤モデル (FM) の開発 | 24% | Bedrock (FM Selection), SageMaker AI (組み込みアルゴリズム, Script Mode, AMT), 分散トレーニング, MLflow, Bedrock Evaluation, LLM-as-a-judge, Clarify (Explainability), NLPメトリクス (ROUGE/BLEU/BERTScore) | 完了 |
-| **Domain 3** | ML と AI のワークフローのデプロイとオーケストレーション | 24% | SageMaker 推論エンドポイント (Real-time, Serverless, Async, Batch Transform), Bedrock Provisioned Throughput, Bedrock Agents & AgentCore, Bedrock Knowledge Bases (RAG, Rerank), CodePipeline, SageMaker Pipelines, Model Registry | 完了 |
-| **Domain 4** | ML と AI のソリューションの運用、モニタリング、保護 | 24% | CloudWatch GenAI Observability, SageMaker Model Monitor (Data/Model Drift), Bedrock AgentCore Observability, X-Ray, EC2/Inf2/G5 インスタンス選定, Bedrock Guardrails, IAM, KMS, VPC PrivateLink, Inspector | 完了 |
+| ドメイン番号 | 出題分野（Domain） | 出題比率 | 主要対象サービス・技術要素 |
+| :--- | :--- | :--- | :--- |
+| **Domain 1** | ML と AI のためのデータの準備 | 28% | S3, Glue, Glue DataBrew, Glue Data Quality, EMR Spark, SageMaker Data Wrangler, Feature Store, Kinesis, Flink, OpenSearch Service (Vector Search), pgvector, Ground Truth, Clarify (Bias) |
+| **Domain 2** | ML モデルと基盤モデル (FM) の開発 | 24% | Bedrock (FM Selection), SageMaker AI (組み込みアルゴリズム, Script Mode, AMT), 分散トレーニング, MLflow, Bedrock Evaluation, LLM-as-a-judge, Clarify (Explainability), NLPメトリクス (ROUGE/BLEU/BERTScore) |
+| **Domain 3** | ML と AI のワークフローのデプロイとオーケストレーション | 24% | SageMaker 推論エンドポイント (Real-time, Serverless, Async, Batch Transform), Bedrock Provisioned Throughput, Bedrock Agents & AgentCore, Bedrock Knowledge Bases (RAG, Rerank), CodePipeline, SageMaker Pipelines, Model Registry |
+| **Domain 4** | ML と AI のソリューションの運用、モニタリング、保護 | 24% | CloudWatch GenAI Observability, SageMaker Model Monitor (Data/Model Drift), Bedrock AgentCore Observability, X-Ray, EC2/Inf2/G5 インスタンス選定, Bedrock Guardrails, IAM, KMS, VPC PrivateLink, Inspector |
 
 ---
 

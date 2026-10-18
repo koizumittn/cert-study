@@ -21,12 +21,12 @@ AWS Certified Solutions Architect - Professional は、組織規模の複雑な�
 
 ## 2. 出題分野（Domain）と出題比率一覧
 
-| ドメイン番号 | ドメイン名 / 出題分野 | 出題比率 | 主要対象サービス・ツール | ステータス |
-| :--- | :--- | :--- | :--- | :--- |
-| **Domain 1** | 複雑な組織に対応するソリューションの設計 | 26% | AWS Organizations, AWS Control Tower, IAM Identity Center, SCP, AWS Transit Gateway, AWS Direct Connect, Route 53 Resolver, AWS Network Firewall, AWS RAM, AWS Security Hub, Amazon GuardDuty, AWS Cost Categories | 完了 |
-| **Domain 2** | 新しいソリューションのための設計 | 29% | Route 53 ARC, Amazon Aurora Global Database, DynamoDB Global Tables, S3 Multi-Region Access Points, AWS Step Functions, Amazon EventBridge, AWS CodePipeline, CodeDeploy, Elastic Load Balancing, AWS WAF, AWS KMS | 完了 |
-| **Domain 3** | 既存のソリューションの継続的な改善 | 25% | AWS Compute Optimizer, Amazon DevOps Guru, AWS X-Ray, Amazon CloudWatch Synthetics, AWS Config, Auto Scaling 予測スケーリング, Amazon OpenSearch Service, ElastiCache, S3 Intelligent-Tiering, Savings Plans | 完了 |
-| **Domain 4** | ワークロードの移行とモダナイゼーションの加速 | 20% | AWS Application Migration Service (MGN), AWS Database Migration Service (DMS), AWS Schema Conversion Tool (SCT), AWS DataSync, AWS Snowball Edge, AWS Transfer Family, AWS App2Container, Amazon EKS, AWS Lambda | 完了 |
+| ドメイン番号 | ドメイン名 / 出題分野 | 出題比率 | 主要対象サービス・ツール |
+| :--- | :--- | :--- | :--- |
+| **Domain 1** | 複雑な組織に対応するソリューションの設計 | 26% | AWS Organizations, AWS Control Tower, IAM Identity Center, SCP, AWS Transit Gateway, AWS Direct Connect, Route 53 Resolver, AWS Network Firewall, AWS RAM, AWS Security Hub, Amazon GuardDuty, AWS Cost Categories |
+| **Domain 2** | 新しいソリューションのための設計 | 29% | Route 53 ARC, Amazon Aurora Global Database, DynamoDB Global Tables, S3 Multi-Region Access Points, AWS Step Functions, Amazon EventBridge, AWS CodePipeline, CodeDeploy, Elastic Load Balancing, AWS WAF, AWS KMS |
+| **Domain 3** | 既存のソリューションの継続的な改善 | 25% | AWS Compute Optimizer, Amazon DevOps Guru, AWS X-Ray, Amazon CloudWatch Synthetics, AWS Config, Auto Scaling 予測スケーリング, Amazon OpenSearch Service, ElastiCache, S3 Intelligent-Tiering, Savings Plans |
+| **Domain 4** | ワークロードの移行とモダナイゼーションの加速 | 20% | AWS Application Migration Service (MGN), AWS Database Migration Service (DMS), AWS Schema Conversion Tool (SCT), AWS DataSync, AWS Snowball Edge, AWS Transfer Family, AWS App2Container, Amazon EKS, AWS Lambda |
 
 ---
 

@@ -24,12 +24,12 @@ AWS Certified AI Business Strategist (AIB-C01) は、組織や顧客において
 
 ## 2. 出題分野（Domain）と出題比率一覧
 
-| ドメイン番号 | 出題分野（Domain） | 出題比率 | 主要対象サービス・技術要素・フレームワーク | ステータス |
-| :--- | :--- | :--- | :--- | :--- |
-| **Domain 1** | AI の基礎とリテラシー (AI Fundamentals and Literacy) | 24% | AI/ML/GenAI の定義境界, 構造化/非構造化データ, データ品質, ISO/IEC 23053/42001, ルールベース vs AI, AI エージェント, モデルドリフト, シャドー AI 対策, プロンプトエンジニアリング, コンテキストウィンドウ/トークン制約, RAG / ファインチューニング | 完了 |
-| **Domain 2** | AI 戦略とビジネス価値の創出 (AI Strategy and Business Value Creation) | 28% | ビジネス機能別ユースケース選定, Build vs Buy vs Partner 評価, イニシアチブ優先順位付け (スケール/一時停止/終了), AI 不適格ユースケース特定, プロセス/プラットフォーム移行, 有形/無形 KPI, ベースラインメトリクス, ROI 算出フレームワーク, 先行指標, コスト要因管理 (従量/インスタンス/席数/Savings Plans/Pricing Calculator/Cost Explorer), 競争優位性・ビジネスモデル変革 | 完了 |
-| **Domain 3** | AI ガバナンスと責任ある AI のリーダーシップ (AI Governance and Responsible AI Leadership) | 24% | 責任ある AI の 6 原則 (公平性/説明可能性/プライバシー/安全性/透明性/堅牢性), ビジネス目標とのトレードオフ, Governance by Design, 人間の監視 (HITL) とセーフガード (Bedrock Guardrails, ハルシネーション検知, エスカレーション), クロスファンクショナルガバナンス体制, 規制コンプライアンス (EU AI Act, 法規制), アクセス制御/データセキュリティ, AI リスク分類, 本番リスク監視, バイアスドリフト, 知的財産 (IP) 保護 | 完了 |
-| **Domain 4** | ビジネスの対応体制、リーダーシップ、AI による組織変革 (Business Readiness, Leadership, and AI Transformation) | 24% | ビジネス準備状況評価, AI 成熟度モデル, ケイパビリティギャップ分析 (人/プロセス/技術/ガバナンス), 投資優先順位, データ準備状況・データ戦略・サイロ解消, AWS CAF (AI/ML レンズ), エグゼクティブスポンサーシップ, AI チャンピオン, クロスファンクショナルチーム, 文化障壁の克服, 人材開発・リテラシー向上 (ハッカソン/POC/研修), 人間の役割の高度化, 段階的変革 (Envision/Experiment/Launch/Scale), AI COE, 長期価値追跡 | 完了 |
+| ドメイン番号 | 出題分野（Domain） | 出題比率 | 主要対象サービス・技術要素・フレームワーク |
+| :--- | :--- | :--- | :--- |
+| **Domain 1** | AI の基礎とリテラシー (AI Fundamentals and Literacy) | 24% | AI/ML/GenAI の定義境界, 構造化/非構造化データ, データ品質, ISO/IEC 23053/42001, ルールベース vs AI, AI エージェント, モデルドリフト, シャドー AI 対策, プロンプトエンジニアリング, コンテキストウィンドウ/トークン制約, RAG / ファインチューニング |
+| **Domain 2** | AI 戦略とビジネス価値の創出 (AI Strategy and Business Value Creation) | 28% | ビジネス機能別ユースケース選定, Build vs Buy vs Partner 評価, イニシアチブ優先順位付け (スケール/一時停止/終了), AI 不適格ユースケース特定, プロセス/プラットフォーム移行, 有形/無形 KPI, ベースラインメトリクス, ROI 算出フレームワーク, 先行指標, コスト要因管理 (従量/インスタンス/席数/Savings Plans/Pricing Calculator/Cost Explorer), 競争優位性・ビジネスモデル変革 |
+| **Domain 3** | AI ガバナンスと責任ある AI のリーダーシップ (AI Governance and Responsible AI Leadership) | 24% | 責任ある AI の 6 原則 (公平性/説明可能性/プライバシー/安全性/透明性/堅牢性), ビジネス目標とのトレードオフ, Governance by Design, 人間の監視 (HITL) とセーフガード (Bedrock Guardrails, ハルシネーション検知, エスカレーション), クロスファンクショナルガバナンス体制, 規制コンプライアンス (EU AI Act, 法規制), アクセス制御/データセキュリティ, AI リスク分類, 本番リスク監視, バイアスドリフト, 知的財産 (IP) 保護 |
+| **Domain 4** | ビジネスの対応体制、リーダーシップ、AI による組織変革 (Business Readiness, Leadership, and AI Transformation) | 24% | ビジネス準備状況評価, AI 成熟度モデル, ケイパビリティギャップ分析 (人/プロセス/技術/ガバナンス), 投資優先順位, データ準備状況・データ戦略・サイロ解消, AWS CAF (AI/ML レンズ), エグゼクティブスポンサーシップ, AI チャンピオン, クロスファンクショナルチーム, 文化障壁の克服, 人材開発・リテラシー向上 (ハッカソン/POC/研修), 人間の役割の高度化, 段階的変革 (Envision/Experiment/Launch/Scale), AI COE, 長期価値追跡 |
 
 ---
 

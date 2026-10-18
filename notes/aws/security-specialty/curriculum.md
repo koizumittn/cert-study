@@ -26,14 +26,14 @@ AWS Certified Security - Specialty (SCS-C03) は、AWS クラウド環境にお�
 
 ## 2. 出題分野（Domain）と出題比率一覧
 
-| ドメイン番号 | 出題分野（Domain） | 出題比率 | 主要対象サービス・技術要素 | ステータス |
-| :--- | :--- | :--- | :--- | :--- |
-| **Domain 1** | 検知（Detection） | 16% | Amazon GuardDuty, AWS Security Hub, Amazon Security Lake, AWS CloudTrail, Amazon CloudWatch Logs Insights, Amazon Macie, AWS Config Conformance Packs, Route 53 Resolver DNS Firewall | 準備完了 |
-| **Domain 2** | インシデント対応（Incident Response） | 14% | Amazon Detective, Automated Forensics Orchestrator for Amazon EC2, AWS Systems Manager (OpsCenter, Automation), AWS Step Functions, AWS Lambda, AWS Shield Advanced, AWS Fault Injection Service (FIS) | 準備完了 |
-| **Domain 3** | インフラストラクチャセキュリティ（Infrastructure Security） | 18% | AWS WAF, AWS Shield, Amazon CloudFront, AWS Network Firewall, セキュリティグループ, ネットワーク ACL, AWS Verified Access, EC2 Image Builder, Amazon Inspector, Amazon Bedrock Guardrails | 準備完了 |
-| **Domain 4** | アイデンティティおよびアクセス管理（Identity and Access Management） | 20% | AWS IAM, AWS IAM Identity Center, AWS STS, IAM Roles Anywhere, Amazon Cognito, Amazon Verified Permissions (Cedar 言語), IAM Access Analyzer, Permissions Boundaries, セッションポリシー | 準備完了 |
-| **Domain 5** | データ保護（Data Protection） | 18% | AWS KMS (CMK, BYOK, XKS), AWS CloudHSM, AWS Private Certificate Authority, S3 Object Lock, S3 バケットポリシー, AWS Secrets Manager, CloudWatch Logs データ保護ポリシー, Nitro Enclaves | 準備完了 |
-| **Domain 6** | セキュリティの基盤とガバナンス（Security Foundations and Governance） | 14% | AWS Organizations, AWS Control Tower, サービスコントロールポリシー (SCP), リソース制御ポリシー (RCP), AWS Firewall Manager, AWS RAM, AWS Config, AWS Audit Manager, AWS Artifact | 準備完了 |
+| ドメイン番号 | 出題分野（Domain） | 出題比率 | 主要対象サービス・技術要素 |
+| :--- | :--- | :--- | :--- |
+| **Domain 1** | 検知（Detection） | 16% | Amazon GuardDuty, AWS Security Hub, Amazon Security Lake, AWS CloudTrail, Amazon CloudWatch Logs Insights, Amazon Macie, AWS Config Conformance Packs, Route 53 Resolver DNS Firewall |
+| **Domain 2** | インシデント対応（Incident Response） | 14% | Amazon Detective, Automated Forensics Orchestrator for Amazon EC2, AWS Systems Manager (OpsCenter, Automation), AWS Step Functions, AWS Lambda, AWS Shield Advanced, AWS Fault Injection Service (FIS) |
+| **Domain 3** | インフラストラクチャセキュリティ（Infrastructure Security） | 18% | AWS WAF, AWS Shield, Amazon CloudFront, AWS Network Firewall, セキュリティグループ, ネットワーク ACL, AWS Verified Access, EC2 Image Builder, Amazon Inspector, Amazon Bedrock Guardrails |
+| **Domain 4** | アイデンティティおよびアクセス管理（Identity and Access Management） | 20% | AWS IAM, AWS IAM Identity Center, AWS STS, IAM Roles Anywhere, Amazon Cognito, Amazon Verified Permissions (Cedar 言語), IAM Access Analyzer, Permissions Boundaries, セッションポリシー |
+| **Domain 5** | データ保護（Data Protection） | 18% | AWS KMS (CMK, BYOK, XKS), AWS CloudHSM, AWS Private Certificate Authority, S3 Object Lock, S3 バケットポリシー, AWS Secrets Manager, CloudWatch Logs データ保護ポリシー, Nitro Enclaves |
+| **Domain 6** | セキュリティの基盤とガバナンス（Security Foundations and Governance） | 14% | AWS Organizations, AWS Control Tower, サービスコントロールポリシー (SCP), リソース制御ポリシー (RCP), AWS Firewall Manager, AWS RAM, AWS Config, AWS Audit Manager, AWS Artifact |
 
 ---
 
