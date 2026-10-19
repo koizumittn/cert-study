@@ -32,7 +32,7 @@ AWS Certified Data Engineer - Associate は、データエンジニアリング�
 ソリューションアーキテクト（SAA）のようなインフラ全般の広範な知識や、デベロッパー（DVA）のようなアプリケーションコード実装力とは異なり、DEA-C01 では**「データの特性（Volume, Velocity, Variety）とビジネス要件（レイテンシ, コスト, ガバナンス）に合致した最適なデータパイプライン設計の意思決定」**が問われます。
 具体的には、以下のようなデータエンジニアリング固有のディテールとトレードオフ判断が問われます：
 
-1. **取り込み方式の最適化**: Amazon Kinesis Data Streams、Kinesis Data Firehose、Amazon MSK、AWS DMS（CDC: 変更データキャプチャ）、Amazon AppFlow の選定基準と、シャードスケーリング・背圧制御・スロットリング対策。
+1. **取り込み方式の最適化**: Amazon Kinesis Data Streams、Amazon Data Firehose（旧 Amazon Data Firehose）、Amazon MSK、AWS DMS（CDC: 変更データキャプチャ）、Amazon AppFlow の選定基準と、シャードスケーリング・背圧制御・スロットリング対策。
 2. **変換エンジンの特性比較**: サーバーレス分散 ETL（AWS Glue）、大規模 Hadoop/Spark クラスタ（Amazon EMR / EMR Serverless）、軽量イベント駆動（AWS Lambda）のコスト・処理時間・運用負荷の分岐点。
 3. **データストレージとオープンテーブルフォーマット**: Amazon S3 データレイク、Amazon Redshift（列指向 DWH / RA3 ノード / Redshift Serverless）、Amazon DynamoDB（NoSQL）、Apache Iceberg による ACID トランザクション・タイムトラベルの活用。
 4. **オーケストレーションの適材適所**: イベント駆動・サーバーレスに最適化された AWS Step Functions と、複雑な依存関係や DAG（有向非巡回グラフ）のスケジュール管理に長けた Amazon MWAA（Managed Workflows for Apache Airflow）の使い分け。
@@ -70,7 +70,7 @@ AWS Certified Data Engineer - Associate は、データエンジニアリング�
 
 | ドメイン番号 | ドメイン名 / 出題分野 | 出題比率 | 主要対象サービス・ツール |
 | :--- | :--- | :--- | :--- |
-| **Domain 1** | データの取り込みと変換 | 34% | Amazon Kinesis Data Streams, Amazon Kinesis Data Firehose, Amazon MSK, AWS Glue (ETL / Streaming), Amazon EMR, AWS Lambda, AWS Step Functions, Amazon MWAA, Amazon AppFlow, AWS DMS |
+| **Domain 1** | データの取り込みと変換 | 34% | Amazon Kinesis Data Streams, Amazon Data Firehose (旧 Amazon Data Firehose), Amazon MSK, AWS Glue (ETL / Streaming), Amazon EMR, AWS Lambda, AWS Step Functions, Amazon MWAA, Amazon AppFlow, AWS DMS |
 | **Domain 2** | データストア管理 | 26% | Amazon S3, Amazon Redshift, AWS Lake Formation, Amazon DynamoDB, Amazon RDS / Aurora, Amazon OpenSearch Service, AWS Glue Data Catalog, Apache Iceberg |
 | **Domain 3** | データ運用とサポート | 22% | Amazon Athena, AWS Glue Data Quality, AWS Glue DataBrew, Amazon QuickSight, Amazon CloudWatch Logs Insights, AWS CloudTrail, Amazon EventBridge, Amazon SNS |
 | **Domain 4** | データセキュリティとガバナンス | 18% | AWS Lake Formation (LF-TBAC), AWS IAM, AWS KMS, AWS Secrets Manager, Amazon Macie, AWS CloudTrail Lake, AWS Config, Amazon Redshift データ共有 |
@@ -86,7 +86,7 @@ AWS Certified Data Engineer - Associate は、データエンジニアリング�
   - Task 1.2: データの変換と処理（コンテナ最適化 [ECS, EKS]、JDBC/ODBC 接続、データ統合、フォーマット変換 [.parquet, .orc]、コスト最適化、LLM 統合）
   - Task 1.3: データパイプラインのオーケストレーション（AWS Step Functions、Amazon MWAA、AWS Glue ワークフロー、障害通知 [SNS, SQS]、サーバーレスワークフロー）
   - Task 1.4: プログラミングの概念の応用（Python/SQL/Scala、分散コンピューティング、Lambda 同時実行・EFS マウント、AWS SAM / CloudFormation による IaC デプロイ）
-- **重要キーワード**: Amazon Kinesis Data Streams, Amazon Kinesis Data Firehose, Amazon Managed Streaming for Apache Kafka (Amazon MSK), AWS Glue (DynamicFrame), Amazon EMR, AWS Step Functions, Amazon MWAA, AWS DMS (CDC), Apache Parquet
+- **重要キーワード**: Amazon Kinesis Data Streams, Amazon Data Firehose (旧 Amazon Data Firehose), Amazon Managed Streaming for Apache Kafka (Amazon MSK), AWS Glue (DynamicFrame), Amazon EMR, AWS Step Functions, Amazon MWAA, AWS DMS (CDC), Apache Parquet
 
 #### Domain 2: データストア管理 (26%)
 - **出題の狙い**: コスト、レイテンシ、クエリパターンに応じた最適なストレージサービスを選定し、カタログ化、データライフサイクル管理、およびスキーマ進化（モデリング）を設計する能力を検証します。
@@ -149,7 +149,7 @@ AWS Certified Data Engineer - Associate は、データエンジニアリング�
 - **Amazon Kinesis Data Streams**:
   - スケーリングモデル: プロビジョンドモード（シャード数を手動/自動で調整）とオンデマンドモード（トラフィックに応じて自動キャパシティ管理）を選択可能。
   - レート制限とスロットリング: 1 シャードあたり書き込みは最大 1 MB/秒または 1,000 レコード/秒。これを超過すると `ProvisionedThroughputExceededException` が発生するため、パーティションキーのランダム化（高カーディナリティ確保）やクライアント側の指数バックオフとジッターによるリトライが必要です。
-- **Amazon Kinesis Data Firehose (Amazon Data Firehose)**:
+- **Amazon Data Firehose (旧 Amazon Data Firehose (旧 Amazon Data Firehose))**:
   - サーバーレスで S3、Redshift、OpenSearch、Splunk 等へストリームデータを直接配信するロードサービス。
   - バッファリング条件（サイズ: 1〜128 MB、間隔: 60〜900 秒）に基づき自動集約して書き込むため、S3 のスモールファイル問題を自動回避できます。
   - 配信途中で AWS Lambda を呼び出してデータ変換（フォーマット変換、マスキング）を行ったり、Apache Parquet / ORC への変換もインラインで実行可能です。
@@ -181,7 +181,7 @@ AWS Certified Data Engineer - Associate は、データエンジニアリング�
 - **状況**: 数万台の IoT デバイスから毎秒 50 MB のテレメトリデータが継続的に送信されており、リアルタイム異常検知エンジン（Lambda）と長期分析用データレイク（Firehose 経由 S3）の 2 系統の独立したコンシューマーが同時にデータを読み取る必要があるが、読み取りスロットリングと配信遅延が懸念される場合
 - **対応**: Amazon Kinesis Data Streams をプロビジョンドモードで構築し、異常検知エンジン側の Lambda イベントソースマッピングにおいて拡張ファンアウト（Enhanced Fan-Out）を有効化して専用スループットを割り当てる。
 - **結果**: 各コンシューマーに専用の 2 MB/秒/シャードのスループットが確保され、複数アプリケーションの同時読み取りによる競合やスロットリングを排除し、70ms 未満の超低遅延でリアルタイム異常検知を実行できる。
-- **解説**: Kinesis Data Streams の標準コンシューマーはシャードあたり合計 2 MB/秒の読み取り帯域をすべてのコンシューマーで共有するため、複数システムが同時にポーリングすると帯域不足や遅延が発生するためです。拡張ファンアウトを利用することで、コンシューマーごとに独立した専用帯域が HTTP/2 プッシュ方式で提供され、相互干渉を完全に防ぐことができます。Amazon SQS はストリーミング順序保持とマルチコンシューマー並列配信の要件に合致せず、Amazon MSK はフルマネージドな Lambda 統合の容易性と運用負荷の観点から過剰構成となります。
+- **解説**: Kinesis Data Streams の標準コンシューマーはシャードあたり合計 2 MB/秒の読み取り帯域をすべてのコンシューマーで共有するため、複数システムが同時にポーリングすると帯域不足や遅延が発生するためです。拡張ファンアウトを利用することで、コンシューマーごとに独立した専用帯域が HTTP/2 プッシュ方式で提供され、相互干渉を完全に防ぐことができます。Amazon SQS はストリーミング順序保持とマルチコンシューマー並列配信の要件に合致せず、Amazon MSK はフルマネージドな Lambda 統合の容易性と運用負荷の観点から過剰構成となるため不適格です。
 - **参考ドキュメント**:
   - [Amazon Kinesis Data Streams 開発者ガイド](https://docs.aws.amazon.com/ja_jp/streams/latest/dev/introduction.html): 拡張ファンアウトと専用スループットの仕様
 
@@ -190,7 +190,7 @@ AWS Certified Data Engineer - Associate は、データエンジニアリング�
 - **状況**: オンプレミスデータセンターで稼働するミッションクリティカルな Oracle データベースから Amazon S3 データレイクへデータを同期するにあたり、本番業務トランザクションへの負荷を最小限に抑えつつ、継続的なデータ変更（挿入・更新・削除）をニアリアルタイムで反映したい場合
 - **対応**: AWS Database Migration Service (AWS DMS) を使用し、既存データの全ロードタスクに加えてトランザクションログ読み取りに基づく継続的レプリケーション（CDC）タスクを設定して Amazon S3 をターゲットに指定する。
 - **結果**: 本番データベースに対して SELECT クエリによるポーリング負荷をかけることなく、変更ログから差分トランザクションのみを抽出して S3 へ Parquet 形式で継続的にストリーミング出力できる。
-- **解説**: AWS DMS の CDC 機能はデータベースのトランザクションログ（Redo ログやバイナリログ）を直接読み取って変更をキャプチャするため、本番データベースのテーブルスキャンによる性能劣化を回避できるためです。定期的なバッチ抽出スクリプト（Lambda や Glue）では削除データの検知が困難であり、高頻度実行時に本番 DB へ過大な負荷を与えてしまいます。また、AWS AppFlow は SaaS アプリケーション向けであり、オンプレミス RDBMS のトランザクションログ CDC には対応していません。
+- **解説**: AWS DMS の CDC 機能はデータベースのトランザクションログ（Redo ログやバイナリログ）を直接読み取って変更をキャプチャするため、本番データベースのテーブルスキャンによる性能劣化を回避できるためです。定期的なバッチ抽出スクリプト（Lambda や Glue）では削除データの検知が困難であり、高頻度実行時に本番 DB へ過大な負荷を与えてしまいます。また、AWS AppFlow は SaaS アプリケーション向けであり、オンプレミス RDBMS のトランザクションログ CDC には対応していないため要件を満たせません。
 - **参考ドキュメント**:
   - [AWS Database Migration Service ユーザーガイド](https://docs.aws.amazon.com/ja_jp/dms/latest/userguide/Welcome.html): CDC レプリケーションタスクの設定
 
@@ -208,7 +208,7 @@ AWS Certified Data Engineer - Associate は、データエンジニアリング�
 - **状況**: 日次で数百ギガバイト発生するネストの深い半構造化 JSON ログデータを、Athena での分析クエリ性能向上とストレージコスト削減のために列指向フォーマット（Apache Parquet）へ一括変換したいが、一部のレコードでフィールドの型が不揃いでスキーマが厳格に固定されていない場合
 - **対応**: AWS Glue ETL ジョブを構成し、DynamicFrame を用いてデータを読み込んだ上で、`ResolveChoice` トランスフォーメーションで曖昧なデータ型を統合・キャストし、Snappy 圧縮を適用した Apache Parquet 形式で Amazon S3 に出力する。
 - **結果**: 厳格なスキーマ定義エラーによるジョブ中断を起こすことなく、入れ子データや型の揺らぎを自動解消しながら効率的に Parquet へ変換でき、Athena クエリのスキャンデータ量を最大 90% 削減できる。
-- **解説**: AWS Glue の DynamicFrame は自己記述的なスキーマ解決機能を備えており、スキーマ定義が不揃いな半構造化データに対してもジョブを停止させずに型推論や `ResolveChoice` による型の統一（キャストや構造体化）を行えるためです。標準の Spark DataFrame では事前スキーマ不一致時に例外が発生しやすく、前処理スクリプトの工数が増大します。また、Amazon Redshift COPY コマンドによる直接ロードは、スキーマが頻繁に変動する半構造化ログの一次変換・保管には柔軟性が欠け、コスト効率も劣ります。
+- **解説**: AWS Glue の DynamicFrame は自己記述的なスキーマ解決機能を備えており、スキーマ定義が不揃いな半構造化データに対してもジョブを停止させずに型推論や `ResolveChoice` による型の統一（キャストや構造体化）を行えるためです。標準の Spark DataFrame では事前スキーマ不一致時に例外が発生しやすく、前処理スクリプトの工数が増大します。また、Amazon Redshift COPY コマンドによる直接ロードは、スキーマが頻繁に変動する半構造化ログの一次変換・保管には柔軟性が欠け、コスト効率も劣るため不適格です。
 - **参考ドキュメント**:
   - [AWS Glue 開発者ガイド](https://docs.aws.amazon.com/ja_jp/glue/latest/dg/what-is-glue.html): DynamicFrame によるスキーマ変換
 
@@ -217,7 +217,7 @@ AWS Certified Data Engineer - Associate は、データエンジニアリング�
 - **状況**: S3 への新規データ着信をトリガーとして、AWS Glue でのデータクレンジング、Athena による品質チェック、条件分岐によるエラーハンドリングと再試行、および完了時の Amazon SNS 通知という一連の依存関係を持つパイプラインを、インフラ管理不要でミリ秒単位の俊敏性で実行したい場合
 - **対応**: AWS Step Functions ステートマシンを構築し、Amazon EventBridge で S3 オブジェクト作成イベントをキャプチャしてステートマシンを起動し、タスク状態のエラーキャッチ（`Catch`）と再試行（`Retry`）ポリシーを定義する。
 - **結果**: サーバーを一切プロビジョニングすることなく、グラフィカルに可視化されたワークフローで耐障害性の高い ETL パイプラインが実行され、障害発生時も自動再試行と的確なアラート通知が行われる。
-- **解説**: AWS Step Functions は AWS サービス（Glue, Athena, Lambda, SNS）と直接 API 統合されたフルマネージドなサーバーレスオーケストレーターであり、待機時間中のコストがゼロで状態管理やリトライを自動実行できるためです。Amazon MWAA（Apache Airflow）は非常に強力ですが、専用のワーカー環境が常時プロビジョニングされるため、イベント駆動型のスパイクな実行頻度に対しては最低稼働コストが過大になります。また、Lambda 関数同士を非同期で数珠つなぎに呼び出す方式は、エラーハンドリングや状態追跡がブラックボックス化しアンチパターンとなります。
+- **解説**: AWS Step Functions は AWS サービス（Glue, Athena, Lambda, SNS）と直接 API 統合されたフルマネージドなサーバーレスオーケストレーターであり、待機時間中のコストがゼロで状態管理やリトライを自動実行できるためです。Amazon MWAA（Apache Airflow）は非常に強力ですが、専用のワーカー環境が常時プロビジョニングされるため、イベント駆動型のスパイクな実行頻度に対しては最低稼働コストが過大になります。また、Lambda 関数同士を非同期で数珠つなぎに呼び出す方式は、エラーハンドリングや状態追跡がブラックボックス化しアンチパターンとなるため不適格です。
 - **参考ドキュメント**:
   - [AWS Step Functions 開発者ガイド](https://docs.aws.amazon.com/ja_jp/step-functions/latest/dg/welcome.html): サーバーレスワークフローとエラー処理
 
@@ -226,7 +226,7 @@ AWS Certified Data Engineer - Associate は、データエンジニアリング�
 - **状況**: オンプレミスのデータウェアハウス、外部 API、および AWS 上の EMR / Redshift にまたがる数百本のデータ処理ジョブが存在し、各ジョブが複雑な時間依存関係とデータ依存関係を持つ有向非巡回グラフ（DAG）として Python コードで一元管理・テスト・運用される必要がある場合
 - **対応**: Amazon Managed Workflows for Apache Airflow (Amazon MWAA) を導入し、パイプラインの依存関係を Python の Airflow DAG 定義として Amazon S3 に配置して実行・スケジュール管理を行う。
 - **結果**: 既存の Apache Airflow エコシステムやカスタム Python オペレーターをそのまま活用し、オンプレミスとクラウドをまたぐ複雑な大規模 DAG を高可用なマネージド環境で安定稼働させることができる。
-- **解説**: 複雑なスケジュール依存関係、クロスプラットフォーム連携、および Python コードベースでの柔軟な DAG 定義が求められるエンタープライズユースケースには Amazon MWAA が最も適しているためです。Airflow の豊富なプロバイダーパッケージを利用して異機種システム間の依存関係を明瞭に管理できます。AWS Step Functions でも DAG の表現は可能ですが、外部オンプレミスシステムに対する多様な接続コネクタの資産や、データエンジニアリングチームにおける Python DAG 資産の再利用性の観点から MWAA が圧倒的な優位性を持ちます。
+- **解説**: 複雑なスケジュール依存関係、クロスプラットフォーム連携、および Python コードベースでの柔軟な DAG 定義が求められるエンタープライズユースケースには Amazon MWAA が最も適しているためです。Airflow の豊富なプロバイダーパッケージを利用して異機種システム間の依存関係を明瞭に管理できます。AWS Step Functions でも DAG の表現は可能ですが、外部オンプレミスシステムに対する多様な接続コネクタの資産や、データエンジニアリングチームにおける Python DAG 資産の再利用性の観点から MWAA が圧倒的な優位性を持つためです。
 - **参考ドキュメント**:
   - [Amazon MWAA ユーザーガイド](https://docs.aws.amazon.com/ja_jp/mwaa/latest/userguide/what-is-mwaa.html): マネージド Apache Airflow の運用
 
@@ -241,9 +241,9 @@ AWS Certified Data Engineer - Associate は、データエンジニアリング�
 - [Amazon MWAA ユーザーガイド](https://docs.aws.amazon.com/ja_jp/mwaa/latest/userguide/what-is-mwaa.html): Apache Airflow のマネージド環境構築と DAG 設計
 
 #### 推奨ハンズオン・ラボ（実機検証）
-- [Getting Started with AWS Glue (AWS Skill Builder)](https://explore.skillbuilder.aws/learn/course/external/view/elearning/108/getting-started-with-aws-glue):
+- [Getting Started with AWS Glue (AWS Skill Builder)](https://skillbuilder.aws/search?searchText=Getting+Started+with+AWS+Glue):
   - **学習目標**: Glue クローラーによるメタデータ収集、Glue Studio による ETL ジョブ作成、Parquet へのフォーマット変換を実機検証。
-- [AWS Certified Data Engineer - Associate Official Practice Question Set (DEA-C01 - Japanese)](https://explore.skillbuilder.aws/learn/course/external/view/elearning/18501/aws-certified-data-engineer-associate-official-practice-question-set-dea-c01-japanese):
+- [AWS Certified Data Engineer - Associate Official Practice Question Set (DEA-C01 - Japanese)](https://skillbuilder.aws/search?searchText=AWS+Certified+Data+Engineer+-+Associate+Official+Practice+Question+Set+DEA-C01):
   - **学習目標**: 公式模擬問題を通じて、ストリーミング取り込みや ETL サービス選定のトレードオフ判断力を測定。
 
 ---
@@ -308,7 +308,7 @@ AWS Certified Data Engineer - Associate は、データエンジニアリング�
 - **状況**: 数ペタバイトの販売データを日次で集計して全社 BI ダッシュボードに提供しているが、データ量の急増に伴ってストレージ容量が逼迫し、かつ月末の特定時間帯に集計クエリが集中してレスポンスが極端に悪化する場合
 - **対応**: Amazon Redshift クラスタを RA3 ノードインスタンスに移行し、マネージドストレージ（RMS）を活用するとともに、頻繁に参照されるダッシュボード用集計クエリに対してマテリアライズドビューを作成し、同時実行スケーリング（Concurrency Scaling）を有効化する。
 - **結果**: ストレージ容量のために不要なコンピュートノードを過剰プロビジョニングする必要がなくなり、クエリスパイク時にも一時的クラスタが自動追加されてキュー待ちが解消され、ダッシュボードの表示がミリ秒〜秒単位で完了する。
-- **解説**: Amazon Redshift RA3 ノードはコンピュートとストレージを完全に分離し、大容量データを安価な S3 ベースの Redshift Managed Storage (RMS) に自動オフロードしながら、ローカル SSD キャッシュを活用して高速処理できるためです。さらに同時実行スケーリングにより、スパイク時のクエリキュー待ちをゼロにできます。従来の Dense Compute (DC2) ノードではストレージ追加のためにコンピュートを無駄に増設する必要がありコスト効率が極めて悪くなります。また、RDS PostgreSQL ではペタバイト規模の並列集計（MPP）に対応できず破綻します。
+- **解説**: Amazon Redshift RA3 ノードはコンピュートとストレージを完全に分離し、大容量データを安価な S3 ベースの Redshift Managed Storage (RMS) に自動オフロードしながら、ローカル SSD キャッシュを活用して高速処理できるためです。さらに同時実行スケーリングにより、スパイク時のクエリキュー待ちをゼロにできます。従来の Dense Compute (DC2) ノードではストレージ追加のためにコンピュートを無駄に増設する必要がありコスト効率が極めて悪くなります。また、RDS PostgreSQL ではペタバイト規模の並列集計（MPP）に対応できず破綻するため不適格です。
 - **参考ドキュメント**:
   - [Amazon Redshift 管理ガイド](https://docs.aws.amazon.com/ja_jp/redshift/latest/mgmt/welcome.html): RA3 ノードとマネージドストレージの設計
 
@@ -317,7 +317,7 @@ AWS Certified Data Engineer - Associate は、データエンジニアリング�
 - **状況**: Amazon S3 上に構築されたデータレイクにおいて、GDPR 等の規制要件に伴う特定の個別ユーザーレコードの削除（Delete）や更新（Update）が頻繁に発生し、従来の Parquet ファイル上書きではデータの不整合や同時書き込み競合が発生する場合
 - **対応**: テーブル管理フォーマットとして Apache Iceberg を採用し、AWS Glue Data Catalog で Iceberg テーブルとして登録した上で、Amazon Athena または AWS Glue を使用して行単位の UPDATE / DELETE トランザクションを実行する。
 - **結果**: S3 オブジェクトストレージ上にありながら ACID トランザクションが完全に保証され、データ競合や不整合を排除しつつ、スナップショットによるタイムトラベル機能で過去時点のデータ再現も可能になる。
-- **解説**: Apache Iceberg はオープンテーブルフォーマットであり、メタデータツリー構造を用いてスナップショット単位でコミットを管理するため、S3 上のデータセットに対してファイル全体の書き換えを伴わずに安全な ACID トランザクション（行レベルの UPDATE/DELETE）を提供できるためです。プレーンな Parquet ファイルに対して直接ファイル上書きを行う運用では、クエリ実行中の読み取りエラーや書き込み衝突によるデータ破損が不可避となります。また、全データを Amazon RDS や DynamoDB に移行する方式は、ペタバイト級のデータ分析基盤としてはコストとスケーラビリティの観点で不適格です。
+- **解説**: Apache Iceberg はオープンテーブルフォーマットであり、メタデータツリー構造を用いてスナップショット単位でコミットを管理するため、S3 上のデータセットに対してファイル全体の書き換えを伴わずに安全な ACID トランザクション（行レベルの UPDATE/DELETE）を提供できるためです。プレーンな Parquet ファイルに対して直接ファイル上書きを行う運用では、クエリ実行中の読み取りエラーや書き込み衝突によるデータ破損が不可避となります。また、全データを Amazon RDS や DynamoDB に移行する方式は、ペタバイト級のデータ分析基盤としてはコストとスケーラビリティの面で劣るため不適格です。
 - **参考ドキュメント**:
   - [Amazon Athena ユーザーガイド](https://docs.aws.amazon.com/ja_jp/athena/latest/ug/what-is.html): Apache Iceberg テーブルのクエリと操作
 
@@ -326,7 +326,7 @@ AWS Certified Data Engineer - Associate は、データエンジニアリング�
 - **状況**: 毎日数十ギガバイト蓄積される Web アクセスログがあり、直近 30 日間は高頻度で分析されるが、30 日を超えると月次レポート作成時に稀にしか参照されず、90 日を経過した後は法令順守のため 7 年間保存するのみで参照はほぼ発生しない場合
 - **対応**: Amazon S3 ライフサイクルルールを設定し、作成から 30 日経過後に S3 Standard-IA へ移行し、90 日経過後に S3 Glacier Flexible Deep Archive へ移行し、7 年（2,555 日）経過後にオブジェクトを期限切れ（自動削除）とする。
 - **結果**: アプリケーションコードを変更することなく、アクセス頻度の低下に応じてオブジェクトがより安価なストレージクラスへ全自動で階層化され、ストレージコストを最大 90% 以上削減できる。
-- **解説**: Amazon S3 ライフサイクル管理はプレフィックスやタグに基づいて自動的にストレージ階層を遷移させるマネージド機能であり、監査要件を満たしつつ最も安価な Glacier Deep Archive を活用してコストを最適化できるためです。定期的なバッチスクリプト（Lambda や Glue）でオブジェクトを別バケットにコピーして元ファイルを削除する手動運用は、スクリプト保守の負荷、API コール課金、および削除漏れのリスクが生じるためアンチパターンとなります。
+- **解説**: Amazon S3 ライフサイクル管理はプレフィックスやタグに基づいて自動的にストレージ階層を遷移させるマネージド機能であり、監査要件を満たしつつ最も安価な Glacier Deep Archive を活用してコストを最適化できるためです。定期的なバッチスクリプト（Lambda や Glue）でオブジェクトを別バケットにコピーして元ファイルを削除する手動運用は、スクリプト保守の負荷、API コール課金、および削除漏れのリスクが生じるため不適格です。
 - **参考ドキュメント**:
   - [Amazon S3 ユーザーガイド](https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/object-lifecycle-mgmt.html): ライフサイクルの設定と移行ルール
 
@@ -335,7 +335,7 @@ AWS Certified Data Engineer - Associate は、データエンジニアリング�
 - **状況**: 複数の IoT デバイスから S3 に毎時アップロードされるログファイルのスキーマが予告なく変更され、新しいセンサー属性（フィールド）が追加されたりパーティションが自動作成される環境において、手動操作なしで Athena から最新構造をクエリ可能にしたい場合
 - **対応**: AWS Glue クローラーをスケジュール実行または EventBridge トリガーで実行し、スキーマ変更時の動作として「データストアの新しい列でオブジェクト定義を更新する」を設定して AWS Glue Data Catalog を同期する。
 - **結果**: 新たに追加された列や新規日付パーティションが自動的にカタログへ反映され、データエンジニアが DDL 文を手動実行することなく Athena ユーザーが最新スキーマで即座に分析を開始できる。
-- **解説**: AWS Glue クローラーは S3 上のデータファイルを走査してスキーマとパーティション構造を自動推論し、Data Catalog のテーブルメタデータを増分更新する機能を提供しているためです。スキーマの進化（Schema Evolution）にも対応し、新しいカラムの追加を自動検出できます。Athena の `MSCK REPAIR TABLE` コマンドは Hive 互換のパーティション追加のみを行い、カラムの追加や型変更などのスキーマ更新には対応できないため、スキーマドリフト対策としては不十分です。
+- **解説**: AWS Glue クローラーは S3 上のデータファイルを走査してスキーマとパーティション構造を自動推論し、Data Catalog のテーブルメタデータを増分更新する機能を提供しているためです。スキーマの進化（Schema Evolution）にも対応し、新しいカラムの追加を自動検出できます。Athena の `MSCK REPAIR TABLE` コマンドは Hive 互換のパーティション追加のみを行い、カラムの追加や型変更などのスキーマ更新には対応できないため要件を満たせません。
 - **参考ドキュメント**:
   - [AWS Glue 開発者ガイド](https://docs.aws.amazon.com/ja_jp/glue/latest/dg/what-is-glue.html): クローラーによるデータカタログ作成とスキーマ推論
 
@@ -344,7 +344,7 @@ AWS Certified Data Engineer - Associate は、データエンジニアリング�
 - **状況**: S3 バケットに格納された 10 TB の日次トランザクションデータを夜間バッチ時間枠（2 時間以内）内に Amazon Redshift クラスタにロードする必要があるが、単一の巨大な CSV ファイルで `COPY` コマンドを実行したところ著しい遅延が発生した場合
 - **対応**: ロード元データをクラスタのコンピュートノードのスライス数と同数（またはその倍数）に均等分割した GZIP 圧縮ファイルとして S3 に配置し、マニフェストファイルを使用して `COPY` コマンドを実行する。
 - **結果**: Redshift の全スライスが並列にファイルを読み込む超並列ロード（MPP）が実現し、ボトルネックが解消されて目標時間枠内でロードが完了する。
-- **解説**: Amazon Redshift の `COPY` コマンドは、複数ファイルが存在する場合に全コンピュートノードの各スライスが並列にファイルを読み込んでロードを実行するためです。単一の巨大ファイルでは 1 つのスライスのみが読み込みを担当し、他の全ノード・スライスがアイドル状態になるため並列処理の恩恵を一切受けられません。また、JDBC 経由で INSERT 文を逐次発行する手法はネットワークラウンドトリップとトランザクションオーバーヘッドにより著しく遅く、絶対に採用してはなりません。
+- **解説**: Amazon Redshift の `COPY` コマンドは、複数ファイルが存在する場合に全コンピュートノードの各スライスが並列にファイルを読み込んでロードを実行するためです。単一の巨大ファイルでは 1 つのスライスのみが読み込みを担当し、他の全ノード・スライスがアイドル状態になるため並列処理の恩恵を一切受けられません。また、JDBC 経由で INSERT 文を逐次発行する手法はネットワークラウンドトリップとトランザクションオーバーヘッドにより著しく遅くなるため不適格です。
 - **参考ドキュメント**:
   - [Amazon Redshift データベース開発者ガイド](https://docs.aws.amazon.com/ja_jp/redshift/latest/dg/r_COPY.html): COPY コマンドの並列ロードベストプラクティス
 
@@ -359,9 +359,9 @@ AWS Certified Data Engineer - Associate は、データエンジニアリング�
 - [Amazon DynamoDB 開発者ガイド](https://docs.aws.amazon.com/ja_jp/amazondynamodb/latest/developerguide/Introduction.html): パーティションキー設計、TTL、セカンダリインデックス
 
 #### 推奨ハンズオン・ラボ（実機検証）
-- [Getting Started with Amazon Redshift (AWS Skill Builder)](https://explore.skillbuilder.aws/learn/course/external/view/elearning/109/getting-started-with-amazon-redshift):
+- [Getting Started with Amazon Redshift (AWS Skill Builder)](https://skillbuilder.aws/search?searchText=Getting+Started+with+Amazon+Redshift):
   - **学習目標**: Redshift クラスタのプロビジョニング、S3 からの並列 COPY 実行、ソートキー・分散キーの効果を実機検証。
-- [Getting Started with Amazon Athena (AWS Skill Builder)](https://explore.skillbuilder.aws/learn/course/external/view/elearning/104/getting-started-with-amazon-athena):
+- [Getting Started with Amazon Athena (AWS Skill Builder)](https://skillbuilder.aws/search?searchText=Getting+Started+with+Amazon+Athena):
   - **学習目標**: S3 上の Parquet データに対するクエリ作成、パーティションプルーニングによるスキャンデータ量削減を体感。
 
 ---
@@ -428,7 +428,7 @@ AWS Certified Data Engineer - Associate は、データエンジニアリング�
 - **状況**: AWS Glue (Apache Spark) で 2 つの巨大テーブルを顧客 ID で結合（JOIN）する処理を実行したところ、全体の 95% のタスクは数分で完了するが、特定の 1 つのタスクのみがメモリ不足で頻繁にクラッシュするか完了までに数時間を要している場合
 - **対応**: ログから顧客 ID のデータ分布を調査して特定のデフォルト値や大量購入顧客への偏り（データスキュー）を特定し、結合キーに対してランダムなプレフィックス/サフィックスを付加する「ソルティング（Salting）」処理を適用してパーティションを均等分散させる。
 - **結果**: 特定の Spark Executor へのデータ集中とメモリ溢れが解消され、全ワーカーノードで均等に並列処理が実行されるようになり、ジョブ全体の所要時間が大幅に短縮される。
-- **解説**: Apache Spark の分散処理において、結合キーに極端な偏りがあると特定のエグゼキューターに大量のデータがシャッフルされ、処理のボトルネック（Straggler）や OOM（Out Of Memory）を引き起こすためです。ソルティングを適用することで論理キーを物理的に分散させ、均等な並列度を回復できます。ワーカー数（DPU）を単に増やすだけでは、同一キーのデータは同一パーティションに集約される Spark の仕様上、問題の根本解決にはならず費用が無駄になります。
+- **解説**: Apache Spark の分散処理において、結合キーに極端な偏りがあると特定のエグゼキューターに大量のデータがシャッフルされ、処理のボトルネック（Straggler）や OOM（Out Of Memory）を引き起こすためです。ソルティングを適用することで論理キーを物理的に分散させ、均等な並列度を回復できます。ワーカー数（DPU）を単に増やすだけでは、同一キーのデータは同一パーティションに集約される Spark の仕様上、問題の根本解決にはならず費用が無駄になるため不適格です。
 - **参考ドキュメント**:
   - [AWS Glue 開発者ガイド](https://docs.aws.amazon.com/ja_jp/glue/latest/dg/what-is-glue.html): パフォーマンス最適化とトラブルシューティング
 
@@ -437,7 +437,7 @@ AWS Certified Data Engineer - Associate は、データエンジニアリング�
 - **状況**: 複数の AWS Glue ジョブと Lambda 関数から構成されるバッチパイプラインが深夜に突然失敗したが、各ジョブが大量のログを出力しているため、どのコンポーネントでどのような例外が発生したのかを標準のログコンソールから特定するのに多大な時間を要している場合
 - **対応**: Amazon CloudWatch Logs Insights を使用し、対象のロググループ群に対して専用のクエリを実行して `fields @timestamp, @message | filter @message like /Exception|Error/ | stats count() by bin(5m)` でエラー発生時刻の特定と例外メッセージの抽出を行う。
 - **結果**: 数ギガバイトに及ぶ膨大なログの中から、エラーの発生箇所、頻度、および具体的なスタックトレースを数秒でピンポイントに特定し、迅速な復旧対応が可能になる。
-- **解説**: CloudWatch Logs Insights は分散された大量のログストリームに対して集約・フィルタリング・統計処理を対話型クエリ言語で高速実行できるためです。個別ログストリームを手動で開いて目視確認する手法は時間がかかり障害対応 SLA を満たせません。また、ログを S3 にエクスポートしてから EMR クラスタを起動してログ解析する方式は、初動対応として時間がかかりすぎ過剰構成です。
+- **解説**: CloudWatch Logs Insights は分散された大量のログストリームに対して集約・フィルタリング・統計処理を対話型クエリ言語で高速実行できるためです。個別ログストリームを手動で開いて目視確認する手法は時間がかかり障害対応 SLA を満たせません。また、ログを S3 にエクスポートしてから EMR クラスタを起動してログ解析する方式は、初動対応として時間がかかりすぎ過剰構成となるため不適格です。
 - **参考ドキュメント**:
   - [Amazon CloudWatch ユーザーガイド](https://docs.aws.amazon.com/ja_jp/AmazonCloudWatch/latest/logs/AnalyzingLogData.html): CloudWatch Logs Insights によるログ分析
 
@@ -446,7 +446,7 @@ AWS Certified Data Engineer - Associate は、データエンジニアリング�
 - **状況**: セキュリティ監査のため、過去 1 年間にわたる Amazon S3 バケットのアクセスログから特定の IAM ロールによるアクセス履歴を緊急で抽出する必要があるが、スキャンデータ量が数テラバイトに達し Athena のクエリコストが高額になる懸念がある場合
 - **対応**: S3 アクセスログを日付（年・月・日）でパーティショニングされた Apache Parquet 形式に変換して保存し、Athena でパーティションプルーニング（`WHERE year = '2026' AND month = '09'`）を活用してクエリを実行する。
 - **結果**: 不要な過去データのスキャンがスキップされ、クエリスキャン量がテラバイト規模からギガバイト規模へと 90% 以上削減され、高速かつ極めて安価に監査データを取得できる。
-- **解説**: Amazon Athena はスキャンされたデータ量に基づいて課金されるため、パーティショニングによって必要なフォルダのみを読み込み（パーティションプルーニング）、かつ Parquet などの列指向フォーマットを採用することで対象列のみをスキャンすることが最大のコスト削減策となるためです。生ログのテキスト（CSV/TSV）に対してフルスキャンを実行すると、不要な全データが読み込まれ高額なクエリ料金が発生します。また、一時的な監査クエリのために Redshift クラスタを常時立ち上げるのはインフラコストの観点から不適切です。
+- **解説**: Amazon Athena はスキャンされたデータ量に基づいて課金されるため、パーティショニングによって必要なフォルダのみを読み込み（パーティションプルーニング）、かつ Parquet などの列指向フォーマットを採用することで対象列のみをスキャンすることが最大のコスト削減策となるためです。生ログのテキスト（CSV/TSV）に対してフルスキャンを実行すると、不要な全データが読み込まれ高額なクエリ料金が発生します。また、一時的な監査クエリのために Redshift クラスタを常時立ち上げるのはインフラコストが過大となるため不適格です。
 - **参考ドキュメント**:
   - [Amazon Athena ユーザーガイド](https://docs.aws.amazon.com/ja_jp/athena/latest/ug/what-is.html): パーティショニングとコストの最適化
 
@@ -455,9 +455,9 @@ AWS Certified Data Engineer - Associate は、データエンジニアリング�
 - **状況**: 新規事業のデータ分析プロジェクトにおいて、データアナリストが数十万件の顧客アンケートデータの欠損値、外れ値、およびフォーマットの不統一を調査し、コードを書かずに視覚的にデータクレンジングレシピを作成してパイプライン化したい場合
 - **対応**: AWS Glue DataBrew を使用して S3 上のデータセットを接続し、プロファイリングジョブを実行して統計的品質レポート（相関、欠損率、分布）を視覚的に確認した上で、GUI 上でクレンジングステップを定義してレシピジョブを発行する。
 - **結果**: Python や SQL のコードを一切記述することなく、アナリスト自身が直感的なインターフェイスでデータの特性を把握し、反復可能な前処理パイプラインを短期間で完成させることができる。
-- **解説**: AWS Glue DataBrew はビジュアルなノーコードデータ準備ツールであり、データの統計プロファイリングや 250 以上のビルトイントランスフォーメーションを GUI 操作だけで実行できるためです。作成した「レシピ」は自動化ジョブとして定期実行可能です。AWS Glue Studio や Spark スクリプトによる実装はプログラミングスキルを要し、アナリストが迅速に探索的分析を行う目的には適していません。また、Amazon QuickSight は可視化・ダッシュボードツールであり、データクレンジングや前処理のレシピ作成機能は限定的です。
+- **解説**: AWS Glue DataBrew はビジュアルなノーコードデータ準備ツールであり、データの統計プロファイリングや 250 以上のビルトイントランスフォーメーションを GUI 操作だけで実行できるためです。作成した「レシピ」は自動化ジョブとして定期実行可能です。AWS Glue Studio や Spark スクリプトによる実装はプログラミングスキルを要し、アナリストが迅速に探索的分析を行う目的には適していません。また、Amazon QuickSight は可視化・ダッシュボードツールであり、データクレンジングや前処理のレシピ作成機能が限定的であるため要件を満たせません。
 - **参考ドキュメント**:
-  - [AWS Glue DataBrew 開発者ガイド](https://docs.aws.amazon.com/ja_jp/databrew/latest/dg/what-is-databrew.html): ノーコードデータ準備とプロファイリング
+  - [AWS Glue DataBrew 開発者ガイド](https://docs.aws.amazon.com/ja_jp/databrew/latest/dg/what-is.html): ノーコードデータ準備とプロファイリング
 
 ---
 
@@ -466,13 +466,13 @@ AWS Certified Data Engineer - Associate は、データエンジニアリング�
 #### 公式一次ドキュメント
 - [AWS Glue Data Quality 開発者ガイド](https://docs.aws.amazon.com/ja_jp/glue/latest/dg/glue-data-quality.html): データ品質ルールセット定義（DQDL）とモニタリング
 - [Amazon CloudWatch Logs ユーザーガイド](https://docs.aws.amazon.com/ja_jp/AmazonCloudWatch/latest/logs/AnalyzingLogData.html): CloudWatch Logs Insights のクエリ構文とベストプラクティス
-- [AWS Glue DataBrew 開発者ガイド](https://docs.aws.amazon.com/ja_jp/databrew/latest/dg/what-is-databrew.html): データプロファイリング、クレンジングレシピの作成
-- [Amazon QuickSight ユーザーガイド](https://docs.aws.amazon.com/ja_jp/quicksight/latest/user/welcome.html): データセット作成、ビジュアライゼーション、SPICE アーキテクチャ
+- [AWS Glue DataBrew 開発者ガイド](https://docs.aws.amazon.com/ja_jp/databrew/latest/dg/what-is.html): データプロファイリング、クレンジングレシピの作成
+- [Amazon QuickSight ユーザーガイド](https://docs.aws.amazon.com/ja_jp/quick/latest/userguide/what-is.html): データセット作成、ビジュアライゼーション、SPICE アーキテクチャ
 
 #### 推奨ハンズオン・ラボ（実機検証）
-- [Getting Started with Amazon EMR (AWS Skill Builder)](https://explore.skillbuilder.aws/learn/course/external/view/elearning/107/getting-started-with-amazon-emr):
+- [Getting Started with Amazon EMR (AWS Skill Builder)](https://skillbuilder.aws/search?searchText=Getting+Started+with+Amazon+EMR):
   - **学習目標**: EMR クラスタ上での Spark ジョブ実行、ログの監視、トラブルシューティング手法を実機検証。
-- [Exam Prep Standard Course: AWS Certified Data Engineer - Associate (DEA-C01 - Japanese)](https://explore.skillbuilder.aws/learn/course/external/view/elearning/18556/exam-prep-standard-course-aws-certified-data-engineer-associate-dea-c01-japanese):
+- [Exam Prep Standard Course: AWS Certified Data Engineer - Associate (DEA-C01 - Japanese)](https://skillbuilder.aws/search?searchText=Exam+Prep+Standard+Course%3A+AWS+Certified+Data+Engineer+-+Associate+DEA-C01):
   - **学習目標**: データ運用とサポート分野におけるトラブルシューティング問題の思考プロセスを体系的に学習。
 
 ---
@@ -535,7 +535,7 @@ AWS Certified Data Engineer - Associate は、データエンジニアリング�
 - **状況**: 全社の顧客購買履歴テーブルが Amazon S3 上に Parquet 形式で格納されており、営業部門のアナリストにはすべての購買履歴を閲覧させたいが、アナリストが所属する地域（リージョン）の行データのみに限定し、かつクレジットカード番号などの機密列は完全にマスクして非表示にしたい場合
 - **対応**: 対象の S3 パスを AWS Lake Formation に登録し、Glue Data Catalog テーブルに対してデータセルフィルター（Data Cell Filter）を作成して行フィルター条件（`region = 'APAC'` 等）と列の除外設定を適用し、営業部門の IAM ロールに割り当てる。
 - **結果**: S3 上の物理ファイルを地域ごとに分割して複製することなく、単一のマスターデータセットに対して Athena からクエリを実行した際に自動的に許可された行と列のみが返却される。
-- **解説**: AWS Lake Formation はデータセルフィルターにより、単一のテーブル定義に対して行レベルのフィルタリングと列レベルのアクセスコントロールを同時に実現できるためです。物理的にデータを地域ごとの S3 フォルダに分割して複製保存するアプローチは、ストレージコストの増大、ETL パイプラインの複雑化、およびデータ同期遅れを引き起こします。また、標準の IAM ポリシーや S3 バケットポリシーでは列や行といったデータ構造レベルのフィルタリングは原理的に不可能です。
+- **解説**: AWS Lake Formation はデータセルフィルターにより、単一のテーブル定義に対して行レベルのフィルタリングと列レベルのアクセスコントロールを同時に実現できるためです。物理的にデータを地域ごとの S3 フォルダに分割して複製保存するアプローチは、ストレージコストの増大、ETL パイプラインの複雑化、およびデータ同期遅れを引き起こします。また、標準の IAM ポリシーや S3 バケットポリシーでは列や行といったデータ構造レベルのフィルタリングが原理的に不可能であるため要件を満たせません。
 - **参考ドキュメント**:
   - [AWS Lake Formation 開発者ガイド](https://docs.aws.amazon.com/ja_jp/lake-formation/latest/dg/what-is-lake-formation.html): きめ細やかなアクセス制御とデータセルフィルター
 
@@ -544,16 +544,16 @@ AWS Certified Data Engineer - Associate は、データエンジニアリング�
 - **状況**: 数千のテーブルと数百の IAM ユーザー・ロールが存在するエンタープライズにおいて、テーブルや列が新規作成されるたびに個別の IAM ポリシーや Lake Formation 権限を個別に手動更新しており、アクセス権限の棚卸しと管理が破綻している場合
 - **対応**: Lake Formation タグベースアクセス制御（LF-TBAC）を導入し、`Confidentiality=High/Low` や `Department=Finance/HR` などの LF タグを定義してデータベース・テーブル・列に付与し、IAM プリンシパル側にも対応する LF タグ権限を付与する。
 - **結果**: 新しいテーブルや列が追加されても適切なタグを付与するだけで即座にアクセス制御が自動適用され、個別の権限付与作業が不要となり権限設定ミスや漏れが完全に防止される。
-- **解説**: LF-TBAC（Lake Formation Tag-Based Access Control）はポリシー管理をタグの一致ルールに抽象化するため、リソース数やユーザー数が急増しても権限マトリクスの組み合わせ爆発を防ぎ、スケーラブルに統制できるためです。個別テーブルや列ごとに直接プリンシパルを指定してアクセス許可を与える方式は、テーブル追加や人事異動のたびに設定変更が必要となり、運用負荷とセキュリティリスクが極大化します。
+- **解説**: LF-TBAC（Lake Formation Tag-Based Access Control）はポリシー管理をタグの一致ルールに抽象化するため、リソース数やユーザー数が急増しても権限マトリクスの組み合わせ爆発を防ぎ、スケーラブルに統制できるためです。個別テーブルや列ごとに直接プリンシパルを指定してアクセス許可を与える方式は、テーブル追加や人事異動のたびに設定変更が必要となり、運用負荷とセキュリティリスクが極大化するため不適格です。
 - **参考ドキュメント**:
-  - [AWS Lake Formation 開発者ガイド](https://docs.aws.amazon.com/ja_jp/lake-formation/latest/dg/access-control-overview.html): タグベースアクセス制御（LF-TBAC）のアーキテクチャ
+  - [AWS Lake Formation 開発者ガイド](https://docs.aws.amazon.com/ja_jp/lake-formation/latest/dg/lf-permissions-reference.html): タグベースアクセス制御（LF-TBAC）のアーキテクチャ
 
 #### シナリオ 4-3: Amazon Macie によるデータレイク内の意図しない PII 露出の自動検知
 
 - **状況**: 社内の各開発チームが自由にログやテストデータを Amazon S3 データレイクにアップロードしているが、開発者の不注意により本番の顧客氏名、マイナンバー、クレジットカード番号などの PII（個人特定情報）が暗号化されずにプレーンテキストで保存されていないかを定期監査したい場合
 - **対応**: Amazon Macie を有効化し、データレイクの S3 バケットを対象に機密データ検出ジョブをスケジュール構成し、検出結果（Findings）を Amazon EventBridge 経由でセキュリティチームへ即座に通知する。
 - **結果**: S3 内のペタバイト規模のオブジェクトから PII や機密データが機械学習により高精度で自動スキャン・分類され、セキュリティポリシー違反がリアルタイムに可視化されて迅速な是正措置が取られる。
-- **解説**: Amazon Macie は S3 内の機密データを自動検出するために特化されたマネージドセキュリティサービスであり、個人識別情報（PII）や機密文書のパターンを事前定義およびカスタムデータ識別子で自動検知できるためです。AWS Glue DataBrew や Athena で手動クエリを実行して PII を探す手法は、網羅性に欠け、新規アップロードされるオブジェクトを継続的に監視する運用としては成立しません。また、Amazon GuardDuty は悪意あるアクティビティや不正アクセスの検出に特化しており、S3 内のコンテンツ（テキスト）を精査して PII を分類する機能は持ちません。
+- **解説**: Amazon Macie は S3 内の機密データを自動検出するために特化されたマネージドセキュリティサービスであり、個人識別情報（PII）や機密文書のパターンを事前定義およびカスタムデータ識別子で自動検知できるためです。AWS Glue DataBrew や Athena で手動クエリを実行して PII を探す手法は、網羅性に欠け、新規アップロードされるオブジェクトを継続的に監視する運用としては成立しません。また、Amazon GuardDuty は悪意あるアクティビティや不正アクセスの検出に特化しており、S3 内のコンテンツ（テキスト）を精査して PII を分類する機能を持たないため要件を満たせません。
 - **参考ドキュメント**:
   - [Amazon Macie ユーザーガイド](https://docs.aws.amazon.com/ja_jp/macie/latest/user/what-is-macie.html): 機密データの自動検出と分類
 
@@ -562,7 +562,7 @@ AWS Certified Data Engineer - Associate は、データエンジニアリング�
 - **状況**: 全社のデータウェアハウス（Redshift プロデューサー）に蓄積された集約データを、グループ会社の別 AWS アカウントで稼働する分析用 Redshift クラスタ（コンシューマー）に共有したいが、データのコピー作業（S3 エクスポート・インポート）による鮮度低下とストレージ二重課金を回避したい場合
 - **対応**: Amazon Redshift データ共有（Data Sharing）を構成し、プロデューサー側でデータ共有オブジェクト（Datashare）を作成して共有対象のスキーマ・テーブルを指定し、コンシューマーアカウントへ安全に認可を付与する。
 - **結果**: データを物理的にコピーしたり移動させることなく、コンシューマークラスタからプロデューサークラスタのライブデータに対して即座に SQL クエリを実行できるようになり、データ鮮度とコスト効率が最大化される。
-- **解説**: Amazon Redshift データ共有は基盤となる Redshift Managed Storage (RMS) レベルで安全なアクセス共有を実現するため、データの移動や ETL パイプラインを介さずに複数クラスタ間で一貫した最新データを参照できるためです。プロデューサークラスタのコンピュートリソースを消費しないため、コンシューマーの重い分析クエリがプロデューサーの集計処理に影響を与えることもありません。S3 に `UNLOAD` して別アカウントから `COPY` する従来方式は、データ鮮度の低下、二重ストレージ費用、パイプライン監視工数が発生するため劣位となります。
+- **解説**: Amazon Redshift データ共有は基盤となる Redshift Managed Storage (RMS) レベルで安全なアクセス共有を実現するため、データの移動や ETL パイプラインを介さずに複数クラスタ間で一貫した最新データを参照できるためです。プロデューサークラスタのコンピュートリソースを消費しないため、コンシューマーの重い分析クエリがプロデューサーの集計処理に影響を与えることもありません。S3 に `UNLOAD` して別アカウントから `COPY` する従来方式は、データ鮮度の低下、二重ストレージ費用、パイプライン監視工数が発生するため不適格です。
 - **参考ドキュメント**:
   - [Amazon Redshift データベース開発者ガイド](https://docs.aws.amazon.com/ja_jp/redshift/latest/dg/datashare-overview.html): Redshift データ共有の構成とセキュリティ
 
@@ -571,7 +571,7 @@ AWS Certified Data Engineer - Associate は、データエンジニアリング�
 - **状況**: 金融コンプライアンス監査において、過去 3 年間にわたりデータレイク内の S3 バケットや Redshift クラスタに対して誰がどの IAM 認証情報を用いてアクセス・設定変更を行ったかを、改ざん不能な形で長期間保管し、監査法人からの要求に応じて即座に SQL で抽出できるようにしたい場合
 - **対応**: AWS CloudTrail Lake を有効化し、組織全体の管理イベントおよび S3 データイベントを記録するイベントデータストア（Event Data Store）を作成し、最長 7 年間の保持期間を設定した上でビルトインの SQL クエリ機能を利用する。
 - **結果**: 個別に S3 バケット、KMS キー、Glue カタログ、Athena を手動構築することなく、マネージドなセキュア環境で監査ログが保護され、必要な監査クエリを即座に実行してレポートを作成できる。
-- **解説**: AWS CloudTrail Lake は監査ログの収集、保存、SQL クエリ分析を単一のフルマネージドサービスとして統合したソリューションであり、取り込まれたログは不変性（イミュータブル）が担保され長期保存と高速検索が可能なためです。従来の CloudTrail ログを S3 に配信して Athena でテーブル定義を作成する手法は、パーティション管理やクローラーの運用、ログファイルの暗号化・バケット保護など多数のインフラ設計と運用保守が必要となります。
+- **解説**: AWS CloudTrail Lake は監査ログの収集、保存、SQL クエリ分析を単一のフルマネージドサービスとして統合したソリューションであり、取り込まれたログは不変性（イミュータブル）が担保され長期保存と高速検索が可能なためです。従来の CloudTrail ログを S3 に配信して Athena でテーブル定義を作成する手法は、パーティション管理やクローラーの運用、ログファイルの暗号化・バケット保護など多数のインフラ設計と運用保守が必要となるため不適格です。
 - **参考ドキュメント**:
   - [AWS CloudTrail ユーザーガイド](https://docs.aws.amazon.com/ja_jp/awscloudtrail/latest/userguide/cloudtrail-lake.html): CloudTrail Lake による監査ログの分析
 
@@ -580,7 +580,7 @@ AWS Certified Data Engineer - Associate は、データエンジニアリング�
 - **状況**: データパイプラインを実行する AWS Glue ジョブや Lambda 関数が Amazon RDS / Redshift に接続する際のデータベースユーザー名とパスワードを、ソースコードやジョブパラメータにハードコードすることなく安全に管理し、かつ社内セキュリティ規程に従って 30 日ごとに自動更新したい場合
 - **対応**: データベース認証情報を AWS Secrets Manager に格納し、対象データベース用の組み込み Lambda ローテーション関数を設定して 30 日ごとの自動ローテーションを有効化し、Glue / Lambda コードからは SDK を介して実行時にシークレット値を取得する。
 - **結果**: 認証情報が暗号化されて一元管理され、ダウンタイムを発生させることなくパスワードが定期的に自動更新され、コードやリポジトリへの認証情報漏洩リスクが完全に排除される。
-- **解説**: AWS Secrets Manager は RDS、Redshift、DocumentDB などのデータベース認証情報の自動ローテーション機能をネイティブに備えており、シークレットの更新中も古いシークレットと新しいシークレットの切り替えを安全にハンドリングできるためです。Systems Manager Parameter Store（SecureString）は暗号化パラメータの保管には適していますが、データベースパスワードの自動ローテーション機能は組み込まれておらず自作の Lambda 等が必要になります。また、環境変数への平文ハードコードは重大なセキュリティインシデントの原因となります。
+- **解説**: AWS Secrets Manager は RDS、Redshift、DocumentDB などのデータベース認証情報の自動ローテーション機能をネイティブに備えており、シークレットの更新中も古いシークレットと新しいシークレットの切り替えを安全にハンドリングできるためです。Systems Manager Parameter Store（SecureString）は暗号化パラメータの保管には適していますが、データベースパスワードの自動ローテーション機能は組み込まれておらず自作の Lambda 等が必要になります。また、環境変数への平文ハードコードは重大なセキュリティインシデントの原因となるため不適格です。
 - **参考ドキュメント**:
   - [AWS Secrets Manager ユーザーガイド](https://docs.aws.amazon.com/ja_jp/secretsmanager/latest/userguide/intro.html): データベース認証情報の自動ローテーション
 
@@ -595,9 +595,9 @@ AWS Certified Data Engineer - Associate は、データエンジニアリング�
 - [AWS Secrets Manager ユーザーガイド](https://docs.aws.amazon.com/ja_jp/secretsmanager/latest/userguide/intro.html): 機密情報の安全な保管と自動ローテーション
 
 #### 推奨ハンズオン・ラボ（実機検証）
-- [AWS Certified Data Engineer - Associate Official Practice Question Set (DEA-C01 - Japanese)](https://explore.skillbuilder.aws/learn/course/external/view/elearning/18501/aws-certified-data-engineer-associate-official-practice-question-set-dea-c01-japanese):
+- [AWS Certified Data Engineer - Associate Official Practice Question Set (DEA-C01 - Japanese)](https://skillbuilder.aws/search?searchText=AWS+Certified+Data+Engineer+-+Associate+Official+Practice+Question+Set+DEA-C01):
   - **学習目標**: Lake Formation や暗号化、データ共有を含むセキュリティ・ガバナンス設問の実践演習。
-- [Exam Prep Standard Course: AWS Certified Data Engineer - Associate (DEA-C01 - Japanese)](https://explore.skillbuilder.aws/learn/course/external/view/elearning/18556/exam-prep-standard-course-aws-certified-data-engineer-associate-dea-c01-japanese):
+- [Exam Prep Standard Course: AWS Certified Data Engineer - Associate (DEA-C01 - Japanese)](https://skillbuilder.aws/search?searchText=Exam+Prep+Standard+Course%3A+AWS+Certified+Data+Engineer+-+Associate+DEA-C01):
   - **学習目標**: クラウドデータ基盤のセキュリティ原則とガバナンス設計の総復習。
 
 ---

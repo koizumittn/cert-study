@@ -2,7 +2,7 @@
 
 - **対象資格**: AWS Certified Security - Specialty
 - **試験コード**: SCS-C03
-- **公式試験ガイド**: [AWS Certified Security - Specialty (SCS-C03) Exam Guide](https://docs.aws.amazon.com/aws-certification/latest/security-specialty-03/security-specialty-03.html)
+- **公式試験ガイド**: [AWS Certified Security - Specialty (SCS-C03) 試験ガイド](https://docs.aws.amazon.com/ja_jp/aws-certification/latest/security-specialty-03/security-specialty-03.html)
 - **最終更新日**: 2026-10-11
 
 ---
@@ -71,35 +71,11 @@ AWS Certified Security - Specialty (SCS-C03) は、AWS 環境におけるワー�
 1. [はじめに](#はじめに)
 2. [学習カリキュラム・出題範囲ロードマップ](#学習カリキュラム出題範囲ロードマップ)
 3. [Domain 1: 検知（Detection） (16%)](#domain-1-検知detection-16)
-   - [1. セクション概要](#1-セクション概要)
-   - [2. 重要トピック](#2-重要トピック)
-   - [3. 実践シナリオ](#3-実践シナリオ)
-   - [4. 参考ドキュメント & 推奨ハンズオン](#4-参考ドキュメント--推奨ハンズオン)
 4. [Domain 2: インシデント対応（Incident Response） (14%)](#domain-2-インシデント対応incident-response-14)
-   - [1. セクション概要](#1-セクション概要-1)
-   - [2. 重要トピック](#2-重要トピック-1)
-   - [3. 実践シナリオ](#3-実践シナリオ-1)
-   - [4. 参考ドキュメント & 推奨ハンズオン](#4-参考ドキュメント--推奨ハンズオン-1)
 5. [Domain 3: インフラストラクチャセキュリティ（Infrastructure Security） (18%)](#domain-3-インフラストラクチャセキュリティinfrastructure-security-18)
-   - [1. セクション概要](#1-セクション概要-2)
-   - [2. 重要トピック](#2-重要トピック-2)
-   - [3. 実践シナリオ](#3-実践シナリオ-2)
-   - [4. 参考ドキュメント & 推奨ハンズオン](#4-参考ドキュメント--推奨ハンズオン-2)
 6. [Domain 4: アイデンティティおよびアクセス管理（Identity and Access Management） (20%)](#domain-4-アイデンティティおよびアクセス管理identity-and-access-management-20)
-   - [1. セクション概要](#1-セクション概要-3)
-   - [2. 重要トピック](#2-重要トピック-3)
-   - [3. 実践シナリオ](#3-実践シナリオ-3)
-   - [4. 参考ドキュメント & 推奨ハンズオン](#4-参考ドキュメント--推奨ハンズオン-3)
 7. [Domain 5: データ保護（Data Protection） (18%)](#domain-5-データ保護data-protection-18)
-   - [1. セクション概要](#1-セクション概要-4)
-   - [2. 重要トピック](#2-重要トピック-4)
-   - [3. 実践シナリオ](#3-実践シナリオ-4)
-   - [4. 参考ドキュメント & 推奨ハンズオン](#4-参考ドキュメント--推奨ハンズオン-4)
 8. [Domain 6: セキュリティの基盤とガバナンス（Security Foundations and Governance） (14%)](#domain-6-セキュリティの基盤とガバナンスsecurity-foundations-and-governance-14)
-   - [1. セクション概要](#1-セクション概要-5)
-   - [2. 重要トピック](#2-重要トピック-5)
-   - [3. 実践シナリオ](#3-実践シナリオ-5)
-   - [4. 参考ドキュメント & 推奨ハンズオン](#4-参考ドキュメント--推奨ハンズオン-5)
 9. [まとめと推奨学習ステップ](#まとめと推奨学習ステップ)
 
 ---
@@ -238,7 +214,7 @@ SCS-C03 で重点評価される **Amazon Security Lake** は、この課題を�
 - **解説**: AWS Organizations と連携した GuardDuty および Security Hub の委任管理者機能を利用することで、個別アカウントでの設定作業やカスタム集約スクリプトの保守を完全に排除できるためです。EventBridge で Security Hub の標準化された Finding スキーマ（ASFF: AWS Security Finding Format）をフィルタリングすることにより、アラート疲れ（Alert Fatigue）を回避しつつ重大インシデントのみを確実に通知できます。各メンバーアカウント側で個別に SNS や CloudWatch アラームを構成する代替案は、アカウント増減に伴う設定漏れが発生し、運用オーバーヘッドが著しく増大するため不適格です。
 - **参考ドキュメント**:
   - [Managing GuardDuty accounts with AWS Organizations](https://docs.aws.amazon.com/guardduty/latest/ug/guardduty_organizations.html): 組織連携によるマルチアカウント集中管理の仕様
-  - [AWS Security Hub delegated administrator](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-delegated-admin.html): Security Hub 委任管理者の設定と自動有効化
+  - [AWS Security Hub delegated administrator](https://docs.aws.amazon.com/securityhub/latest/userguide/designate-orgs-admin-account.html): Security Hub 委任管理者の設定と自動有効化
 
 #### シナリオ 1-2: AWS Config 適合パックによる継続的セキュリティベースライン評価
 
@@ -254,7 +230,7 @@ SCS-C03 で重点評価される **Amazon Security Lake** は、この課題を�
 - **状況**: 企業全体のセキュリティログ（CloudTrail, VPC Flow Logs, Route 53 Resolver ログ）を複数年にわたり長期保管しつつ、サードパーティ SIEM ツールおよび内部セキュリティアナリストが標準 SQL で高速・低コストに横断検索できる分析基盤を確立したい場合
 - **対応**: セキュリティアカウントにおいて Amazon Security Lake を有効化し、組織全体のデータソースを自動取り込み対象として構成する。Security Lake はログを自動的に OCSF 準拠の Apache Parquet 形式に変換し、日付およびアカウント単位でパーティショニングされた Amazon S3 バケットに格納する。分析クエリ用には Amazon Athena を接続し、外部 SIEM には AWS Lake Formation のきめ細かなアクセス制御（タグベースアクセス制御）を通じて安全なサブスクライバーアクセスを提供する。
 - **結果**: 異種ログのスキーマ変換にかかる膨大なカスタム ETL パイプラインの開発・運用コストが不要となり、OCSF 標準による一貫した高速クエリ環境と低コストな長期データ保管が実現される。
-- **解説**: Amazon Security Lake が OCSF 形式への正規化と Apache Parquet/Iceberg 最適化を自動実行するため、クエリパフォーマンスが最大化され、Athena でのスキャンデータ量（課金対象）が大幅に削減されるためです。CloudWatch Logs に全ログを無制限に保持し続ける代替案は、ログ取り込みおよび保持コストが極めて高額になる上、異種ログ間のスキーマ統一が困難であるため不適格です。また、自前の EMR や Glue でカスタム変換パイプラインを構築する代替案は、継続的な運用保守負荷が過大となるため推奨されません。
+- **解説**: Amazon Security Lake が OCSF 形式への正規化と Apache Parquet/Iceberg 最適化を自動実行するため、クエリパフォーマンスが最大化され、Athena でのスキャンデータ量（課金対象）が大幅に削減されるためです。CloudWatch Logs に全ログを無制限に保持し続ける代替案は、ログ取り込みおよび保持コストが極めて高額になる上、異種ログ間のスキーマ統一が困難であるため不適格です。また、自前の EMR や Glue でカスタム変換パイプラインを構築する代替案は、継続的な運用保守負荷が過大となるため不適格です。
 - **参考ドキュメント**:
   - [Amazon Security Lake User Guide](https://docs.aws.amazon.com/security-lake/latest/userguide/what-is-security-lake.html): OCSF スキーマ連携とサブスクライバー設定
 
@@ -272,7 +248,7 @@ SCS-C03 で重点評価される **Amazon Security Lake** は、この課題を�
 - **状況**: セキュリティ監査中に、特定のメンバーアカウントにおける一部の機密 S3 バケットへの `GetObject` 操作が、中央のログ記録用 S3 バケット内の CloudTrail ログに記録されていないことが判明した場合
 - **対応**: まず CloudTrail 証跡の設定を確認し、管理イベント（Management Events）だけでなく、対象 S3 バケットをスコープに含む「データイベント（Data Events）」が明示的に有効化されているかを検証する。次に、ログ保存先 S3 バケットのバケットポリシーを検証し、対象メンバーアカウントからの `cloudtrail.amazonaws.com` サービスプリンシパルによる `s3:PutObject` 権限、および S3 バケットを暗号化している AWS KMS キーポリシーに CloudTrail サービスによる `kms:GenerateDataKey*` 権限が付与されているかを確認・修正する。
 - **結果**: S3 データイベントが正確に記録され、バケットポリシーおよび KMS キーポリシーの権限不足に起因するログ書き込みエラーが解消される。
-- **解説**: CloudTrail のデフォルト設定では管理イベント（API 制御プレーン）のみが記録され、S3 オブジェクト操作や Lambda 実行などの高頻度なデータイベントは明示的に追加指定しない限り記録されないためです。さらに、組織証跡において保存先 S3 バケットが KMS カスタマー管理型キー（CMK）で暗号化されている場合、KMS キーポリシー側で各アカウントおよび CloudTrail サービスに対する適切な鍵使用許可が定義されていないと、アクセス拒否（Access Denied）によりログ配信が静かに停止します。CloudWatch エージェントの再起動を行う代替案は、CloudTrail のサービスアーキテクチャと無関係であるため障害を解決できません。
+- **解説**: CloudTrail のデフォルト設定では管理イベント（API 制御プレーン）のみが記録され、S3 オブジェクト操作や Lambda 実行などの高頻度なデータイベントは明示的に追加指定しない限り記録されないためです。さらに、組織証跡において保存先 S3 バケットが KMS カスタマー管理型キー（CMK）で暗号化されている場合、KMS キーポリシー側で各アカウントおよび CloudTrail サービスに対する適切な鍵使用許可が定義されていないと、アクセス拒否（Access Denied）によりログ配信が静かに停止します。CloudWatch エージェントの再起動を行う代替案は、CloudTrail のサービスアーキテクチャと無関係であるため要件を満たせません。
 - **参考ドキュメント**:
   - [Logging data events with CloudTrail](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/logging-data-events-with-cloudtrail.html): S3 データイベントの有効化手順
   - [Troubleshooting CloudTrail](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-troubleshooting.html): バケットポリシーおよび KMS 権限起因の障害解決
@@ -288,9 +264,9 @@ SCS-C03 で重点評価される **Amazon Security Lake** は、この課題を�
 - [AWS CloudTrail ユーザーガイド](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-user-guide.html): 組織証跡とデータイベントの設定原則
 
 #### 推奨ハンズオン・ラボ（実機検証）
-- **AWS Skill Builder: Amazon GuardDuty and AWS Security Hub Deep Dive**:
+- [AWS Skill Builder: Amazon GuardDuty and AWS Security Hub Deep Dive](https://skillbuilder.aws/search?searchText=Amazon+GuardDuty+and+AWS+Security+Hub+Deep+Dive):
   - **学習目標**: 委任管理者アカウントを設定し、組織全体の脅威検知・コンプライアンス評価を有効化する。EventBridge ルールを用いて特定重要度の検出結果を自動通知するパイプラインを構築する。
-- **AWS Skill Builder: Analyzing Logs with CloudWatch Logs Insights and Athena**:
+- [AWS Skill Builder: Analyzing Logs with CloudWatch Logs Insights and Athena](https://skillbuilder.aws/search?searchText=Analyzing+Logs+with+CloudWatch+Logs+Insights+and+Athena):
   - **学習目標**: VPC フローログおよび CloudTrail ログに対してパーティション射影を設定し、複雑な条件によるクエリ実行とレスポンス速度の最適化を体感する。
 
 ## Domain 2: インシデント対応（Incident Response） (14%)
@@ -359,10 +335,10 @@ SCS-C03 で重点評価される **Amazon Security Lake** は、この課題を�
 - **状況**: 暗号通貨マイニングや不正な C2 通信を行うマルウェアへの感染が疑われる EC2 インスタンスが本番環境で GuardDuty により検知された際、証拠を破壊することなく自動的かつ即座に隔離およびフォレンジックデータを収集したい場合
 - **対応**: GuardDuty の高重要度 Finding をトリガーとする Amazon EventBridge ルールを作成し、AWS Step Functions ステートマシンを起動する。ステートマシン内で Systems Manager Run Command を実行してインスタンスの揮発性メモリダンプを採取して S3（Object Lock 有効）へアップロードした後、接続されている全 EBS ボリュームのスナップショットを作成する。その後、インスタンスのセキュリティグループを「全インバウンド・アウトバウンドトラフィックを不許可とする隔離セキュリティグループ」に変更し、Auto Scaling グループからデタッチする。
 - **結果**: 運用担当者が介入する前に数分以内にフォレンジックデータが確実に保全され、感染ホストの外部通信および横展開（ラテラルムーブメント）が完全に封じ込められる。
-- **解説**: インスタンスを停止・再起動するとメモリ内のプロセス情報やネットワーク接続状態などの極めて重要な揮発性アーティファクトが消去されてしまうためです。Step Functions と Systems Manager を組み合わせて「メモリダンプ採取 → EBS スナップショット作成 → 隔離セキュリティグループ適用」の順序を自動化することで、人間の初動遅れやオペレーションミスによる証拠滅失と感染拡大を防ぐことができます。インスタンスを即座に Terminate（終了）または Stop（停止）する代替案は、フォレンジック調査が不可能になるため重大なアンチパターンです。
+- **解説**: インスタンスを停止・再起動するとメモリ内のプロセス情報やネットワーク接続状態などの極めて重要な揮発性アーティファクトが消去されてしまうためです。Step Functions と Systems Manager を組み合わせて「メモリダンプ採取 → EBS スナップショット作成 → 隔離セキュリティグループ適用」の順序を自動化することで、人間の初動遅れやオペレーションミスによる証拠滅失と感染拡大を防ぐことができます。インスタンスを即座に Terminate（終了）または Stop（停止）する代替案は、フォレンジック調査が不可能になるため不適格です。
 - **参考ドキュメント**:
-  - [Automated Forensics Orchestrator for Amazon EC2](https://aws.amazon.com/solutions/implementations/automated-forensics-orchestrator-for-amazon-ec2/): 自動フォレンジックパイプラインのアーキテクチャ
-  - [AWS Security Incident Response Guide](https://docs.aws.amazon.com/whitepapers/latest/aws-security-incident-response-guide/welcome.html): インシデント対応の公式ベストプラクティス
+  - [Automated Forensics Orchestrator for Amazon EC2](https://docs.aws.amazon.com/solutions/automated-forensics-orchestrator-for-amazon-ec2/): 自動フォレンジックパイプラインのアーキテクチャ
+  - [AWS Security Incident Response Guide](https://docs.aws.amazon.com/whitepapers/latest/aws-security-incident-response-guide/): インシデント対応の公式ベストプラクティス
 
 #### シナリオ 2-2: Amazon Detective による侵害スコープとグラフベース根本原因分析
 
@@ -387,16 +363,16 @@ SCS-C03 で重点評価される **Amazon Security Lake** は、この課題を�
 - **状況**: 開発者の長期 IAM アクセスキーがパブリックリポジトリに誤ってコミットされ、不正な API 呼び出しが検知されたため、該当アクセスキーの即時無効化だけでなく、既にそのキーから発行された可能性のあるすべての一時的セキュリティ認証情報（STS セッション）を即座に失効させたい場合
 - **対応**: まず IAM コンソールまたは CLI から該当アクセスキーを直ちに `Inactive`（非アクティブ）または削除する。続いて、該当 IAM ユーザーまたはロールに対して、`aws:CurrentTime` が「現在時刻」より前のすべてのセッションを無効化するインラインポリシー（`Principal` に該当エンティティを指定し、`Condition: {"DateLessThan": {"aws:TokenIssueTime": "現在時刻のタイムスタンプ"}}` で全アクションを `Deny` とするポリシー）をアタッチする。
 - **結果**: 漏洩したアクセスキーが即座に使用不能になるとともに、過去に発行された有効期限内の STS 一時トークンを用いた既存のセッションもすべて即座に拒否される。
-- **解説**: IAM アクセスキーを削除または非アクティブ化するだけでは、攻撃者が事前に `sts:GetSessionToken` や `sts:AssumeRole` で取得した一時的セキュリティ認証情報（最大 12 時間有効）は失効せず、有効期限が切れるまで悪用され続けるためです。`aws:TokenIssueTime` 条件を用いた明示的拒否（Explicit Deny）ポリシーを適用することで、過去に発行されたすべての STS セッションを即座に無効化できます。単にパスワードを変更したりアクセスキーを無効化するだけの代替案は、STS セッションの継続利用を防げないため致命的な脆弱性を残します。
+- **解説**: IAM アクセスキーを削除または非アクティブ化するだけでは、攻撃者が事前に `sts:GetSessionToken` や `sts:AssumeRole` で取得した一時的セキュリティ認証情報（最大 12 時間有効）は失効せず、有効期限が切れるまで悪用され続けるためです。`aws:TokenIssueTime` 条件を用いた明示的拒否（Explicit Deny）ポリシーを適用することで、過去に発行されたすべての STS セッションを即座に無効化できます。単にパスワードを変更したりアクセスキーを無効化するだけの代替案は、STS セッションの継続利用を防げないため要件を満たせません。
 - **参考ドキュメント**:
-  - [Revoking IAM role temporary security credentials](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_control-access_revoke-tokens.html): STS セッションの即時無効化手順
+  - [Revoking IAM role temporary security credentials](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_revoke-sessions.html): STS セッションの即時無効化手順
 
 #### シナリオ 2-5: AWS Fault Injection Service (FIS) を用いたインシデント対応計画のカオス検証
 
 - **状況**: 定義されたインシデント対応ランブックやフェイルオーバー手順が、本番環境の突発的な障害時にも想定通りに機能するかを安全かつ制御された環境下で定期検証したい場合
 - **対応**: AWS Fault Injection Service (FIS) で実験テンプレートを作成し、特定の EC2 インスタンスの強制終了、パケットロス・遅延の注入、RDS のフェイルオーバー、および特定の IAM ロールへのアクセス拒否ポリシーの一時的注入をターゲットとして定義する。実験中は CloudWatch アラームと連携した「停止条件（Stop Conditions）」を設定し、想定外のサービス劣化が発生した場合は自動的に実験をロールバックする仕組みを組み込む。
 - **結果**: 実稼働システムに予測不能な障害を与えることなく、自動復旧スクリプト、アラート検知、および SOC チームの初動対応プロセスが期待通りに動作することを定期的に検証・改善できる。
-- **解説**: AWS FIS は AWS が提供する安全なフルマネージドカオスエンジニアリングサービスであり、停止条件（ロールバックガードレール）が組み込まれているため、制御不能な障害拡大を防ぎながらインシデント対応能力を実証できるためです。手動で本番リソースを削除したり停止させる代替案は、人的ミスによる予期せぬ二次災害リスクが高く、停止条件の自動化も困難であるため推奨されません。
+- **解説**: AWS FIS は AWS が提供する安全なフルマネージドカオスエンジニアリングサービスであり、停止条件（ロールバックガードレール）が組み込まれているため、制御不能な障害拡大を防ぎながらインシデント対応能力を実証できるためです。手動で本番リソースを削除したり停止させる代替案は、人的ミスによる予期せぬ二次災害リスクが高く、停止条件の自動化も困難であるため不適格です。
 - **参考ドキュメント**:
   - [AWS Fault Injection Service User Guide](https://docs.aws.amazon.com/fis/latest/userguide/what-is.html): 制御された障害シミュレーションの設計
 
@@ -411,9 +387,9 @@ SCS-C03 で重点評価される **Amazon Security Lake** は、この課題を�
 - [AWS Fault Injection Service ユーザーガイド](https://docs.aws.amazon.com/fis/latest/userguide/what-is.html): カオスエンジニアリング実験の構成
 
 #### 推奨ハンズオン・ラボ（実機検証）
-- **AWS Skill Builder: Incident Response in AWS**:
+- [AWS Skill Builder: Incident Response in AWS](https://skillbuilder.aws/search?searchText=Incident+Response+in+AWS):
   - **学習目標**: 侵害された EC2 インスタンスの検知から、EventBridge と Step Functions による自動メモリダンプ採取、EBS スナップショット取得、隔離セキュリティグループ差し替えの一連のフローを構築する。
-- **AWS Skill Builder: Root Cause Analysis with Amazon Detective**:
+- [AWS Skill Builder: Root Cause Analysis with Amazon Detective](https://skillbuilder.aws/search?searchText=Root+Cause+Analysis+with+Amazon+Detective):
   - **学習目標**: Detective の調査コンソールを操作し、IAM ユーザーの異常行動および関連リソースのタイムライングラフを読み解く手順を習得する。
 
 ## Domain 3: インフラストラクチャセキュリティ（Infrastructure Security） (18%)
@@ -554,9 +530,9 @@ SCS-C03 で新たに追加された重要トピックが「生成 AI アプリ�
 - [Amazon Bedrock Guardrails ユーザーガイド](https://docs.aws.amazon.com/bedrock/latest/userguide/guardrails.html): 生成 AI ガードレールの実装
 
 #### 推奨ハンズオン・ラボ（実機検証）
-- **AWS Skill Builder: Building a Perimeter Defense with AWS WAF and AWS Shield**:
+- [AWS Skill Builder: Building a Perimeter Defense with AWS WAF and AWS Shield](https://skillbuilder.aws/search?searchText=Building+a+Perimeter+Defense+with+AWS+WAF+and+AWS+Shield):
   - **学習目標**: CloudFront ディストリビューションに WAF Web ACL をアタッチし、レート制限ルール、ボット制御ルール、およびカスタムブロックレスポンスをテストする。
-- **AWS Skill Builder: Securing VPCs with AWS Network Firewall**:
+- [AWS Skill Builder: Securing VPCs with AWS Network Firewall](https://skillbuilder.aws/search?searchText=Securing+VPCs+with+AWS+Network+Firewall):
   - **学習目標**: 検査サブネットを用いたルーティングテーブルの構成と、アウトバウンドドメインリストによる外部アクセス制御を実機検証する。
 
 ## Domain 4: アイデンティティおよびアクセス管理（Identity and Access Management） (20%)
@@ -670,7 +646,7 @@ IAM におけるリクエストの許可・拒否の判定は、極めて厳格�
 - **状況**: 数十の開発プロジェクトが存在し、各開発者が自プロジェクトに属するリソース（EC2, S3, RDS）のみを起動・停止・管理できるようにしたいが、プロジェクトが新設されるたびに新しい IAM ロールや個別ポリシーを作成・修正する運用負荷を解消したい場合
 - **対応**: 属性ベースアクセス制御（ABAC）を導入する。IAM Identity Center のセッションタグ機能を利用し、ユーザーの IdP 属性から `Project` タグ（例: `Project=Alpha`）を STS セッショントークンにプリンシパルタグ（`aws:PrincipalTag/Project`）として動的に渡す。共通の IAM ポリシーを作成し、リクエストを許可する条件として `Condition: {"StringEquals": {"aws:ResourceTag/Project": "${aws:PrincipalTag/Project}"}}` を定義する。さらにリソース作成時には、自身のプロジェクトタグと同一のタグを強制付与する条件を課す。
 - **結果**: プロジェクトが新設された場合でも IAM ポリシーの追加・変更は一切不要となり、IdP 側でユーザーのプロジェクト属性を設定するだけで、自プロジェクトのリソースのみに対する最小権限アクセスが自動的に適用される。
-- **解説**: ABAC はプリンシパルの属性とリソースの属性の一致を動的に評価するため、リソースやチームの増加に伴う IAM ポリシーの爆発的増加を防止し、運用負荷を劇的に削減できるためです。プロジェクトごとに個別の IAM ロールを作成する RBAC 代替案は、ロール数の上限到達やポリシー管理の属人化を招くため大規模環境ではスケールしません。
+- **解説**: ABAC はプリンシパルの属性とリソースの属性の一致を動的に評価するため、リソースやチームの増加に伴う IAM ポリシーの爆発的増加を防止し、運用負荷を劇的に削減できるためです。プロジェクトごとに個別の IAM ロールを作成する RBAC 代替案は、ロール数の上限到達やポリシー管理の属人化を招くため要件を満たせません。
 - **参考ドキュメント**:
   - [What is ABAC for AWS?](https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction_attribute-based-access-control.html): 属性ベースアクセス制御の設計原則
 
@@ -679,7 +655,7 @@ IAM におけるリクエストの許可・拒否の判定は、極めて厳格�
 - **状況**: アジャイル開発チームが Lambda 関数や ECS タスク用の IAM ロールを自律的に作成・変更できるようにしたいが、開発者が自身や作成したロールに `AdministratorAccess` などの過剰な権限を付与して特権昇格（Privilege Escalation）することを確実に防止したい場合
 - **対応**: 管理者があらかじめ「最大許容権限を定義したマネージドポリシー（許可の境界ポリシー）」を作成する。開発者の IAM ロールに対しては、`iam:CreateRole` や `iam:PutRolePolicy` を許可する一方で、条件句 `Condition: {"StringEquals": {"iam:PermissionsBoundary": "arn:aws:iam::123456789012:policy/DeveloperBoundary"}}` を設定し、新規作成するロールに必ず該当の許可の境界をアタッチしなければ作成できないよう強制する。さらに、開発者自身が境界ポリシーを変更・デタッチできないよう明示的拒否を設定する。
 - **結果**: 開発者は管理者の手を煩わせることなく必要なサービスロールを自由に作成できるが、許可の境界で定義された上限を超える権限（例: IAM 設定の変更や機密データへのアクセス）を持つロールを作成することは不可能となり、権限昇格が完全に阻止される。
-- **解説**: 許可の境界はアイデンティティポリシーと AND 条件で評価されるため、開発者がポリシー内で `Action: "*"` を指定したとしても、境界ポリシーで明示的に許可されていないアクションは実行できないためです。管理者がすべてのロール作成リクエストを手動でレビュー・作成する代替案は、開発のボトルネックとなりアジリティを著しく損ないます。
+- **解説**: 許可の境界はアイデンティティポリシーと AND 条件で評価されるため、開発者がポリシー内で `Action: "*"` を指定したとしても、境界ポリシーで明示的に許可されていないアクションは実行できないためです。管理者がすべてのロール作成リクエストを手動でレビュー・作成する代替案は、開発のボトルネックとなりアジリティを著しく損なうため不適格です。
 - **参考ドキュメント**:
   - [Permissions boundaries for IAM entities](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_boundaries.html): 権限昇格防止の設計手法
 
@@ -690,7 +666,7 @@ IAM におけるリクエストの許可・拒否の判定は、極めて厳格�
 - **結果**: アプリケーションコードから認可ロジックが完全に分離され、セキュリティ管理者やコンプライアンス担当者が Cedar ポリシーを一元的に監査・更新可能となり、コードの再デプロイなしにアクセス制御ルールを変更できるようになる。
 - **解説**: Amazon Verified Permissions は Cedar エンジンによるミリ秒以下の超高速な認可判定を提供し、コードの複雑性を排除しながらエンタープライズ水準の認可ガバナンスを実現できるためです。アプリケーション内の `if/else` 文で認可ロジックを実装する代替案は、仕様変更時の修正漏れやロジックの脆弱性を生みやすく、外部監査も極めて困難であるため不適格です。
 - **参考ドキュメント**:
-  - [Amazon Verified Permissions User Guide](https://docs.aws.amazon.com/verifiedpermissions/latest/userguide/what-is-verifiedpermissions.html): Cedar ポリシーと言語仕様
+  - [Amazon Verified Permissions User Guide](https://docs.aws.amazon.com/verifiedpermissions/latest/userguide/what-is-avp.html): Cedar ポリシーと言語仕様
 
 #### シナリオ 4-6: IAM Access Analyzer による意図しない外部露出の検出と最小権限ポリシー自動生成
 
@@ -709,12 +685,12 @@ IAM におけるリクエストの許可・拒否の判定は、極めて厳格�
 - [IAM ポリシーの評価論理](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html): 認可決定フローの完全リファレンス
 - [AWS IAM Identity Center ユーザーガイド](https://docs.aws.amazon.com/singlesignon/latest/userguide/what-is.html): シングルサインオンと許可セット
 - [AWS IAM Roles Anywhere ユーザーガイド](https://docs.aws.amazon.com/rolesanywhere/latest/userguide/introduction.html): X.509 証明書ベースの認証
-- [Amazon Verified Permissions ユーザーガイド](https://docs.aws.amazon.com/verifiedpermissions/latest/userguide/what-is-verifiedpermissions.html): Cedar 認可エンジン
+- [Amazon Verified Permissions ユーザーガイド](https://docs.aws.amazon.com/verifiedpermissions/latest/userguide/what-is-avp.html): Cedar 認可エンジン
 
 #### 推奨ハンズオン・ラボ（実機検証）
-- **AWS Skill Builder: Advanced Identity and Access Management with ABAC and Permissions Boundaries**:
+- [AWS Skill Builder: Advanced Identity and Access Management with ABAC and Permissions Boundaries](https://skillbuilder.aws/search?searchText=Advanced+Identity+and+Access+Management+with+ABAC+and+Permissions+Boundaries):
   - **学習目標**: タグベースの ABAC ポリシーを構成し、許可の境界を用いて特権昇格を防ぎながら安全に IAM ロールを作成できる権限委譲を実機で体験する。
-- **AWS Skill Builder: Zero Trust Architecture with IAM Roles Anywhere and Verified Permissions**:
+- [AWS Skill Builder: Zero Trust Architecture with IAM Roles Anywhere and Verified Permissions](https://skillbuilder.aws/search?searchText=Zero+Trust+Architecture+with+IAM+Roles+Anywhere+and+Verified+Permissions):
   - **学習目標**: プライベート CA を作成してクライアント証明書を発行し、オンプレミス環境から AWS API を呼び出す手順を検証する。
 
 ## Domain 5: データ保護（Data Protection） (18%)
@@ -804,7 +780,7 @@ SCS-C03 において、KMS キーの種別と暗号化オプションの選定�
 - **状況**: 金融決済データを分散処理する Amazon EMR クラスタおよび Amazon EKS クラスタにおいて、外部との通信だけでなく、VPC 内のノード間で転送されるシャッフルデータや内部 RPC 通信に対しても TLS による転送中暗号化を適用し、通信の盗聴を防止したい場合
 - **対応**: Amazon EMR ではセキュリティ設定（Security Configuration）を作成し、「転送中の暗号化（In-transit encryption）」を有効化する。ノード間相互 TLS（mTLS）認証用に AWS Private CA または内部認証局から発行された X.509 証明書バンドル（ZIP）を S3 から各ノードに配布するよう指定する。Amazon EKS では、サービスメッシュ（AWS App Mesh または Istio）を導入して Pod 間の mTLS を強制するか、AWS VPC CNI のネットワーク暗号化（Nitro-based encryption）を有効化する。
 - **結果**: クラスタ内のインスタンス間およびコンテナ間で送受信されるすべての内部トラフィックが自動的に暗号化され、同一 VPC 内の不正パケットキャプチャに対してもデータが保護される。
-- **解説**: 分散処理フレームワーク（Hadoop/Spark）ではノード間で膨大な中間データ（Shuffle Data）が平文で送受信されるリスクがあり、コンプライアンス要件を満たすにはノード間内部暗号化が必須となるためです。EMR のセキュリティ設定機能を使用することで、アプリケーションコードを変更することなくネイティブにノード間 TLS を適用できます。単に ELB やエッジで TLS 終端を行う代替案は、内部ネットワーク通信が平文のまま残るためセキュリティ要件を満たせず不適格です。
+- **解説**: 分散処理フレームワーク（Hadoop/Spark）ではノード間で膨大な中間データ（Shuffle Data）が平文で送受信されるリスクがあり、コンプライアンス要件を満たすにはノード間内部暗号化が必須となるためです。EMR のセキュリティ設定機能を使用することで、アプリケーションコードを変更することなくネイティブにノード間 TLS を適用できます。単に ELB やエッジで TLS 終端を行う代替案は、内部ネットワーク通信が平文のまま残るため不適格です。
 - **参考ドキュメント**:
   - [Encryption in transit for Amazon EMR](https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-data-encryption-options.html): EMR 転送中暗号化と証明書管理
   - [Amazon EC2 Nitro-based encryption in transit](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/data-protection.html#encryption-in-transit): Nitro インスタンス間の自動暗号化
@@ -814,7 +790,7 @@ SCS-C03 において、KMS キーの種別と暗号化オプションの選定�
 - **状況**: 医療機関の電子カルテシステムにおいて、作成されたバックアップデータおよびアーカイブ画像が、管理者権限を奪ったランサムウェアや悪意ある内部特権ユーザーによって上書き・削除・早期破棄されることを 7 年間にわたり物理的に不可能にしたい場合
 - **対応**: バックアップデータの格納先 S3 バケットにおいて、バケット作成時に「S3 Object Lock」を有効化する。デフォルト保持モードとして「合意モード（Compliance Mode）」を設定し、保持期間を 7 年間に指定する。さらに、AWS Backup のバックアップボールトに対して「AWS Backup Vault Lock」を適用し、指定期間内の復旧ポイントの削除を禁止する設定を行い、猶予期間（Grace Period）経過後にボールトロックを完全に確定（Lock）させる。
 - **結果**: ルートアカウントや IAM 管理者権限を持ついかなるユーザーであっても、指定された 7 年間が経過するまでオブジェクトやバックアップを削除・期間短縮・上書きすることが絶対に不可能となる。
-- **解説**: S3 Object Lock の合意モード（Compliance Mode）および AWS Backup Vault Lock は、AWS 内部の物理的なストレージ制御プレーンにおいて WORM（Write Once, Read Many）を強制するため、最高権限を持つルートユーザーであっても削除 API が即座に拒否されるためです。ガバナンスモード（Governance Mode）を採用する代替案は、特権限（`s3:BypassGovernanceRetention`）を持つ攻撃者にロックをバイパスされてデータが削除される危険性があるため不適格です。また、単に S3 バケットのバージョン管理や MFA Delete を有効にするだけの代替案は、ルートユーザーによるバケット設定変更やバージョン削除を防ぎきれないため不十分です。
+- **解説**: S3 Object Lock の合意モード（Compliance Mode）および AWS Backup Vault Lock は、AWS 内部の物理的なストレージ制御プレーンにおいて WORM（Write Once, Read Many）を強制するため、最高権限を持つルートユーザーであっても削除 API が即座に拒否されるためです。ガバナンスモード（Governance Mode）を採用する代替案は、特権限（`s3:BypassGovernanceRetention`）を持つ攻撃者にロックをバイパスされてデータが削除される危険性があるため不適格です。また、単に S3 バケットのバージョン管理や MFA Delete を有効にするだけの代替案は、ルートユーザーによるバケット設定変更やバージョン削除を防ぎきれないため要件を満たせません。
 - **参考ドキュメント**:
   - [Locking objects using S3 Object Lock](https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-lock.html): 合意モードと法的ホールドの仕様
   - [AWS Backup Vault Lock](https://docs.aws.amazon.com/aws-backup/latest/devguide/vault-lock.html): 不変バックアップボールトの構成
@@ -834,7 +810,7 @@ SCS-C03 において、KMS キーの種別と暗号化オプションの選定�
 - **状況**: 本番環境の Amazon RDS PostgreSQL データベースに接続する Lambda 関数および ECS タスクにおいて、データベースのマスターパスワードおよびアプリ用パスワードが 30 日ごとに自動ローテーションされる仕組みを導入し、かつローテーション処理がパブリックインターネットを経由せずに閉域内で完結するようにしたい場合
 - **対応**: 認証情報を AWS Secrets Manager に格納し、30 日間隔の自動ローテーションを有効化する。Secrets Manager 提供の標準 RDS ローテーション用 Lambda 関数テンプレートをプライベートサブネット内にデプロイする。VPC 内に Secrets Manager 用のインターフェイス VPC エンドポイント（AWS PrivateLink）を作成し、ローテーション Lambda 関数およびアプリケーションがインターネットゲートウェイを介さずにプライベート通信のみでシークレットを取得・更新できるように構成する。
 - **結果**: 人的介入なしにデータベースパスワードが安全にローテーションされ、かつパスワードの取得・更新処理が完全に VPC 内部のプライベートネットワーク内で完結する。
-- **解説**: AWS Secrets Manager は RDS と統合されたマネージド自動ローテーション機能を提供しており、パスワード変更中も新旧認証情報の二重保持（2 ステップローテーション）により接続断を防ぎながら安全にパスワードを更新できるためです。さらに VPC エンドポイントを構成することで、機密情報がインターネットに流出するリスクをゼロに抑えることができます。AWS Systems Manager Parameter Store を使用する代替案は、パラメータの暗号化保管は可能ですが、RDS パスワードの自動ローテーション機能がネイティブに組み込まれていないためカスタム開発・運用の負担が増大します。
+- **解説**: AWS Secrets Manager は RDS と統合されたマネージド自動ローテーション機能を提供しており、パスワード変更中も新旧認証情報の二重保持（2 ステップローテーション）により接続断を防ぎながら安全にパスワードを更新できるためです。さらに VPC エンドポイントを構成することで、機密情報がインターネットに流出するリスクをゼロに抑えることができます。AWS Systems Manager Parameter Store を使用する代替案は、パラメータの暗号化保管は可能ですが、RDS パスワードの自動ローテーション機能がネイティブに組み込まれておらずカスタム開発・運用の負担が増大するため不適格です。
 - **参考ドキュメント**:
   - [Rotate AWS Secrets Manager secrets](https://docs.aws.amazon.com/secretsmanager/latest/userguide/rotating-secrets.html): データベース認証情報の自動ローテーション設計
 
@@ -858,9 +834,9 @@ SCS-C03 において、KMS キーの種別と暗号化オプションの選定�
 - [CloudWatch Logs データ保護ポリシー](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/mask-sensitive-log-data.html): PII のマスキング設定
 
 #### 推奨ハンズオン・ラボ（実機検証）
-- **AWS Skill Builder: Deep Dive into AWS KMS and Encryption**:
+- [AWS Skill Builder: Deep Dive into AWS KMS and Encryption](https://skillbuilder.aws/search?searchText=Deep+Dive+into+AWS+KMS+and+Encryption):
   - **学習目標**: カスタマー管理型キー (CMK) を作成し、クロスアカウントアクセス用のキーポリシーを構成する。暗号化コンテキスト（Encryption Context）を用いた認証付き暗号化を検証する。
-- **AWS Skill Builder: Implementing Immutability with S3 Object Lock and AWS Backup**:
+- [AWS Skill Builder: Implementing Immutability with S3 Object Lock and AWS Backup](https://skillbuilder.aws/search?searchText=Implementing+Immutability+with+S3+Object+Lock+and+AWS+Backup):
   - **学習目標**: S3 バケットで合意モードの Object Lock を有効化し、オブジェクトの削除防止および保持期間設定の挙動を検証する。
 
 ## Domain 6: セキュリティの基盤とガバナンス（Security Foundations and Governance） (14%)
@@ -968,7 +944,7 @@ SCS-C03 で最も注目される設計概念の一つが、**データ境界（D
 - **解説**: SCP はプリンシパルに対する権限制約であるため自社アカウント内のプリンシパルの行動は制限できますが、社外の悪意あるプリンシパルが自社リソースへアクセスするのを防ぐにはリソース側の制約（RCP）が必須となるためです。SCP と RCP を組み合わせることで初めて完全な双方向のデータ境界（Data Perimeter）が確立されます。個別の S3 バケットポリシーのみに頼る代替案は、アカウント数が多く開発者が自律的にバケットを作成する環境では設定ミスや漏れを防ぎきれないため不適格です。
 - **参考ドキュメント**:
   - [Resource control policies (RCPs)](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_rcps.html): リソース制御ポリシーの概要と構成
-  - [Building a data perimeter on AWS](https://docs.aws.amazon.com/whitepapers/latest/building-a-data-perimeter-on-aws/welcome.html): データ境界の公式アーキテクチャ
+  - [Building a data perimeter on AWS](https://docs.aws.amazon.com/whitepapers/latest/building-a-data-perimeter-on-aws/): データ境界の公式アーキテクチャ
 
 #### シナリオ 6-2: AWS Control Tower と委任管理者によるセキュアなマルチアカウントランディングゾーン展開
 
@@ -987,14 +963,14 @@ SCS-C03 で最も注目される設計概念の一つが、**データ境界（D
 - **結果**: 新しくデプロイされた ALB や CloudFront に対して WAF ルールが数分以内に自動適用され、開発者が手動で WAF を無効化した場合でも即座に自動再適用されてコンプライアンスが維持される。
 - **解説**: AWS Firewall Manager は Organizations と統合されており、新しいリソースのプロビジョニングを自動検知して中央のセキュリティポリシーを強制適用（自動修復）できるためです。個別アカウントで CloudFormation や Terraform を実行する代替案は、手動での削除や変更をリアルタイムに検知・自動是正することができず、セキュリティの死角を生むため不適格です。
 - **参考ドキュメント**:
-  - [AWS Firewall Manager Developer Guide](https://docs.aws.amazon.com/waf/latest/developerguide/fwm-chapter.html): 組織全体への WAF ポリシー強制
+  - [AWS Firewall Manager Developer Guide](https://docs.aws.amazon.com/waf/latest/developerguide/fms-chapter.html): 組織全体への WAF ポリシー強制
 
 #### シナリオ 6-4: CloudFormation Guard と cfn-lint を用いた CI/CD パイプライン内での IaC セキュリティ静的解析
 
 - **状況**: クラウドリソースのデプロイに AWS CloudFormation を採用しているが、S3 バケットの暗号化が無効であったり、セキュリティグループで `0.0.0.0/0` への SSH（ポート 22）が開放されているような安全でないテンプレートが本番環境へデプロイされるのを、CI/CD パイプラインのビルド段階で自動検知・拒否（Shift-Left Security）したい場合
 - **対応**: CI/CD パイプライン（AWS CodePipeline または GitHub Actions）のビルドステージにおいて、静的解析ツールを組み込む。まず `cfn-lint` を実行して構文エラーやベストプラクティス違反を検証する。続いて `CloudFormation Guard (cfn-guard)` を実行し、企業が定義したポリシールールセット（例: `AWS::S3::Bucket Properties.BucketEncryption.ServerSideEncryptionConfiguration[*] EXISTS`、`AWS::EC2::SecurityGroup Properties.SecurityGroupIngress[*] NOT_MATCH 0.0.0.0/0:22`）に照らしてテンプレートを検査する。ルール違反が 1 つでも検出された場合はパイプラインをエラー終了させてデプロイを自動停止する。
 - **結果**: 非準拠なインフラ設定を含む CloudFormation テンプレートが AWS 環境にデプロイされる前に完全にブロックされ、本番環境へのセキュリティリスクの混入が未然に防止される。
-- **解説**: CloudFormation Guard（cfn-guard）はポリシー・アズ・コード（Policy as Code）を実現する軽量な DSL ツールであり、デプロイ前のテンプレートに対して決定論的なルール評価を実行できるためです。デプロイ後に AWS Config で違反を検出して修復する代替案は、短時間であっても脆弱なリソースが実稼働環境に露出してしまうため、セキュリティ要件（Shift-Left 原則）を満たせません。
+- **解説**: CloudFormation Guard（cfn-guard）はポリシー・アズ・コード（Policy as Code）を実現する軽量な DSL ツールであり、デプロイ前のテンプレートに対して決定論的なルール評価を実行できるためです。デプロイ後に AWS Config で違反を検出して修復する代替案は、短時間であっても脆弱なリソースが実稼働環境に露出してしまうため要件を満たせません。
 - **参考ドキュメント**:
   - [AWS CloudFormation Guard User Guide](https://docs.aws.amazon.com/cfn-guard/latest/ug/what-is-guard.html): Policy-as-Code の記述とパイプライン統合
 
@@ -1015,13 +991,13 @@ SCS-C03 で最も注目される設計概念の一つが、**データ境界（D
 #### 公式一次ドキュメント
 - [AWS Organizations ユーザーガイド](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_introduction.html): 組織管理とポリシー適用の基本原則
 - [AWS Control Tower ユーザーガイド](https://docs.aws.amazon.com/controltower/latest/userguide/what-is-control-tower.html): ランディングゾーンの設計とガードレール
-- [AWS Firewall Manager 開発者ガイド](https://docs.aws.amazon.com/waf/latest/developerguide/fwm-chapter.html): 集中セキュリティ管理
+- [AWS Firewall Manager 開発者ガイド](https://docs.aws.amazon.com/waf/latest/developerguide/fms-chapter.html): 集中セキュリティ管理
 - [AWS Audit Manager ユーザーガイド](https://docs.aws.amazon.com/audit-manager/latest/userguide/what-is.html): 自動監査とフレームワーク連携
 
 #### 推奨ハンズオン・ラボ（実機検証）
-- **AWS Skill Builder: Multi-Account Management with AWS Organizations and Control Tower**:
+- [AWS Skill Builder: Multi-Account Management with AWS Organizations and Control Tower](https://skillbuilder.aws/search?searchText=Multi-Account+Management+with+AWS+Organizations+and+Control+Tower):
   - **学習目標**: 組織単位（OU）を作成し、SCP および RCP を適用して意図しないリージョン利用や外部データ転送が確実に拒否されることを検証する。
-- **AWS Skill Builder: Automating Compliance and Auditing with AWS Config and Audit Manager**:
+- [AWS Skill Builder: Automating Compliance and Auditing with AWS Config and Audit Manager](https://skillbuilder.aws/search?searchText=Automating+Compliance+and+Auditing+with+AWS+Config+and+Audit+Manager):
   - **学習目標**: 組織アグリゲータを設定してマルチアカウントの Config ルール準拠状況を集約し、Audit Manager でアセスメントレポートを出力する手順を体感する。
 
 ## まとめと推奨学習ステップ
@@ -1047,8 +1023,8 @@ AWS Certified Security - Specialty (SCS-C03) 試験の根底に流れる哲学�
 
 #### ステップ 2: 公式一次ドキュメントとアーキテクチャホワイトペーパーの精読
 各セクション末尾に提示した AWS 公式一次ドキュメントに加え、以下の 2 つのホワイトペーパーを精読することを強く推奨します：
-- **[AWS Security Incident Response Guide](https://docs.aws.amazon.com/whitepapers/latest/aws-security-incident-response-guide/welcome.html)**: インシデント対応の公式プロセスモデル
-- **[Building a Data Perimeter on AWS](https://docs.aws.amazon.com/whitepapers/latest/building-a-data-perimeter-on-aws/welcome.html)**: SCP、RCP、VPC エンドポイントポリシーを組み合わせたデータ境界設計
+- **[AWS Security Incident Response Guide](https://docs.aws.amazon.com/whitepapers/latest/aws-security-incident-response-guide/)**: インシデント対応の公式プロセスモデル
+- **[Building a Data Perimeter on AWS](https://docs.aws.amazon.com/whitepapers/latest/building-a-data-perimeter-on-aws/)**: SCP、RCP、VPC エンドポイントポリシーを組み合わせたデータ境界設計
 
 #### ステップ 3: AWS Skill Builder および実機コンソールでの挙動検証
 IAM ポリシーの評価論理、KMS キーポリシーのクロスアカウント許可、S3 Object Lock の挙動、GuardDuty と EventBridge を連携させた自動修復などは、机上の勉強だけでなく実際に手を動かして検証することで記憶に深く定着します。特に IAM Policy Simulator や IAM Access Analyzer を操作し、アクセス権限の判定結果を体感してください。

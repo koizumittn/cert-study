@@ -27,7 +27,7 @@ AWS Certified DevOps Engineer - Professional (DOP-C02) は、AWS 環境におけ
 | **Domain 1** | SDLC 自動化 (SDLC Automation) | 22% | AWS CodePipeline, AWS CodeBuild, AWS CodeDeploy, Amazon ECR, AWS CodeArtifact, EC2 Image Builder, デプロイ戦略 (Canary, Blue/Green, Linear) |
 | **Domain 2** | 構成管理と Infrastructure as Code (IaC) | 17% | AWS CloudFormation, CloudFormation StackSets, AWS CDK, AWS Systems Manager, AWS Config, AWS Service Catalog, AWS Control Tower |
 | **Domain 3** | 高回復力クラウドソリューション (Resilient Cloud Solutions) | 15% | Multi-AZ / Multi-Region, Amazon Route 53 ARC, Amazon Aurora Global Database, DynamoDB Global Tables, Auto Scaling, AWS Backup, AWS Fault Injection Simulator (FIS) |
-| **Domain 4** | 監視とロギング (Monitoring and Logging) | 15% | Amazon CloudWatch, CloudWatch Logs Insights, CloudWatch Metric Streams, Amazon Kinesis Data Firehose, AWS X-Ray, CloudWatch アノマリー検出, CloudWatch Synthetics |
+| **Domain 4** | 監視とロギング (Monitoring and Logging) | 15% | Amazon CloudWatch, CloudWatch Logs Insights, CloudWatch Metric Streams, Amazon Data Firehose (旧 Amazon Data Firehose), AWS X-Ray, CloudWatch アノマリー検出, CloudWatch Synthetics |
 | **Domain 5** | インシデントとイベント対応 (Incident and Event Response) | 14% | Amazon EventBridge, AWS Health, AWS Systems Manager OpsCenter, SSM Automation ランブック, AWS Step Functions, デプロイ自動ロールバック |
 | **Domain 6** | セキュリティとコンプライアンス (Security and Compliance) | 17% | IAM Identity Center, ABAC / RBAC, AWS Organizations SCP, AWS KMS, AWS Secrets Manager, AWS Macie, Amazon GuardDuty, AWS Security Hub, Amazon Inspector, AWS Config 自動修復 |
 
@@ -52,7 +52,7 @@ AWS Certified DevOps Engineer - Professional (DOP-C02) は、AWS 環境におけ
 - **Task 3.3**: RTO および RPO 要件を満たす自動復旧プロセスの実装（パイロットライト、ウォームスタンバイ、アクティブ/アクティブ DR 戦略、AWS Backup クロスアカウント・クロスリージョンボールト、Aurora レプリカ昇格自動化、AWS Fault Injection Simulator [FIS] カオス実験）
 
 ### Domain 4: 監視とロギング (Monitoring and Logging) (15%)
-- **Task 4.1**: ログとメトリクスの収集、集約、ストレージの設定（CloudWatch エージェント集中配信、CloudWatch Metric Filters、Metric Streams + Kinesis Data Firehose によるリアルタイム S3 出力、KMS CMK 暗号化、ライフサイクル保持期間）
+- **Task 4.1**: ログとメトリクスの収集、集約、ストレージの設定（CloudWatch エージェント集中配信、CloudWatch Metric Filters、Metric Streams + Amazon Data Firehose によるリアルタイム S3 出力、KMS CMK 暗号化、ライフサイクル保持期間）
 - **Task 4.2**: ログとメトリクスの監査、監視、分析による問題検出（CloudWatch Logs Insights クエリ構文、CloudWatch アノマリー検出アラーム、AWS X-Ray セグメント・サブセグメント・サンプリングルール、QuickSight 可視化）
 - **Task 4.3**: 複雑な環境における監視とイベント管理の自動化（EventBridge ルールによるメトリクス・ログイベント駆動処理、ECS / EKS オートスケーラー連携、Route 53 / ALB ヘルスチェック自動フェイルオーバー）
 

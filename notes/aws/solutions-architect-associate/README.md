@@ -99,7 +99,7 @@ AWS Certified Solutions Architect - Associate は、ビジネス要件および�
   - Task 3.2: 高パフォーマンスで伸縮自在なコンピューティングソリューションを設計する（EC2 インスタンスタイプ選定, クラスター配置グループ, ENA/EFA, Auto Scaling ターゲット追跡, Lambda, Fargate, ECS/EKS）
   - Task 3.3: 高パフォーマンスなデータベースソリューションを選択する（Amazon Aurora リードレプリカ / Global Database, DynamoDB + DAX, ElastiCache Redis / Memcached）
   - Task 3.4: 高パフォーマンスでスケーラブルなネットワークアーキテクチャを選択する（Amazon CloudFront, AWS Global Accelerator, Direct Connect, Transit Gateway）
-  - Task 3.5: 高パフォーマンスなデータ取り込みと変換のソリューションを選択する（Amazon Kinesis Data Streams / Data Firehose, AWS Glue, Amazon EMR）
+  - Task 3.5: 高パフォーマンスなデータ取り込みと変換のソリューションを選択する（Amazon Kinesis Data Streams / Amazon Data Firehose, AWS Glue, Amazon EMR）
 - **重要キーワード**: EBS io2 Block Express, FSx for Lustre, Cluster Placement Groups, Graviton, Aurora Global Database, DynamoDB Accelerator (DAX), ElastiCache, CloudFront OAC, Global Accelerator, Kinesis Data Streams
 
 #### Domain 4: コストを最適化したアーキテクチャの設計 (20%)
@@ -220,7 +220,7 @@ flowchart TD
 - **状況**: 社内 Active Directory に数千名の従業員が存在し、複数の AWS アカウント群（本番、ステージング、開発）に対して最小権限の原則でアクセスを許可したいが、個別アカウントへの IAM ユーザー発行や長期アクセスキーの発行は運用負荷およびセキュリティリスクの観点から禁止されている場合
 - **対応**: AWS IAM Identity Center を導入して社内 Active Directory と SAML 2.0 / SCIM でフェデレーション連携し、各アカウントへのアクセス権限をアクセス権限セット（Permission Sets）として一元定義して割り当てる。
 - **結果**: 個別アカウントごとの IAM ユーザー管理が不要となり、ユーザーは社内 ID で AWS アクセスポータルからシングルサインオン可能となり、一時クレデンシャルのみで安全に作業が実行される。
-- **解説**: IAM Identity Center を利用することで、ID 管理を単一の信頼できる情報源（IdP）に集約しつつ、各アカウントへのアクセス権限を一元管理できるためです。個別アカウントで IAM ユーザーを作成・管理する方式は、退職時の権限削除漏れやアクセスキー流出のリスクが高く要件に違反します。また、個別の AssumeRole スクリプトを全従業員に配布する方式は運用負荷が高く推奨されません。
+- **解説**: IAM Identity Center を利用することで、ID 管理を単一の信頼できる情報源（IdP）に集約しつつ、各アカウントへのアクセス権限を一元管理できるためです。個別アカウントで IAM ユーザーを作成・管理する方式は、退職時の権限削除漏れやアクセスキー流出のリスクが高く要件に違反します。また、個別の AssumeRole スクリプトを全従業員に配布する方式は運用負荷が高いため不適格です。
 - **参考ドキュメント**:
   - [AWS IAM Identity Center ユーザーガイド](https://docs.aws.amazon.com/ja_jp/singlesignon/latest/userguide/what-is.html): マルチアカウント環境での一元的なシングルサインオンとアクセス管理のベストプラクティス。
 
@@ -229,16 +229,16 @@ flowchart TD
 - **状況**: 外部の監査用 SaaS アプリケーションに対して自社 AWS アカウント内の CloudTrail ログおよび AWS Config 設定を読み取る権限を委譲する必要があるが、第三者による不正委譲攻撃（Confused Deputy 問題）を確実に防ぎたい場合
 - **対応**: 自社アカウント内に IAM ロールを作成し、信頼ポリシー（Trust Policy）で相手方 SaaS の AWS アカウント ID を指定した上で、条件節（Condition）に相手方から払い出された固有の「外部 ID（External ID）」を必須として設定する。
 - **結果**: SaaS アプリケーションは自社固有の External ID を指定した `sts:AssumeRole` API 呼び出しによってのみ一時クレデンシャルを取得でき、不正アクセスが防止される。
-- **解説**: サードパーティ SaaS とのクロスアカウント連携において Confused Deputy 問題を防止するには、条件節で `sts:ExternalId` を検証することが AWS の標準セキュリティベストプラクティスであるためです。自社アカウント内に相手用の IAM ユーザーを作成して長期アクセスキーを払い出す方式はキー流出リスクがあり、また外部 ID を指定しない単純な AssumeRole では他顧客のアカウントを踏み台にした不正呼び出しを防げません。
+- **解説**: サードパーティ SaaS とのクロスアカウント連携において Confused Deputy 問題を防止するには、条件節で `sts:ExternalId` を検証することが AWS の標準セキュリティベストプラクティスであるためです。自社アカウント内に相手用の IAM ユーザーを作成して長期アクセスキーを払い出す方式はキー流出リスクがあり、また外部 ID を指定しない単純な AssumeRole では他顧客のアカウントを踏み台にした不正呼び出しを防げないため要件を満たせません。
 - **参考ドキュメント**:
-  - [AWS IAM ユーザーガイド - 外部 ID の使用](https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/id_roles_create_for-user_externalid.html): 第三者に AWS リソースへのアクセス権を委譲する際の Confused Deputy 対策。
+  - [AWS IAM ユーザーガイド - 外部 ID の使用](https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/id_roles_common-scenarios_third-party.html): 第三者に AWS リソースへのアクセス権を委譲する際の Confused Deputy 対策。
 
 #### シナリオ 1-3: Organizations 全社ガードレールによる特定リージョン利用の強制遮断
 
 - **状況**: 全社のコンプライアンス規程により、データ主権および法規制の理由から東京リージョン（ap-northeast-1）および大阪リージョン（ap-northeast-3）以外のリージョンでリソースを起動することを全社的に禁止したい場合
 - **対応**: AWS Organizations のルートまたは該当組織単位（OU）に対して、`aws:RequestedRegion` 条件キーを用いて東京・大阪以外のすべての API リクエストを拒否（Deny）するサービスコントロールポリシー（SCP）を適用する。
 - **結果**: 配下の各 AWS アカウントの root ユーザーおよび管理者 IAM ユーザーであっても、指定リージョン外でのリソース作成操作が AWS プラットフォーム全体で物理的に遮断される。
-- **解説**: Organizations の SCP は配下の全アカウントに対する絶対的な認可ガードレール（最大権限境界）を定義できるためです。各アカウント内の IAM ポリシーで個別制限をかける方式では、各アカウントの管理者がポリシーを変更・削除するリスクを排除できません。また、AWS Config の修復ルールは事後検知・自動削除にとどまり、リソース起動そのものを予防的に阻止することはできません。
+- **解説**: Organizations の SCP は配下の全アカウントに対する絶対的な認可ガードレール（最大権限境界）を定義できるためです。各アカウント内の IAM ポリシーで個別制限をかける方式では、各アカウントの管理者がポリシーを変更・削除するリスクを排除できません。また、AWS Config の修復ルールは事後検知・自動削除にとどまり、リソース起動そのものを予防的に阻止することはできないため要件を満たせません。
 - **参考ドキュメント**:
   - [AWS Organizations ユーザーガイド - SCP の例](https://docs.aws.amazon.com/ja_jp/organizations/latest/userguide/orgs_manage_policies_scps_examples.html): リージョン制限ガードレールの実装例。
 
@@ -247,7 +247,7 @@ flowchart TD
 - **状況**: プライベートサブネット内の多数の EC2 インスタンスが、テラバイト規模の分析データを Amazon S3 との間で高頻度に読み書きしているが、セキュリティ要件によりインターネット経由の通信は一切禁止されており、NAT ゲートウェイのデータ転送料金も削減したい場合
 - **対応**: VPC 内に Amazon S3 用の「Gateway型 VPC エンドポイント」を作成し、プライベートサブネットのルートテーブルに S3 のプレフィックスリスト宛のルートとして関連付ける。
 - **結果**: EC2 と S3 の通信は AWS の内部プライベートネットワーク経由となり、NAT ゲートウェイを経由しないためデータ処理料金および転送料金がゼロとなる。
-- **解説**: Amazon S3 への閉域アクセスにおいて、Gateway型 VPC エンドポイントは追加コストなしで利用可能であり、ルートテーブルのルーティングにより透過的に AWS 内部通信に切り替えられるためです。NAT ゲートウェイを経由させる構成はインターネット通信が発生し高額なデータ処理課金（GBあたり）がかかります。また、Interface型エンドポイント（PrivateLink for S3）も利用可能ですが時間課金およびデータ処理課金が発生するため、同一 VPC 内からの通常の S3 アクセスでは Gateway型が最適です。
+- **解説**: Amazon S3 への閉域アクセスにおいて、Gateway型 VPC エンドポイントは追加コストなしで利用可能であり、ルートテーブルのルーティングにより透過的に AWS 内部通信に切り替えられるためです。NAT ゲートウェイを経由させる構成はインターネット通信が発生し高額なデータ処理課金（GBあたり）がかかります。また、Interface型エンドポイント（PrivateLink for S3）も利用可能ですが時間課金およびデータ処理課金が発生するため不適格です。
 - **参考ドキュメント**:
   - [Amazon VPC ユーザーガイド - Gateway 型 VPC エンドポイント](https://docs.aws.amazon.com/ja_jp/vpc/latest/privatelink/gateway-endpoints.html): S3 および DynamoDB への閉域接続とルートテーブル設定。
 
@@ -256,7 +256,7 @@ flowchart TD
 - **状況**: Application Load Balancer (ALB) 配下の EC2 で稼働する eコマースサイトに対して、悪意あるユーザーから SQL インジェクション攻撃やクロスサイトスクリプティング（XSS）のリクエストが多発しており、アプリケーションサーバーに到達する前に境界で自動遮断したい場合
 - **対応**: AWS WAF を導入し、AWS Managed Rules（コアルールセット、SQL データベースルールセット等）を含む Web ACL を作成して ALB に関連付ける。
 - **結果**: SQL インジェクション等の不正な HTTP/HTTPS パターンを含むリクエストは、ALB の手前（エッジ/ロードバランサー層）で HTTP 403 Forbidden として自動ブロックされ、バックエンドサーバーの負荷と侵入リスクが排除される。
-- **解説**: AWS WAF はレイヤー7（HTTP/HTTPS）のトラフィック内容（URI、クエリ文字列、ヘッダー、ボディ）をディープパケットインスペクションして脅威をリアルタイムで検知・遮断できるためです。セキュリティグループやネットワーク ACL はトランスポート層（レイヤー4: IP/ポート）しか制御できず、正規の 80/443 ポートを通過する SQL インジェクションを識別・遮断できません。
+- **解説**: AWS WAF はレイヤー7（HTTP/HTTPS）のトラフィック内容（URI、クエリ文字列、ヘッダー、ボディ）をディープパケットインスペクションして脅威をリアルタイムで検知・遮断できるためです。セキュリティグループやネットワーク ACL はトランスポート層（レイヤー4: IP/ポート）しか制御できず、正規の 80/443 ポートを通過する SQL インジェクションを識別・遮断できないため要件を満たせません。
 - **参考ドキュメント**:
   - [AWS WAF デベロッパーガイド](https://docs.aws.amazon.com/ja_jp/waf/latest/developerguide/what-is-aws-waf.html): Web トラフィックのレイヤー7 フィルタリングとマネージドルールの適用。
 
@@ -265,7 +265,7 @@ flowchart TD
 - **状況**: アプリケーションが Amazon RDS (PostgreSQL) に接続する際のパスワードをコード内にハードコードせず、企業のセキュリティポリシーに準拠して 30 日ごとにパスワードを自動ローテーションさせたい場合
 - **対応**: データベース認証情報を AWS Secrets Manager にシークレットとして登録し、標準の Lambda ローテーション関数を有効化して 30 日ごとの自動ローテーションを設定する。アプリケーションは実行時に AWS SDK 経由でシークレットを取得する。
 - **結果**: データベースのパスワードが人間を介さず自動更新され、コードや設定ファイルから平文パスワードが完全に排除される。
-- **解説**: AWS Secrets Manager は Amazon RDS 等の主要データベースに対するネイティブな自動ローテーション機能を備えており、暗号化（KMS）とアクセス制御（IAM）が統合されているためです。AWS Systems Manager Parameter Store でも機密情報を SecureString として保持できますが、標準でのシークレット自動ローテーション機能は組み込まれておらず追加のカスタム開発が必要となります。
+- **解説**: AWS Secrets Manager は Amazon RDS 等の主要データベースに対するネイティブな自動ローテーション機能を備えており、暗号化（KMS）とアクセス制御（IAM）が統合されているためです。AWS Systems Manager Parameter Store でも機密情報を SecureString として保持できますが、標準でのシークレット自動ローテーション機能が組み込まれておらず追加のカスタム開発が必要となるため不適格です。
 - **参考ドキュメント**:
   - [AWS Secrets Manager ユーザーガイド - シークレットのローテーション](https://docs.aws.amazon.com/ja_jp/secretsmanager/latest/userguide/rotating-secrets.html): RDS 認証情報の安全な保管と自動ローテーションメカニズム。
 
@@ -278,9 +278,9 @@ flowchart TD
 - [AWS IAM のベストプラクティス](https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/best-practices.html): ルートユーザーの保護、一時クレデンシャルの活用、最小権限の実装ガイド。
 
 #### 推奨ハンズオン・ラボ（実機検証）
-- **AWS Skill Builder: Security Hub and GuardDuty Implementation**
+- [AWS Skill Builder: Security Hub and GuardDuty Implementation](https://skillbuilder.aws/search?searchText=Security+Hub+and+GuardDuty+Implementation):
   - **学習目標**: VPC 内のトラフィックフローログ、CloudTrail イベント、DNS クエリを GuardDuty で継続的モニタリングし、脅威検出アラートを Security Hub に統合する一連の流れを構築・検証する。
-- **AWS Skill Builder: Configuring VPC Endpoints and Security Policies**
+- [AWS Skill Builder: Configuring VPC Endpoints and Security Policies](https://skillbuilder.aws/search?searchText=Configuring+VPC+Endpoints+and+Security+Policies):
   - **学習目標**: パブリックアクセスのないプライベートサブネットから、S3 Gateway エンドポイントおよび KMS Interface エンドポイント経由で安全に通信を行い、エンドポイントポリシーによるアクセス制限を検証する。
 
 ---
@@ -353,7 +353,7 @@ flowchart LR
 - **状況**: フラッシュセール開催時に注文受付 API へのリクエストが平常時の 100 倍に急増し、後続の注文処理 EC2 サーバーが過負荷でクラッシュして HTTP 500 エラーが発生し注文データが消失するリスクがある場合
 - **対応**: API サーバーと注文処理サーバーの間に Amazon SQS 標準キューを導入し、API は注文メッセージをキューに投入するだけとし、バックエンドのワーカー EC2 は Auto Scaling を用いてキューの滞留メッセージ数（ApproximateNumberOfMessagesVisible）に基づきスケールアウトさせる。
 - **結果**: 突発的なアクセス急増時もキューがリクエストを安全にバッファリングし、メッセージの取りこぼしがなくなり、バックエンドサーバーは自身の処理能力に応じたペースで安全に消費可能となる。
-- **解説**: SQS による非同期バッファリングを導入することで、フロントエンドとバックエンドが疎結合となり、負荷の急変を吸収して耐障害性を大幅に向上できるためです。EC2 のインスタンスサイズを事前に垂直スケール（スケールアップ）させておく方法はコストが過大であり、想定以上のスパイクには耐えられません。また、同期的な HTTP 呼び出しのままリトライ回数を増やす構成は、過負荷状態のサーバーにさらなる負荷を集中させカスケード障害を引き起こします。
+- **解説**: SQS による非同期バッファリングを導入することで、フロントエンドとバックエンドが疎結合となり、負荷の急変を吸収して耐障害性を大幅に向上できるためです。EC2 のインスタンスサイズを事前に垂直スケール（スケールアップ）させておく方法はコストが過大であり、想定以上のスパイクには耐えられません。また、同期的な HTTP 呼び出しのままリトライ回数を増やす構成は、過負荷状態のサーバーにさらなる負荷を集中させカスケード障害を引き起こすため不適格です。
 - **参考ドキュメント**:
   - [Amazon SQS デベロッパーガイド](https://docs.aws.amazon.com/ja_jp/AWSSimpleQueueService/latest/SQSDeveloperGuide/welcome.html): キューを用いた疎結合アーキテクチャとバッファリングパターン。
 
@@ -362,9 +362,9 @@ flowchart LR
 - **状況**: 銀行口座の入出金取引データを処理するシステムにおいて、口座ごとのトランザクションの発生順序が厳密に守られなければならず、ネットワーク再試行等による同一取引の重複実行（多重引き落とし）が絶対に許されない場合
 - **対応**: Amazon SQS FIFO キューを採用し、口座 ID を「メッセージグループ ID（MessageGroupId）」に設定し、取引固有のトランザクション ID を「メッセージ重複排除 ID（MessageDeduplicationId）」に設定して送信する。
 - **結果**: 同一口座に対する取引は送信順と完全に同一の順序でコンシューマーに配信され、5分以内の同一重複排除 ID を持つメッセージは SQS によって自動破棄される。
-- **解説**: SQS FIFO キューは First-In-First-Out の厳格な順序配信と、正確に1回限りの処理（Exactly-once processing）をプラットフォームレベルで保証するためです。標準の SQS キューは「最善の順序」かつ「少なくとも1回の配信（At-least-once delivery）」であるため、順序の入れ替わりや重複配信が発生する可能性があり、金融取引要件を満たせません。また、Kinesis Data Streams も順序制御可能ですが、メッセージ単位の重複排除やキューとしての自動削除機能は備えておらず、自前実装が必要となります。
+- **解説**: SQS FIFO キューは First-In-First-Out の厳格な順序配信と、正確に1回限りの処理（Exactly-once processing）をプラットフォームレベルで保証するためです。標準の SQS キューは「最善の順序」かつ「少なくとも1回の配信（At-least-once delivery）」であるため、順序の入れ替わりや重複配信が発生する可能性があり、金融取引要件を満たせません。また、Kinesis Data Streams も順序制御可能ですが、メッセージ単位の重複排除やキューとしての自動削除機能を備えておらず、自前実装が必要となるため不適格です。
 - **参考ドキュメント**:
-  - [Amazon SQS デベロッパーガイド - FIFO キュー](https://docs.aws.amazon.com/ja_jp/AWSSimpleQueueService/latest/SQSDeveloperGuide/FIFO-queues.html): FIFO キューのグループ化と重複排除の仕組み。
+  - [Amazon SQS デベロッパーガイド - FIFO キュー](https://docs.aws.amazon.com/ja_jp/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-fifo-queues.html): FIFO キューのグループ化と重複排除の仕組み。
 
 #### シナリオ 2-3: 注文確定イベントの複数マイクロサービスへの同時並列配信
 
@@ -373,14 +373,14 @@ flowchart LR
 - **結果**: アプリケーションは SNS トピックに 1 回メッセージを送信するだけで全キューへ自動並列コピーされ、いずれかのマイクロサービスが障害停止していても該当キューにメッセージが保持され、他サービスは無影響で処理を継続できる。
 - **解説**: SNS のファンアウトパターンにより、発行側は単一のエンドポイントへの送信で済み、受信側は個別のキューにより完全な耐障害性と自律的スケーリングを獲得できるためです。各サービスに対してプロデューサーが直接 HTTP/REST で順次通信する構成は、1つのサービスの遅延やダウンが全体のトランザクションをブロックします。また、単一の SQS キューを全ワーカーで共有する構成では、メッセージがいずれか1つのワーカーにしか届かないため要件を満たせません。
 - **参考ドキュメント**:
-  - [Amazon SNS デベロッパーガイド - ファンアウトアーキテクチャ](https://docs.aws.amazon.com/ja_jp/sns/latest/dg/sns-common-scenarios.html): SNS と SQS を組み合わせた並列メッセージングパターン。
+  - [Amazon SNS デベロッパーガイド - ファンアウトアーキテクチャ](https://docs.aws.amazon.com/ja_jp/sns/latest/dg/sns-sqs-as-subscriber.html): SNS と SQS を組み合わせた並列メッセージングパターン。
 
 #### シナリオ 2-4: AZ 障害時におけるリレーショナルデータベースの無停止自動復旧
 
 - **状況**: 本番環境の Amazon RDS for MySQL において、データセンター（アベイラビリティーゾーン）規模のハードウェア障害や停電が発生した場合でも、管理者の手動介入なしに数分以内にデータベースの稼働を復旧させ、データ損失をゼロに抑えたい場合
 - **対応**: Amazon RDS インスタンスで「Multi-AZ 配置」オプションを有効化する。
 - **結果**: 別の AZ にスタンバイレプリカが同期的に維持され、プライマリ AZ で障害が発生した際は、RDS が自動的に DNS レコード（エンドポイント）をスタンバイインスタンスに切り替える（通常 60〜120 秒）。
-- **解説**: RDS Multi-AZ は異なる AZ 間で同期レプリケーションを行い、プライマリ障害時に自動フェイルオーバーを完結させる耐障害性機能であるためです。リードレプリカ（非同期レプリケーション）を作成する構成は読み取り性能向上を主目的としており、自動フェイルオーバーは標準では実行されず、手動昇格時のデータ損失（レプリケーションラグ）のリスクがあります。また、定期的なスナップショットからのリストアは長時間のダウンタイム（数十分〜数時間）を伴います。
+- **解説**: RDS Multi-AZ は異なる AZ 間で同期レプリケーションを行い、プライマリ障害時に自動フェイルオーバーを完結させる耐障害性機能であるためです。リードレプリカ（非同期レプリケーション）を作成する構成は読み取り性能向上を主目的としており、自動フェイルオーバーは標準では実行されず、手動昇格時のデータ損失（レプリケーションラグ）のリスクがあります。また、定期的なスナップショットからのリストアは長時間のダウンタイム（数十分〜数時間）を伴うため要件を満たせません。
 - **参考ドキュメント**:
   - [Amazon RDS ユーザーガイド - 高可用性 (マルチ AZ)](https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/UserGuide/Concepts.MultiAZ.html): Multi-AZ 配置の動作原理とフェイルオーバープロセス。
 
@@ -389,7 +389,7 @@ flowchart LR
 - **状況**: 金融系 SaaS アプリケーションにおいて、プライマリリージョン全体の大規模障害に備えてセカンダリリージョンへの DR 環境を整備する必要があり、要件として RTO は 15 分以内、RPO は 5 分以内が厳格に定められており、かつ常時フルスペックのインフラを二重稼働させる予算はない場合
 - **対応**: 「ウォームスタンバイ（Warm Standby）」戦略を採用し、セカンダリリージョンに最小限のスペックの EC2/Auto Scaling フリートと、クロスリージョンリードレプリカ（Aurora Global Database または RDS リードレプリカ）を常時稼働させておき、被災時は Route 53 でトラフィックをセカンダリへ切り替えた上で ASG のキャパシティをスケールアウトさせる。
 - **結果**: データベースのレプリケーション遅延は数秒〜数十秒（RPO 5分以内）に収まり、DNS 切り替えと ASG のスケールアップにより 10 分程度（RTO 15分以内）で全トラフィックの処理が再開される。
-- **解説**: ウォームスタンバイは「常に縮小版の環境が稼働している」ため、数分〜十数分の短い RTO と極めて低い RPO を、フルアクティブ構成よりも大幅に低いコストで両立できるためです。パイロットライト戦略では、コンピュートリソースが停止状態にあるため、EC2 インスタンスの新規起動やパッケージ初期化に時間がかかり、15分以内の RTO を安定して達成できないリスクがあります。また、バックアップ＆復元では RTO/RPO 共に数時間単位となり要件を満たせません。
+- **解説**: ウォームスタンバイは「常に縮小版の環境が稼働している」ため、数分〜十数分の短い RTO と極めて低い RPO を、フルアクティブ構成よりも大幅に低いコストで両立できるためです。パイロットライト戦略では、コンピュートリソースが停止状態にあるため、EC2 インスタンスの新規起動やパッケージ初期化に時間がかかり、15分以内の RTO を安定して達成できないリスクがあります。また、バックアップ＆復元では RTO/RPO 共に数時間単位となるため要件を満たせません。
 - **参考ドキュメント**:
   - [AWS ディザスタリカバリホワイトペーパー](https://docs.aws.amazon.com/ja_jp/whitepapers/latest/disaster-recovery-workloads-on-aws/disaster-recovery-options-in-the-cloud.html): DR 4大戦略の比較と RTO/RPO 設計指針。
 
@@ -398,7 +398,7 @@ flowchart LR
 - **状況**: 2つの異なる AWS リージョン（東京と大阪）で同一の Web アプリケーションを運用しており、東京リージョンで障害が発生して ALB が応答しなくなった場合、グローバルユーザーからのアクセスを自動的に大阪リージョンへ迂回させたい場合
 - **対応**: Amazon Route 53 でフェイルオーバールーティングポリシーを設定し、プライマリレコード（東京）に Route 53 ヘルスチェックを関連付け、セカンダリレコード（大阪）を設定する。
 - **結果**: 東京リージョンの ALB に対するヘルスチェックが連続して失敗すると、Route 53 はプライマリレコードを異常と判定し、DNS クエリに対して自動的に大阪リージョンの IP/エイリアスを返し始める。
-- **解説**: Route 53 のフェイルオーバールーティングは、エンドポイントのヘルスチェック状態に連動して DNS 応答を動的に切り替えるマネージドな高可用性ソリューションであるためです。加重ルーティング（Weighted Routing）はトラフィックの割合分散を目的としており、ヘルスチェックと連携しない限り異常なリージョンにもアクセスを送り続けます。また、手動で DNS の A レコードを書き換える方式は、管理者の検知遅れや作業ミスが発生し RTO を達成できません。
+- **解説**: Route 53 のフェイルオーバールーティングは、エンドポイントのヘルスチェック状態に連動して DNS 応答を動的に切り替えるマネージドな高可用性ソリューションであるためです。加重ルーティング（Weighted Routing）はトラフィックの割合分散を目的としており、ヘルスチェックと連携しない限り異常なリージョンにもアクセスを送り続けます。また、手動で DNS の A レコードを書き換える方式は、管理者の検知遅れや作業ミスが発生し RTO を達成できないため要件を満たせません。
 - **参考ドキュメント**:
   - [Amazon Route 53 デベロッパーガイド - フェイルオーバールーティング](https://docs.aws.amazon.com/ja_jp/Route53/latest/DeveloperGuide/routing-policy-failover.html): ヘルスチェックと連動した自動 DNS 切り替え設定。
 
@@ -411,9 +411,9 @@ flowchart LR
 - [AWS Fault Injection Service (FIS) ドキュメント](https://docs.aws.amazon.com/ja_jp/fis/latest/userguide/what-is.html): カオスエンジニアリングによる回復力検証。
 
 #### 推奨ハンズオン・ラボ（実機検証）
-- **AWS Skill Builder: Building Resilient Architectures with Auto Scaling and Multi-AZ**
+- [AWS Skill Builder: Building Resilient Architectures with Auto Scaling and Multi-AZ](https://skillbuilder.aws/search?searchText=Building+Resilient+Architectures+with+Auto+Scaling+and+Multi-AZ):
   - **学習目標**: ALB 配下の複数 AZ にまたがる Auto Scaling グループを作成し、疑似的に特定の AZ の EC2 を強制終了させた際、トラフィックが健全なインスタンスに継続ルーティングされる挙動を検証する。
-- **AWS Skill Builder: Implementing Disaster Recovery with Route 53 and RDS**
+- [AWS Skill Builder: Implementing Disaster Recovery with Route 53 and RDS](https://skillbuilder.aws/search?searchText=Implementing+Disaster+Recovery+with+Route+53+and+RDS):
   - **学習目標**: クロスリージョンリードレプリカを作成し、Route 53 ヘルスチェックとフェイルオーバールーティングを構成して、疑似被災時に自動的に別リージョンへ切り替わるプロセスを追体験する。
 
 ---
@@ -481,7 +481,7 @@ flowchart LR
 - **状況**: アプリケーションが Amazon S3 バケットに対して毎秒 20,000 回の GET リクエストと毎秒 10,000 回の PUT リクエストを同時に実行しており、リクエストの急増時に HTTP 503 Slow Down エラーが頻発している場合
 - **対応**: オブジェクトのキー名構造を見直し、異なるプレフィックス（フォルダ構造やハッシュプレフィックス）にファイルを均等に分散配置させる設計に変更する。
 - **結果**: S3 のプレフィックスごとに 3,500 PUT/秒、5,500 GET/秒のパーティションスループットが並行して割り当てられ、エラーが解消されて全体で毎秒数万リクエストが安定処理される。
-- **解説**: Amazon S3 はバケット全体ではなく「プレフィックス（プレフィックスパス）」ごとにスケーリングパーティションを自動分割・拡張するアーキテクチャを採用しているためです。単一のプレフィックス配下に全ファイルを集中させる設計では、そのパーティションの物理クォータに衝突し 503 エラーが発生します。また、S3 Transfer Acceleration はクライアントとエッジ間の長距離ネットワーク遅延を改善する機能であり、S3 バケット側のリクエスト処理スループット自体を引き上げるものではありません。
+- **解説**: Amazon S3 はバケット全体ではなく「プレフィックス（プレフィックスパス）」ごとにスケーリングパーティションを自動分割・拡張するアーキテクチャを採用しているためです。単一のプレフィックス配下に全ファイルを集中させる設計では、そのパーティションの物理クォータに衝突し 503 エラーが発生します。また、S3 Transfer Acceleration はクライアントとエッジ間の長距離ネットワーク遅延を改善する機能であり、S3 バケット側のリクエスト処理スループット自体を引き上げるものではないため要件を満たせません。
 - **参考ドキュメント**:
   - [Amazon S3 ユーザーガイド - パフォーマンスの最適化](https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/optimizing-performance.html): S3 プレフィックスの自動パーティショニングとスケーリング。
 
@@ -490,7 +490,7 @@ flowchart LR
 - **状況**: 数千台のコンピュートノードを用いて Amazon S3 上に格納されたペタバイト規模の画像・動画データセットから機械学習モデルを学習させているが、S3 からの直接読み込みでは I/O ボトルネックが発生し GPU 使用率が著しく低下している場合
 - **対応**: Amazon FSx for Lustre ファイルシステムをデプロイし、S3 バケットをデータリポジトリとしてリンクさせて、トレーニング開始時にデータを自動ロード・キャッシュする。
 - **結果**: サブミリ秒のレイテンシと毎秒数百ギガバイトの超高スループットでノード群へ並列データ供給が行われ、GPU が 100% 近くフル稼働する。
-- **解説**: FSx for Lustre は超高速な並列分散ファイルシステムであり、S3 とシームレスに同期しながら HPC や機械学習ワークロードに対して最高峰の I/O 帯域幅を提供できるためです。Amazon EFS は汎用共有ファイルシステムであり、FSx for Lustre ほどの極限並列スループットを HPC 向けに低コストで提供することは困難です。また、各 EC2 インスタンスに大容量 EBS を個別アタッチして手動コピーする方式は、プロビジョニング時間と運用負荷が膨大となります。
+- **解説**: FSx for Lustre は超高速な並列分散ファイルシステムであり、S3 とシームレスに同期しながら HPC や機械学習ワークロードに対して最高峰の I/O 帯域幅を提供できるためです。Amazon EFS は汎用共有ファイルシステムであり、FSx for Lustre ほどの極限並列スループットを HPC 向けに低コストで提供することは困難です。また、各 EC2 インスタンスに大容量 EBS を個別アタッチして手動コピーする方式は、プロビジョニング時間と運用負荷が膨大となるため不適格です。
 - **参考ドキュメント**:
   - [Amazon FSx for Lustre ユーザーガイド](https://docs.aws.amazon.com/ja_jp/fsx/latest/LustreGuide/what-is.html): S3 と連携した高性能並列ストレージのアーキテクチャ。
 
@@ -508,7 +508,7 @@ flowchart LR
 - **状況**: ニュース配信 Web サイトにおいて、特定の速報記事へのアクセス集中により Amazon Aurora MySQL のプライマリインスタンスの CPU 使用率が 95% に達し、書き込み処理を含むサイト全体のレスポンスが極端に低下している場合
 - **対応**: Aurora リードレプリカを複数台追加し、アプリケーション側の設定で読み取り専用クエリの接続先を Aurora の「リーダーエンドポイント（Reader Endpoint）」に向ける。
 - **結果**: 読み取りクエリが複数のリードレプリカに自動的に負荷分散され、プライマリインスタンスの CPU 使用率が平常値に低下して書き込み性能が回復する。
-- **解説**: Amazon Aurora は最大 15 台のリードレプリカを同一の共有分散ストレージ上に数ミリ秒未満のレプリケーション遅延で配置でき、リーダーエンドポイント経由で読み取りトラフィックを自動ロードバランシングできるためです。プライマリインスタンスのインスタンスサイズをスケールアップ（垂直スケール）させる方式は、一時的なダウンタイムを伴い、将来のさらなるアクセス増に対してスケール限界があります。また、手動で各レプリカの個別 IP を管理する方式は可用性管理の観点から非推奨です。
+- **解説**: Amazon Aurora は最大 15 台のリードレプリカを同一の共有分散ストレージ上に数ミリ秒未満のレプリケーション遅延で配置でき、リーダーエンドポイント経由で読み取りトラフィックを自動ロードバランシングできるためです。プライマリインスタンスのインスタンスサイズをスケールアップ（垂直スケール）させる方式は、一時的なダウンタイムを伴い、将来のさらなるアクセス増に対してスケール限界があります。また、手動で各レプリカの個別 IP を管理する方式は可用性管理が煩雑になるため不適格です。
 - **参考ドキュメント**:
   - [Amazon Aurora ユーザーガイド - Aurora レプリカ](https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/AuroraUserGuide/Aurora.Replication.html): 共有ストレージモデルとリーダーエンドポイントの負荷分散。
 
@@ -517,7 +517,7 @@ flowchart LR
 - **状況**: オンラインゲームのリアルタイムリーダーボードシステムにおいて、毎秒数十万回の読み取りリクエストが発生しており、ミリ秒（ms）単位の応答時間では遅すぎ、マイクロ秒（μs）単位の超低レイテンシ応答が要求されている場合
 - **対応**: Amazon DynamoDB の前段に「Amazon DynamoDB Accelerator (DAX)」クラスタを配置し、アプリケーションから DAX エンドポイント経由でテーブルにアクセスする。
 - **結果**: インメモリキャッシュからデータが直接返却され、読み取りレイテンシが最大 10 倍高速化（マイクロ秒単位）されるとともに、DynamoDB テーブルの消費読み取りキャパシティユニット（RCU）が激減する。
-- **解説**: DAX は DynamoDB の API と完全な互換性を持つインメモリキャッシュであり、アプリケーションコードのロジックを大幅に変更することなくマイクロ秒の応答性能を実現できるためです。Amazon ElastiCache を導入する方式でもキャッシュは可能ですが、キャッシュミス時の DB 取得やデータ更新時のキャッシュ整合性を維持するための独自コード（Cache-Aside パターン等）を大量に実装する必要があり運用負荷が増加します。また、DynamoDB の RCU を単に増やすだけではミリ秒未満のレイテンシは達成できません。
+- **解説**: DAX は DynamoDB の API と完全な互換性を持つインメモリキャッシュであり、アプリケーションコードのロジックを大幅に変更することなくマイクロ秒の応答性能を実現できるためです。Amazon ElastiCache を導入する方式でもキャッシュは可能ですが、キャッシュミス時の DB 取得やデータ更新時のキャッシュ整合性を維持するための独自コード（Cache-Aside パターン等）を大量に実装する必要があり運用負荷が増加します。また、DynamoDB の RCU を単に増やすだけではミリ秒未満のレイテンシを達成できないため要件を満たせません。
 - **参考ドキュメント**:
   - [Amazon DynamoDB デベロッパーガイド - DAX](https://docs.aws.amazon.com/ja_jp/amazondynamodb/latest/developerguide/DAX.html): インメモリキャッシュによるマイクロ秒レイテンシの実現。
 
@@ -526,7 +526,7 @@ flowchart LR
 - **状況**: 世界中のユーザーが利用するリアルタイム対戦型モバイルゲームにおいて、バックエンドサーバー群（NLB 配下の EC2）とクライアント端末が独自の UDP プロトコルで常時通信しているが、国際公衆インターネットの経路遅延とパケットロスによりユーザーの接続品質が悪化している場合
 - **対応**: AWS Global Accelerator をデプロイし、2つの固定 Anycast パブリック IP をクライアントに提供して、最寄りの AWS エッジロケーションから AWS プライベートバックボーン網経由で NLB にルーティングさせる。
 - **結果**: クライアントは最短距離のエッジから AWS の超高速プライベートネットワークに引き込まれるため、ジッターやパケットロスが大幅に低減し、極めて安定した低レイテンシゲームプレイが実現される。
-- **解説**: AWS Global Accelerator は Anycast IP を用いて TCP/UDP トラフィックを最寄りのエッジから AWS の高品質な専用グローバルネットワークに乗せて高速ルーティングできるためです。Amazon CloudFront は HTTP/HTTPS プロトコルに特化しており、独自の UDP プロトコルをルーティング・キャッシュすることはできません。また、Route 53 のレイテンシルーティングのみでは、パブリックインターネット網を経由する通信経路自体の品質劣化を解消できません。
+- **解説**: AWS Global Accelerator は Anycast IP を用いて TCP/UDP トラフィックを最寄りのエッジから AWS の高品質な専用グローバルネットワークに乗せて高速ルーティングできるためです。Amazon CloudFront は HTTP/HTTPS プロトコルに特化しており、独自の UDP プロトコルをルーティング・キャッシュすることはできません。また、Route 53 のレイテンシルーティングのみでは、パブリックインターネット網を経由する通信経路自体の品質劣化を解消できないため要件を満たせません。
 - **参考ドキュメント**:
   - [AWS Global Accelerator デベロッパーガイド](https://docs.aws.amazon.com/ja_jp/global-accelerator/latest/dg/what-is-global-accelerator.html): Anycast 静的 IP によるネットワークパフォーマンスの向上。
 
@@ -539,9 +539,9 @@ flowchart LR
 - [Amazon CloudFront デベロッパーガイド - パフォーマンス最適化](https://docs.aws.amazon.com/ja_jp/AmazonCloudFront/latest/DeveloperGuide/Introduction.html): キャッシュヒット率の向上とオリジンシールドの構成。
 
 #### 推奨ハンズオン・ラボ（実機検証）
-- **AWS Skill Builder: Accelerating Web Content Delivery with CloudFront and S3**
+- [AWS Skill Builder: Accelerating Web Content Delivery with CloudFront and S3](https://skillbuilder.aws/search?searchText=Accelerating+Web+Content+Delivery+with+CloudFront+and+S3):
   - **学習目標**: S3 バケットをオリジンとし、OAC (Origin Access Control) を設定した CloudFront ディストリビューションを構築して、エッジキャッシングによるレイテンシ短縮とアクセス制限を実証する。
-- **AWS Skill Builder: Amazon Aurora Performance and Scaling**
+- [AWS Skill Builder: Amazon Aurora Performance and Scaling](https://skillbuilder.aws/search?searchText=Amazon+Aurora+Performance+and+Scaling):
   - **学習目標**: Aurora クラスターにリードレプリカを追加し、Sysbench 等の負荷テストツールを用いてリーダーエンドポイントへのトラフィック分散とフェイルオーバー動作を観察する。
 
 ---
@@ -610,7 +610,7 @@ flowchart TD
 - **状況**: 社内の様々な部門からデータレイク（Amazon S3）に毎日大量のログや分析ファイルがアップロードされるが、どのデータがいつまで頻繁に参照され、いつからアクセスされなくなるかのパターンが予測不能であり、取り出し手数料のスパイクも避けたい場合
 - **対応**: S3 バケットのデフォルトストレージクラスとして「S3 Intelligent-Tiering」を設定する（または既存オブジェクトをライフサイクルルールで移行する）。
 - **結果**: 30日間アクセスがないオブジェクトは低頻度アクセス層へ、さらに90日間アクセスがないオブジェクトはアーカイブ層へ自動移動し、万一アクセスが発生した際も追加のデータ取り出し料金なしで即座にミリ秒単位で読み出される。
-- **解説**: S3 Intelligent-Tiering はアクセスパターンが未知または変動するワークロード向けに設計されており、データ取り出し料金（Retrieval Fee）が一切かからないため、突発的なアクセスによるコスト急騰を防ぎつつ自動的に最安階層へ落とせるためです。S3 Standard-IA に一律移行させる方式は、頻繁にアクセスされた際に高額なデータ取り出し料金が発生してかえって総コストが増加するリスクがあります。
+- **解説**: S3 Intelligent-Tiering はアクセスパターンが未知または変動するワークロード向けに設計されており、データ取り出し料金（Retrieval Fee）が一切かからないため、突発的なアクセスによるコスト急騰を防ぎつつ自動的に最安階層へ落とせるためです。S3 Standard-IA に一律移行させる方式は、頻繁にアクセスされた際に高額なデータ取り出し料金が発生してかえって総コストが増加するリスクがあるため不適格です。
 - **参考ドキュメント**:
   - [Amazon S3 ユーザーガイド - S3 Intelligent-Tiering](https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/intelligent-tiering.html): 自動階層化の動作仕様とモニタリング料金体系。
 
@@ -619,7 +619,7 @@ flowchart TD
 - **状況**: 金融コンプライアンスの規制により、過去 7 年間の全トランザクションログを改ざん不能な状態で保管する必要があるが、過去 1 年を経過したログが参照されることは年 1 回の外部監査時以外ほぼ皆無であり、保管コストを極限まで抑えたい場合
 - **対応**: S3 ライフサイクルルールを作成し、オブジェクト作成から 90 日後に S3 Standard-IA へ移行し、365 日（1年）経過後に「S3 Glacier Deep Archive」へ自動移行させ、7年（2,555日）経過後に自動失効（削除）させる。
 - **結果**: 1 年以降の膨大なログデータの保管コストが S3 Standard と比較して約 95% 以上削減され、月々のストレージ費用が最小化される。
-- **解説**: S3 Glacier Deep Archive は長期保管用としてクラウド上で最も安価なストレージクラスであり、復元までに 12〜48 時間を許容できる監査ログ保管のユースケースに完全に合致するためです。S3 Standard のまま 7 年間維持する構成はストレージコストが極めて高額となり、コスト最適化の原則に反します。また、オンプレミスの磁気テープにバックアップする方式は、ハードウェア調達・運用管理・オフサイト保管の膨大な人的・設備コストが発生します。
+- **解説**: S3 Glacier Deep Archive は長期保管用としてクラウド上で最も安価なストレージクラスであり、復元までに 12〜48 時間を許容できる監査ログ保管のユースケースに完全に合致するためです。S3 Standard のまま 7 年間維持する構成はストレージコストが極めて高額となり、コスト最適化の原則に反します。また、オンプレミスの磁気テープにバックアップする方式は、ハードウェア調達・運用管理・オフサイト保管の膨大な人的・設備コストが発生するため不適格です。
 - **参考ドキュメント**:
   - [Amazon S3 ユーザーガイド - ライフサイクル設定](https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/how-to-set-lifecycle-configuration-intro.html): 段階的なストレージ移行と有効期限ルール。
 
@@ -628,7 +628,7 @@ flowchart TD
 - **状況**: 毎晩 2,000 万枚のユーザー投稿画像のサムネイル生成・リサイズバッチ処理を 5 時間以内に完了させる必要があるが、ジョブは SQS キューから画像を取得するステートレスなワーカーで構成されており、個別のインスタンス障害が発生してもキューのリトライにより再処理が可能である場合
 - **対応**: AWS Batch または Amazon EC2 Auto Scaling グループにおいて、「スポットインスタンス（Spot Instances）」を複数インスタンスファミリー混在（Mixed Instances Policy）で構成してワーカーフリートを起動する。
 - **結果**: オンデマンドインスタンスと比較して最大 70〜90% のコンピュートコスト削減を達成し、深夜帯の余剰キャパシティを活用して予算内でジョブが完遂される。
-- **解説**: スポットインスタンスは、中断を許容できる耐障害性ステートレスバッチ処理に最適な購入オプションであり、圧倒的な割引率を享受できるためです。オンデマンドインスタンスで実行し続ける構成はコストが高すぎます。また、1年または3年の期間拘束が発生するリザーブドインスタンスや Savings Plans は、1日数時間しか稼働しない夜間バッチワークロードに適用すると稼働率が低く投資対効果が悪化します。
+- **解説**: スポットインスタンスは、中断を許容できる耐障害性ステートレスバッチ処理に最適な購入オプションであり、圧倒的な割引率を享受できるためです。オンデマンドインスタンスで実行し続ける構成はコストが高すぎます。また、1年または3年の期間拘束が発生するリザーブドインスタンスや Savings Plans は、1日数時間しか稼働しない夜間バッチワークロードに適用すると稼働率が低く投資対効果が悪化するため不適格です。
 - **参考ドキュメント**:
   - [Amazon EC2 ユーザーガイド - スポットインスタンス](https://docs.aws.amazon.com/ja_jp/AWSEC2/latest/UserGuide/using-spot-instances.html): スポットフリートおよび混在インスタンスポリシーの設計。
 
@@ -637,7 +637,7 @@ flowchart TD
 - **状況**: 全社で運用されている複数の Web サービスおよびバックエンド API（EC2、AWS Fargate、AWS Lambda）が 24 時間 365 日安定して稼働しており、今後 3 年間は一定水準以上のコンピュートリソースを継続利用することが確定している場合
 - **対応**: 過去の利用実績（Cost Explorer の推奨値）に基づき、ベースラインとなるコンピュート使用量に対して 3 年契約・前払いなし（または全前払い）の「Compute Savings Plans」を購入する。
 - **結果**: EC2、Fargate、Lambda にわたって自動的に最大 66% の割引が適用され、将来インスタンスファミリーや OS、稼働リージョンを変更した場合でも割引がシームレスに継続される。
-- **解説**: Compute Savings Plans はコンピュート種別（EC2 / Fargate / Lambda）、インスタンスファミリー、OS、リージョンを問わず適用される最も柔軟な割引モデルであり、アーキテクチャの進化に追従しながら長期コストを最小化できるためです。標準の EC2 リザーブドインスタンス（RI）は特定リージョンの特定インスタンスタイプに固定されるため、将来コンテナ化（Fargate）やインスタンス世代交代（Graviton 等）を行った際に割引が無駄になるリスクがあります。
+- **解説**: Compute Savings Plans はコンピュート種別（EC2 / Fargate / Lambda）、インスタンスファミリー、OS、リージョンを問わず適用される最も柔軟な割引モデルであり、アーキテクチャの進化に追従しながら長期コストを最小化できるためです。標準の EC2 リザーブドインスタンス（RI）は特定リージョンの特定インスタンスタイプに固定されるため不適格です。
 - **参考ドキュメント**:
   - [AWS Savings Plans ユーザーガイド](https://docs.aws.amazon.com/ja_jp/savingsplans/latest/userguide/what-is-savings-plans.html): Compute Savings Plans の仕組みと推奨事項の確認。
 
@@ -646,16 +646,16 @@ flowchart TD
 - **状況**: プライベートサブネット内の EC2 群が夜間に大量のバックアップファイル（数テラバイト）を Amazon S3 へアップロードしており、AWS の月額請求書において「NAT Gateway - Data Processed」の料金が突出して高騰している場合
 - **対応**: VPC 内に Amazon S3 用の「Gateway型 VPC エンドポイント」を作成し、プライベートサブネットのルートテーブルに S3 宛てのルートとして追加する。
 - **結果**: S3 へのデータトラフィックが NAT ゲートウェイを完全にバイパスして AWS 内部ネットワークへ流れるようになり、NAT ゲートウェイのデータ処理料金（GBあたり $0.045〜）が即座にゼロになる。
-- **解説**: Gateway型 VPC エンドポイントは **無料（追加の時間課金・データ処理課金なし）** で提供されており、S3 へのトラフィックを NAT ゲートウェイから逃がすことが AWS ネットワークコスト最適化の鉄則であるためです。NAT ゲートウェイを単に追加・増設する対応は基本料金がさらに増加し逆効果です。また、Interface型 VPC エンドポイント（PrivateLink）は時間料金およびデータ処理課金が発生するため、Gateway型が提供されている S3/DynamoDB に対して Interface型を選択することはコストの観点から誤りです。
+- **解説**: Gateway型 VPC エンドポイントは **無料（追加の時間課金・データ処理課金なし）** で提供されており、S3 へのトラフィックを NAT ゲートウェイから逃がすことが AWS ネットワークコスト最適化の鉄則であるためです。NAT ゲートウェイを単に追加・増設する対応は基本料金がさらに増加し逆効果です。また、Interface型 VPC エンドポイント（PrivateLink）は時間料金およびデータ処理課金が発生するため不適格です。
 - **参考ドキュメント**:
-  - [AWS ナレッジセンター - NAT ゲートウェイのコストを削減する方法](https://aws.amazon.com/jp/premiumsupport/knowledge-center/nat-gateway-reduce-costs/): Gateway 型エンドポイントによるデータ転送料金の最適化。
+  - [AWS ナレッジセンター - NAT ゲートウェイのコストを削減する方法](https://docs.aws.amazon.com/ja_jp/vpc/latest/privatelink/vpc-endpoints-s3.html): Gateway 型エンドポイントによるデータ転送料金の最適化。
 
 #### シナリオ 4-6: 昼夜のトラフィック差が極めて大きい業務システムのデータベースコスト削減
 
 - **状況**: 平日の日中（9:00〜18:00）のみ社員が利用し、夜間や休日にはほぼアクセスがゼロになる社内イントラネット業務システムにおいて、Amazon RDS (MySQL) のプロビジョンドインスタンスが常時稼働しており、アイドル時間帯のコストの無駄が発生している場合
 - **対応**: データベースを「Amazon Aurora Serverless v2」へ移行し、最小 ACU（Aurora Capacity Unit）を 0.5、最大 ACU をピーク負荷に応じた値に設定する。
 - **結果**: アクセスのない夜間・休日は最小キャパシティ（0.5 ACU）まで自動縮小して課金が激減し、平日の始業時にアクセスが急増した際も数ミリ秒単位でシームレスにキャパシティが自動拡張される。
-- **解説**: Aurora Serverless v2 はワークロードの需要に合わせてインプレースで瞬時に細かくスケーリングするため、断続的・変動的なアクセスのシステムにおいてアイドルコストを大幅に削減できるためです。プロビジョンド RDS インスタンスを深夜に停止（Stop）するスクリプトを組む方式もありますが、RDS は 7 日以上停止し続けると自動起動してしまう仕様があり、また突発的な業務時間外の利用に対応できません。
+- **解説**: Aurora Serverless v2 はワークロードの需要に合わせてインプレースで瞬時に細かくスケーリングするため、断続的・変動的なアクセスのシステムにおいてアイドルコストを大幅に削減できるためです。プロビジョンド RDS インスタンスを深夜に停止（Stop）するスクリプトを組む方式もありますが、RDS は 7 日以上停止し続けると自動起動してしまう仕様があり、突発的な業務時間外の利用にも対応できないため要件を満たせません。
 - **参考ドキュメント**:
   - [Amazon Aurora ユーザーガイド - Aurora Serverless v2 の使用](https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/AuroraUserGuide/aurora-serverless-v2.html): 需要に応じた動的スケーリングとコスト削減効果。
 
@@ -668,9 +668,9 @@ flowchart TD
 - [AWS 料金見積りツール (AWS Pricing Calculator)](https://calculator.aws/): システム構成に応じた月額費用の事前シミュレーション。
 
 #### 推奨ハンズオン・ラボ（実機検証）
-- **AWS Skill Builder: Cost Optimization with S3 Lifecycle Policies and Storage Classes**
+- [AWS Skill Builder: Cost Optimization with S3 Lifecycle Policies and Storage Classes](https://skillbuilder.aws/search?searchText=Cost+Optimization+with+S3+Lifecycle+Policies+and+Storage+Classes):
   - **学習目標**: S3 バケットを作成し、プレフィックスごとに Intelligent-Tiering および Glacier Deep Archive への自動ライフサイクル移行ルールを構成・検証する。
-- **AWS Skill Builder: Analyzing AWS Costs with Cost Explorer and Budgets**
+- [AWS Skill Builder: Analyzing AWS Costs with Cost Explorer and Budgets](https://skillbuilder.aws/search?searchText=Analyzing+AWS+Costs+with+Cost+Explorer+and+Budgets):
   - **学習目標**: AWS Budgets で月額予算アラートおよび特定タグごとのコスト配分を設定し、Cost Explorer で不要なデータ転送やインスタンス課金を特定する手法を体験する。
 
 ---
@@ -707,5 +707,5 @@ AWS Certified Solutions Architect - Associate (SAA-C03) 試験の本質は、「
    - 最初の 100 分で全問を一通り解き終え、残り 30 分を見直し（フラグ付けした設問の再考）に充てるペース配分が理想です。
 2. **制約条件キーワードの見落としを防ぐ**:
    - 設問文の末尾にある「最も費用対効果が高い（most cost-effective）」「最小限の管理工数（least operational overhead）」「最も耐障害性が高い（most resilient）」「最短の復旧時間（lowest RTO）」という **判定基準キーワード** を必ず確認してください。技術的に動作可能でも、制約に合致しない選択肢はすべて不正解となります。
-3. **消去法の徹底（Because の活用）**:
+3. **消去法の徹底（代替案棄却の論理思考）**:
    - 正解をいきなり探すのではなく、「非推奨な構成（アンチパターン）」「高コストな構成」「不要な運用管理が発生する構成」を確実に除外してください。本ガイドの実践シナリオに掲載した棄却理由が、本番の選択肢切り分けにおいて強力な武器となります。

@@ -17,7 +17,7 @@
 
 AWS Certified AI Practitioner (AIF-C01) は、AI、機械学習 (ML)、および生成 AI の基本概念と、AWS 上での実践的な AI ツール・サービスの活用方法に関する知識を客観的に証明する認定資格です。実務的なビジネス課題に対して最適な AI 技術を見極め、責任を持って適用できる能力が問われます。
 
-- **試験時間**: 120 分
+- **試験時間**: 90 分
 - **出題問題数**: 65 問（採点対象: 50 問 / 未採点テスト設問: 15 問）
 - **出題形式**: 択一選択問題（1つの正解）、複数選択問題（2つ以上の正解）、並べ替え問題（正しい順序の構成）、内容一致問題（プロンプトと答えのペアリング）
 - **合格基準点**: 100〜1,000 点中 700 点以上
@@ -230,7 +230,7 @@ flowchart LR
 - **結果**: 独自のモデル構築や学習用データ収集を行うことなく、数行の AWS Lambda コードとマネージド API の連携のみで、通話内容の可視化と不満顧客の即時抽出が実現される。
 - **解説**: Amazon Transcribe と Amazon Comprehend は AWS が事前に膨大なデータセットでトレーニングしたマネージド AI サービスであるため、インフラのプロビジョニングや機械学習の専門知識なしに高精度な音声認識と自然言語処理を即座に利用できるためです。代替案として Amazon SageMaker AI を用いて独自の音声認識モデルや BERT 分類器をゼロから構築・トレーニングする構成は、膨大な学習データ収集と高度なデータサイエンティストの工数を要し、迅速な導入というビジネス要件を満たせず不適格となるためです。
 - **参考ドキュメント**:
-  - [Amazon Transcribe 開発者ガイド](https://docs.aws.amazon.com/ja_jp/transcribe/latest/dg/what-is-transcribe.html): 音声からの高精度テキスト変換とバッチ文字起こしアーキテクチャの解説
+  - [Amazon Transcribe 開発者ガイド](https://docs.aws.amazon.com/ja_jp/transcribe/latest/dg/what-is.html): 音声からの高精度テキスト変換とバッチ文字起こしアーキテクチャの解説
   - [Amazon Comprehend 開発者ガイド](https://docs.aws.amazon.com/ja_jp/comprehend/latest/dg/what-is.html): 感情分析およびキーフレーズ抽出 API の仕様とベストプラクティス
 
 #### シナリオ 1-2: 会計システムの税金計算における AI 導入の是非判断
@@ -240,7 +240,7 @@ flowchart LR
 - **結果**: 確率的な誤差や予期せぬ推論変動（非決定性）による脱税・過払金リスクを完全に排除し、法的コンプライアンスを満たす正確な計算処理が担保される。
 - **解説**: 機械学習モデルは本質的に統計的確率に基づく予測（近似値）を出力する仕組みであり、計算結果に 100% の確実性と決定論的な再現性が求められる会計・税務計算には不適切であるためです。代替案として機械学習の回帰モデルを適用した場合、わずかな推論誤差によって違法な税務申告が発生する重大なビジネスリスクを抱えることになり、要件定義の根本原則に反し採用できないためです。
 - **参考ドキュメント**:
-  - [AWS Well-Architected Framework - Machine Learning Lens](https://docs.aws.amazon.com/wellarchitected/latest/machine-learning-lens/wellarchitected-machine-learning-lens.html): 機械学習が真にビジネス価値を提供するユースケースの選定原則
+  - [AWS Well-Architected Framework - Machine Learning Lens](https://docs.aws.amazon.com/wellarchitected/latest/machine-learning-lens/machine-learning-lens.html): 機械学習が真にビジネス価値を提供するユースケースの選定原則
 
 #### シナリオ 1-3: 不正クレジットカード取引検知における評価メトリクス選定
 
@@ -249,7 +249,7 @@ flowchart LR
 - **結果**: 不正取引の見逃し（偽陰性: False Negative）が劇的に減少し、チャージバック被害や不正利用に伴う損失が大幅に抑制される。
 - **解説**: 不正取引のような極めて不均衡なデータセット（正常 99.99%、不正 0.01%）では、すべての取引を「正常」と判定する無意味なモデルでも正解率（Accuracy）が 99.99% と算出されてしまい、不正を見逃す致命的な欠陥を評価できないためです。見逃し（偽陰性）を防ぐには再現率（Recall）の最大化が必須となります。代替案として適合率（Precision）のみを過度に重視した場合、誤検知は減るものの実際の不正取引を多数見逃してしまうため、金銭的損失を抑えるというビジネス目的に合致しないためです。
 - **参考ドキュメント**:
-  - [Amazon SageMaker AI モデルの評価とメトリクス](https://docs.aws.amazon.com/ja_jp/sagemaker/latest/dg/clarify-fairness-metrics-understanding.html): 分類問題における混同行列と各種メトリクスの詳細解説
+  - [Amazon SageMaker AI モデルの評価とメトリクス](https://docs.aws.amazon.com/ja_jp/sagemaker/latest/dg/clarify-measure-post-training-bias.html): 分類問題における混同行列と各種メトリクスの詳細解説
 
 #### シナリオ 1-4: 大量スキャン請求書からの構造化データ自動抽出
 
@@ -274,14 +274,14 @@ flowchart LR
 ### 4. 参考ドキュメント & 推奨ハンズオン
 
 #### 公式一次ドキュメント
-- [AWS AI サービス概要ガイド](https://aws.amazon.com/jp/machine-learning/ai-services/): AWS が提供する事前トレーニング済みマネージド AI サービスの全体マップ
-- [Amazon SageMaker AI 入門ガイド](https://docs.aws.amazon.com/ja_jp/sagemaker/latest/dg/how-it-works.html): 機械学習ライフサイクルの各ステージと SageMaker の主要コンポーネント
-- [機械学習の Well-Architected レンズ](https://docs.aws.amazon.com/wellarchitected/latest/machine-learning-lens/wellarchitected-machine-learning-lens.html): ML システムにおける信頼性・パフォーマンス・コスト最適化のベストプラクティス
+- [AWS AI サービス概要ガイド](https://aws.amazon.com/jp/ai/services/): AWS が提供する事前トレーニング済みマネージド AI サービスの全体マップ
+- [Amazon SageMaker AI 入門ガイド](https://docs.aws.amazon.com/ja_jp/sagemaker/latest/dg/whatis.html): 機械学習ライフサイクルの各ステージと SageMaker の主要コンポーネント
+- [機械学習の Well-Architected レンズ](https://docs.aws.amazon.com/wellarchitected/latest/machine-learning-lens/machine-learning-lens.html): ML システムにおける信頼性・パフォーマンス・コスト最適化のベストプラクティス
 
 #### 推奨ハンズオン・ラボ（実機検証）
-- **AWS Skill Builder: Getting Started with Amazon Comprehend**
+- [AWS Skill Builder: Getting Started with Amazon Comprehend](https://skillbuilder.aws/search?searchText=Getting+Started+with+Amazon+Comprehend):
   - **学習目標**: マネジメントコンソール上でテキストサンプルを入力し、感情分析（POSITIVE / NEGATIVE / NEUTRAL / MIXED）およびエンティティ認識の結果出力を検証する。
-- **AWS Skill Builder: Building Speech-Enabled Applications with Amazon Polly**
+- [AWS Skill Builder: Building Speech-Enabled Applications with Amazon Polly](https://skillbuilder.aws/search?searchText=Building+Speech-Enabled+Applications+with+Amazon+Polly):
   - **学習目標**: SSML（音声合成マークアップ言語）タグを用いて、読み上げの速度、ピッチ、発音をカスタマイズし、自然な音声合成ストリームを生成する手順を体感する。
 
 ---
@@ -407,7 +407,7 @@ Amazon Bedrock を利用する際、推論の課金モデルには主に「オ�
 - **結果**: ステークホルダー間で生成 AI の能力と限界に関する正しい合意が形成され、信頼性を担保するための適切な多層アーキテクチャが承認される。
 - **解説**: LLM は外部の検証可能な事実データベースを直接参照しているわけではなく、次トークン予測を行う確率的ニューラルネットワークであるため、学習していない固有情報に対して確信を持って誤った回答（ハルシネーション）を生成するリスクを本質的に排除できないためです。代替案として「プロンプトに『絶対に嘘をつかないでください』と書くだけで防げる」と過信してそのまま本番公開した場合、虚偽回答による業務混乱や法的リスクを招き不適格となるためです。
 - **参考ドキュメント**:
-  - [AWS Generative AI ベストプラクティスガイド](https://aws.amazon.com/jp/generative-ai/): 基盤モデルの特性とビジネス導入時のガバナンス設計
+  - [AWS Generative AI ベストプラクティスガイド](https://aws.amazon.com/jp/ai/generative-ai/): 基盤モデルの特性とビジネス導入時のガバナンス設計
 
 #### シナリオ 2-3: 外部 CRM システム連携と注文キャンセル処理の自律実行
 
@@ -434,7 +434,7 @@ Amazon Bedrock を利用する際、推論の課金モデルには主に「オ�
 - **結果**: 同等のスループットを維持しながら、推論コストを最大 50% 削減し、消費電力あたりのスループットを大幅に向上させる。
 - **解説**: AWS Inferentia はディープラーニングモデルの大規模推論に特化して最適化された専用プロセッサであり、一般的なグラフィックス処理用 GPU に比べて極めて高いコストパフォーマンスと低レイテンシを実現するためです（※トレーニング用途には AWS Trainium が適します）。代替案として汎用 CPU インスタンスで大規模 LLM 推論を実行した場合、レイテンシが極めて長くなり実用に耐えないためです。
 - **参考ドキュメント**:
-  - [AWS Inferentia 概要](https://aws.amazon.com/jp/machine-learning/inferentia/): ディープラーニング推論に特化したカスタムシリコンの仕様
+  - [AWS Inferentia 概要](https://aws.amazon.com/jp/ai/machine-learning/inferentia/): ディープラーニング推論に特化したカスタムシリコンの仕様
 
 ---
 
@@ -442,13 +442,13 @@ Amazon Bedrock を利用する際、推論の課金モデルには主に「オ�
 
 #### 公式一次ドキュメント
 - [Amazon Bedrock ユーザーガイド](https://docs.aws.amazon.com/ja_jp/bedrock/latest/userguide/what-is-bedrock.html): Bedrock のアーキテクチャ、対応モデル一覧、推論 API の基礎
-- [AWS 生成 AI アーキテクチャセンター](https://aws.amazon.com/jp/generative-ai/architecture/): エンタープライズ向け生成 AI アプリケーションの設計パターン
-- [AWS Trainium & Inferentia ドキュメント](https://aws.amazon.com/jp/machine-learning/trainium/): 機械学習の学習および推論に特化した AWS 専用アクセラレータ
+- [AWS 生成 AI アーキテクチャセンター](https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/generative-ai-lens.html): エンタープライズ向け生成 AI アプリケーションの設計パターン
+- [AWS Trainium & Inferentia ドキュメント](https://aws.amazon.com/jp/ai/machine-learning/trainium/): 機械学習の学習および推論に特化した AWS 専用アクセラレータ
 
 #### 推奨ハンズオン・ラボ（実機検証）
-- **Amazon Bedrock Console Playgrounds ハンズオン**
+- [AWS Skill Builder: Amazon Bedrock Getting Started (Playgrounds ハンズオン)](https://skillbuilder.aws/search?searchText=Amazon+Bedrock+Getting+Started):
   - **学習目標**: マネジメントコンソールの「Chat / Text / Image Playgrounds」を開き、Claude や Titan モデルを選択してプロンプトを実行し、入力・出力トークン数のカウントおよび Temperature パラメータによる出力揺らぎの変化を実機で観察する。
-- **AWS Skill Builder: Building Generative AI Applications with Amazon Bedrock**
+- [AWS Skill Builder: Building Generative AI Applications with Amazon Bedrock](https://skillbuilder.aws/search?searchText=Building+Generative+AI+Applications+with+Amazon+Bedrock):
   - **学習目標**: Python SDK (Boto3) を用いて `bedrock-runtime.invoke_model` API を呼び出し、ストリーミング応答を受信する基礎コードを実装する。
 
 ---
@@ -615,7 +615,7 @@ flowchart TD
 - **結果**: わずか数時間で全モデルの要約網羅率（Recall）と意味的類似度が数値化されたレポートが生成され、最も要約性能とコストのバランスに優れたモデルを選定できる。
 - **解説**: ROUGE は正解要約に対する生成要約の n-gram 一致率を高速かつ定量的に算出でき、BERTScore は埋め込みに基づく意味的類似性を自動評価できるため、人手を介さずに大規模なモデル間ベンチマーク比較を行うのに最適であるためです。代替案として全件を人手で評価する手法は莫大な人件費と時間を要し、客観的な比較指標が得られにくく不適格となるためです。
 - **参考ドキュメント**:
-  - [Amazon Bedrock Model Evaluation ユーザーガイド](https://docs.aws.amazon.com/ja_jp/bedrock/latest/userguide/model-evaluation.html): 自動評価ジョブの設定と評価指標の解釈
+  - [Amazon Bedrock Model Evaluation ユーザーガイド](https://docs.aws.amazon.com/ja_jp/bedrock/latest/userguide/evaluation.html): 自動評価ジョブの設定と評価指標の解釈
 
 #### シナリオ 3-6: 悪意あるユーザープロンプトによる機密流出の阻止
 
@@ -633,12 +633,12 @@ flowchart TD
 #### 公式一次ドキュメント
 - [Amazon Bedrock ナレッジベース開発者ガイド](https://docs.aws.amazon.com/ja_jp/bedrock/latest/userguide/knowledge-base.html): ベクトルデータ取り込みと RAG のエンドツーエンド実装
 - [Amazon Bedrock プロンプト管理 (Prompt Management)](https://docs.aws.amazon.com/ja_jp/bedrock/latest/userguide/prompt-management.html): プロンプトのバージョン管理、共有、パラメータ化の運用
-- [Amazon Bedrock モデル評価ガイド](https://docs.aws.amazon.com/ja_jp/bedrock/latest/userguide/model-evaluation.html): 自動評価および人間による評価（HITL）のセットアップ
+- [Amazon Bedrock モデル評価ガイド](https://docs.aws.amazon.com/ja_jp/bedrock/latest/userguide/evaluation.html): 自動評価および人間による評価（HITL）のセットアップ
 
 #### 推奨ハンズオン・ラボ（実機検証）
-- **AWS Hands-on: Building a RAG Application with Amazon Bedrock Knowledge Bases**
+- [AWS Skill Builder: Building Generative AI Applications Using Amazon Bedrock](https://skillbuilder.aws/search?searchText=Building+Generative+AI+Applications+Using+Amazon+Bedrock):
   - **学習目標**: S3 バケットにサンプル PDF をアップロードし、Bedrock ナレッジベースを作成して OpenSearch Serverless ベクトルストアを自動プロビジョニングし、マネジメントコンソール上のテストウィンドウから質問を投入して引用元付きの回答を確認する。
-- **Amazon Bedrock Prompt Management 検証**
+- [AWS Skill Builder: Prompt Engineering with Amazon Bedrock](https://skillbuilder.aws/search?searchText=Amazon+Bedrock+Prompt+Engineering):
   - **学習目標**: コンソール上でプロンプトテンプレートを作成し、変数（`{{input_text}}`）を設定してバージョンを作成・テストし、推論パラメータの組み合わせを保存する一連の流れを体感する。
 
 ---
@@ -762,7 +762,7 @@ AI は人間の判断を「代替」するのではなく「拡張（Augment）�
 - **結果**: 顧客が入力した番号が `[CREDIT_CARD_NUMBER]` などのプレースホルダーに自動置換された上でモデルに渡され、個人情報の外部流出やログへの平文記録が完全に防止される。
 - **解説**: Guardrails の機密情報フィルターは、入力テキスト内の主要な PII を機械学習と正規表現により自動検出し、モデルに渡る前にリアルタイムでマスキングまたはブロックできるためです。代替案としてモデルの回答生成後にマスキングしようとした場合、モデルへの送信段階ですでに機密データが露出してしまい、プライバシー保護要件を満たせないためです。
 - **参考ドキュメント**:
-  - [Amazon Bedrock Guardrails 機密情報フィルター](https://docs.aws.amazon.com/ja_jp/bedrock/latest/userguide/guardrails-sensitive-info.html): PII の検知とマスキング動作
+  - [Amazon Bedrock Guardrails 機密情報フィルター](https://docs.aws.amazon.com/ja_jp/bedrock/latest/userguide/guardrails-components.html): PII の検知とマスキング動作
 
 #### シナリオ 4-4: 監査対応とモデルガバナンス文書の標準化
 
@@ -780,21 +780,21 @@ AI は人間の判断を「代替」するのではなく「拡張（Augment）�
 - **結果**: 検索コンテキストに根拠のない回答（ハルシネーション）が検知された場合、出力が自動的にブロックされ、「参照された資料には該当する情報が見つかりませんでした」という安全な回答に置き換わる。
 - **解説**: 文脈的グラウンディングチェックは、検索された参照ドキュメントと生成された回答を照合し、事実に基づかない情報（幻覚）が含まれている場合に自動的に出力を破棄・置換する専用のセーフガード機能であるためです。代替案としてプロンプトに「資料にないことは言わないで」と指示するだけでは、統計的確率によるハルシネーションの発生を完全に防ぐことはできないためです。
 - **参考ドキュメント**:
-  - [Amazon Bedrock Guardrails 文脈的グラウンディングチェック](https://docs.aws.amazon.com/ja_jp/bedrock/latest/userguide/guardrails-contextual-grounding.html): RAG におけるハルシネーション自動検知
+  - [Amazon Bedrock Guardrails 文脈的グラウンディングチェック](https://docs.aws.amazon.com/ja_jp/bedrock/latest/userguide/guardrails-components.html): RAG におけるハルシネーション自動検知
 
 ---
 
 ### 4. 参考ドキュメント & 推奨ハンズオン
 
 #### 公式一次ドキュメント
-- [AWS 責任ある AI のアプローチ](https://aws.amazon.com/jp/machine-learning/responsible-ai/): AWS が提唱する倫理的 AI の基本原則とフレームワーク
+- [AWS 責任ある AI のアプローチ](https://aws.amazon.com/jp/ai/responsible-ai/): AWS が提唱する倫理的 AI の基本原則とフレームワーク
 - [Amazon Bedrock Guardrails ユーザーガイド](https://docs.aws.amazon.com/ja_jp/bedrock/latest/userguide/guardrails.html): ガードレールの設計、ポリシー設定、API 適用手順
-- [Amazon SageMaker Clarify 開発者ガイド](https://docs.aws.amazon.com/ja_jp/sagemaker/latest/dg/clarify-fairness-and-explainability.html): 機械学習モデルの公平性と説明可能性の測定
+- [Amazon SageMaker Clarify 開発者ガイド](https://docs.aws.amazon.com/ja_jp/sagemaker/latest/dg/clarify-configure-processing-jobs.html): 機械学習モデルの公平性と説明可能性の測定
 
 #### 推奨ハンズオン・ラボ（実機検証）
-- **Amazon Bedrock Guardrails の作成とテスト**
+- [AWS Skill Builder: Safeguarding Generative AI with Amazon Bedrock Guardrails](https://skillbuilder.aws/search?searchText=Amazon+Bedrock+Guardrails):
   - **学習目標**: マネジメントコンソール上でガードレールを作成し、「有害な単語」「拒否トピック」「PII マスキング」を設定した後、コンソール内のテスト画面で不適切な入力を与えて遮断される動作を確認する。
-- **Amazon SageMaker Model Cards の作成**
+- [AWS Skill Builder: Responsible AI and Governance with Amazon SageMaker](https://skillbuilder.aws/search?searchText=Amazon+SageMaker+Responsible+AI):
   - **学習目標**: SageMaker コンソールからモデルカードを新規作成し、モデルの概要、意図する用途、評価メトリクスを入力して PDF レポートとしてエクスポートする。
 
 ---
@@ -959,13 +959,13 @@ flowchart TD
 
 #### 公式一次ドキュメント
 - [Amazon Bedrock セキュリティのベストプラクティス](https://docs.aws.amazon.com/ja_jp/bedrock/latest/userguide/security.html): IAM 権限、ネットワーク分離、暗号化の設計指針
-- [AWS 生成 AI セキュリティスコーピングマトリックス](https://aws.amazon.com/jp/blogs/security/securing-generative-ai-data-and-applications/): GenAI ワークロードの多層防御フレームワーク
+- [AWS 生成 AI セキュリティスコーピングマトリックス](https://aws.amazon.com/ai/security/): GenAI ワークロードの多層防御フレームワーク
 - [AWS Artifact コンプライアンスレポート](https://aws.amazon.com/jp/artifact/): 第三者認証レポートのダウンロードポータル
 
 #### 推奨ハンズオン・ラボ（実機検証）
-- **AWS IAM ポリシーによる Bedrock モデルアクセスの制限**
+- [AWS Skill Builder: Security and Access Management for Amazon Bedrock](https://skillbuilder.aws/search?searchText=Amazon+Bedrock+Security):
   - **学習目標**: IAM コンソールでカスタムポリシーを作成し、特定の基盤モデル（例: `anthropic.claude-3-5-sonnet-20240620-v1:0`）のみ `InvokeModel` を許可し、他のモデルアクセスを拒否する最小権限ポリシーを割り当てて挙動をテストする。
-- **AWS CloudTrail による Bedrock API 呼び出しの確認**
+- [AWS Skill Builder: Auditing and Monitoring with AWS CloudTrail](https://skillbuilder.aws/search?searchText=AWS+CloudTrail):
   - **学習目標**: CloudTrail イベント履歴を開き、Bedrock コンソールで実行した `InvokeModel` イベントの JSON ログを検索し、実行ユーザー ARN やタイムスタンプを確認する。
 
 ---

@@ -2,7 +2,7 @@
 
 - **対象資格**: AWS Certified CloudOps Engineer - Associate
 - **試験コード**: SOA-C03
-- **公式試験ガイド**: [AWS Certified CloudOps Engineer - Associate (SOA-C03) Exam Guide](https://docs.aws.amazon.com/aws-certification/latest/sysops-administrator-associate-03/sysops-administrator-associate-03.md)
+- **公式試験ガイド**: [AWS Certified CloudOps Engineer - Associate (SOA-C03) 試験ガイド](https://docs.aws.amazon.com/ja_jp/aws-certification/latest/sysops-administrator-associate-03/sysops-administrator-associate-03.html)
 - **最終更新日**: 2026-10-04
 
 ---

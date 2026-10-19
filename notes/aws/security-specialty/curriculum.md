@@ -2,7 +2,7 @@
 
 - **対象資格**: AWS Certified Security - Specialty
 - **試験コード**: SCS-C03
-- **公式試験ガイド**: [AWS Certified Security - Specialty (SCS-C03) 試験ガイド](https://docs.aws.amazon.com/aws-certification/latest/security-specialty-03/security-specialty-03.html)
+- **公式試験ガイド**: [AWS Certified Security - Specialty (SCS-C03) 試験ガイド](https://docs.aws.amazon.com/ja_jp/aws-certification/latest/security-specialty-03/security-specialty-03.html)
 - **最終更新日**: 2026-10-11
 
 ---

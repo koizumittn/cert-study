@@ -2,7 +2,7 @@
 
 - **対象資格**: AWS Certified AI Business Strategist
 - **試験コード**: AIB-C01
-- **公式試験ガイド**: [AWS Certified AI Business Strategist (AIB-C01) 試験ガイド](https://docs.aws.amazon.com/aws-certification/latest/ai-business-strategist-01/ai-business-strategist-01.html)
+- **公式試験ガイド**: [AWS Certified AI Business Strategist (AIB-C01) 試験ガイド](https://docs.aws.amazon.com/ja_jp/aws-certification/latest/ai-business-strategist-01/ai-business-strategist-01.html)
 - **最終更新日**: 2026-10-11
 
 ---

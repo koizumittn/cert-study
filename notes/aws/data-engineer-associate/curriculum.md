@@ -23,7 +23,7 @@ AWS Certified Data Engineer - Associate は、データエンジニアリング�
 
 | ドメイン番号 | ドメイン名 / 出題分野 | 出題比率 | 主要対象サービス・ツール |
 | :--- | :--- | :--- | :--- |
-| **Domain 1** | データの取り込みと変換 | 34% | Amazon Kinesis Data Streams, Amazon Kinesis Data Firehose, Amazon MSK, AWS Glue (ETL / Streaming), Amazon EMR, AWS Lambda, AWS Step Functions, Amazon MWAA, Amazon AppFlow, AWS DMS |
+| **Domain 1** | データの取り込みと変換 | 34% | Amazon Kinesis Data Streams, Amazon Data Firehose (旧 Amazon Data Firehose), Amazon MSK, AWS Glue (ETL / Streaming), Amazon EMR, AWS Lambda, AWS Step Functions, Amazon MWAA, Amazon AppFlow, AWS DMS |
 | **Domain 2** | データストア管理 | 26% | Amazon S3, Amazon Redshift, AWS Lake Formation, Amazon DynamoDB, Amazon RDS / Aurora, Amazon OpenSearch Service, AWS Glue Data Catalog, Apache Iceberg |
 | **Domain 3** | データ運用とサポート | 22% | Amazon Athena, AWS Glue Data Quality, AWS Glue DataBrew, Amazon QuickSight, Amazon CloudWatch Logs Insights, AWS CloudTrail, Amazon EventBridge, Amazon SNS |
 | **Domain 4** | データセキュリティとガバナンス | 18% | AWS Lake Formation (LF-TBAC), AWS IAM, AWS KMS, AWS Secrets Manager, Amazon Macie, AWS CloudTrail Lake, AWS Config, Amazon Redshift データ共有 |
@@ -39,7 +39,7 @@ AWS Certified Data Engineer - Associate は、データエンジニアリング�
   - Task 1.2: データの変換と処理（コンテナ最適化 [ECS, EKS]、JDBC/ODBC 接続、データ統合、フォーマット変換 [.parquet, .orc]、コスト最適化、LLM 統合）
   - Task 1.3: データパイプラインのオーケストレーション（AWS Step Functions、Amazon MWAA、AWS Glue ワークフロー、障害通知 [SNS, SQS]、サーバーレスワークフロー）
   - Task 1.4: プログラミングの概念の応用（Python/SQL/Scala、分散コンピューティング、Lambda 同時実行・EFS マウント、AWS SAM / CloudFormation による IaC デプロイ）
-- **重要キーワード**: Amazon Kinesis Data Streams, Amazon Kinesis Data Firehose, Amazon Managed Streaming for Apache Kafka (Amazon MSK), AWS Glue (DynamicFrame), Amazon EMR, AWS Step Functions, Amazon MWAA, AWS DMS (CDC), Apache Parquet
+- **重要キーワード**: Amazon Kinesis Data Streams, Amazon Data Firehose (旧 Amazon Data Firehose), Amazon Managed Streaming for Apache Kafka (Amazon MSK), AWS Glue (DynamicFrame), Amazon EMR, AWS Step Functions, Amazon MWAA, AWS DMS (CDC), Apache Parquet
 
 #### Domain 2: データストア管理 (26%)
 - **出題の狙い**: コスト、レイテンシ、クエリパターンに応じた最適なストレージサービスを選定し、カタログ化、データライフサイクル管理、およびスキーマ進化（モデリング）を設計する能力を検証します。

@@ -54,7 +54,7 @@ AWS Certified Solutions Architect - Associate は、ビジネス要件および�
   - Task 3.2: 高パフォーマンスで伸縮自在なコンピューティングソリューションを設計する（EC2 インスタンスタイプ選定, クラスター配置グループ, ENA/EFA, Auto Scaling ターゲット追跡, Lambda, Fargate, ECS/EKS）
   - Task 3.3: 高パフォーマンスなデータベースソリューションを選択する（Amazon Aurora リードレプリカ / Global Database, DynamoDB + DAX, ElastiCache Redis / Memcached）
   - Task 3.4: 高パフォーマンスでスケーラブルなネットワークアーキテクチャを選択する（Amazon CloudFront, AWS Global Accelerator, Direct Connect, Transit Gateway）
-  - Task 3.5: 高パフォーマンスなデータ取り込みと変換のソリューションを選択する（Amazon Kinesis Data Streams / Data Firehose, AWS Glue, Amazon EMR）
+  - Task 3.5: 高パフォーマンスなデータ取り込みと変換のソリューションを選択する（Amazon Kinesis Data Streams / Amazon Data Firehose, AWS Glue, Amazon EMR）
 - **重要キーワード**: EBS io2 Block Express, FSx for Lustre, Cluster Placement Groups, Graviton, Aurora Global Database, DynamoDB Accelerator (DAX), ElastiCache, CloudFront OAC, Global Accelerator, Kinesis Data Streams
 
 #### Domain 4: コストを最適化したアーキテクチャの設計 (20%)
